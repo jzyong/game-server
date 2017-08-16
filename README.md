@@ -1,2 +1,6 @@
 # game-engine
-Java游戏服务器开发核心包，包括：TCP、HTTP、MQ通信；mongodb、redis数据处理；线程模型；常用工具类
+Java游戏服务器开发核心包，包括：
+1、TCP、HTTP、ActiveMQ通信、Redis订阅发布封装
+2、mongodb、redis数据处理
+3、线程模型
+4、常用工具类
