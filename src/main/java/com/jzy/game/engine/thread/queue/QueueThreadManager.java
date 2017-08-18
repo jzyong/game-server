@@ -1,6 +1,7 @@
 package com.jzy.game.engine.thread.queue;
 
 import com.jzy.game.engine.thread.ServerThread;
+import com.jzy.game.engine.thread.queue.executor.ActionExecutor;
 
 /**
  * 队列线程处理管理
@@ -19,6 +20,9 @@ import com.jzy.game.engine.thread.ServerThread;
  */
 public class QueueThreadManager {
 	private static volatile QueueThreadManager queueThreadManager;
+	private int cpuNum;
+	private ActionExecutor actionExecutor;	//队列执行线程池
+	private ExecutorActionQueue defaultQueue;
 
 	public static final QueueThreadManager getInstance() {
 		if (queueThreadManager == null) {
@@ -34,9 +38,25 @@ public class QueueThreadManager {
 	private QueueThreadManager() {
 		initQueue();
 	}
-
+	
+	/**
+	 * 初始化队列
+	 * @author JiangZhiYong
+	 * @QQ 359135103
+	 * 2017年8月16日 下午5:07:10
+	 */
 	private void initQueue(){
-		
+		cpuNum=Math.max(Runtime.getRuntime().availableProcessors() * 2,8);
+		int maxPoolSize  = cpuNum + 32;
+		int keepAliveTime = 5;
+		int cacheSize = 64;
+		actionExecutor = new ActionExecutor(cpuNum, maxPoolSize, keepAliveTime, cacheSize, "WORD_ACTION_EXECUTOR");
+		defaultQueue=new ExecutorActionQueue(actionExecutor, "defaultQueue");
 	}
+
+	public ExecutorActionQueue getDefaultQueue() {
+		return defaultQueue;
+	}
+	
 	
 }
