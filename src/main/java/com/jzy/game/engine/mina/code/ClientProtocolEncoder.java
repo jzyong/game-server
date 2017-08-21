@@ -14,6 +14,8 @@ import java.nio.ByteOrder;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 游戏客户端返回消息编码
@@ -22,15 +24,22 @@ import org.apache.mina.filter.codec.ProtocolEncoderOutput;
  * @QQ 359135103
  */
 public class ClientProtocolEncoder extends ProtocolEncoderImpl {
+	private static final Logger LOGGER =LoggerFactory.getLogger(ClientProtocolEncoder.class);
 
 	@Override
 	public void encode(IoSession session, Object obj, ProtocolEncoderOutput out) throws Exception {
+		if (getOverScheduledWriteBytesHandler() != null
+				&& session.getScheduledWriteMessages() > getMaxScheduledWriteMessages()
+				&& getOverScheduledWriteBytesHandler().test(session)) {
+			LOGGER.warn("{}消息{}大于最大累积{}",MsgUtil.getIp(session), session.getScheduledWriteMessages(),getMaxScheduledWriteMessages());
+			return;
+		}
 
 		IoBuffer buf = null;
 		if (obj instanceof Message) {
 			buf = MsgUtil.toGameClientIobuffer((Message) obj);
 		} else if (obj instanceof byte[]) {
-			byte[] data = (byte[]) obj;	//消息ID（4字节）+protobuf
+			byte[] data = (byte[]) obj; // 消息ID（4字节）+protobuf
 			buf = IoBuffer.allocate(data.length + 6);
 			// 消息长度
 			byte[] lenghtBytes = IntUtil.short2Bytes((short) (data.length + 4), ByteOrder.LITTLE_ENDIAN);

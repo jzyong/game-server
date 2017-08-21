@@ -1,3 +1,12 @@
+/**
+ * <p>
+ * 集群没有管道，管道能节约服务器的socket连接<br>
+ * 脚本key为脚本文件名称<br>
+ * 脚本支持事务操作<br>
+ * 分布式锁，后期可以加入redisson进行实现
+ * </p>
+ * */
+
 package com.jzy.game.engine.redis;
 
 import java.io.File;
@@ -19,19 +28,15 @@ import redis.clients.jedis.JedisCluster;
 
 /**
  * redis集群管理类
- * <p>
- * 集群没有管道，管道能节约服务器的socket连接<br>
- * 脚本key为脚本文件名称<br>
- * 脚本支持事务操作
- * </p>
- *
+ * @author JiangZhiYong
+ * @QQ 359135103
+ * 2017年8月18日 下午5:32:34
  */
 public class RedisManager {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedisManager.class);
 	private static JedisCluster jedisCluster;
 	private static RedisManager redisManager;
-	
 
 	private Map<String, String> keysShaMap; // key:脚本名称
 
@@ -86,8 +91,6 @@ public class RedisManager {
 		return jedisCluster;
 	}
 
-	
-	
 	public static RedisManager getInstance() {
 		return redisManager;
 	}
@@ -154,7 +157,7 @@ public class RedisManager {
 		if (keysShaMap == null) {
 			keysShaMap = new HashMap<>();
 		}
-		LOGGER.debug("Redis脚本：{}-->{}",fileName,hash);
+		LOGGER.debug("Redis脚本：{}-->{}", fileName, hash);
 		this.keysShaMap.put(fileName, hash);
 	}
 
@@ -182,8 +185,10 @@ public class RedisManager {
 	 * @QQ 359135103 2017年8月7日 下午6:10:31
 	 * @param scriptName
 	 *            脚本文件名称
-	 * @param keys redis key列表
-	 * @param args 参数集合
+	 * @param keys
+	 *            redis key列表
+	 * @param args
+	 *            参数集合
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -193,7 +198,7 @@ public class RedisManager {
 			return null;
 		}
 		Object object = RedisManager.getJedisCluster().evalsha(sha, keys, args);
-		if(object==null){
+		if (object == null) {
 			return null;
 		}
 		return (T) object;

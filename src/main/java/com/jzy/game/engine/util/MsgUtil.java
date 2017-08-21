@@ -285,7 +285,7 @@ public class MsgUtil {
 	public static void close(IoSession session, String fmt, Object... args) {
 		String reason = String.format(fmt, args);
 		log.error(String.format("%s -->连接关闭原因 %s", session.toString(), reason));
-		session.close(true);
+		session.closeNow();
 	}
 
 	/**
