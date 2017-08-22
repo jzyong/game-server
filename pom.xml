@@ -81,6 +81,14 @@
 			<artifactId>activemq-client</artifactId>
 			<version>5.14.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
 		<!-- <dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson</artifactId>
