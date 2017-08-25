@@ -1,9 +1,10 @@
-package com.jzy.game.engine.server;
+package com.jzy.game.engine.mina.service;
 
 import com.jzy.game.engine.mina.TcpServer;
 import com.jzy.game.engine.mina.code.ClientProtocolCodecFactory;
 import com.jzy.game.engine.mina.config.MinaServerConfig;
 import com.jzy.game.engine.mina.handler.ClientProtocolHandler;
+import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ServerThread;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 import com.jzy.game.engine.thread.ThreadType;
@@ -59,7 +60,9 @@ public class ClientServerService extends Service<MinaServerConfig> {
 		tcpServer.run();
 		// 添加定时器 ,如果心跳配置为0，则没有定时器
 		ServerThread syncThread = this.getExecutor(ThreadType.SYNC);
-		syncThread.addTimerEvent(new ServerHeartTimer());
+		if(syncThread!=null){
+			syncThread.addTimerEvent(new ServerHeartTimer());
+		}
 	}
 
 	@Override

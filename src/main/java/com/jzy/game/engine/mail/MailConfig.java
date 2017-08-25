@@ -29,11 +29,13 @@ public class MailConfig {
 
 	/** 邮件发送账号 */
 	@Element(required = false)
-	private String sendUser = "dyfservermail@dyfgame.com";
+	//private String sendUser = "dyfservermail@dyfgame.com";
+	private String sendUser = "jzy@9599.cn";
 
 	/** 邮件密码 */
 	@Element(required = false)
-	private String password = "Dyf1qaz2wsx";
+	//private String password = "Dyf1qaz2wsx";
+	private String password = "Jzy3591";
 
 	/** 协议地址 */
 	@Element(required = false)

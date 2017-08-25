@@ -14,6 +14,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.jzy.game.engine.cache.cooldown.Cooldown;
 import com.jzy.game.engine.mina.message.IDMessage;
 
+import io.netty.channel.Channel;
+
 /**
  * 人物
  * 
@@ -21,8 +23,8 @@ import com.jzy.game.engine.mina.message.IDMessage;
  * @QQ 359135103 2017年7月26日 下午1:40:11
  */
 public abstract class Person {
-	private static final Logger LOGGER=LoggerFactory.getLogger(Person.class);
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Person.class);
+
 	@JSONField
 	@Id
 	protected long id;
@@ -75,7 +77,10 @@ public abstract class Person {
 
 	/** 连接会话 */
 	@JSONField(serialize = false)
-	protected IoSession ioSession;
+	protected transient IoSession ioSession;
+
+	@JSONField(serialize = false)
+	protected transient Channel channel;
 
 	public long getId() {
 		return id;
@@ -181,6 +186,14 @@ public abstract class Person {
 		this.ioSession = ioSession;
 	}
 
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
+
 	/**
 	 * 发送消息，带ID头
 	 * 
@@ -193,8 +206,10 @@ public abstract class Person {
 			IDMessage idm = new IDMessage(getIoSession(), message, getId());
 			getIoSession().write(idm);
 			return true;
+		} else if (getChannel() != null) {
+			getChannel().write(new IDMessage(channel, message, getId(), null));
 		} else {
-			LOGGER.warn("连接session=null {}", message.toString());
+			LOGGER.warn("连接session==null | channel==null {}", message.toString());
 		}
 		return false;
 	}

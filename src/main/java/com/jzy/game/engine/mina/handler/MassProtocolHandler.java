@@ -39,7 +39,7 @@ public abstract class MassProtocolHandler implements IoHandler {
 	@Override
 	public void sessionOpened(IoSession session) {
 		log.warn("已打开连接{}", session);
-		getService().onIoSessionConnect(session);
+//		getService().onIoSessionConnect(session);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public abstract class MassProtocolHandler implements IoHandler {
 	@Override
 	public void sessionClosed(IoSession session) {
 		log.warn("连接{}已关闭sessionClosed", session);
-		getService().onIoSessionClosed(session);
+//		getService().onIoSessionClosed(session);
 	}
 
 	@Override

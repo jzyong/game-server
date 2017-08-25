@@ -1,4 +1,4 @@
-package com.jzy.game.engine.server;
+package com.jzy.game.engine.mina.service;
 
 import org.apache.mina.core.service.IoHandler;
 

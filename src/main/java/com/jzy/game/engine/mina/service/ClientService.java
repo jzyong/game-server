@@ -1,14 +1,15 @@
-package com.jzy.game.engine.server;
+package com.jzy.game.engine.mina.service;
 
 import java.util.concurrent.PriorityBlockingQueue;
 
 import org.apache.mina.core.session.IoSession;
 
 import com.jzy.game.engine.mina.config.MinaClientConfig;
+import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
 /**
- * 客户端服务
+ * 内部客户端服务
  *
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103

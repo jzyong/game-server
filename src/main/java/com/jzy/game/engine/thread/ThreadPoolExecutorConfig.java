@@ -32,7 +32,7 @@ public class ThreadPoolExecutorConfig {
 	@Element(required = true)
 	private long keepAliveTime = 30L;
 
-	// 心跳间隔
+	// 心跳间隔（大于0开启定时监测线程）
 	@Element(required = false)
 	private int heart = 0;
 

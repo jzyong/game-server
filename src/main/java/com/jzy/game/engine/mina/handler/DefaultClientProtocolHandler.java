@@ -3,6 +3,7 @@ package com.jzy.game.engine.mina.handler;
 import org.apache.mina.core.session.IoSession;
 
 import com.jzy.game.engine.mina.config.MinaClientConfig;
+import com.jzy.game.engine.mina.service.ClientService;
 import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.util.IntUtil;
 
@@ -14,9 +15,9 @@ import com.jzy.game.engine.util.IntUtil;
  */
 public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
-	private Service<MinaClientConfig> service;
+	private ClientService service;
 
-	public DefaultClientProtocolHandler(Service<MinaClientConfig> service) {
+	public DefaultClientProtocolHandler(ClientService service) {
 		super(4);
 		this.service = service;
 	}
@@ -24,7 +25,7 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	
 	
 
-	public DefaultClientProtocolHandler(int messageHeaderLenght, Service<MinaClientConfig> service) {
+	public DefaultClientProtocolHandler(int messageHeaderLenght, ClientService service) {
 		super(messageHeaderLenght);
 		this.service = service;
 	}
@@ -44,7 +45,7 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	}
 
 	@Override
-	public Service<MinaClientConfig> getService() {
+	public ClientService getService() {
 		return this.service;
 	}
 

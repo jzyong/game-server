@@ -2,6 +2,8 @@ package com.jzy.game.engine.handler;
 
 import org.apache.mina.core.session.IoSession;
 
+import io.netty.channel.Channel;
+
 /**
  * 抽象handler
  *
@@ -12,6 +14,7 @@ public abstract class AbsHandler implements IHandler {
 
 	protected IoSession session;
 	protected long createTime;
+	protected Channel channel;
 
 	@Override
 	public IoSession getSession() {
@@ -21,6 +24,15 @@ public abstract class AbsHandler implements IHandler {
 	@Override
 	public void setSession(IoSession session) {
 		this.session = session;
+	}
+	
+
+	public Channel getChannel() {
+		return channel;
+	}
+
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
 
 	@Override

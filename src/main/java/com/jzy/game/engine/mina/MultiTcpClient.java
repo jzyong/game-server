@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
-import com.jzy.game.engine.server.ClientService;
+import com.jzy.game.engine.mina.service.ClientService;
 
 /**
  * 多客戶端管理

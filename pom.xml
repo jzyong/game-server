@@ -81,19 +81,23 @@
 			<artifactId>activemq-client</artifactId>
 			<version>5.14.0</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.7</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
 		</dependency>
-		
-		<!-- <dependency>
-			<groupId>org.redisson</groupId>
-			<artifactId>redisson</artifactId>
-			<version>3.5.0</version>
-		</dependency> -->
+
+		<!-- <dependency> <groupId>org.redisson</groupId> <artifactId>redisson</artifactId> 
+			<version>3.5.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.14.Final</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>

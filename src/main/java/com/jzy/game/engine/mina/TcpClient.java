@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import com.jzy.game.engine.mina.code.DefaultProtocolCodecFactory;
 import com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
-import com.jzy.game.engine.server.ClientService;
+import com.jzy.game.engine.mina.service.ClientService;
 
 /**
- * 客户端
+ * Mina客户端
  *
  * @author JiangZhiYong
  * @date 2017-04-01

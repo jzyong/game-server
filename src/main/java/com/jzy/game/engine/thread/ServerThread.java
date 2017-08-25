@@ -4,6 +4,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.LoggerFactory;
 
+import com.jzy.game.engine.mail.MailConfig;
+import com.jzy.game.engine.mail.MailManager;
 import com.jzy.game.engine.thread.queue.QueueThreadManager;
 import com.jzy.game.engine.thread.timer.TimerEvent;
 import com.jzy.game.engine.thread.timer.TimerThread;
@@ -15,7 +17,7 @@ import org.slf4j.Logger;
  * <p>
  * 两类线程模型:<br>
  * 1.为逻辑或接受到的消息预先分配一个线程，所有逻辑放在线程队列中依次执行；{@link ServerThread}<br>
- * 2.为逻辑或消息分配一个队列，再由队列分配线程，依次执行  {@link QueueThreadManager}
+ * 2.为逻辑或消息分配一个队列，再由队列分配线程，依次执行 {@link QueueThreadManager}
  * 
  * </p>
  *
@@ -40,6 +42,14 @@ public class ServerThread extends Thread implements Executor {
 
 	protected TimerThread timer;
 
+	/**
+	 * 如果没有定时任务，心跳设为0 ，大于零会启动一个定时检查线程（比较浪费）
+	 * @param group
+	 * @param threadName
+	 * @param heart 心跳
+	 * @param commandCount
+	 * @param classLogNames
+	 */
 	@SafeVarargs
 	public ServerThread(ThreadGroup group, String threadName, long heart, int commandCount,
 			Class<? extends TimerEvent>... classLogNames) {
@@ -52,6 +62,9 @@ public class ServerThread extends Thread implements Executor {
 		}
 		setUncaughtExceptionHandler((Thread t, Throwable e) -> {
 			ServerThread.log.error("ServerThread.setUncaughtExceptionHandler", e);
+			MailConfig mailConfig = MailManager.getInstance().getMailConfig();
+			MailManager.getInstance().sendTextMailAsync("线程异常", "线程" + threadName,
+					mailConfig.getReciveUser().toArray(new String[mailConfig.getReciveUser().size()]));
 			if (ServerThread.this.timer != null) {
 				ServerThread.this.timer.stop(true);
 			}

@@ -1,4 +1,4 @@
-package com.jzy.game.engine.server;
+package com.jzy.game.engine.mina.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.jzy.game.engine.mina.HttpServer;
 import com.jzy.game.engine.mina.config.MinaServerConfig;
 import com.jzy.game.engine.mina.handler.HttpServerIoHandler;
+import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
 /**
@@ -14,20 +15,20 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  * @QQ 359135103
  * 2017年7月24日 上午11:28:28
  */
-public class GameHttpServer extends Service<MinaServerConfig>{
+public class GameHttpSevice extends Service<MinaServerConfig>{
 
-	private static final Logger log = LoggerFactory.getLogger(GameHttpServer.class);
+	private static final Logger log = LoggerFactory.getLogger(GameHttpSevice.class);
 
     private final HttpServer httpServer;
     private final MinaServerConfig minaServerConfig;
 
-    public GameHttpServer(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
+    public GameHttpSevice(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
         super(threadExcutorConfig);
         this.minaServerConfig = minaServerConfig;
         this.httpServer = new HttpServer(minaServerConfig, new GameHttpServerHandler(this));
     }
     
-    public GameHttpServer(MinaServerConfig minaServerConfig) {
+    public GameHttpSevice(MinaServerConfig minaServerConfig) {
         super(null);
         this.minaServerConfig = minaServerConfig;
         this.httpServer = new HttpServer(minaServerConfig, new GameHttpServerHandler(this));

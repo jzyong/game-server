@@ -1,4 +1,4 @@
-package com.jzy.game.engine.server;
+package com.jzy.game.engine.mina.service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,6 +10,9 @@ import com.jzy.game.engine.mina.MultiTcpClient;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
 import com.jzy.game.engine.mina.handler.DefaultClientProtocolHandler;
 import com.jzy.game.engine.mina.message.IDMessage;
+import com.jzy.game.engine.server.ServerInfo;
+import com.jzy.game.engine.server.ServerType;
+import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
 /**
@@ -150,7 +153,7 @@ public class MutilTcpClientService extends ClientService {
 
 		private ServerInfo serverInfo;
 
-		public MutilTcpProtocolHandler(ServerInfo serverInfo, Service<MinaClientConfig> service) {
+		public MutilTcpProtocolHandler(ServerInfo serverInfo, ClientService service) {
 			super(12, service);
 			this.serverInfo = serverInfo;
 		}
