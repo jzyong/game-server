@@ -10,15 +10,14 @@ import com.jzy.game.engine.server.ServerType;
  * netty 客户端配置
  * 
  * @author JiangZhiYong
- * @QQ 359135103 2017年8月24日 下午8:18:20
- * TODO 需要修改配置
+ * @QQ 359135103 2017年8月24日 下午8:18:20 TODO 需要修改配置
  */
 @Root
 public class NettyClientConfig extends BaseServerConfig {
 
 	// 工作组线程数
 	@Element(required = false)
-	private int groupThreadNuu = 1;
+	private int groupThreadNum = 1;
 
 	// 当前服务器的类型,如当前服务器是gameserver.那么对应ServerType.GameServer = 10
 	@Element(required = false)
@@ -34,21 +33,23 @@ public class NettyClientConfig extends BaseServerConfig {
 
 	// IP
 	@Element(required = false)
-	private String ip="127.0.0.1";
+	private String ip = "127.0.0.1";
 
-	//端口
+	// 端口
 	@Element(required = false)
 	private int port = 8080;
-	
-	@Element(required=false)
-	private int reConnectTime=5000;
 
-	public int getGroupThreadNuu() {
-		return groupThreadNuu;
+	//客户端创建的最大连接数
+    @Element(required = false)
+    private int maxConnectCount = 1;
+
+
+	public int getGroupThreadNum() {
+		return groupThreadNum;
 	}
 
-	public void setGroupThreadNuu(int groupThreadNuu) {
-		this.groupThreadNuu = groupThreadNuu;
+	public void setGroupThreadNum(int groupThreadNum) {
+		this.groupThreadNum = groupThreadNum;
 	}
 
 	public ServerType getType() {
@@ -91,12 +92,12 @@ public class NettyClientConfig extends BaseServerConfig {
 		this.port = port;
 	}
 
-	public int getReConnectTime() {
-		return reConnectTime;
+	public int getMaxConnectCount() {
+		return maxConnectCount;
 	}
 
-	public void setReConnectTime(int reConnectTime) {
-		this.reConnectTime = reConnectTime;
+	public void setMaxConnectCount(int maxConnectCount) {
+		this.maxConnectCount = maxConnectCount;
 	}
 
 	

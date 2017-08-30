@@ -61,7 +61,7 @@ public abstract class TcpHandler extends AbsHandler {
 		if (getSession() != null && getSession().isConnected()) {
 			getSession().write(new IDMessage(session, object, rid));
 		} else if (getChannel() != null && getChannel().isActive()) {
-			getChannel().write(new IDMessage(channel, object, rid, null));
+			getChannel().writeAndFlush(new IDMessage(channel, object, rid, null));
 		}
 	}
 

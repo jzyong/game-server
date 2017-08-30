@@ -1,14 +1,19 @@
 package com.jzy.game.engine.netty;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jzy.game.engine.mina.TcpClient;
+import com.jzy.game.engine.mina.MinaTcpClient;
 import com.jzy.game.engine.netty.code.DefaultClientChannelInitializer;
 import com.jzy.game.engine.netty.config.NettyClientConfig;
 import com.jzy.game.engine.netty.service.NettyClientService;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -22,7 +27,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 /**
  * Netty Tcp 客户端
  * 
- * @see TcpClient
+ * @see MinaTcpClient
  * @author JiangZhiYong
  * @QQ 359135103 2017年8月24日 下午8:13:14
  */
@@ -34,28 +39,48 @@ public class NettyTcpClient implements Runnable {
 	/** 工作组 */
 	private EventLoopGroup group;
 	/** 初始化channel */
-	private ChannelInitializer<SocketChannel> channelInitializer; 
-	/**服务*/
-	private NettyClientService nettyClientService;
+	private ChannelInitializer<SocketChannel> channelInitializer;
+	/** 服务 */
+	private NettyClientService service;
+
+	private Bootstrap bootstrap;
+	/** 连接 */
+	private Map<String, Channel> channels = new ConcurrentHashMap<>(30);
 
 	/**
 	 * 
 	 */
 	public NettyTcpClient(NettyClientService nettyClientService) {
-		this.nettyClientConfig =nettyClientService.getNettyClientConfig();
-		this.channelInitializer=new DefaultClientChannelInitializer(nettyClientService);
+		this.nettyClientConfig = nettyClientService.getNettyClientConfig();
+		this.channelInitializer = new DefaultClientChannelInitializer(nettyClientService);
 	}
 
-
-	public NettyTcpClient(NettyClientService nettyClientService,ChannelInitializer<SocketChannel> channelInitializer) {
+	/**
+	 * 使用本地默认service配置
+	 * @param nettyClientService
+	 * @param channelInitializer
+	 */
+	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer) {
 		this.nettyClientConfig = nettyClientService.getNettyClientConfig();
-		this.nettyClientService=nettyClientService;
-		this.channelInitializer=channelInitializer;
+		this.service = nettyClientService;
+		this.channelInitializer = channelInitializer;
+	}
+	
+	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer,NettyClientConfig nettyClientConfig) {
+		this.nettyClientConfig = nettyClientConfig;
+		this.service = nettyClientService;
+		this.channelInitializer = channelInitializer;
 	}
 
 	@Override
 	public void run() {
-		connect();
+		for (int i = 0; i < nettyClientConfig.getMaxConnectCount(); i++) {
+			Channel channel = connect();
+			if (channel.isActive()) {
+				channels.put(channel.id().asLongText(), channel);
+			}
+		}
+
 	}
 
 	/**
@@ -64,35 +89,40 @@ public class NettyTcpClient implements Runnable {
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年8月24日 下午8:40:13
 	 */
-	private void connect() {
-		group = new NioEventLoopGroup(nettyClientConfig.getGroupThreadNuu());
+	private Channel connect() {
+		
 		try {
-			Bootstrap bootstrap = new Bootstrap();
-			bootstrap.group(group);
-			bootstrap.channel(NioSocketChannel.class);
-			bootstrap.option(ChannelOption.TCP_NODELAY, nettyClientConfig.isTcpNoDealy());
-			bootstrap.handler(channelInitializer);
+			if(group==null||bootstrap==null){
+				group = new NioEventLoopGroup(nettyClientConfig.getGroupThreadNum());
+				bootstrap = new Bootstrap();
+				bootstrap.group(group);
+				bootstrap.channel(NioSocketChannel.class);
+				bootstrap.option(ChannelOption.TCP_NODELAY, nettyClientConfig.isTcpNoDealy());
+				bootstrap.handler(channelInitializer);
+			}
 
 			ChannelFuture channelFuture = bootstrap.connect(nettyClientConfig.getIp(), nettyClientConfig.getPort())
-					.sync();
+					.awaitUninterruptibly();
 			channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
 				@Override
 				public void operationComplete(Future<? super Void> future) throws Exception {
 					if (future.isSuccess()) {
-						LOGGER.info("连接服务器{}:{}成功", nettyClientConfig.getIp(), nettyClientConfig.getPort());
+						LOGGER.info("连接[{}]服务器{}:{}成功",nettyClientConfig.getType().toString(), nettyClientConfig.getIp(), nettyClientConfig.getPort());
 						connectFinsh();
 					} else {
-						LOGGER.warn("连接服务器{}:{}失败", nettyClientConfig.getIp(), nettyClientConfig.getPort());
+						LOGGER.warn("连接[{}]服务器{}:{}失败",nettyClientConfig.getType().toString(), nettyClientConfig.getIp(), nettyClientConfig.getPort());
 					}
 				}
 			});
-			channelFuture.channel().closeFuture().sync();
+			// channelFuture.channel().closeFuture().sync();
+			return channelFuture.channel();
 		} catch (Exception e) {
 			LOGGER.error("连接客户端", e);
 		} finally {
-			reConnect();
-			group.shutdownGracefully();
+			// reConnect();
+			// group.shutdownGracefully();
 		}
+		return null;
 	}
 
 	/**
@@ -105,22 +135,39 @@ public class NettyTcpClient implements Runnable {
 
 	}
 
-	private void reConnect() {
-		try {
-			Thread.sleep(nettyClientConfig.getReConnectTime());
-		} catch (InterruptedException e) {
-			LOGGER.error("重连服务器", e);
-		}
-		connect();
-	}
-
 	public void stop() {
 		group.shutdownGracefully();
 	}
 
+	public NettyClientService getService() {
+		return service;
+	}
 
-	public NettyClientService getNettyClientService() {
-		return nettyClientService;
+	/**
+	 * 检测tcp连接状态
+	 * 
+	 * @author JiangZhiYong
+	 * @QQ 359135103 2017年8月28日 下午1:57:20
+	 */
+	public void checkStatus() {
+		if (this.channels.size() < nettyClientConfig.getMaxConnectCount()) {
+			Channel channel = connect();
+			if (channel!=null&&channel.isActive()) {
+				channels.put(channel.id().asLongText(), channel);
+			}
+		}
+		Optional<Channel> findAny = this.channels.values().stream().filter(c -> !c.isActive()).findAny();
+		if (findAny.isPresent()) {
+			channels.remove(findAny.get().id().asLongText());
+		}
+	}
+
+	public NettyClientConfig getNettyClientConfig() {
+		return nettyClientConfig;
+	}
+
+	public void setNettyClientConfig(NettyClientConfig nettyClientConfig) {
+		this.nettyClientConfig = nettyClientConfig;
 	}
 	
 	

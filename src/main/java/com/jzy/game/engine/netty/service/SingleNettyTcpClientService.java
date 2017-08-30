@@ -19,11 +19,16 @@ public class SingleNettyTcpClientService extends NettyClientService {
 
 	@Override
 	protected void running() {
-		new Thread(nettyTcpClient).start();
+		nettyTcpClient.run();
 	}
 
 	public NettyTcpClient getNettyTcpClient() {
 		return nettyTcpClient;
+	}
+	
+	@Override
+	public void checkStatus() {
+		nettyTcpClient.checkStatus();
 	}
 
 	

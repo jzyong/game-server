@@ -3,6 +3,7 @@ package com.jzy.game.engine.netty.service;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import com.jzy.game.engine.netty.config.NettyClientConfig;
+import com.jzy.game.engine.server.ITcpClientService;
 import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
@@ -14,7 +15,7 @@ import io.netty.channel.Channel;
  * @author JiangZhiYong
  * @QQ 359135103 2017年8月25日 下午2:44:39
  */
-public abstract class NettyClientService extends Service<NettyClientConfig> {
+public abstract class NettyClientService extends Service<NettyClientConfig> implements ITcpClientService<NettyClientConfig> {
 	private NettyClientConfig nettyClientConfig;
 
 	/** 拥有的连接 */
@@ -42,6 +43,10 @@ public abstract class NettyClientService extends Service<NettyClientConfig> {
 
 	public NettyClientConfig getNettyClientConfig() {
 		return nettyClientConfig;
+	}
+	
+	public void setNettyClientConfig(NettyClientConfig nettyClientConfig) {
+		this.nettyClientConfig = nettyClientConfig;
 	}
 
 	/**
@@ -95,9 +100,11 @@ public abstract class NettyClientService extends Service<NettyClientConfig> {
 	public boolean sendMsg(Object obj) {
 		Channel channel = getMostIdleChannel();
 		if (channel != null) {
-			channel.write(obj);
+			channel.writeAndFlush(obj);
 			return true;
 		}
 		return false;
 	}
+
+	
 }

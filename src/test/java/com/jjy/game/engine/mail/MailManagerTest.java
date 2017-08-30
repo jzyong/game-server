@@ -11,7 +11,7 @@ import com.jzy.game.engine.mail.MailManager;
  * @QQ 359135103
  * 2017年8月22日 下午6:02:34
  */
-//@Ignore
+@Ignore
 public class MailManagerTest {
 
 	@Test

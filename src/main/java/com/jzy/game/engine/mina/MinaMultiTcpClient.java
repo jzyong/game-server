@@ -9,21 +9,21 @@ import org.slf4j.LoggerFactory;
 
 import com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
-import com.jzy.game.engine.mina.service.ClientService;
+import com.jzy.game.engine.mina.service.MinaClientService;
 
 /**
- * 多客戶端管理
+ * 多客戶端管理,连接多个服务器
  *
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
  */
-public class MultiTcpClient {
+public class MinaMultiTcpClient {
 
-	private static final Logger log = LoggerFactory.getLogger(MultiTcpClient.class);
+	private static final Logger log = LoggerFactory.getLogger(MinaMultiTcpClient.class);
 	/**客户端列表 key：服务器ID*/
-	private final Map<Integer, TcpClient> tcpClients = new ConcurrentHashMap<>();
+	private final Map<Integer, MinaTcpClient> tcpClients = new ConcurrentHashMap<>();
 
-	public MultiTcpClient() {
+	public MinaMultiTcpClient() {
 	}
 
 	/**
@@ -33,14 +33,14 @@ public class MultiTcpClient {
 	 * @param config
 	 * @param clientProtocolHandler
 	 */
-	public void addTcpClient(ClientService service, MinaClientConfig config, IoHandler clientProtocolHandler) {
-		TcpClient client = null;
+	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler) {
+		MinaTcpClient client = null;
 		if (tcpClients.containsKey(config.getId())) {
 			client = tcpClients.get(config.getId());
 			client.setMinaClientConfig(config);
 			return;
 		}
-		client = new TcpClient(service, config, clientProtocolHandler);
+		client = new MinaTcpClient(service, config, clientProtocolHandler);
 		tcpClients.put(config.getId(), client);
 	}
 
@@ -51,19 +51,19 @@ public class MultiTcpClient {
 	 * @param config
 	 * @param clientProtocolHandler
 	 */
-	public void addTcpClient(ClientService service, MinaClientConfig config, IoHandler clientProtocolHandler,
+	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler,
 			ProtocolCodecFactoryImpl factory) {
-		TcpClient client = null;
+		MinaTcpClient client = null;
 		if (tcpClients.containsKey(config.getId())) {
 			client = tcpClients.get(config.getId());
 			client.setMinaClientConfig(config);
 			return;
 		}
-		client = new TcpClient(service, config, clientProtocolHandler, factory);
+		client = new MinaTcpClient(service, config, clientProtocolHandler, factory);
 		tcpClients.put(config.getId(), client);
 	}
 
-	public TcpClient getTcpClient(Integer id) {
+	public MinaTcpClient getTcpClient(Integer id) {
 		if (!tcpClients.containsKey(id)) {
 			return null;
 		}
@@ -95,7 +95,7 @@ public class MultiTcpClient {
 		if (!tcpClients.containsKey(sid)) {
 			return false;
 		}
-		TcpClient client = tcpClients.get(sid);
+		MinaTcpClient client = tcpClients.get(sid);
 		if (client == null) {
 			return false;
 		}
@@ -109,7 +109,7 @@ public class MultiTcpClient {
 		tcpClients.values().forEach(c -> c.checkStatus());
 	}
 
-	public Map<Integer, TcpClient> getTcpClients() {
+	public Map<Integer, MinaTcpClient> getTcpClients() {
 		return tcpClients;
 	}
 

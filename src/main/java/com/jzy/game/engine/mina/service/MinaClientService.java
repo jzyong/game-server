@@ -5,6 +5,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 import org.apache.mina.core.session.IoSession;
 
 import com.jzy.game.engine.mina.config.MinaClientConfig;
+import com.jzy.game.engine.server.ITcpClientService;
 import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
@@ -14,7 +15,7 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
  */
-public abstract class ClientService extends Service<MinaClientConfig> {
+public abstract class MinaClientService extends Service<MinaClientConfig> implements ITcpClientService<MinaClientConfig>{
 
 	private MinaClientConfig minaClientConfig;
 
@@ -32,11 +33,11 @@ public abstract class ClientService extends Service<MinaClientConfig> {
 	 * 无线程池
 	 * @param minaClientConfig
 	 */
-	public ClientService(MinaClientConfig minaClientConfig) {
+	public MinaClientService(MinaClientConfig minaClientConfig) {
 		this(null, minaClientConfig);
 	}
 
-	public ClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
+	public MinaClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig);
 		this.minaClientConfig = minaClientConfig;
 	}

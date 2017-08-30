@@ -3,16 +3,17 @@ package com.jzy.game.engine.mina.service;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IoSession;
 
-import com.jzy.game.engine.mina.MultiTcpClient;
+import com.jzy.game.engine.mina.MinaMultiTcpClient;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
+import com.jzy.game.engine.mina.config.MinaServerConfig;
 import com.jzy.game.engine.mina.handler.DefaultClientProtocolHandler;
 import com.jzy.game.engine.mina.message.IDMessage;
+import com.jzy.game.engine.server.BaseServerConfig;
+import com.jzy.game.engine.server.IMutilTcpClientService;
 import com.jzy.game.engine.server.ServerInfo;
 import com.jzy.game.engine.server.ServerType;
-import com.jzy.game.engine.server.Service;
 import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
 /**
@@ -24,16 +25,16 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月30日 下午3:23:32
  */
-public class MutilTcpClientService extends ClientService {
-	protected MultiTcpClient multiTcpClient = new MultiTcpClient();
+public class MutilMinaTcpClientService extends MinaClientService implements IMutilTcpClientService<MinaServerConfig>{
+	protected MinaMultiTcpClient multiTcpClient = new MinaMultiTcpClient();
 	/** 网关服务器 */
 	protected Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
 
-	public MutilTcpClientService(MinaClientConfig minaClientConfig) {
+	public MutilMinaTcpClientService(MinaClientConfig minaClientConfig) {
 		super(minaClientConfig);
 	}
 
-	public MutilTcpClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
+	public MutilMinaTcpClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig, minaClientConfig);
 	}
 
@@ -43,22 +44,22 @@ public class MutilTcpClientService extends ClientService {
 	}
 
 	/**
-	 * 移除大厅客户端
+	 * 移除客户端
 	 * 
 	 * @param serverId
 	 */
-	public void removeHallTcpClient(int serverId) {
+	public void removeTcpClient(int serverId) {
 		multiTcpClient.removeTcpClient(serverId);
 		serverMap.remove(serverId);
 	}
 
 	/**
-	 * 添加连接大厅服务器
+	 * 添加连接服务器
 	 * 
 	 * @param serverInfo
 	 */
-	protected void addHallTcpClient(ServerInfo serverInfo, int port) {
-		addHallTcpClient(serverInfo, port, new MutilTcpProtocolHandler(serverInfo, this));
+	public void addTcpClient(ServerInfo serverInfo, int port) {
+		addTcpClient(serverInfo, port, new MutilTcpProtocolHandler(serverInfo, this));
 //		if (multiTcpClient.containsKey(serverInfo.getId())) {
 //			return;
 //		}
@@ -71,7 +72,7 @@ public class MutilTcpClientService extends ClientService {
 	 * 
 	 * @param serverInfo
 	 */
-	protected void addHallTcpClient(ServerInfo serverInfo, int port,MutilTcpProtocolHandler ioHandler) {
+	public void addTcpClient(ServerInfo serverInfo, int port,MutilTcpProtocolHandler ioHandler) {
 		if (multiTcpClient.containsKey(serverInfo.getId())) {
 			return;
 		}
@@ -153,7 +154,7 @@ public class MutilTcpClientService extends ClientService {
 
 		private ServerInfo serverInfo;
 
-		public MutilTcpProtocolHandler(ServerInfo serverInfo, ClientService service) {
+		public MutilTcpProtocolHandler(ServerInfo serverInfo, MinaClientService service) {
 			super(12, service);
 			this.serverInfo = serverInfo;
 		}

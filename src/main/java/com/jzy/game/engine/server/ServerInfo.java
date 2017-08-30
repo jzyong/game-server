@@ -13,9 +13,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.jzy.game.engine.util.MsgUtil;
 
+import io.netty.channel.Channel;
+
 /**
  * 服务器信息
- *
+ *<br>
+ *封装了mina和netty连接会话
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
  */
@@ -51,15 +54,36 @@ public class ServerInfo {
 
 	/** 客户端多连接管理 */
 	@JSONField(serialize=false)
-	protected transient final Queue<IoSession> sessions = new ConcurrentLinkedQueue<>();
+	protected transient  Queue<IoSession> sessions ;
+	
+	@JSONField(serialize=false)
+	private transient Channel channel;
+
+	/** 客户端多连接管理 */
+	@JSONField(serialize=false)
+	protected transient  Queue<Channel> channels ;
+
 
 	public ServerInfo() {
 	}
 
 	@JSONField(serialize=false)
 	public void onIoSessionConnect(IoSession session) {
+		if(sessions==null){
+			sessions= new ConcurrentLinkedQueue<>();
+		}
 		if (!sessions.contains(session)) {
 			sessions.add(session);
+		}
+	}
+	
+	@JSONField(serialize=false)
+	public void onChannelActive(Channel channel){
+		if(channels==null){
+			channels=new ConcurrentLinkedQueue<>();
+		}
+		if(!channels.contains(channel)){
+			channels.add(channel);
 		}
 	}
 
@@ -70,6 +94,9 @@ public class ServerInfo {
 	 */
 	@JSONField(serialize=false)
 	public IoSession getMostIdleIoSession() {
+		if(sessions==null){
+			return null;
+		}
 		IoSession session = null;
 		sessions.stream().sorted(MsgUtil.sessionIdleComparator);
 		while (session == null && !sessions.isEmpty()) {
@@ -82,14 +109,54 @@ public class ServerInfo {
 		}
 		return session;
 	}
+	
+	/**
+	 * 获取空闲连接
+	 * @author JiangZhiYong
+	 * @QQ 359135103
+	 * 2017年8月29日 下午3:36:38
+	 * @return
+	 */
+	public Channel getMostIdleChannel(){
+		if(channels==null){
+			return null;
+		}
+		Channel channel=null;
+		channels.stream().sorted((c1,c2)->(int)(c1.bytesBeforeUnwritable()-c2.bytesBeforeUnwritable()));
+		while(channel==null||!channels.isEmpty()){
+			channel=channels.poll();
+			if(channel!=null&&channel.isActive()){
+				channels.offer(channel);
+				break;
+			}
+		}
+		return channel;
+	}
 
 	public void sendMsg(Object message) {
 		IoSession se = getSession();
 		if (se != null) {
 			se.write(message);
-		} else {
+		}else if(getChannel()!=null){
+			getChannel().writeAndFlush(message);
+		}
+		else {
 			log.warn("服务器:" + name + "连接会话为空");
 		}
+	}
+	
+	
+	@JSONField(serialize=false)
+	public Channel getChannel() {
+		if(channel==null||!channel.isActive()){
+			this.channel=getMostIdleChannel();
+		}
+		return channel;
+	}
+
+	@JSONField(serialize=false)
+	public void setChannel(Channel channel) {
+		this.channel = channel;
 	}
 
 	@JSONField(serialize=false)

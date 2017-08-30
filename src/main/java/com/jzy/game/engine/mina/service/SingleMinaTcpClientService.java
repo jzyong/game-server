@@ -2,7 +2,7 @@ package com.jzy.game.engine.mina.service;
 
 import org.apache.mina.core.service.IoHandler;
 
-import com.jzy.game.engine.mina.TcpClient;
+import com.jzy.game.engine.mina.MinaTcpClient;
 import com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
 import com.jzy.game.engine.mina.handler.DefaultClientProtocolHandler;
@@ -13,8 +13,8 @@ import com.jzy.game.engine.mina.handler.DefaultClientProtocolHandler;
  * @author JiangZhiYong
  * @date 2017-04-09 QQ:359135103
  */
-public class SingleTcpClientService extends ClientService {
-	private final TcpClient tcpClient;
+public class SingleMinaTcpClientService extends MinaClientService {
+	private final MinaTcpClient tcpClient;
 	
 	
 	/**
@@ -23,9 +23,9 @@ public class SingleTcpClientService extends ClientService {
 	 * @param ioHandler
 	 *            消息处理器
 	 */
-	public SingleTcpClientService(MinaClientConfig minaClientConfig,ProtocolCodecFactoryImpl factory, IoHandler ioHandler) {
+	public SingleMinaTcpClientService(MinaClientConfig minaClientConfig,ProtocolCodecFactoryImpl factory, IoHandler ioHandler) {
 		super(minaClientConfig);
-		tcpClient = new TcpClient(this,  minaClientConfig, ioHandler,factory);
+		tcpClient = new MinaTcpClient(this,  minaClientConfig, ioHandler,factory);
 	}
 
 	/**
@@ -34,9 +34,9 @@ public class SingleTcpClientService extends ClientService {
 	 * @param ioHandler
 	 *            消息处理器
 	 */
-	public SingleTcpClientService(MinaClientConfig minaClientConfig, IoHandler ioHandler) {
+	public SingleMinaTcpClientService(MinaClientConfig minaClientConfig, IoHandler ioHandler) {
 		super(minaClientConfig);
-		tcpClient = new TcpClient(this, minaClientConfig, ioHandler);
+		tcpClient = new MinaTcpClient(this, minaClientConfig, ioHandler);
 	}
 
 	/**
@@ -44,9 +44,9 @@ public class SingleTcpClientService extends ClientService {
 	 * 
 	 * @param minaClientConfig
 	 */
-	public SingleTcpClientService(MinaClientConfig minaClientConfig) {
+	public SingleMinaTcpClientService(MinaClientConfig minaClientConfig) {
 		super(minaClientConfig);
-		tcpClient = new TcpClient(this, minaClientConfig, new DefaultClientProtocolHandler(this));
+		tcpClient = new MinaTcpClient(this, minaClientConfig, new DefaultClientProtocolHandler(this));
 	}
 
 	@Override
@@ -55,8 +55,15 @@ public class SingleTcpClientService extends ClientService {
 
 	}
 
-	public TcpClient getTcpClient() {
+	public MinaTcpClient getTcpClient() {
 		return tcpClient;
 	}
+
+	@Override
+	public void checkStatus() {
+		tcpClient.checkStatus();
+	}
+	
+	
 
 }

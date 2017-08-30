@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.jzy.game.engine.mina.code.DefaultProtocolCodecFactory;
 import com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl;
 import com.jzy.game.engine.mina.config.MinaClientConfig;
-import com.jzy.game.engine.mina.service.ClientService;
+import com.jzy.game.engine.mina.service.MinaClientService;
 
 /**
  * Mina客户端
@@ -23,9 +23,9 @@ import com.jzy.game.engine.mina.service.ClientService;
  * @date 2017-04-01
  * QQ:359135103
  */
-public final class TcpClient implements Runnable {
+public final class MinaTcpClient implements Runnable {
 
-    private static final Logger log = LoggerFactory.getLogger(TcpClient.class);
+    private static final Logger log = LoggerFactory.getLogger(MinaTcpClient.class);
 
     private NioSocketConnector connector = null;		//TCP连接
     private MinaClientConfig minaClientConfig;			//客户端配置
@@ -33,11 +33,11 @@ public final class TcpClient implements Runnable {
     private final ProtocolCodecFilter codecFilter;		//消息过滤器
     private int maxConnectCount;						//最大连接数
     private Consumer<MinaClientConfig> sessionCreateCallBack;
-    private final ClientService service; 	//附属的客户端服务
+    private final MinaClientService service; 	//附属的客户端服务
     private final ProtocolCodecFactoryImpl factory;		//消息工厂
    
 
-    public TcpClient(ClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
+    public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
         this.factory=factory;
         this.codecFilter = new ProtocolCodecFilter(factory);
         this.service = service;
@@ -52,7 +52,7 @@ public final class TcpClient implements Runnable {
      * @param minaClientConfig
      * @param clientProtocolHandler
      */
-    public TcpClient(ClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
+    public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
         this.factory=new DefaultProtocolCodecFactory();
         codecFilter = new ProtocolCodecFilter(this.factory);
         this.service = service;
@@ -172,7 +172,7 @@ public final class TcpClient implements Runnable {
         this.sessionCreateCallBack = sessionCreateCallBack;
     }
 
-    public ClientService getService() {
+    public MinaClientService getService() {
         return service;
     }
     
