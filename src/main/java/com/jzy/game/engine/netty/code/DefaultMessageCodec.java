@@ -57,7 +57,7 @@ public class DefaultMessageCodec extends ByteToMessageCodec<Object> {
 			out.writeBytes(bytes);	//消息体
 //			ctx.flush();	//TODO 不flush 消息体未发送？
 		}
-		LOGGER.debug("加密：{}",(TimeUtil.currentTimeMillis()-start));
+//		LOGGER.debug("加密：{}",(TimeUtil.currentTimeMillis()-start));
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class DefaultMessageCodec extends ByteToMessageCodec<Object> {
 		in.readBytes(data);
 		IDMessage msg = new IDMessage(ctx.channel(), data, userId, msgId);
 		out.add(msg);
-		LOGGER.debug("解密：{}",(TimeUtil.currentTimeMillis()-start));
+//		LOGGER.debug("解密：{}",(TimeUtil.currentTimeMillis()-start));
 	}
 
 }

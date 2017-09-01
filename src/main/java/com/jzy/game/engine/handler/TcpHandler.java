@@ -6,6 +6,7 @@ import com.jzy.game.engine.struct.Person;
 
 /**
  * Tcp 处理器
+ * <br>也可能处理udp请求
  * 
  * @author JiangZhiYong
  * @mail 359135103@qq.com

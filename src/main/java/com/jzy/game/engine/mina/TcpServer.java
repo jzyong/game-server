@@ -31,7 +31,7 @@ public class TcpServer implements Runnable {
 	private final NioSocketAcceptor acceptor;
 	private final IoHandler ioHandler;
 	private ProtocolCodecFactoryImpl factory;
-	private OrderedThreadPoolExecutor threadpool; // 消息处理线程
+	private OrderedThreadPoolExecutor threadpool; // 消息处理线程,使用有序线程池，保证所有session事件处理有序进行，比如先执行消息执行，再是消息发送，最后关闭事件
 
 	protected boolean isRunning = false; // 服务器是否运行
 
