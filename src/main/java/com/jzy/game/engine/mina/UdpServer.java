@@ -2,8 +2,10 @@ package com.jzy.game.engine.mina;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.Map;
 
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
+import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -33,6 +35,7 @@ public class UdpServer implements Runnable {
 	private ProtocolCodecFactoryImpl factory;
 	private OrderedThreadPoolExecutor threadpool; // 消息处理线程,使用有序线程池，保证所有session事件处理有序进行，比如先执行消息执行，再是消息发送，最后关闭事件
 	protected boolean isRunning = false; // 服务器是否运行
+	private Map<String, IoFilter> filters; //过滤器
 
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler) {
 		super();
@@ -44,6 +47,11 @@ public class UdpServer implements Runnable {
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory) {
 		this(minaServerConfig, ioHandler);
 		this.factory = factory;
+	}
+	
+	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters) {
+		this(minaServerConfig, ioHandler, factory);
+		this.filters=filters;
 	}
 
 	/**
@@ -77,6 +85,9 @@ public class UdpServer implements Runnable {
 				chain.addLast("codec", new ProtocolCodecFilter(factory));
 				threadpool = new OrderedThreadPoolExecutor(minaServerConfig.getOrderedThreadPoolExecutorSize());
 				chain.addLast("threadPool", new ExecutorFilter(threadpool));
+				if(this.filters!=null){
+					this.filters.forEach((key,filter)->chain.addLast(key, filter));
+				}
 
 				DatagramSessionConfig dc = acceptor.getSessionConfig();
 				dc.setReuseAddress(minaServerConfig.isReuseAddress());

@@ -1,5 +1,9 @@
 package com.jzy.game.engine.mina.service;
 
+import java.util.Map;
+
+import org.apache.mina.core.filterchain.IoFilter;
+
 import com.jzy.game.engine.mina.TcpServer;
 import com.jzy.game.engine.mina.code.ClientProtocolCodecFactory;
 import com.jzy.game.engine.mina.config.MinaServerConfig;
@@ -17,9 +21,9 @@ import com.jzy.game.engine.thread.timer.event.ServerHeartTimer;
  * @QQ 359135103 2017年6月29日 下午2:15:38
  */
 public class ClientServerService extends Service<MinaServerConfig> {
-	private final TcpServer tcpServer;
-	private final MinaServerConfig minaServerConfig;
-	private ClientProtocolHandler clientProtocolHandler;
+	protected TcpServer tcpServer;
+	protected MinaServerConfig minaServerConfig;
+	protected ClientProtocolHandler clientProtocolHandler;
 
 	
 	/**
@@ -53,6 +57,23 @@ public class ClientServerService extends Service<MinaServerConfig> {
 		this.clientProtocolHandler = clientProtocolHandler;
 		tcpServer = new TcpServer(minaServerConfig, clientProtocolHandler, new ClientProtocolCodecFactory());
 	}
+	
+	/**
+	 * 
+	 * @param threadExcutorConfig 线程池配置
+	 * @param minaServerConfig 服务器配置
+	 * @param ioHandler
+	 *            消息处理器
+	 */
+	public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig,
+			ClientProtocolHandler clientProtocolHandler,Map<String, IoFilter> filters) {
+		super(threadExcutorConfig);
+		this.minaServerConfig = minaServerConfig;
+		this.clientProtocolHandler = clientProtocolHandler;
+		tcpServer = new TcpServer(minaServerConfig, clientProtocolHandler, new ClientProtocolCodecFactory(),filters);
+	}
+	
+	
 
 	@Override
 	protected void running() {
