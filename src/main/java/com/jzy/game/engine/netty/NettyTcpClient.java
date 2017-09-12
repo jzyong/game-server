@@ -45,7 +45,7 @@ public class NettyTcpClient implements Runnable {
 
 	private Bootstrap bootstrap;
 	/** 连接 */
-	private Map<String, Channel> channels = new ConcurrentHashMap<>(30);
+	private Map<String, Channel> channels = new ConcurrentHashMap<>(10);
 
 	/**
 	 * 
@@ -57,6 +57,7 @@ public class NettyTcpClient implements Runnable {
 
 	/**
 	 * 使用本地默认service配置
+	 * 
 	 * @param nettyClientService
 	 * @param channelInitializer
 	 */
@@ -65,8 +66,9 @@ public class NettyTcpClient implements Runnable {
 		this.service = nettyClientService;
 		this.channelInitializer = channelInitializer;
 	}
-	
-	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer,NettyClientConfig nettyClientConfig) {
+
+	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer,
+			NettyClientConfig nettyClientConfig) {
 		this.nettyClientConfig = nettyClientConfig;
 		this.service = nettyClientService;
 		this.channelInitializer = channelInitializer;
@@ -74,12 +76,7 @@ public class NettyTcpClient implements Runnable {
 
 	@Override
 	public void run() {
-		for (int i = 0; i < nettyClientConfig.getMaxConnectCount(); i++) {
-			Channel channel = connect();
-			if (channel.isActive()) {
-				channels.put(channel.id().asLongText(), channel);
-			}
-		}
+		connect();
 
 	}
 
@@ -89,10 +86,10 @@ public class NettyTcpClient implements Runnable {
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年8月24日 下午8:40:13
 	 */
-	private Channel connect() {
-		
+	private synchronized void connect() {
+
 		try {
-			if(group==null||bootstrap==null){
+			if (group == null || bootstrap == null) {
 				group = new NioEventLoopGroup(nettyClientConfig.getGroupThreadNum());
 				bootstrap = new Bootstrap();
 				bootstrap.group(group);
@@ -101,28 +98,30 @@ public class NettyTcpClient implements Runnable {
 				bootstrap.handler(channelInitializer);
 			}
 
-			ChannelFuture channelFuture = bootstrap.connect(nettyClientConfig.getIp(), nettyClientConfig.getPort())
-					.awaitUninterruptibly();
-			channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
-				@Override
-				public void operationComplete(Future<? super Void> future) throws Exception {
-					if (future.isSuccess()) {
-						LOGGER.info("连接[{}]服务器{}:{}成功",nettyClientConfig.getType().toString(), nettyClientConfig.getIp(), nettyClientConfig.getPort());
-						connectFinsh();
-					} else {
-						LOGGER.warn("连接[{}]服务器{}:{}失败",nettyClientConfig.getType().toString(), nettyClientConfig.getIp(), nettyClientConfig.getPort());
+			for (int i = channels.size(); i < nettyClientConfig.getMaxConnectCount(); i++) {
+				ChannelFuture channelFuture = bootstrap.connect(nettyClientConfig.getIp(), nettyClientConfig.getPort())
+						.awaitUninterruptibly();
+				channels.put(channelFuture.channel().id().asLongText(), channelFuture.channel());
+				channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
+					@Override
+					public void operationComplete(Future<? super Void> future) throws Exception {
+						if (future.isSuccess()) {
+							LOGGER.info("连接[{}]服务器{}:{}成功", nettyClientConfig.getType().toString(),
+									nettyClientConfig.getIp(), nettyClientConfig.getPort());
+							connectFinsh();
+							channels.put(channelFuture.channel().id().asLongText(), channelFuture.channel());
+						} else {
+							LOGGER.warn("连接[{}]服务器{}:{}失败", nettyClientConfig.getType().toString(),
+									nettyClientConfig.getIp(), nettyClientConfig.getPort());
+							channels.remove(channelFuture.channel().id().asLongText());
+						}
 					}
-				}
-			});
-			// channelFuture.channel().closeFuture().sync();
-			return channelFuture.channel();
+				});
+			}
+
 		} catch (Exception e) {
 			LOGGER.error("连接客户端", e);
-		} finally {
-			// reConnect();
-			// group.shutdownGracefully();
 		}
-		return null;
 	}
 
 	/**
@@ -150,11 +149,8 @@ public class NettyTcpClient implements Runnable {
 	 * @QQ 359135103 2017年8月28日 下午1:57:20
 	 */
 	public void checkStatus() {
-		if (this.channels.size() < nettyClientConfig.getMaxConnectCount()) {
-			Channel channel = connect();
-			if (channel!=null&&channel.isActive()) {
-				channels.put(channel.id().asLongText(), channel);
-			}
+		if (this.channels.size() < nettyClientConfig.getMaxConnectCount()&&channelInitializer!=null) {
+			connect();
 		}
 		Optional<Channel> findAny = this.channels.values().stream().filter(c -> !c.isActive()).findAny();
 		if (findAny.isPresent()) {
@@ -169,6 +165,5 @@ public class NettyTcpClient implements Runnable {
 	public void setNettyClientConfig(NettyClientConfig nettyClientConfig) {
 		this.nettyClientConfig = nettyClientConfig;
 	}
-	
-	
+
 }

@@ -34,7 +34,7 @@ public class TcpServer implements Runnable {
 	private final IoHandler ioHandler;
 	private ProtocolCodecFactoryImpl factory;
 	private OrderedThreadPoolExecutor threadpool; // 消息处理线程,使用有序线程池，保证所有session事件处理有序进行，比如先执行消息执行，再是消息发送，最后关闭事件
-	Map<String, IoFilter> filters; //过滤器
+	private Map<String, IoFilter> filters; //过滤器
 	
 	protected boolean isRunning = false; // 服务器是否运行
 
@@ -101,7 +101,13 @@ public class TcpServer implements Runnable {
 				threadpool = new OrderedThreadPoolExecutor(minaServerConfig.getOrderedThreadPoolExecutorSize());
 				chain.addLast("threadPool", new ExecutorFilter(threadpool));
 				if(this.filters!=null){
-					this.filters.forEach((key,filter)->chain.addLast(key, filter));
+					this.filters.forEach((key,filter)->{
+						if(key.equalsIgnoreCase("ssl")||key.equalsIgnoreCase("tls")){	//ssl过滤器必须添加到首部
+							chain.addFirst(key, filter);
+						}else{
+							chain.addLast(key, filter);
+						}
+					});
 				}
 
 				acceptor.setReuseAddress(minaServerConfig.isReuseAddress()); // 允许地址重用

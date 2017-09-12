@@ -1,5 +1,8 @@
 package com.jzy.game.engine.mina.service;
 
+import java.util.Map;
+
+import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.service.IoHandler;
 
 import com.jzy.game.engine.mina.MinaTcpClient;
@@ -16,6 +19,12 @@ import com.jzy.game.engine.mina.handler.DefaultClientProtocolHandler;
 public class SingleMinaTcpClientService extends MinaClientService {
 	private final MinaTcpClient tcpClient;
 	
+	
+	public SingleMinaTcpClientService(MinaClientConfig minaClientConfig,ProtocolCodecFactoryImpl factory, IoHandler ioHandler,Map<String, IoFilter> filters) {
+		super(minaClientConfig);
+		tcpClient = new MinaTcpClient(this,  minaClientConfig, ioHandler,factory,filters);
+	}
+
 	
 	/**
 	 * 

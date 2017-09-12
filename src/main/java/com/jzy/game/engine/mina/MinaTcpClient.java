@@ -1,8 +1,11 @@
 package com.jzy.game.engine.mina;
 
 import java.net.InetSocketAddress;
+import java.util.Map;
 import java.util.function.Consumer;
 
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
+import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -35,8 +38,19 @@ public final class MinaTcpClient implements Runnable {
     private Consumer<MinaClientConfig> sessionCreateCallBack;
     private final MinaClientService service; 	//附属的客户端服务
     private final ProtocolCodecFactoryImpl factory;		//消息工厂
-   
+    private Map<String, IoFilter> filters; //过滤器
 
+    
+    public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters) {
+        this.factory=factory;
+        this.codecFilter = new ProtocolCodecFilter(factory);
+        this.service = service;
+        this.clientProtocolHandler = clientProtocolHandler;
+        this.filters=filters;
+        init(clientProtocolHandler);
+        setMinaClientConfig(minaClientConfig);
+    }
+    
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
         this.factory=factory;
         this.codecFilter = new ProtocolCodecFilter(factory);
@@ -67,7 +81,17 @@ public final class MinaTcpClient implements Runnable {
      */
     private void init(IoHandler clientProtocolHandler) {
         this.connector = new NioSocketConnector();
-        this.connector.getFilterChain().addLast("codec", codecFilter);
+        DefaultIoFilterChainBuilder chain = this.connector.getFilterChain();
+        chain.addLast("codec", codecFilter);
+        if(this.filters!=null){
+			this.filters.forEach((key,filter)->{
+				if(key.equalsIgnoreCase("ssl")||key.equalsIgnoreCase("tls")){	//ssl过滤器必须添加到首部
+					chain.addFirst(key, filter);
+				}else{
+					chain.addLast(key, filter);
+				}
+			});
+		}
         this.connector.setHandler(clientProtocolHandler);
         connector.setConnectTimeoutMillis(60000L);
         connector.setConnectTimeoutCheckInterval(10000);
