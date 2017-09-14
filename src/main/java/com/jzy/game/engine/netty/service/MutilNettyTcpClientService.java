@@ -3,6 +3,7 @@ package com.jzy.game.engine.netty.service;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.jzy.game.engine.mina.config.MinaClientConfig;
 import com.jzy.game.engine.mina.message.IDMessage;
 import com.jzy.game.engine.netty.NettyMutilTcpClient;
 import com.jzy.game.engine.netty.code.DefaultClientChannelInitializer;
@@ -29,7 +30,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
  * @author JiangZhiYong
  * @QQ 359135103 2017年8月28日 下午1:49:39
  */
-public class MutilNettyTcpClientService extends NettyClientService implements IMutilTcpClientService {
+public class MutilNettyTcpClientService extends NettyClientService implements IMutilTcpClientService<NettyClientConfig> {
 	protected NettyMutilTcpClient multiTcpClient = new NettyMutilTcpClient();
 	/** 网关服务器 */
 	protected Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();

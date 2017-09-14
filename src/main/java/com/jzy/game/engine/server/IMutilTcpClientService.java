@@ -1,8 +1,10 @@
 package com.jzy.game.engine.server;
 
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 import com.jzy.game.engine.mina.message.IDMessage;
+import com.jzy.game.engine.thread.ThreadType;
 
 /**
  * 连接多服务器客户端接口
@@ -65,4 +67,6 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * @return
 	 */
 	public boolean sendMsg(Integer serverId, Object msg);
+	
+	
 }

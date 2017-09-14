@@ -207,7 +207,7 @@ public abstract class Person {
 			getIoSession().write(idm);
 			return true;
 		} else if (getChannel() != null) {
-			getChannel().write(new IDMessage(channel, message, getId(), null));
+			getChannel().writeAndFlush(new IDMessage(channel, message, getId(), null));
 		} else {
 			LOGGER.warn("连接session==null | channel==null {}", message.toString());
 		}
