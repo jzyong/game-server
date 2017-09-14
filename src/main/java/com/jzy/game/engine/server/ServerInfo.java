@@ -123,7 +123,7 @@ public class ServerInfo {
 		}
 		Channel channel=null;
 		channels.stream().sorted((c1,c2)->(int)(c1.bytesBeforeUnwritable()-c2.bytesBeforeUnwritable()));
-		while(channel==null||!channels.isEmpty()){
+		while(channel==null&&!channels.isEmpty()){
 			channel=channels.poll();
 			if(channel!=null&&channel.isActive()){
 				channels.offer(channel);

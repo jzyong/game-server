@@ -127,6 +127,24 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 		});
 		return true;
 	}
+	
+	/**
+	 * 广播所有服务器消息：注意，这里并不是向每个session广播，因为有可能有多个连接到同一个服务器
+	 *
+	 * @param obj
+	 * @return
+	 */
+	public boolean broadcastMsg(Object obj,long rid) {
+		if (multiTcpClient == null) {
+			return false;
+		}
+		IDMessage idm = new IDMessage(null, obj, rid);
+		serverMap.values().forEach(server -> {
+			server.sendMsg(idm);
+		});
+		return true;
+	}
+
 
 	/**
 	 * 发送消息

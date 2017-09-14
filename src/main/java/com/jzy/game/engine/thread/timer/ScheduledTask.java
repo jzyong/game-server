@@ -2,6 +2,7 @@ package com.jzy.game.engine.thread.timer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -24,6 +25,15 @@ public abstract class ScheduledTask {
 	 */
 	public ScheduledTask(int taskMaxTime) {
 		scheduler = Executors.newScheduledThreadPool(1);
+		
+		Executors.newScheduledThreadPool(1, new ThreadFactory() {
+			@Override
+			public Thread newThread(Runnable r) {
+				Thread thread=new Thread(this.getClass().getSimpleName());
+				
+				return thread;
+			}
+		});
 		period = taskMaxTime < 100 ? 100 : taskMaxTime;
 	}
 
