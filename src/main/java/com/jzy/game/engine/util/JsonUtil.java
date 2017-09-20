@@ -23,6 +23,7 @@ import com.alibaba.fastjson.parser.deserializer.ParseProcess;
 import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.alibaba.fastjson.serializer.PropertyFilter;
 import com.alibaba.fastjson.serializer.SerializeWriter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jzy.game.engine.struct.json.FieldMethod;
 
 /**
@@ -68,7 +69,7 @@ public class JsonUtil {
 					if (fm == null || fm.getField() == null) {
 						return;
 					}
-					if (fm.getField().getType().isAssignableFrom(String.class)) {
+					if (fm.getField().getType().isAssignableFrom(String.class)||fm.getField().getType().isEnum()) {	//字符串和枚举加上双引号
 						sb.append("\"").append(entry.getKey()).append("\":\"").append(v).append("\",");
 					} else {
 						sb.append("\"").append(entry.getKey()).append("\":").append(v).append(",");
@@ -344,6 +345,13 @@ public class JsonUtil {
 			out.close();
 		}
 	}
+	
+	/**
+     *通过属性序列化,排除get方法，加类名
+     */
+    public static String toJSONStringWriteClassNameWithFiled(Object paramObject) {
+        return JSON.toJSONString(paramObject, new SerializerFeature[]{SerializerFeature.WriteClassName, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.IgnoreNonFieldGetter});
+    }
 
 	public static boolean isEmpty(String str) {
 		return str.isEmpty() || "\"\"".equals(str) || "\"".equals(str);

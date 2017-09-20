@@ -1,4 +1,4 @@
-package com.jzy.game.engine.redis;
+package com.jzy.game.engine.redis.jedis;
 
 import com.alibaba.fastjson.JSON;
 import java.util.Arrays;

@@ -7,7 +7,7 @@
  * </p>
  * */
 
-package com.jzy.game.engine.redis;
+package com.jzy.game.engine.redis.jedis;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ import java.util.Map;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.LoggerFactory;
 
-import com.jzy.game.engine.redis.config.JedisClusterConfig;
 import com.jzy.game.engine.util.FileUtil;
 
 import org.slf4j.Logger;
@@ -32,11 +31,11 @@ import redis.clients.jedis.JedisCluster;
  * @QQ 359135103
  * 2017年8月18日 下午5:32:34
  */
-public class RedisManager {
+public class JedisManager {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RedisManager.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JedisManager.class);
 	private static JedisCluster jedisCluster;
-	private static RedisManager redisManager;
+	private static JedisManager redisManager;
 
 	private Map<String, String> keysShaMap; // key:脚本名称
 
@@ -45,11 +44,11 @@ public class RedisManager {
 	 * @param configPath
 	 *            redis配置文件路径
 	 */
-	public RedisManager(String configPath) {
+	public JedisManager(String configPath) {
 		this(loadJedisClusterConfig(configPath));
 	}
 
-	public RedisManager(JedisClusterConfig config) {
+	public JedisManager(JedisClusterConfig config) {
 		HashSet<HostAndPort> jedisClusterNodes = new HashSet<>();
 		config.getNodes().forEach(node -> {
 			if (node == null) {
@@ -91,12 +90,12 @@ public class RedisManager {
 		return jedisCluster;
 	}
 
-	public static RedisManager getInstance() {
+	public static JedisManager getInstance() {
 		return redisManager;
 	}
 
-	public static void setRedisManager(RedisManager redisManager) {
-		RedisManager.redisManager = redisManager;
+	public static void setRedisManager(JedisManager redisManager) {
+		JedisManager.redisManager = redisManager;
 	}
 
 	/**
@@ -132,7 +131,7 @@ public class RedisManager {
 	 * 清除脚本缓存
 	 */
 	public void scriptFlush(String fileName) {
-		RedisManager.getJedisCluster().scriptFlush(fileName.getBytes());
+		JedisManager.getJedisCluster().scriptFlush(fileName.getBytes());
 	}
 
 	/**
@@ -150,7 +149,7 @@ public class RedisManager {
 		if (script == null || script.length() < 1) {
 			throw new Exception(path + "/" + fileName + ".lua 加载出错");
 		}
-		String hash = RedisManager.getJedisCluster().scriptLoad(script, fileName);
+		String hash = JedisManager.getJedisCluster().scriptLoad(script, fileName);
 		if (hash == null || hash.length() < 1) {
 			throw new Exception(fileName + ".lua 脚本注入出错");
 		}
@@ -197,7 +196,7 @@ public class RedisManager {
 		if (sha == null) {
 			return null;
 		}
-		Object object = RedisManager.getJedisCluster().evalsha(sha, keys, args);
+		Object object = JedisManager.getJedisCluster().evalsha(sha, keys, args);
 		if (object == null) {
 			return null;
 		}

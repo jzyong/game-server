@@ -1,5 +1,6 @@
 package com.jzy.game.engine.redis;
 
+import com.jzy.game.engine.redis.jedis.JedisPubSubMessage;
 import com.jzy.game.engine.script.IScript;
 
 /**

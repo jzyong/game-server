@@ -1,4 +1,4 @@
-package com.jzy.game.engine.redis.config;
+package com.jzy.game.engine.redis.jedis;
 
 import java.util.HashSet;
 import org.simpleframework.xml.Element;

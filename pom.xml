@@ -89,14 +89,18 @@
 			<version>1.4.7</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.redisson</groupId> <artifactId>redisson</artifactId> 
-			<version>3.5.0</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>3.5.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+		<!-- redisson 添加了netty -->
+		<!-- <dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>4.1.14.Final</version>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 	<build>

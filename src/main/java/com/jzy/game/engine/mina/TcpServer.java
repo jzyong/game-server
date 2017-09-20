@@ -8,6 +8,7 @@ import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
+import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
@@ -32,10 +33,10 @@ public class TcpServer implements Runnable {
 	private final MinaServerConfig minaServerConfig;
 	private final NioSocketAcceptor acceptor;
 	private final IoHandler ioHandler;
-	private ProtocolCodecFactoryImpl factory;
+	private ProtocolCodecFactory factory;
 	private OrderedThreadPoolExecutor threadpool; // 消息处理线程,使用有序线程池，保证所有session事件处理有序进行，比如先执行消息执行，再是消息发送，最后关闭事件
-	private Map<String, IoFilter> filters; //过滤器
-	
+	private Map<String, IoFilter> filters; // 过滤器
+
 	protected boolean isRunning = false; // 服务器是否运行
 
 	/**
@@ -51,21 +52,23 @@ public class TcpServer implements Runnable {
 		acceptor = new NioSocketAcceptor();
 	}
 
-	public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory) {
+	public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactory factory) {
 		this(minaServerConfig, ioHandler);
 		this.factory = factory;
 	}
-	
+
 	/**
 	 * 
 	 * @param minaServerConfig
 	 * @param ioHandler
 	 * @param factory
-	 * @param filters 不要包含消息解码、线程池过滤器，已默认添加
+	 * @param filters
+	 *            不要包含消息解码、线程池过滤器，已默认添加
 	 */
-	public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters){
+	public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactory factory,
+			Map<String, IoFilter> filters) {
 		this(minaServerConfig, ioHandler, factory);
-		this.filters=filters;
+		this.filters = filters;
 	}
 
 	/**
@@ -95,16 +98,21 @@ public class TcpServer implements Runnable {
 				if (factory == null) {
 					factory = new DefaultProtocolCodecFactory();
 				}
-				factory.getDecoder().setMaxReadSize(minaServerConfig.getMaxReadSize());
-				factory.getEncoder().setMaxScheduledWriteMessages(minaServerConfig.getMaxScheduledWriteMessages());
+
+				if (factory instanceof DefaultProtocolCodecFactory) {
+					ProtocolCodecFactoryImpl defaultFactory = (ProtocolCodecFactoryImpl) factory;
+					defaultFactory.getDecoder().setMaxReadSize(minaServerConfig.getMaxReadSize());
+					defaultFactory.getEncoder().setMaxScheduledWriteMessages(minaServerConfig.getMaxScheduledWriteMessages());
+				}
+
 				chain.addLast("codec", new ProtocolCodecFilter(factory));
 				threadpool = new OrderedThreadPoolExecutor(minaServerConfig.getOrderedThreadPoolExecutorSize());
 				chain.addLast("threadPool", new ExecutorFilter(threadpool));
-				if(this.filters!=null){
-					this.filters.forEach((key,filter)->{
-						if(key.equalsIgnoreCase("ssl")||key.equalsIgnoreCase("tls")){	//ssl过滤器必须添加到首部
+				if (this.filters != null) {
+					this.filters.forEach((key, filter) -> {
+						if (key.equalsIgnoreCase("ssl") || key.equalsIgnoreCase("tls")) { // ssl过滤器必须添加到首部
 							chain.addFirst(key, filter);
-						}else{
+						} else {
 							chain.addLast(key, filter);
 						}
 					});
@@ -157,6 +165,5 @@ public class TcpServer implements Runnable {
 	public NioSocketAcceptor getAcceptor() {
 		return acceptor;
 	}
-	
-	
+
 }

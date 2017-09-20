@@ -1,9 +1,10 @@
-package com.jzy.game.engine.redis;
+package com.jzy.game.engine.redis.jedis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.jzy.game.engine.redis.IPubSubScript;
 import com.jzy.game.engine.script.ScriptManager;
 
 import redis.clients.jedis.JedisPubSub;
@@ -57,7 +58,7 @@ public class JedisPubListener extends JedisPubSub implements Runnable {
 	public void run() {
 		try {
 			if (channels != null && channels.length > 0) {
-				RedisManager.getJedisCluster().subscribe(this, this.channels);
+				JedisManager.getJedisCluster().subscribe(this, this.channels);
 			}
 		} catch (Exception e) {
 			LOGGER.error(null, e);

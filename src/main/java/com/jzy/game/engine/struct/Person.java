@@ -152,6 +152,7 @@ public abstract class Person {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+		saveToRedis("createTime");
 	}
 
 	public Date getLoginTime() {
@@ -160,6 +161,7 @@ public abstract class Person {
 
 	public void setLoginTime(Date loginTime) {
 		this.loginTime = loginTime;
+		saveToRedis("loginTime");
 	}
 
 	public int getLevel() {
@@ -168,6 +170,7 @@ public abstract class Person {
 
 	public void setLevel(int level) {
 		this.level = level;
+		saveToRedis("level");
 	}
 
 	public Map<String, Cooldown> getCooldowns() {
@@ -192,6 +195,10 @@ public abstract class Person {
 
 	public void setChannel(Channel channel) {
 		this.channel = channel;
+	}
+	
+	public void saveToRedis(String propertiesName) {
+		
 	}
 
 	/**
