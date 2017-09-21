@@ -72,14 +72,11 @@ public abstract class Person {
 	protected int level;
 
 	/** 冷却缓存 */
-	@JSONField(serialize = false)
 	protected transient Map<String, Cooldown> cooldowns = new HashMap<>();
 
 	/** 连接会话 */
-	@JSONField(serialize = false)
 	protected transient IoSession ioSession;
 
-	@JSONField(serialize = false)
 	protected transient Channel channel;
 
 	public long getId() {

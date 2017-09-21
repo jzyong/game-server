@@ -402,7 +402,7 @@ public final class ScriptPool {
 			String[] fileNames = new String[sourceFileList.size()];
 			for (int i = 0; i < sourceFileList.size(); i++) {
 				fileNames[i] = sourceFileList.get(i).getPath();
-				loadJava.append(fileNames[i]).append(";");
+				loadJava.append(fileNames[i]).append(";/r/n");
 			}
 			tmpScriptInstances = new ConcurrentHashMap<>();
 			tmpIdScriptInstances = new ConcurrentHashMap<>();
