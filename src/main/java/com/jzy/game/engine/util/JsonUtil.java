@@ -352,6 +352,18 @@ public class JsonUtil {
     public static String toJSONStringWriteClassNameWithFiled(Object paramObject) {
         return JSON.toJSONString(paramObject, new SerializerFeature[]{SerializerFeature.WriteClassName, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.IgnoreNonFieldGetter});
     }
+    
+    /**
+     * 通过属性序列化
+     * @author JiangZhiYong
+     * @QQ 359135103
+     * 2017年9月29日 下午7:33:09
+     * @param object
+     * @return
+     */
+    public static String toJSONStringWithField(Object object) {
+    	return JSON.toJSONString(object, new SerializerFeature[]{SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.IgnoreNonFieldGetter});
+    }
 
 	public static boolean isEmpty(String str) {
 		return str.isEmpty() || "\"\"".equals(str) || "\"".equals(str);

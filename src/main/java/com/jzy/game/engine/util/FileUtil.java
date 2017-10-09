@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.function.Predicate;
@@ -241,6 +243,24 @@ public class FileUtil {
             log.info("删除文件失败：" + fileName + "不存在！");
             return false;
         }
+    }
+    
+    /**
+     * 获取文件对象
+     * @author JiangZhiYong
+     * @QQ 359135103
+     * 2017年9月28日 下午2:11:20
+     * @param file
+     * @return
+     */
+    public static InputStream getFileInputStream(String file) {
+    	InputStream is=null;
+    	try {
+			is=new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			log.error(String.format("文件%s不找到在", file),e);
+		}
+    	return is;
     }
     
 }

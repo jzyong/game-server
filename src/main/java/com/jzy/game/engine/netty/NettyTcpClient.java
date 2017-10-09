@@ -1,8 +1,6 @@
 package com.jzy.game.engine.netty;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +16,14 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 /**
  * Netty Tcp 客户端
@@ -45,7 +46,7 @@ public class NettyTcpClient implements Runnable {
 
 	private Bootstrap bootstrap;
 	/** 连接 */
-	private Map<String, Channel> channels = new ConcurrentHashMap<>(10);
+	private final ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
 	/**
 	 * 
@@ -101,7 +102,7 @@ public class NettyTcpClient implements Runnable {
 			for (int i = channels.size(); i < nettyClientConfig.getMaxConnectCount(); i++) {
 				ChannelFuture channelFuture = bootstrap.connect(nettyClientConfig.getIp(), nettyClientConfig.getPort());
 				channelFuture.awaitUninterruptibly(10000);	//最多等待10秒，如果服务器一直未开启情况下，房子阻塞当前线程
-				channels.put(channelFuture.channel().id().asLongText(), channelFuture.channel());
+				channels.add(channelFuture.channel());
 				channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
 					@Override
 					public void operationComplete(Future<? super Void> future) throws Exception {
@@ -109,11 +110,11 @@ public class NettyTcpClient implements Runnable {
 							LOGGER.info("连接[{}]服务器{}:{}成功", nettyClientConfig.getType().toString(),
 									nettyClientConfig.getIp(), nettyClientConfig.getPort());
 							connectFinsh();
-							channels.put(channelFuture.channel().id().asLongText(), channelFuture.channel());
+							channels.add(channelFuture.channel());
 						} else {
 							LOGGER.warn("连接[{}]服务器{}:{}失败", nettyClientConfig.getType().toString(),
 									nettyClientConfig.getIp(), nettyClientConfig.getPort());
-							channels.remove(channelFuture.channel().id().asLongText());
+							channels.remove(channelFuture.channel());
 						}
 					}
 				});
@@ -152,10 +153,16 @@ public class NettyTcpClient implements Runnable {
 		if (this.channels.size() < nettyClientConfig.getMaxConnectCount()&&channelInitializer!=null) {
 			connect();
 		}
-		Optional<Channel> findAny = this.channels.values().stream().filter(c -> !c.isActive()).findAny();
-		if (findAny.isPresent()) {
-			channels.remove(findAny.get().id().asLongText());
+		Iterator<Channel> iterator = this.channels.iterator();
+		while(iterator.hasNext()) {
+			if(!iterator.next().isActive()) {
+				iterator.remove();
+			}
 		}
+//		Optional<Channel> findAny = this.channels.stream().filter(c -> !c.isActive()).findAny();
+//		if (findAny.isPresent()) {
+//			channels.remove(findAny.get().id().asLongText());
+//		}
 	}
 
 	public NettyClientConfig getNettyClientConfig() {
