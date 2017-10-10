@@ -136,6 +136,7 @@ public class NettyTcpClient implements Runnable {
 	}
 
 	public void stop() {
+		channels.close();
 		group.shutdownGracefully();
 	}
 

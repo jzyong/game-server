@@ -1,14 +1,10 @@
 package com.jzy.game.engine.redis.redisson;
 
 import org.redisson.Redisson;
+import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;
-import org.redisson.client.codec.Codec;
-import org.redisson.client.codec.StringCodec;
-import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;
-import org.redisson.config.ReadMode;
-import org.redisson.connection.balancer.LoadBalancer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +12,22 @@ import com.jzy.game.engine.util.FileUtil;
 
 /**
  * Redisson 工具
+ * <p>
+ * 慎用：<br>
+ * <li>昂贵的通信代价，tcp通信非常频繁</li>
+ * <li>额外功能通过lua字符串脚本实现，通信耗费较高</li>
+ * <li>集合没有没有分布式多进程操作，最好全部加载到本地内存处理</li>
+ * </p>
+ * <br>
+ * <p>
+ * 		{@link RList} 迭代器每迭代一次都需要向redis服务器请求
+ * </p>
  * 
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月15日 下午3:25:55
  */
 public class RedissonManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedissonManager.class);
-
 
 	private static RedissonClusterConfig redissonClusterConfig;
 
@@ -40,7 +45,7 @@ public class RedissonManager {
 	 * @param configPath
 	 */
 	public static void connectRedis(String configPath) {
-		if(redisson!=null) {
+		if (redisson != null) {
 			LOGGER.warn("Redisson客户端已经连接");
 		}
 		redissonClusterConfig = FileUtil.getConfigXML(configPath, "redissonClusterConfig.xml",
@@ -59,7 +64,7 @@ public class RedissonManager {
 		clusterServersConfig.setSubscriptionMode(redissonClusterConfig.getSubscriptionMode());
 		redisson = Redisson.create(config);
 	}
-	
+
 	public static RedissonClient getRedissonClient() {
 		return redisson;
 	}
