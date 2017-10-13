@@ -1,6 +1,5 @@
 package com.jzy.game.engine.mina.code;
 
-
 import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -28,8 +27,7 @@ import org.slf4j.LoggerFactory;
 public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	private static final Charset CHARSET = Charset.forName("UTF-8");
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(HttpServerDecoderImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(HttpServerDecoderImpl.class);
 
 	/**
 	 * Regex to parse HttpRequest Request Line
@@ -54,14 +52,12 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	/**
 	 * Regex to parse raw headers and body
 	 */
-	public static final Pattern RAW_VALUE_PATTERN = Pattern
-			.compile("\\r\\n\\r\\n");
+	public static final Pattern RAW_VALUE_PATTERN = Pattern.compile("\\r\\n\\r\\n");
 
 	/**
 	 * Regex to parse raw headers from body
 	 */
-	public static final Pattern HEADERS_BODY_PATTERN = Pattern
-			.compile("\\r\\n");
+	public static final Pattern HEADERS_BODY_PATTERN = Pattern.compile("\\r\\n");
 
 	/**
 	 * Regex to parse header name and value
@@ -72,14 +68,24 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	 * Regex to split cookie header following RFC6265 Section 5.4
 	 */
 	public static final Pattern COOKIE_SEPARATOR_PATTERN = Pattern.compile(";");
+	/** 已解析的HTTP对象 */
+	public static final String HTTP_REQUEST = "http.request";
 
 	@Override
-	protected boolean doDecode(IoSession session, IoBuffer msg,
-			ProtocolDecoderOutput out) throws Exception {
+	protected boolean doDecode(IoSession session, IoBuffer msg, ProtocolDecoderOutput out) throws Exception {
+		/**
+		 * 消息已经解析
+		 * 谷歌浏览器一次请求存在多次收到消息，还额外请求了/favicon.ico路径
+		 */
+		if (session.containsAttribute(HTTP_REQUEST)) {
+			return false;
+		}
 		msg.mark();
 		HttpRequestImpl rq = parseHttpRequestHead(msg.buf(), msg);
 		if (rq != null) {
 			out.write(rq);
+			session.setAttribute(HTTP_REQUEST, rq);
+			// LOG.info("解析成功");
 			return true;
 		}
 		msg.reset();
@@ -87,19 +93,18 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	}
 
 	@Override
-	public void finishDecode(final IoSession session,
-			final ProtocolDecoderOutput out) throws Exception {
+	public void finishDecode(final IoSession session, final ProtocolDecoderOutput out) throws Exception {
 	}
 
 	@Override
 	public void dispose(final IoSession session) throws Exception {
 	}
 
-	private HttpRequestImpl parseHttpRequestHead(final ByteBuffer buffer,
-			IoBuffer msg) throws Exception {
+	private HttpRequestImpl parseHttpRequestHead(final ByteBuffer buffer, IoBuffer msg) throws Exception {
 		// Java 6 >> String raw = new String(buffer.array(), 0, buffer.limit(),
 		// Charset.forName("UTF-8"));
 		final String raw = new String(buffer.array(), 0, buffer.limit());
+//		LOG.debug(raw);
 		final String[] headersAndBody = RAW_VALUE_PATTERN.split(raw, -1);
 
 		if (headersAndBody.length <= 1) {
@@ -123,6 +128,7 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 		final String[] pathFrags = QUERY_STRING_PATTERN.split(elements[1]);
 		final String requestedPath = pathFrags[0];
 		String queryString = pathFrags.length >= 2 ? pathFrags[1] : "";
+		queryString = URLDecoder.decode(queryString, "UTF-8");
 
 		// we put the buffer position where we found the beginning of the HTTP
 		// body
@@ -142,7 +148,6 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 				queryString = URLDecoder.decode(str, "UTF-8");
 			}
 		}
-		return new HttpRequestImpl(version, method, requestedPath, queryString,
-				generalHeaders);
+		return new HttpRequestImpl(version, method, requestedPath, queryString, generalHeaders);
 	}
 }

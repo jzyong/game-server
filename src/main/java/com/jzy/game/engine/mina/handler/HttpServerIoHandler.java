@@ -73,7 +73,7 @@ public abstract class HttpServerIoHandler implements IoHandler {
 		}
 
 		long cost = System.currentTimeMillis() - begin;
-		if (cost > 3L) {
+		if (cost > 30L) {
 			LOG.error(String.format("\t messageReceived %s msgID[%s] builder[%s] cost %d ms",
 					Thread.currentThread().toString(), httpRequest.getRequestPath(), httpRequest.toString(), cost));
 		}

@@ -16,9 +16,9 @@ import com.jzy.game.engine.util.MsgUtil;
 import io.netty.channel.Channel;
 
 /**
- * 服务器信息
- *<br>
- *封装了mina和netty连接会话
+ * 服务器信息 <br>
+ * 封装了mina和netty连接会话
+ * 
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
  */
@@ -44,45 +44,50 @@ public class ServerInfo {
 	// 最大用户人数
 	private int maxUserCount;
 	// 在线人数
-	@JSONField(serialize=true)
-	private  int online;
+	@JSONField(serialize = true)
+	private int online;
 	// 服务器类型
 	private int type;
-	
-	@JSONField(serialize=false)
+	// 空闲内存
+	private int freeMemory;
+	// 可用内存
+	private int totalMemory;
+	// 最大内存
+	private int maxMemory;
+
+	@JSONField(serialize = false)
 	private transient IoSession session;
 
 	/** 客户端多连接管理 */
-	@JSONField(serialize=false)
-	protected transient  Queue<IoSession> sessions ;
-	
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
+	protected transient Queue<IoSession> sessions;
+
+	@JSONField(serialize = false)
 	private transient Channel channel;
 
 	/** 客户端多连接管理 */
-	@JSONField(serialize=false)
-	protected transient  Queue<Channel> channels ;
-
+	@JSONField(serialize = false)
+	protected transient Queue<Channel> channels;
 
 	public ServerInfo() {
 	}
 
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
 	public void onIoSessionConnect(IoSession session) {
-		if(sessions==null){
-			sessions= new ConcurrentLinkedQueue<>();
+		if (sessions == null) {
+			sessions = new ConcurrentLinkedQueue<>();
 		}
 		if (!sessions.contains(session)) {
 			sessions.add(session);
 		}
 	}
-	
-	@JSONField(serialize=false)
-	public void onChannelActive(Channel channel){
-		if(channels==null){
-			channels=new ConcurrentLinkedQueue<>();
+
+	@JSONField(serialize = false)
+	public void onChannelActive(Channel channel) {
+		if (channels == null) {
+			channels = new ConcurrentLinkedQueue<>();
 		}
-		if(!channels.contains(channel)){
+		if (!channels.contains(channel)) {
 			channels.add(channel);
 		}
 	}
@@ -92,40 +97,40 @@ public class ServerInfo {
 	 *
 	 * @return
 	 */
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
 	public IoSession getMostIdleIoSession() {
-		if(sessions==null){
+		if (sessions == null) {
 			return null;
 		}
 		IoSession session = null;
 		sessions.stream().sorted(MsgUtil.sessionIdleComparator);
 		while (session == null && !sessions.isEmpty()) {
-			session =sessions.poll();
+			session = sessions.poll();
 			log.debug("空闲session {}", session.getId());
 			if (session != null && session.isConnected()) {
 				sessions.offer(session);
 				break;
-			} 
+			}
 		}
 		return session;
 	}
-	
+
 	/**
 	 * 获取空闲连接
+	 * 
 	 * @author JiangZhiYong
-	 * @QQ 359135103
-	 * 2017年8月29日 下午3:36:38
+	 * @QQ 359135103 2017年8月29日 下午3:36:38
 	 * @return
 	 */
-	public Channel getMostIdleChannel(){
-		if(channels==null){
+	public Channel getMostIdleChannel() {
+		if (channels == null) {
 			return null;
 		}
-		Channel channel=null;
-		channels.stream().sorted((c1,c2)->(int)(c1.bytesBeforeUnwritable()-c2.bytesBeforeUnwritable()));
-		while(channel==null&&!channels.isEmpty()){
-			channel=channels.poll();
-			if(channel!=null&&channel.isActive()){
+		Channel channel = null;
+		channels.stream().sorted((c1, c2) -> (int) (c1.bytesBeforeUnwritable() - c2.bytesBeforeUnwritable()));
+		while (channel == null && !channels.isEmpty()) {
+			channel = channels.poll();
+			if (channel != null && channel.isActive()) {
 				channels.offer(channel);
 				break;
 			}
@@ -137,29 +142,27 @@ public class ServerInfo {
 		IoSession se = getSession();
 		if (se != null) {
 			se.write(message);
-		}else if(getChannel()!=null){
+		} else if (getChannel() != null) {
 			getChannel().writeAndFlush(message);
-		}
-		else {
+		} else {
 			log.warn("服务器:" + name + "连接会话为空");
 		}
 	}
-	
-	
-	@JSONField(serialize=false)
+
+	@JSONField(serialize = false)
 	public Channel getChannel() {
-		if(channel==null||!channel.isActive()){
-			this.channel=getMostIdleChannel();
+		if (channel == null || !channel.isActive()) {
+			this.channel = getMostIdleChannel();
 		}
 		return channel;
 	}
 
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
 	public void setChannel(Channel channel) {
 		this.channel = channel;
 	}
 
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
 	public IoSession getSession() {
 		if (session == null || !session.isActive()) {
 			this.session = getMostIdleIoSession();
@@ -167,12 +170,12 @@ public class ServerInfo {
 		return session;
 	}
 
-	@JSONField(serialize=false)
+	@JSONField(serialize = false)
 	public void setSession(IoSession session) {
 		this.session = session;
 	}
-	
-	@JSONField(serialize=false)
+
+	@JSONField(serialize = false)
 	public String getHttpUrl(String content) {
 		StringBuilder sb = new StringBuilder("http://").append(getIp()).append(":").append(getHttpPort()).append("/")
 				.append(content);
@@ -243,7 +246,7 @@ public class ServerInfo {
 		this.maxUserCount = maxUserCount;
 	}
 
-	@JSONField(serialize=true)
+	@JSONField(serialize = true)
 	public int getOnline() {
 		return online;
 	}
@@ -258,6 +261,30 @@ public class ServerInfo {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public int getFreeMemory() {
+		return freeMemory;
+	}
+
+	public void setFreeMemory(int freeMemory) {
+		this.freeMemory = freeMemory;
+	}
+
+	public int getTotalMemory() {
+		return totalMemory;
+	}
+
+	public void setTotalMemory(int totalMemory) {
+		this.totalMemory = totalMemory;
+	}
+
+	public int getMaxMemory() {
+		return maxMemory;
+	}
+
+	public void setMaxMemory(int maxMemory) {
+		this.maxMemory = maxMemory;
 	}
 
 	@Override
