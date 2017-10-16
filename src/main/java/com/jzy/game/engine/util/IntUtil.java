@@ -160,4 +160,19 @@ public class IntUtil {
         buffer.order(byteOrder);
         return buffer.getInt();
     }
+    
+    /**
+     * byte数组转long
+     * @author JiangZhiYong
+     * @QQ 359135103
+     * 2017年10月16日 下午3:06:40
+     * @param src
+     * @param byteOrder
+     * @return
+     */
+    public static long bytes2Long(byte[] src,int offset,int length, ByteOrder byteOrder) {
+        ByteBuffer buffer = ByteBuffer.wrap(src, offset, length);
+        buffer.order(byteOrder);
+        return buffer.getLong();
+    }
 }
