@@ -118,6 +118,15 @@ public class JsonUtil {
 		return fmmap;
 	}
 
+	/**
+	 * 获取含有指定参数的方法
+	 * @author JiangZhiYong
+	 * @QQ 359135103
+	 * 2017年10月16日 下午5:25:23
+	 * @param cls
+	 * @param parameterClass 参数类，null加载所有方法
+	 * @return
+	 */
 	public static Map<String, Method> getFieldMethodMap(Class<?> cls, Class<?> parameterClass) {
 		Map<String, Method> fmmap = new ConcurrentHashMap<>();
 		Method[] methods = cls.getDeclaredMethods();
@@ -128,11 +137,11 @@ public class JsonUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static void register(Class<?> cls, Method[] methods, Map<String, Method> fmmap, Class<?> parameterClass) {
 		for (Method method : methods) {
-			if (Modifier.isStatic(method.getModifiers()) || method.getParameters().length < 1) { // 非静态,非常量
+			if (Modifier.isStatic(method.getModifiers()) /*|| method.getParameters().length < 1*/) { // 非静态,非常量
 				continue;
 			}
 			try {
-				if (((Class) method.getParameters()[0].getParameterizedType()).isAssignableFrom(parameterClass)) {
+				if (parameterClass==null||((Class) method.getParameters()[0].getParameterizedType()).isAssignableFrom(parameterClass)) {
 					String abilityName = method.getName();
 					fmmap.put(abilityName, method);
 				}
