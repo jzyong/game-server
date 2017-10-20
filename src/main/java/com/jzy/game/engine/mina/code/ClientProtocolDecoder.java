@@ -44,7 +44,7 @@ public class ClientProtocolDecoder extends ProtocolDecoderImpl {
 	public static final byte[] AES_KEY = "vWf7g1Gt701h0.#0".getBytes();
 	public static final byte[] AES_IV = "rgnHV16#8HQFc&16".getBytes();
 
-	private int maxCountPerSecond = 30; // 每秒钟最大接收消息数
+	private int maxCountPerSecond = 100; // 每秒钟最大接收消息数
 
 	public ClientProtocolDecoder() {
 	}
@@ -179,9 +179,10 @@ public class ClientProtocolDecoder extends ProtocolDecoderImpl {
 		if (session.containsAttribute(RECEIVE_COUNT)) {
 			count = (int) session.getAttribute(RECEIVE_COUNT);
 		}
-		if (session.getLastReadTime() - startTime > 1000L) {
+		long interval= session.getLastReadTime() - startTime;
+		if (interval > 1000L) {
 			if (count > getMaxCountPerSecond()) {
-				MsgUtil.close(session, "%s--> 消息过于频繁:%d,超过次数：%d", MsgUtil.getIp(session), count,
+				MsgUtil.close(session, "%s %d--> %dms内消息过于频繁:%d,超过次数：%d", MsgUtil.getIp(session),session.getId(),interval, count,
 						getMaxCountPerSecond());
 				return false;
 			}
