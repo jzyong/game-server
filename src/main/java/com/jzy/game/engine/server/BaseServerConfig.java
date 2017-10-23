@@ -25,6 +25,10 @@ public abstract class BaseServerConfig {
     @Element(required = false)
     protected String channel;
     
+    // 服务器版本
+    @Element(required = false)
+    protected String version="0.0.1";
+    
     // 接收数据缓冲大小
     @Element(required = false)
     protected int receiveBufferSize = 1048576;
@@ -124,5 +128,14 @@ public abstract class BaseServerConfig {
     public void setSendBufferSize(int sendBufferSize) {
         this.sendBufferSize = sendBufferSize;
     }
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+    
 
 }

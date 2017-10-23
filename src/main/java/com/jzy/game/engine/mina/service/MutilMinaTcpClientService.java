@@ -81,7 +81,7 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	}
 
 	/**
-	 * 创建连接大厅配置文件
+	 * 创建连接网关配置文件
 	 * 
 	 * @param serverInfo
 	 * @param port

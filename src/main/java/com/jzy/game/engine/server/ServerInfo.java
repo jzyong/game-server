@@ -52,8 +52,8 @@ public class ServerInfo {
 	private int freeMemory;
 	// 可用内存
 	private int totalMemory;
-	// 最大内存
-	private int maxMemory;
+	// 版本号,用于判断客户端连接那个服务器
+	private String version;
 
 	@JSONField(serialize = false)
 	private transient IoSession session;
@@ -279,12 +279,12 @@ public class ServerInfo {
 		this.totalMemory = totalMemory;
 	}
 
-	public int getMaxMemory() {
-		return maxMemory;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setMaxMemory(int maxMemory) {
-		this.maxMemory = maxMemory;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
 	@Override
