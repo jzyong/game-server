@@ -17,6 +17,7 @@ import com.jzy.game.engine.util.FileUtil;
  * <li>昂贵的通信代价，tcp通信非常频繁</li>
  * <li>额外功能通过lua字符串脚本实现，通信耗费较高</li>
  * <li>集合没有没有分布式多进程操作，最好全部加载到本地内存处理</li>
+ * <li>垃圾回收非常频繁，jvm内存分配高达90%</li>
  * </p>
  * <br>
  * <p>

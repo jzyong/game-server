@@ -15,11 +15,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.LoggerFactory;
 
 import com.jzy.game.engine.util.FileUtil;
+import com.jzy.game.engine.util.JsonUtil;
 
 import org.slf4j.Logger;
 import redis.clients.jedis.HostAndPort;
@@ -27,9 +29,9 @@ import redis.clients.jedis.JedisCluster;
 
 /**
  * redis集群管理类
+ * 
  * @author JiangZhiYong
- * @QQ 359135103
- * 2017年8月18日 下午5:32:34
+ * @QQ 359135103 2017年8月18日 下午5:32:34
  */
 public class JedisManager {
 
@@ -202,4 +204,77 @@ public class JedisManager {
 		}
 		return (T) object;
 	}
+
+	/**
+	 * 获取所有map对象
+	 * 
+	 * @author JiangZhiYong
+	 * @QQ 359135103 2017年10月24日 上午10:05:43
+	 * @param key
+	 * @param keyClass
+	 * @param valueClass
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <K, V> Map<K, V> hgetAll(final String key, final Class<K> keyClass, final Class<V> valueClass) {
+		Map<String, String> hgetAll = getJedisCluster().hgetAll(key);
+		if (hgetAll == null) {
+			return null;
+		}
+		Map<K, V> map = new ConcurrentHashMap<>();
+		hgetAll.forEach((k, v) -> {
+			map.put((K) parseKey(k, keyClass), JsonUtil.parseObject(v, valueClass));
+		});
+		return map;
+	}
+
+	/**
+	 * 获取map指定属性对象
+	 * 
+	 * @author JiangZhiYong
+	 * @QQ 359135103 2017年10月24日 上午10:08:43
+	 * @param key
+	 * @param field
+	 * @return
+	 */
+	public <V> V hget(final String key, final Object field, Class<V> clazz) {
+		String hget = getJedisCluster().hget(key, field.toString());
+		if (hget == null) {
+			return null;
+		}
+		return JsonUtil.parseObject(hget, clazz);
+	}
+	
+	/**
+	 * 存储map对象
+	 * @author JiangZhiYong
+	 * @QQ 359135103
+	 * 2017年10月24日 上午10:13:21
+	 * @param key
+	 * @param field
+	 * @param value
+	 * @return
+	 */
+	public Long hset(final String key, final Object field, final Object value) {
+		return getJedisCluster().hset(key, field.toString(), JsonUtil.toJSONStringWriteClassNameWithFiled(value));
+	}
+
+	/**
+	 * 解析key对象
+	 * 
+	 * @author JiangZhiYong
+	 * @QQ 359135103 2017年10月24日 上午9:57:45
+	 * @param key
+	 * @param keyClass
+	 * @return
+	 */
+	private Object parseKey(String key, Class<?> keyClass) {
+		if (keyClass.isAssignableFrom(Long.class)) {
+			return Long.parseLong(key);
+		} else if (keyClass.isAssignableFrom(Integer.class)) {
+			return Integer.parseInt(key);
+		}
+		return key;
+	}
+
 }
