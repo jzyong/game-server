@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<description>大厅 脚本</description>
+	<parent>
+		<groupId>com.jjy.game</groupId>
+		<artifactId>game</artifactId>
+		<version>releases</version>
+	</parent>
+	<artifactId>game-hall-scripts</artifactId>
+	<name>game-hall-scripts</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>game-hall</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jzy.game</groupId>
+			<artifactId>game-engine</artifactId>
+			<version>releases</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- 自定义工具插件 -->
+			<plugin>
+				<groupId>com.jzy.game</groupId>
+				<artifactId>game-maven-plugin</artifactId>
+				<version>releases</version>
+				<configuration>
+					<messagePath>\com\jjy\game\message\hall</messagePath>	<!-- protobuf类路径 -->
+					<scriptPath>\com\jjy\game\hall\tcp</scriptPath>	<!-- 生成Handler类路径 -->
+				</configuration>
+				<executions>
+					<execution>
+						<!-- 生成消息处理器 -->
+						<id>tcpHandler</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>tcpHandler</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

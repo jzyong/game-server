@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="" name="description"/>
+    <meta content="JiangZhiYong" name="author"/>
+    <title>服务器</title>
+    <!-- Bootstrap Styles-->
+    <#assign ctx=(rc.getContextPath())!''>
+        <link href="${ctx}/assets/css/bootstrap.css" rel="stylesheet"/>
+        <!-- FontAwesome Styles-->
+        <link href="${ctx}/assets/css/font-awesome.css" rel="stylesheet"/>
+        <!-- Custom Styles-->
+        <link href="${ctx}/assets/css/custom-styles.css" rel="stylesheet"/>
+        <!-- Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <!-- TABLE STYLES-->
+        <link href="${ctx}/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>
+        </head>
+<body>
+<div id="wrapper">
+
+    <#include "/common/nav-top.html"/>
+    <!--/. NAV TOP  -->
+
+
+    <#include "*/common/nav-left.html"/>
+    <!-- /. NAV SIDE  -->
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                服务器
+                <small>服务器信息...</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="${ctx}/home">首页</a></li>
+                <li><a href="${ctx}/user/list">服务器</a></li>
+                <li class="active">列表</li>
+            </ol>
+        </div>
+
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            服务器
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>名称</th>
+                                        <th>IP</th>
+                                        <th>TCP端口</th>
+                                        <th>HTTP端口</th>
+                                        <th>状态</th>
+                                        <th>版本</th>
+                                        <th>在线人数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <#if servers?has_content>
+                                        <#list servers as server>
+                                            <tr class="odd gradeX">
+                                                <td>${server.id?string['0']}</td>
+                                                <#if server.name?has_content>
+                                                    <td>${server.name}</td>
+                                                    <#else>
+                                                        <td>&nbsp;</td>
+                                                </#if>
+                                                <td>${server.ip}</td>
+                                                <td>${server.port?string['0']}</td>
+                                                <td>${server.httpPort?string['0']}</td>
+                                                <#if server.state==0>
+                                                    <td>正常</td>
+                                                    <#elseif server.state==1>
+                                                        <td>维护</td>
+                                                        <#else>
+                                                            <td>未知</td>
+                                                </#if>
+                                                <#if server.version?has_content>
+                                                    <td>${server.version}</td>
+                                                    <#else>
+                                                        <td>&nbsp;</td>
+                                                </#if>
+                                                <td>${server.online}</td>
+
+                                                <td class="center">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-primary" onclick="getJvmInfo('${server.ip}',${server.httpPort?string['0']})">详细</button>
+                                                        <button data-toggle="dropdown"
+                                                                class="btn btn-primary dropdown-toggle"><span
+                                                                class="caret"></span></button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="#"
+                                                                   onclick="serverState(${server.id?string['0']},${server.type?string['0']},1)">维护</a>
+                                                            </li>
+                                                            <li><a href="#"
+                                                                   onclick="serverState(${server.id?string['0']},${server.type?string['0']},0)">运行</a>
+                                                            </li>
+                                                            <li><a href="#"
+                                                                   onclick="exitServer('${server.ip}',${server.httpPort?string['0']})">关服</a>
+                                                            </li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#" id="loadScriptButton"
+                                                                   onclick="showScriptPanel('${server.ip}',${server.httpPort?string['0']})">加载脚本</a>
+                                                            </li>
+                                                            <li><a href="#" id="loadConfigButton"
+                                                                   onclick="showConfigPanel('${server.ip}',${server.httpPort?string['0']})">加载配置</a>
+                                                            </li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="#" id="threadInfoButton"
+                                                                   onclick="getThreadInfo('${server.ip}',${server.httpPort?string['0']})">线程信息</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#if>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+
+            <!-- 加载脚本 -->
+            <div class="row" id="reloadScript">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">加载脚本</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="scriptPath">IP</label>
+                                    <input type="text" readonly="readonly" class="form-control" id="scriptIp"
+                                           name="scriptIp" placeholder="IP地址" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="scriptPath">端口</label>
+                                    <input type="text" readonly="readonly" class="form-control" id="scriptPort"
+                                           name="scriptPort" placeholder="端口" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="scriptPath">路径</label>
+                                    <input type="text" class="form-control" id="scriptPath" name="scriptPath"
+                                           placeholder="默认全部加载 路径或脚本所在位置">
+                                </div>
+                                <button type="button" id="submitReloadScript" class="btn btn-default"
+                                        onclick="reloadScript()">加载
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 加载配置 -->
+            <div class="row" id="reloadConfig">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">加载配置</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="scriptPath">表名</label>
+                                    <input type="text" class="form-control" id="tableName" name="tableName"
+                                           placeholder="默认全部加载 表名称">
+                                </div>
+                                <button type="button" class="btn btn-default" id="submitReloadConfig"
+                                        onclick="reloadConfig()">加载
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--显示key value属性-->
+            <div class="row" id="keyValuePanel">
+                <div class="col-md-12">
+                    <!--    Context Classes  -->
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading">
+                            服务器&线程
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>属性名称</th>
+                                        <th>属性值</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="keyValueBody">
+                                    <tr class="success">
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td>2</td>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr class="warning">
+                                        <td>3</td>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                    <tr class="danger">
+                                        <td>4</td>
+                                        <td>John</td>
+                                        <td>Smith</td>
+                                        <td>@jsmith</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  end  Context Classes  -->
+                </div>
+            </div>
+
+            <!-- /. ROW  -->
+            <#include "/common/footer.html"/>
+        </div>
+
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="${ctx}/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="${ctx}/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="${ctx}/assets/js/jquery.metisMenu.js"></script>
+<script src="${ctx}/assets/js/game/nav-left-hide.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="${ctx}/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="${ctx}/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+    $('#reloadScript').hide();
+    $('#reloadConfig').hide();
+    $('#keyValuePanel').hide();
+    var ctx = '${ctx}';
+</script>
+<!-- Custom Js -->
+<!--<script src="${ctx}/assets/js/custom-scripts.js"></script>-->
+<script src="${ctx}/assets/js/game/server.js"></script>
+
+
+</body>
+</html>

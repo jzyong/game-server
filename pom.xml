@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jjy.game</groupId>
+	<artifactId>game</artifactId>
+	<version>releases</version>
+	<packaging>pom</packaging>
+	<name>game</name>
+	<description>棋牌游戏服务器</description>
+	<modules>
+		<module>game-gate</module>
+		<module>game-model</module>
+		<module>game-cluster</module>
+		<module>game-message</module>
+		<module>game-bydr</module>
+		<module>game-hall</module>
+		<module>game-bydr-world</module>
+  </modules>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<game.version>0.0.1-SNAPSHOT</game.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.18</version>
+		</dependency>
+		<!--xml 配置文档 -->
+		<dependency>
+			<groupId>com.squareup.retrofit</groupId>
+			<artifactId>converter-simplexml</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.3.0</version>
+				<extensions>true</extensions>
+			</plugin>
+
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>JZY</id>
+			<build>
+				<plugins>
+					<!-- 自定义插件 -->
+					<plugin>
+						<groupId>com.jzy.game</groupId>
+						<artifactId>game-maven-plugin</artifactId>
+						<version>releases</version>
+						<executions>
+							<execution>
+								<!-- 更新项目代码 -->
+								<id>updateProject</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>updateProject</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>maven-central</id>
+			<name>maven-central</name>
+			<url>http://192.168.0.71:8081/repository/maven-central/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven-releases</id>
+			<name>Releases</name>
+			<url>http://192.168.0.71:8081/repository/maven-releases/</url>
+		</repository>
+		<repository>
+			<id>snapshots</id>
+			<name>Snapshots</name>
+			<url>http://192.168.0.71:8081/repository/snapshots/</url>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>maven-releases</id>
+			<name>Nexus Releases Repository</name>
+			<url>http://192.168.0.71:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>snapshots</name>
+			<url>http://192.168.0.71:8081/repository/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+</project>

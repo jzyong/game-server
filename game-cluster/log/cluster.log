@@ -1,0 +1,130 @@
+2017-04-05 16:37:43 HttpServer.java:109 - [ WARN ] 已开始监听UDP端口：8680
+2017-04-05 16:37:43 TcpServer.java:104 - [ WARN ] 已开始监听TCP端口：8600
+2017-04-05 16:39:59 TcpServer.java:104 - [ WARN ] 已开始监听TCP端口：8600
+2017-04-05 16:39:59 HttpServer.java:109 - [ WARN ] 已开始监听UDP端口：8680
+2017-04-05 16:40:56 HttpServer.java:109 - [ WARN ] 已开始监听UDP端口：8680
+2017-04-05 16:40:56 TcpServer.java:104 - [ WARN ] 已开始监听TCP端口：8600
+2017-04-05 16:42:58 TcpServer.java:104 - [ WARN ] 已开始监听TCP端口：8600
+2017-04-05 16:42:58 HttpServer.java:109 - [ WARN ] 已开始监听UDP端口：8680
+2017-04-05 16:53:11 TcpServer.java:106 - [ WARN ] 监听TCP端口：8600已被占用
+2017-04-05 16:53:11 TcpServer.java:107 - [ ERROR ] TCP 服务异常
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8600
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:11 SysUtil.java:25 - [ ERROR ] com.jjy.game.engine.mina.HttpServer$BindServer
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8680
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:11 SysUtil.java:26 - [ WARN ] 监听UDP端口：8680已被占用
+2017-04-05 16:53:11 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterHttpServer已停止
+2017-04-05 16:53:11 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterTcpServer已停止
+2017-04-05 16:53:36 TcpServer.java:106 - [ WARN ] 监听TCP端口：8600已被占用
+2017-04-05 16:53:36 TcpServer.java:107 - [ ERROR ] TCP 服务异常
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8600
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:36 SysUtil.java:25 - [ ERROR ] com.jjy.game.engine.mina.HttpServer$BindServer
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8680
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:36 SysUtil.java:26 - [ WARN ] 监听UDP端口：8680已被占用
+2017-04-05 16:53:36 SysUtil.java:25 - [ ERROR ] com.jjy.game.cluster.server.ClusterServer
+2017-04-05 16:53:36 SysUtil.java:26 - [ WARN ] 加载脚本错误
+2017-04-05 16:53:36 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterHttpServer已停止
+2017-04-05 16:53:36 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterTcpServer已停止
+2017-04-05 16:53:43 SysUtil.java:25 - [ ERROR ] com.jjy.game.engine.mina.HttpServer$BindServer
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8680
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:43 SysUtil.java:26 - [ WARN ] 监听UDP端口：8680已被占用
+2017-04-05 16:53:43 TcpServer.java:106 - [ WARN ] 监听TCP端口：8600已被占用
+2017-04-05 16:53:43 TcpServer.java:107 - [ ERROR ] TCP 服务异常
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8600
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:43 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterTcpServer已停止
+2017-04-05 16:53:43 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterHttpServer已停止
+2017-04-05 16:53:51 SysUtil.java:25 - [ ERROR ] com.jjy.game.engine.mina.HttpServer$BindServer
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8680
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:51 SysUtil.java:26 - [ WARN ] 监听UDP端口：8680已被占用
+2017-04-05 16:53:51 TcpServer.java:106 - [ WARN ] 监听TCP端口：8600已被占用
+2017-04-05 16:53:51 TcpServer.java:107 - [ ERROR ] TCP 服务异常
+java.io.IOException: Error while binding on 0.0.0.0/0.0.0.0:8600
+original message : Address already in use: bind
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:238)
+	at org.apache.mina.transport.socket.nio.NioSocketAcceptor.open(NioSocketAcceptor.java:51)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.registerHandles(AbstractPollingIoAcceptor.java:586)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor.access$400(AbstractPollingIoAcceptor.java:71)
+	at org.apache.mina.core.polling.AbstractPollingIoAcceptor$Acceptor.run(AbstractPollingIoAcceptor.java:454)
+	at org.apache.mina.util.NamePreservingRunnable.run(NamePreservingRunnable.java:64)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-04-05 16:53:51 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterHttpServer已停止
+2017-04-05 16:53:51 SysUtil.java:25 - [ ERROR ] com.jjy.game.cluster.server.ClusterServer
+2017-04-05 16:53:51 SysUtil.java:26 - [ WARN ] 加载脚本错误
+2017-04-05 16:53:51 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterTcpServer已停止
+2017-04-05 16:54:50 HttpServer.java:109 - [ WARN ] 已开始监听UDP端口：8680
+2017-04-05 16:54:50 TcpServer.java:104 - [ WARN ] 已开始监听TCP端口：8600
+2017-04-05 16:54:50 SysUtil.java:25 - [ ERROR ] com.jjy.game.cluster.server.ClusterServer
+2017-04-05 16:54:50 SysUtil.java:26 - [ WARN ] 加载脚本错误
+2017-04-05 16:54:50 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterHttpServer已停止
+2017-04-05 16:54:50 Service.java:155 - [ WARN ] 服务com.jjy.game.cluster.server.ClusterTcpServer已停止

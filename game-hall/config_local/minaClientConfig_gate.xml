@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaClientConfig>
+    <id>${GAME.ID}</id>
+    <receiveBufferSize>1048576</receiveBufferSize>
+    <sendBufferSize>1048576</sendBufferSize>
+    <orderedThreadPoolExecutorSize>10</orderedThreadPoolExecutorSize>
+    <soLinger>0</soLinger>
+    <type>HALL</type>
+    <name>大厅 ${GAME.ID}服</name>
+    <maxConnectCount>3</maxConnectCount>
+    <connTo>
+        <receiveBufferSize>1048576</receiveBufferSize>
+        <sendBufferSize>1048576</sendBufferSize>
+        <type>HALL</type>
+        <host>${GAME.CONNTO.HALL.HOST}</host>
+        <port>8520</port>
+    </connTo>
+</minaClientConfig>

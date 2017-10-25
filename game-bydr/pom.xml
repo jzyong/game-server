@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<description>捕鱼达人游戏逻辑服</description>
+	<parent>
+		<groupId>com.jjy.game</groupId>
+		<artifactId>game</artifactId>
+		<version>releases</version>
+	</parent>
+	<artifactId>game-bydr</artifactId>
+	<name>game-bydr</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.jzy.game</groupId>
+			<artifactId>game-engine</artifactId>
+			<version>releases</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>game-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>game-message</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+	 <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.jjy.game.bydr.AppBydr</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>config_local</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <filters>
+            <filter>
+                src/main/resources/Filter/LOCAL_DEFAULT.properties
+            </filter>
+        </filters>
+        <resources>
+            <!-- 过滤配置资源 -->
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>true</filtering>
+                <excludes> <!--不过滤的资源文件-->
+                    <exclude>Filter/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+    <profiles>
+        <profile>
+            <id>JZY</id>
+            <build>
+                <filters>
+                    <filter>
+                        src/main/resources/Filter/LOCAL_JZY.properties
+                    </filter>
+                </filters>
+
+                <resources>
+                    <!-- 过滤配置资源 -->
+                    <resource>
+                        <directory>src/main/resources/</directory>
+                        <filtering>true</filtering>
+                        <excludes> <!--不过滤的资源文件-->
+                            <exclude>Filter/*</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>LOCAL_TEST1</id>
+            <build>
+                <filters>
+                    <filter>
+                        src/main/resources/Filter/LOCAL_TEST1.properties
+                    </filter>
+                </filters>
+
+                <resources>
+                    <!-- 过滤配置资源 -->
+                    <resource>
+                        <directory>src/main/resources/</directory>
+                        <filtering>true</filtering>
+                        <excludes> <!--不过滤的资源文件-->
+                            <exclude>Filter/*</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>LOCAL_TEST2</id>
+            <build>
+                <filters>
+                    <filter>
+                        src/main/resources/Filter/LOCAL_TEST2.properties
+                    </filter>
+                </filters>
+
+                <resources>
+                    <!-- 过滤配置资源 -->
+                    <resource>
+                        <directory>src/main/resources/</directory>
+                        <filtering>true</filtering>
+                        <excludes> <!--不过滤的资源文件-->
+                            <exclude>Filter/*</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+	
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaClientConfig>
+    <id>${GAME.ID}</id>
+    <receiveBufferSize>1048576</receiveBufferSize>
+    <sendBufferSize>1048576</sendBufferSize>
+    <orderedThreadPoolExecutorSize>2</orderedThreadPoolExecutorSize>
+    <soLinger>0</soLinger>
+    <type>HALL</type>
+    <maxConnectCount>1</maxConnectCount>
+    <connTo>
+        <receiveBufferSize>1048576</receiveBufferSize>
+        <sendBufferSize>1048576</sendBufferSize>
+        <type>CLUSTER</type>
+        <host>${GAME.CONNTO.CLUSTER.HOST}</host>
+        <port>8000</port>
+    </connTo>
+</minaClientConfig>

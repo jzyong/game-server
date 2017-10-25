@@ -1,0 +1,74 @@
+option java_package = "com.jjy.game.message";
+import "Mid.proto";
+
+//注册服务器
+message ServerRegisterRequest{
+	optional MID mid				= 1 [default = ServerRegisterReq]; 
+	required ServerInfo serverInfo	= 2;	//服务器信息
+}
+
+//注册服务器
+message ServerRegisterResponse{
+	optional MID mid				= 1 [default = ServerRegisterRes];
+	optional ServerInfo serverInfo  = 2; //返回服务器信息，状态，在线人数在集群服设置
+}
+
+//服务器列表
+message ServerListRequest{
+	optional MID mid				= 1 [default = ServerListReq];
+	required int32 serverType		= 2;	//服务器类型
+}
+//服务器列表
+message ServerListResponse{
+	optional MID mid				= 1 [default = ServerListRes];
+	repeated ServerInfo serverInfo	= 2;	//服务器信息
+}
+
+//改变角色所在服务器
+message ChangeRoleServerRequest{
+	optional MID mid				= 1 [default = ChangeRoleServerReq];
+	optional int32 serverId			= 2; //目标服务器ID
+	required int32 serverType		= 3; //目标服务器类型
+	required int64 roleId			= 4; //角色ID
+}
+//改变角色所在服务器
+message ChangeRoleServerResponse{
+	optional MID mid				= 1 [default = ChangeRoleServerRes];
+	optional int32	result			= 2; //结果 0成功 1角色为登录 2未找到服务器
+}
+
+//服务器事件
+message ServerEventRequest{
+	optional MID mid				= 1 [default = ServerEventReq];
+	required int32 type				= 2; //事件类型  1踢玩家
+	optional int32 serverId			= 3; //int参数
+	optional int64 id				= 4; //long参数
+	repeated int64 ids				= 5; //Id列表
+	optional string info			= 6; //其他额外信息
+}
+
+//服务器事件
+message ServerEventResponse{
+	optional MID mid				= 1 [default = ServerEventRes];
+	required int32 type				= 2; //事件类型  1踢玩家
+	optional int32 result			= 3; //结果
+	
+}
+
+
+//服务器信息
+message ServerInfo {
+    required int32 id 			= 1; // 服务器ID
+    optional string ip			= 2; // 内网地址
+    optional int32 type 		= 3; // 类型   
+    optional int32 port 		= 4; // 端口
+    optional int32 state 		= 5; //状态 -1表示维护；0表示准备开启；1表示正常，2表示不显示，3表示内部开启
+    optional int32 online 		= 6; // 在线人数
+    optional int32 maxUserCount = 7; // 在线人数
+    optional int32 httpport 	= 8; // http端口
+    optional string name 		= 9; //名字 
+    optional string wwwip 		= 10; // 外网地址
+    optional int32 freeMemory	= 11; //空闲内存
+    optional int32 totalMemory	= 12; //可用内存
+    optional string version		= 13; //版本号
+}

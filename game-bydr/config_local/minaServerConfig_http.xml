@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaServerConfig>
+   <httpPort>${GAME.HTTPPORT}</httpPort>
+   <ip>${GAME.HOST}</ip>
+   <orderedThreadPoolExecutorSize>4</orderedThreadPoolExecutorSize>
+   <receiveBufferSize>204800</receiveBufferSize>
+   <sendBufferSize>204800</sendBufferSize>
+   <reuseAddress>true</reuseAddress>
+   <tcpNoDelay>true</tcpNoDelay>
+   <readerIdleTime>30</readerIdleTime>
+   <writerIdleTime>30</writerIdleTime>
+   <soLinger>30</soLinger>
+</minaServerConfig>

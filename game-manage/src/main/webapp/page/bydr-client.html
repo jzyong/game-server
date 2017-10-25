@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="" name="description"/>
+    <meta content="JiangZhiYong" name="author"/>
+    <title>服务器</title>
+    <!-- Bootstrap Styles-->
+    <#assign ctx=(rc.getContextPath())!''/>
+        <link href="${ctx}/assets/css/bootstrap.css" rel="stylesheet"/>
+        <!-- FontAwesome Styles-->
+        <link href="${ctx}/assets/css/font-awesome.css" rel="stylesheet"/>
+        <!-- Morris Chart Styles-->
+
+        <!-- Custom Styles-->
+        <link href="${ctx}/assets/css/custom-styles.css" rel="stylesheet"/>
+        <!-- Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <!-- TABLE STYLES-->
+        <link href="${ctx}/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>
+        </head>
+<body onload="bydrInit()">
+<div id="wrapper">
+
+    <#include "/common/nav-top.html"/>
+    <!--/. NAV TOP  -->
+
+
+    <#include "*/common/nav-left.html"/>
+    <!-- /. NAV SIDE  -->
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                捕鱼达人
+                <small>测试客户端...</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="${ctx}/home">首页</a></li>
+                <li class="active">捕鱼达人</li>
+            </ol>
+        </div>
+
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <canvas id="bydrCanvas" width="800" height="600">
+
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!--输出日志-->
+            <div class="row" id="showLog">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">日志</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <textarea rows="12" cols="90" id="showLogPanel"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 登录 -->
+            <div class="row" id="loginGame">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">登录游戏</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="account">账号</label>
+                                    <input type="text" class="form-control" id="account" name="account"
+                                           placeholder="账号">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密码</label>
+                                    <input type="text" class="form-control" id="password" name="password"
+                                           placeholder="密码">
+                                </div>
+                                <!--不能使用submit进行提交，跳转回中断websocket-->
+                                <input type="button" class="btn btn-default" value="登录"
+                                       onclick="loginRequest('${wsUrl}')"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聊天 -->
+            <div class="row" id="gameChat">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">聊天</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="chatReceiverId">ID</label>
+                                    <input type="text" class="form-control" id="chatReceiverId" name="chatReceiverId"
+                                           placeholder="接收者角色ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="chatMsg">内容</label>
+                                    <input type="text" class="form-control" id="chatMsg" name="chatMsg"
+                                           placeholder="聊天内容">
+                                </div>
+                                <!--不能使用submit进行提交，跳转回中断websocket,函数名称需要唯一 必须“/”结尾，不然报找不到函数？？？ -->
+                                <input type="button" class="btn btn-default" value="发送" onclick="bydrChatRequest()"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 请求按钮组 -->
+            <div class="row" id="requestButtonGroup">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">请求按钮组</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <input type="button" class="btn btn-default" value="背包"
+                                       onclick="bydrPacketItemsRequest()"/>
+                                <input type="button" class="btn btn-default" value="邮件"
+                                       onclick="bydrMailListRequest()"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /. ROW  -->
+            <#include "/common/footer.html"/>
+        </div>
+
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="${ctx}/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="${ctx}/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="${ctx}/assets/js/jquery.metisMenu.js"></script>
+<script src="${ctx}/assets/js/game/nav-left-hide.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="${ctx}/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="${ctx}/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+    var ctx = '${ctx}';
+   /* var g=new Game("bydrCanvas","${ctx}/assets/js/game/bydr/R.txt");*/
+</script>
+<!-- Custom Js -->
+<!--<script src="${ctx}/assets/js/custom-scripts.js"></script>-->
+<script src="${ctx}/assets/js/game/websocket-client.js"></script>
+<script src="${ctx}/assets/js/game/bydr/bydr-msg-response.js"></script>
+<script src="${ctx}/assets/js/game/bydr/bydr-msg-request.js"></script>
+<script src="${ctx}/assets/js/game/bydr/bydr-role.js"></script>
+<script src="${ctx}/assets/js/game/protobuf.js"></script>
+<!--<script src="${ctx}/assets/js/game/easeljs.js"></script>
+<script src="https://code.createjs.com/tweenjs-0.6.2.min.js"></script>-->
+
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/underscore-min.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/SimpleJavaScriptInheritance.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Game.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Actor.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Background.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Sence.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Fish.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/CannonBottom.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Cannon.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Bullet.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Web.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/DieFish.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Coin.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/Score.js"></script>
+<script type="text/javascript" src="${ctx}/assets/js/game/bydr/CoinText.js"></script>
+
+
+</body>
+</html>

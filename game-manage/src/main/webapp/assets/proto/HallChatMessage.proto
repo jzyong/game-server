@@ -1,0 +1,64 @@
+option java_package = "com.jjy.game.message.hall";
+import "Mid.proto";
+
+
+//聊天
+message ChatRequest {
+	optional MID mid						= 1 [default = ChatReq]; 	//消息id
+	required ChatType chatType				= 2 [default=PRIVATE]; //聊天类型
+	optional int64 receiverId				= 3; //接收者ID
+	optional string msg						= 4; //聊天消息
+}
+//聊天
+message ChatResponse {
+	optional MID mid						= 1 [default = ChatRes]; 	//消息id
+	optional int64 senderId                 = 2; //发送者ID
+	optional string senderHead              = 3; //发送者头像
+    optional string senderNick            	= 4; //发送者昵称
+	required ChatType chatType				= 5; //聊天类型
+	optional string msg						= 6; //聊天消息
+}
+
+//请求邮件列表
+message MailListRequest{
+	optional MID mid						= 1 [default = MailListReq]; 	//消息id
+}
+//请求邮件列表
+message MailListResponse{
+	optional MID mid						= 1 [default = MailListRes]; 	//消息id
+	repeated MailInfo mails					= 2; //邮件列表
+}
+
+
+//修改邮件状态
+message ModifyMailRequest{
+	optional MID mid						= 1 [default = ModifyMailReq]; 	//消息id
+	required int64 mailId					= 2; //邮件ID
+	required int32 state					= 3; //状态 0新邮件、1已读、2已领取道具、3删除
+}
+//修改邮件状态
+message ModifyMailResponse{
+	optional MID mid						= 1 [default = ModifyMailRes]; 	//消息id
+	optional int32 result					= 2; //结果 0成功
+}
+
+
+
+//邮件
+message MailInfo{
+	required int64 id			= 1; //ID
+	optional int64 senderId		= 2; //发送者ID
+	required string title		= 3; //标题
+	required string content		= 4; //内容
+	required int32 state		= 5; //状态 0新邮件、1已读、2已领取道具、3删除
+	required int64 createTime	= 6; //创建时间
+}
+
+
+//聊天类型
+enum ChatType{
+    PRIVATE             = 1; //私聊
+	GUILD				= 2; //公会
+	WORLD				= 3; //世界
+	PMD					= 4; //跑马灯
+}

@@ -1,0 +1,37 @@
+option java_package = "com.jjy.game.message.system";
+import "Mid.proto";
+
+
+//系统错误消息返回
+message SystemErrorResponse{
+	optional MID mid					= 1 [default = SystemErrorRes]; 	//消息id
+	optional SystemErroCode errorCode	= 2; //错误码
+	optional string msg					= 3; //错误信息
+}
+
+//系统错误码
+enum SystemErroCode{
+	HallNotFind							= 1;	//没有可用大厅服
+	GameNotFind							= 2;	//没有可用游戏服
+	ConectReset							= 3;	//连接已重置，失效
+}
+
+//心跳
+message HeartRequest{
+	optional MID mid					= 1 [default = HeartReq]; 	//消息id
+}
+message HeartResponse{
+	optional MID mid					= 1 [default = HeartRes]; 	//消息id
+	optional int64 serverTime			= 2; //服务器时间
+}
+
+//udp连接请求
+message UdpConnectRequest{
+	optional MID mid					= 1 [default =UdpConnectReq]; 	//消息id
+	optional int64 sessionId			= 2; //tcp会话ID
+	optional int64 rid					= 3; //角色ID
+}
+message UdpConnectResponse{
+	optional MID mid					= 1 [default =UdpConnectRes]; 	//消息id
+	optional int32 result				= 2; //0成功 1角色未登录 2会话ID和用户不匹配 3Ip地址不对
+}

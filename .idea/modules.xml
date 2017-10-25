@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/game.iml" filepath="$PROJECT_DIR$/game.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr/game-bydr.iml" filepath="$PROJECT_DIR$/game-bydr/game-bydr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/game-bydr-scripts (2).iml" filepath="$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/game-bydr-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/game-bydr-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/game-bydr-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-world-scripts/game-bydr-world-scripts (1).iml" filepath="$PROJECT_DIR$/game-bydr-world-scripts/game-bydr-world-scripts (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/game-bydr-world-scripts (2).iml" filepath="$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/game-bydr-world-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/game-bydr-world-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/game-bydr-world-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster/game-cluster.iml" filepath="$PROJECT_DIR$/game-cluster/game-cluster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster-scripts/game-cluster-scripts (1).iml" filepath="$PROJECT_DIR$/game-cluster-scripts/game-cluster-scripts (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/game-cluster-scripts (2).iml" filepath="$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/game-cluster-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/game-cluster-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/game-cluster-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-engine/trunk/game-engine.iml" filepath="$PROJECT_DIR$/game-engine/trunk/game-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate/game-gate.iml" filepath="$PROJECT_DIR$/game-gate/game-gate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate-scripts/game-gate-scripts (1).iml" filepath="$PROJECT_DIR$/game-gate-scripts/game-gate-scripts (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (2).iml" filepath="$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (3).iml" filepath="$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/game-gate-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall/game-hall.iml" filepath="$PROJECT_DIR$/game-hall/game-hall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall-scripts/game-hall-scripts (1).iml" filepath="$PROJECT_DIR$/game-hall-scripts/game-hall-scripts (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (2).iml" filepath="$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (3).iml" filepath="$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/game-hall-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-manage/game-manage (1).iml" filepath="$PROJECT_DIR$/game-manage/game-manage (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/game-manage (2).iml" filepath="$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/game-manage (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/game-manage (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/game-manage (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-message/game-message.iml" filepath="$PROJECT_DIR$/game-message/game-message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-model/game-model.iml" filepath="$PROJECT_DIR$/game-model/game-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool/game-tool (1).iml" filepath="$PROJECT_DIR$/game-tool/game-tool (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/game-tool (2).iml" filepath="$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/game-tool (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/game-tool (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/game-tool (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool-scripts/game-tool-scripts (1).iml" filepath="$PROJECT_DIR$/game-tool-scripts/game-tool-scripts (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/game-tool-scripts (2).iml" filepath="$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/game-tool-scripts (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/game-tool-scripts (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/game-tool-scripts (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-zookeeper/game-zookeeper (1).iml" filepath="$PROJECT_DIR$/game-zookeeper/game-zookeeper (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/game-zookeeper (2).iml" filepath="$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/game-zookeeper (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/game-zookeeper (3) (com.jjy.game).iml" filepath="$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/game-zookeeper (3) (com.jjy.game).iml" />
+      <module fileurl="file://$PROJECT_DIR$/jedis/jedis.iml" filepath="$PROJECT_DIR$/jedis/jedis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-scripts/target/maven-archiver/maven-archiver (1).iml" filepath="$PROJECT_DIR$/game-bydr-scripts/target/maven-archiver/maven-archiver (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall/target/maven-archiver/maven-archiver (10).iml" filepath="$PROJECT_DIR$/game-hall/target/maven-archiver/maven-archiver (10).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall/target/maven-archiver/maven-archiver (10).iml" filepath="$PROJECT_DIR$/game-hall/target/maven-archiver/maven-archiver (10).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-manage/target/maven-archiver/maven-archiver (11).iml" filepath="$PROJECT_DIR$/game-manage/target/maven-archiver/maven-archiver (11).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-message/target/maven-archiver/maven-archiver (12).iml" filepath="$PROJECT_DIR$/game-message/target/maven-archiver/maven-archiver (12).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-message/target/maven-archiver/maven-archiver (12).iml" filepath="$PROJECT_DIR$/game-message/target/maven-archiver/maven-archiver (12).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-model/target/maven-archiver/maven-archiver (13).iml" filepath="$PROJECT_DIR$/game-model/target/maven-archiver/maven-archiver (13).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-model/target/maven-archiver/maven-archiver (13).iml" filepath="$PROJECT_DIR$/game-model/target/maven-archiver/maven-archiver (13).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-tool/target/maven-archiver/maven-archiver (14).iml" filepath="$PROJECT_DIR$/game-tool/target/maven-archiver/maven-archiver (14).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-zookeeper/target/maven-archiver/maven-archiver (15).iml" filepath="$PROJECT_DIR$/game-zookeeper/target/maven-archiver/maven-archiver (15).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-world/target/maven-archiver/maven-archiver (2).iml" filepath="$PROJECT_DIR$/game-bydr-world/target/maven-archiver/maven-archiver (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr-world/target/maven-archiver/maven-archiver (2).iml" filepath="$PROJECT_DIR$/game-bydr-world/target/maven-archiver/maven-archiver (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr/target/maven-archiver/maven-archiver (3).iml" filepath="$PROJECT_DIR$/game-bydr/target/maven-archiver/maven-archiver (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-bydr/target/maven-archiver/maven-archiver (3).iml" filepath="$PROJECT_DIR$/game-bydr/target/maven-archiver/maven-archiver (3).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster-scripts/target/maven-archiver/maven-archiver (4).iml" filepath="$PROJECT_DIR$/game-cluster-scripts/target/maven-archiver/maven-archiver (4).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster/target/maven-archiver/maven-archiver (5).iml" filepath="$PROJECT_DIR$/game-cluster/target/maven-archiver/maven-archiver (5).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-cluster/target/maven-archiver/maven-archiver (5).iml" filepath="$PROJECT_DIR$/game-cluster/target/maven-archiver/maven-archiver (5).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-engine/trunk/target/maven-archiver/maven-archiver (6).iml" filepath="$PROJECT_DIR$/game-engine/trunk/target/maven-archiver/maven-archiver (6).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-engine/trunk/target/maven-archiver/maven-archiver (6).iml" filepath="$PROJECT_DIR$/game-engine/trunk/target/maven-archiver/maven-archiver (6).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate-scripts/target/maven-archiver/maven-archiver (7).iml" filepath="$PROJECT_DIR$/game-gate-scripts/target/maven-archiver/maven-archiver (7).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate/target/maven-archiver/maven-archiver (8).iml" filepath="$PROJECT_DIR$/game-gate/target/maven-archiver/maven-archiver (8).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-gate/target/maven-archiver/maven-archiver (8).iml" filepath="$PROJECT_DIR$/game-gate/target/maven-archiver/maven-archiver (8).iml" />
+      <module fileurl="file://$PROJECT_DIR$/game-hall-scripts/target/maven-archiver/maven-archiver (9).iml" filepath="$PROJECT_DIR$/game-hall-scripts/target/maven-archiver/maven-archiver (9).iml" />
+    </modules>
+  </component>
+</project>

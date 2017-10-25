@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RedissonClusterConfig>
+	<nodes>
+		<entry>redis://${REDIS_IP}:7000</entry>
+		<entry>redis://${REDIS_IP}:7001</entry>
+		<entry>redis://${REDIS_IP}:7002</entry>
+		<entry>redis://${REDIS_IP}:7003</entry>
+		<entry>redis://${REDIS_IP}:7004</entry>
+		<entry>redis://${REDIS_IP}:7005</entry>
+	</nodes>
+
+</RedissonClusterConfig>

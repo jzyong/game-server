@@ -1,0 +1,72 @@
+option java_package = "com.jjy.game.message";
+
+//1-10000 		内部消息(游戏服务器内部使用)
+//10001-20000           大厅消息（所有非大厅消息，网关进行转发到子游戏服务器处理）
+//20001-30000           捕鱼游戏
+enum MID{
+
+	//服务器内部消息
+	ServerRegisterReq			= 1001;	//注册服务器消息
+	ServerRegisterRes			= 1002;	//注册服务器消息
+	ServerListReq				= 1003;	//获取服务器列表
+	ServerListRes				= 1004;	//获取服务器列表
+	ChangeRoleServerReq			= 1005;	//改变角色服务器
+	ChangeRoleServerRes			= 1006;	//改变角色服务器
+	ServerEventReq				= 1007; //服务器事件
+	ServerEventRes				= 1008; //服务器事件
+	
+	//大厅
+	LoginReq					= 10001; //登录
+	LoginRes					= 10002; //登录
+	LoginSubGameReq				= 10003; //登录子游戏
+	LoginSubGameRes				= 10004; //登录子游戏
+	SystemErrorRes				= 10006; //系统错误消息返回
+	QuitReq						= 10007; //退出游戏
+	QuitRes						= 10008; //退出游戏
+	QuitSubGameReq				= 10009; //退出子游戏
+	QuitSubGameRes				= 10010; //退出子游戏
+	HeartReq					= 10011; //心跳
+	HeartRes					= 10012; //心跳
+	UdpConnectReq				= 10013; //udp连接请求
+	UdpConnectRes				= 10014; //udp连接请求
+	ChatReq						= 10015; //聊天
+	ChatRes						= 10016; //聊天
+	PacketItemsReq				= 10017; //背包列表
+	PacketItemsRes				= 10018; //背包列表
+	UseItemReq					= 10019; //使用道具
+	UseItemRes					= 10020; //使用道具
+	MailListReq					= 10021; //邮件列表
+	MailListRes					= 10022; //邮件列表
+	ModifyMailReq				= 10023; //修改邮件状态
+	ModifyMailRes				= 10024; //修改邮件状态
+	GuildInfoReq				= 10025; //公会详细信息
+	GuildInfoRes				= 10026; //公会详细信息
+	GuildListReq				= 10027; //公会列表
+	GuildListRes				= 10028; //公会列表
+	ApplyGuildReq				= 10029; //申请加入公会
+	ApplyGuildRes				= 10030; //申请加入公会
+	GuildApprovalReq			= 10031; //公会审批
+	GuildApprovalRes			= 10032; //公会审批
+	CreateGuildReq				= 10033; //创建公会
+	CreateGuildRes				= 10034; //创建公会
+	
+	
+	//捕鱼达人
+	EnterRoomReq				= 20001; //进入房间
+	EnterRoomRes				= 20002; //进入房间
+	ApplyAthleticsReq			= 20003; //报名竞技赛
+	ApplyAthleticsRes			= 20004; //报名竞技赛
+	QuitRoomReq					= 20005; //退出房间
+	QuitRoomRes					= 20006; //退出房间
+	FishEnterRoomRes			= 20008; //鱼进入房间
+	RoomInfoRes					= 20010; //房间信息
+	RoomChangeRes				= 20012; //房间改变
+	UseSkillReq					= 20013; //使用技能
+	UseSkillRes					= 20014; //使用技能
+	FireReq						= 20015; //开炮
+	FireRes						= 20016; //开炮
+	FireResultReq				= 20017; //伤害结果
+	FireResultRes				= 20018; //伤害结果
+	GunLeveUpReq				= 20019; //升级炮台
+	GunLeveUpRes				= 20020; //升级炮台
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nettyClientConfig>
+	<id>${GAME.ID}</id>
+	<receiveBufferSize>1048576</receiveBufferSize>
+	<sendBufferSize>1048576</sendBufferSize>
+	<type>GAME_BYDR</type>
+	<name>捕鱼达人 ${GAME.ID}服</name>
+	<maxConnectCount>10</maxConnectCount>
+	<ip>${GAME.CONNTO.HALL.HOST}</ip>
+	<groupThreadNum>10</groupThreadNum> <!-- 线程数 -->
+	<port>8520</port>
+	<info>NettyFirst</info> <!-- 配置次参数优先使用netty通信，否则默认使用mina，一般只选择其一开发即可，此处测试 -->
+</nettyClientConfig>

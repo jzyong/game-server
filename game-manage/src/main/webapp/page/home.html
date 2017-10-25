@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="" name="description"/>
+    <meta content="JiangZhiYong" name="author"/>
+    <title>服务器监控后台</title>
+    <#assign ctx=(rc.getContextPath())!''>
+        <!-- Bootstrap Styles-->
+        <link href="${ctx}/assets/css/bootstrap.css" rel="stylesheet"/>
+        <!-- FontAwesome Styles-->
+        <link href="${ctx}/assets/css/font-awesome.css" rel="stylesheet"/>
+        <!-- Custom Styles-->
+        <link href="${ctx}/assets/css/custom-styles.css" rel="stylesheet"/>
+        <!-- Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <link rel="stylesheet" href="${ctx}/assets/js/Lightweight-Chart/cssCharts.css">
+        </head>
+
+<body>
+<div id="wrapper">
+    <#include "/common/nav-top.html"/>
+    <!--/. NAV TOP  -->
+
+
+    <#include "/common/nav-left.html"/>
+    <!-- /. NAV SIDE  -->
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                面板
+                <small>捕鱼达人</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#">主页</a></li>
+                <li><a href="#">面板</a></li>
+                <li class="active">数据</li>
+            </ol>
+
+        </div>
+        <div id="page-inner">
+
+            <!-- /. ROW  -->
+
+            <div class="row">
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3>44,023</h3>
+                                    <small>网关人数</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-eye fa-5x red"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3>32,850</h3>
+                                    <small>游戏人数</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-shopping-cart fa-5x blue"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3>56,150</h3>
+                                    <small>Comments</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-comments fa-5x green"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3>89,645</h3>
+                                    <small>Daily Profits</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-user fa-5x yellow"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">服务器个数</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="server-count-bar-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title"> 服务器内存</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="server-memory-line-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel panel-default chartJs">
+                        <div class="panel-heading">
+                            在线人数
+                        </div>
+                        <div class="panel-body">
+                            <canvas id="server-online-bar-chart" class="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <#include "/common/footer.html"/>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="${ctx}/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="${ctx}/assets/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="${ctx}/assets/js/jquery.metisMenu.js"></script>
+
+<script src="${ctx}/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+<script src="${ctx}/assets/js/game/nav-left-hide.js"></script>
+
+<!-- Chart Js -->
+<script src="${ctx}/assets/js/chart.min.js"></script>
+<script src="${ctx}/assets/js/game/home-chart.js"></script>
+
+</body>
+
+</html>

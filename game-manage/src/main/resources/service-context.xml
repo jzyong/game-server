@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+    http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+	default-autowire="byName" default-lazy-init="true">
+
+	<description>Spring-database配置</description>
+
+	<context:component-scan base-package="com.jjy.game.manage">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:mongodb.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- mongoDB的配置对象 -->
+	<bean id="mongoOptions" class="com.mongodb.MongoClientOptions">
+		<!-- 服务器是否自动重连，默认为false -->
+		<property name="autoConnectRetry" value="false" />
+		<!-- 对同一个服务器尝试重连的时间(毫秒)，设为0时默认使用15秒 -->
+		<property name="maxAutoConnectRetryTime" value="0" />
+		<!-- 与每个主机的连接数，默认为10 -->
+		<property name="connectionsPerHost" value="10" />
+		<!-- 连接超时时间(毫秒)，默认为10000 -->
+		<property name="connectTimeout" value="10000" />
+		<!-- 是否创建一个finalize方法，以便在客户端没有关闭DBCursor的实例时，清理掉它。默认为true -->
+		<property name="cursorFinalizerEnabled" value="true" />
+		<!-- 线程等待连接可用的最大时间(毫秒)，默认为120000 -->
+		<property name="maxWaitTime" value="120000" />
+		<!-- 可等待线程倍数，默认为5.例如connectionsPerHost最大允许10个连接，则10*5=50个线程可以等待，更多的线程将直接抛异常 -->
+		<property name="threadsAllowedToBlockForConnectionMultiplier"
+			value="5" />
+		<!-- socket读写时超时时间(毫秒)，默认为0，不超时 -->
+		<property name="socketTimeout" value="0" />
+		<!-- 是socket连接在防火墙上保持活动的特性，默认为false -->
+		<property name="socketKeepAlive" value="false" />
+		<!-- 对应全局的WriteConcern.SAFE，默认为false -->
+		<property name="safe" value="true" />
+		<!-- 对应全局的WriteConcern中的w，默认为0 -->
+		<property name="w" value="0" />
+		<!-- 对应全局的WriteConcern中的wtimeout，默认为0 -->
+		<property name="wtimeout" value="0" />
+		<!-- 对应全局的WriteConcern.FSYNC_SAFE，如果为真，每次写入要等待写入磁盘，默认为false -->
+		<property name="fsync" value="false" />
+		<!-- 对应全局的WriteConcern.JOURNAL_SAFE，如果为真，每次写入要等待日志文件写入磁盘，默认为false -->
+		<property name="j" value="false" />
+	</bean>
+
+	<!-- 使用工厂创建morphia实例，同时完成类映射操作 -->
+	<bean id="morphia" class="com.jjy.game.manage.core.ext.MorphiaFactoryBean">
+		<!-- 指定要扫描的POJO包路径 -->
+		<property name="mapPackages">
+			<array>
+				<value>com.jjy.game.manage</value>
+			</array>
+		</property>
+	</bean>
+	
+
+	<!-- 使用工厂创建datastore，同时完成index和caps的确认操作 -->
+	<bean id="datastore" class="com.jjy.game.manage.core.ext.DataStoreFactoryBean">
+		<property name="morphia" ref="morphia" />
+		<property name="dbName" value="${mongo.db.databaseName}" />
+		<!-- 用户名和密码可以为空 -->
+		<property name="uri" value="${mongo.db.host}"/> 
+		<!-- 是否进行index和caps的确认操作，默认为flase -->
+		<property name="toEnsureIndexes" value="true" />
+		<property name="toEnsureCaps" value="true" />
+	</bean>
+	
+</beans>

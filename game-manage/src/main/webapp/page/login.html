@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta content="" name="description" />
+<meta content="webthemez" name="author" />
+<title>登录</title>
+<!-- Bootstrap Styles-->
+<link href="assets/css/bootstrap.css" rel="stylesheet" />
+<!-- FontAwesome Styles-->
+<link href="assets/css/font-awesome.css" rel="stylesheet" />
+
+<link href="assets/css/select2.min.css" rel="stylesheet">
+<link href="assets/css/checkbox3.min.css" rel="stylesheet">
+<!-- Custom Styles-->
+<link href="assets/css/custom-styles.css" rel="stylesheet" />
+<!-- Google Fonts-->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+</head>
+<style>  
+.col-center-block {  
+    float: none;  
+    display: block;  
+    margin-left: auto;  
+    margin-right: auto;  
+}  
+</style>
+<body>
+
+	<div class="row">
+		<div class="col-xs-6 col-center-block">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="card-title">
+						<div class="title">登录</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<form class="form-horizontal" action="user/login" method="post">
+						<div class="form-group">
+							<label for="account" class="col-sm-2 control-label">账号</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" id="userName" name="userName"
+									placeholder="账号">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="password" class="col-sm-2 control-label">密码</label>
+							<div class="col-sm-4">
+								<input type="password" class="form-control" id="password" name="password"
+									placeholder="密码">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-4">
+								<div
+									class="checkbox3 checkbox-round checkbox-check checkbox-light">
+									<input type="checkbox" id="checkbox-10"> <label
+										for="checkbox-10"> 记住账号 </label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-4">
+								<button type="submit" class="btn btn-default">登录</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- JS Scripts-->
+	<!-- jQuery Js -->
+	<script src="assets/js/jquery-1.10.2.js"></script>
+	<!-- Bootstrap Js -->
+	<script src="assets/js/bootstrap.min.js"></script>
+	<!-- Metis Menu Js -->
+	<script src="assets/js/jquery.metisMenu.js"></script>
+	<script src="assets/js/select2.full.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".selectbox").select2();
+		});
+	</script>
+	<!-- Custom Js -->
+	<script src="assets/js/custom-scripts.js"></script>
+</body>
+</html>

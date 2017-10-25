@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaServerConfig>
+   <id>${GATE.ID}</id>
+   <ip>${GATE.HOST}</ip>
+   <port>${GATE.USER.PORT}</port>
+   <httpPort>${GATE.HTTP.PORT}</httpPort>	
+   <type>GATE</type>
+   <name>网关 ${GATE.ID}服</name>
+   <orderedThreadPoolExecutorSize>300</orderedThreadPoolExecutorSize>
+   <receiveBufferSize>1048576</receiveBufferSize>
+   <sendBufferSize>1048576</sendBufferSize>
+   <reuseAddress>true</reuseAddress>
+   <tcpNoDelay>true</tcpNoDelay>
+   <readerIdleTime>180</readerIdleTime> <!--3分钟没收到客户端请求消息，断开当前链接-->
+   <writerIdleTime>0</writerIdleTime>
+   <soLinger>0</soLinger>
+   <channel>JJY</channel>  <!--获取配置等需要-->
+</minaServerConfig>

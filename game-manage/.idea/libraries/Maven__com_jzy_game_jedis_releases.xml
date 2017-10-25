@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jzy.game:jedis:releases">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jzy/game/jedis/releases/jedis-releases.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jzy/game/jedis/releases/jedis-releases-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jzy/game/jedis/releases/jedis-releases-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta content="gm" name="后台测试gm"/>
+    <meta content="JiangZhiYong" name="author"/>
+    <title>GM</title>
+    <#assign ctx=(rc.getContextPath())!''>
+        <!-- Bootstrap Styles-->
+        <link href="${ctx}/assets/css/bootstrap.css" rel="stylesheet"/>
+        <!-- FontAwesome Styles-->
+        <link href="${ctx}/assets/css/font-awesome.css" rel="stylesheet"/>
+        <!-- Custom Styles-->
+        <link href="${ctx}/assets/css/custom-styles.css" rel="stylesheet"/>
+        <!-- Google Fonts-->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+        <!-- TABLE STYLES-->
+        <link href="${ctx}/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet"/>
+        </head>
+<body>
+<div id="wrapper">
+
+    <#include "/common/nav-top.html"/>
+    <!--/. NAV TOP  -->
+    <#include "*/common/nav-left.html"/>
+    <!-- /. NAV SIDE  -->
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                GM
+                <small>GM常用操作，更多操作请查看GM列表，命令直接在聊天输入框输入</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#">主页</a></li>
+                <li><a href="#">gm</a></li>
+                <li class="active">gm</li>
+            </ol>
+
+        </div>
+        <div id="page-inner">
+
+            <!-- 大厅 -->
+            <div class="row" id="hallGmPannel">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">大厅</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="roleId">角色</label>
+                                    <input type="text" class="form-control" id="roleId" name="roleId"
+                                           placeholder="角色ID">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nick">昵称</label>
+                                    <input type="text" class="form-control" id="nick" name="nick"
+                                           placeholder="角色昵称">
+                                </div>
+                            </form>
+                            <br>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="addGold">金币</label>
+                                    <input type="text" class="form-control" id="addGold" name="addGold"
+                                           placeholder="增减的金币">
+                                </div>
+                                <input type="button" class="btn btn-default" value="添加金币"
+                                       onclick="gmAddGold('${gmUrl}')"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 捕鱼 -->
+            <div class="row" id="bydrGmPannel">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">捕鱼</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <!-- <form class="form-inline">
+                                 <div class="form-group">
+                                     <label for="account">账号</label>
+                                     <input type="text" class="form-control" id="account" name="account"
+                                            placeholder="账号">
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="password">密码</label>
+                                     <input type="text" class="form-control" id="password" name="password"
+                                            placeholder="密码">
+                                 </div>
+                                 &lt;!&ndash;不能使用submit进行提交，跳转回中断websocket&ndash;&gt;
+                                 <input type="button" class="btn btn-default" value="登录"
+                                        onclick="loginRequest('${gmUrl}')"/>
+                             </form>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--GM-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            GM列表
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover"
+                                       id="dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>GM</th>
+                                        <th>命令示例</th>
+                                        <th>http示例</th>
+                                        <th>备注</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>添加金币</td>
+                                        <td>&addGold 500</td>
+                                        <td>
+                                            http://192.168.0.17:9102/gm?cmd=addGold&roleId=1&gold=10000&auth=123456
+                                        </td>
+                                        <td> 正数添加，负数减少</td>
+                                    </tr>
+                                    <tr>
+                                        <td>设置等级</td>
+                                        <td>&setLevel 5</td>
+                                        <td>http://192.168.0.17:9102/gm?cmd=setLevel&roleId=1&level=3&auth=123456
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>踢玩家下线</td>
+                                        <td>&offLineRole</td>
+                                        <td>http://192.168.0.17:9102/gm?cmd=offLineRole&roleId=1&auth=123456</td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <#include "/common/footer.html"/>
+    </div>
+    <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="${ctx}/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="${ctx}/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="${ctx}/assets/js/jquery.metisMenu.js"></script>
+<script src="${ctx}/assets/js/game/nav-left-hide.js"></script>
+
+<!-- DATA TABLE SCRIPTS -->
+<script src="${ctx}/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="${ctx}/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script src="${ctx}/assets/js/game/gm.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+    var ctx = '${ctx}';
+</script>
+
+</body>
+</html>
