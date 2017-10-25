@@ -1,0 +1,66 @@
+option java_package = "com.jjy.game.message.bydr";
+import "Mid.proto";
+
+//使用技能
+message UseSkillRequest{
+	optional MID mid			= 1 [default = UseSkillReq]; 	//消息id
+	optional int32 skillId		= 2; //技能配置ID
+}
+//使用技能
+message UseSkillResponse{
+	optional MID mid			= 1 [default = UseSkillRes]; 	//消息id
+	optional int64 rid			= 2; //使用技能玩家ID
+	optional int32 skillId		= 3; //技能配置ID
+	optional int32 result		= 4; //结果
+}
+
+
+//开炮
+message FireRequest{
+	optional MID mid			= 1 [default = FireReq]; 	//消息id
+	optional int32 gold			= 3; //开炮金币
+	optional float angleX		= 4; //角度
+	optional float angleY		= 5; //角度
+	optional int64 targetFishId = 6; //目标鱼
+}
+//开炮
+message FireResponse{
+	optional MID mid			= 1 [default = FireRes]; 	//消息id
+	optional int64 rid			= 3; //开炮的玩家ID
+	optional int32 gold			= 4; //开炮金币
+	optional float angleX		= 5; //角度
+	optional float angleY		= 6; //角度
+	optional int64 targetFishId = 7; //目标鱼
+}
+
+
+//伤害结果
+message FireResultRequest{
+	optional MID mid			= 1 [default = FireResultReq]; 	//消息id
+	repeated int64 targetFishId = 3; //击中目标鱼ID
+	optional int32 multiple		= 4; //特殊鱼计算的倍数 0普通鱼
+	optional int64 specialFishId= 5; //特殊鱼ID
+	optional int32 fireGold		= 6; //开炮金币
+	
+}
+//伤害结果
+message FireResultResponse{
+	optional MID mid			= 1 [default = FireResultRes]; 	//消息id
+	optional int64 rid			= 2; //开炮的玩家ID
+	repeated int64 dieFishId	= 3; //死亡获分的鱼ID
+	optional int64 gold 		= 4; //玩家当前金币
+	optional int32 multiple		= 5; //特殊鱼计算的倍数 0普通鱼 -1获得累积奖
+	optional int64 specialFishId= 6; //特殊鱼ID
+	optional int64 accumulateGold=7; //累积池金币
+}
+
+
+//升级炮台
+message GunLeveUpRequest{
+	optional MID mid			= 1 [default = GunLeveUpReq]; 	//消息id	
+}
+//升级炮台
+message GunLeveUpResponse{
+	optional MID mid			= 1 [default = GunLeveUpRes]; 	//消息id
+	optional int32 result		= 2;
+}

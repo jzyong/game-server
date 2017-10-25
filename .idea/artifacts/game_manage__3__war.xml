@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="game-manage (3):war">
-    <output-path>$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/target</output-path>
-    <root id="archive" name="game.war">
-      <element id="artifact" artifact-name="game-manage (3):war exploded" />
-    </root>
-  </artifact>
-</component>

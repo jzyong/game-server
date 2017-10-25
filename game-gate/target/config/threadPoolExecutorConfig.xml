@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<threadPoolExecutorConfig>
+   <name>IO默认线程池</name>
+   <corePoolSize>10</corePoolSize>
+   <maxPoolSize>400</maxPoolSize>
+   <keepAliveTime>30</keepAliveTime>
+   <heart>1000</heart>  <!-- 主线程心跳时间 -->
+</threadPoolExecutorConfig>

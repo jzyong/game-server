@@ -1,0 +1,32 @@
+option java_package = "com.jjy.game.message.hall";
+import "Mid.proto";
+
+//请求背包物品
+message PacketItemsRequest{
+	optional MID mid					= 1 [default = PacketItemsReq]; 	//消息id
+}
+//请求背包物品
+message PacketItemsResponse{
+	optional MID mid					= 1 [default = PacketItemsRes]; 	//消息id
+	repeated PacketItem items			= 2; //道具
+}
+
+//使用物品
+message UseItemRequest{
+	optional MID mid					= 1 [default =  UseItemReq]; 	//消息id
+	required int64 itemId				= 2; //物品ID
+}
+//使用物品
+message UseItemResponse{
+	optional MID mid					= 1 [default =  UseItemRes]; 	//消息id
+	optional int32 result				= 2; //结果
+}
+
+
+
+//背包物品
+message PacketItem{
+	required int64 id			= 1; //唯一Id
+	required int32 configId		= 2; //配置Id
+	required int32 num			= 3; //数量
+}

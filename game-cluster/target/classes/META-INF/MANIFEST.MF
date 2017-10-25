@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Built-By: Administrator
+Class-Path: lib/game-engine-releases.jar lib/protobuf-java-2.6.1.jar l
+ ib/jedis-releases.jar lib/commons-pool2-2.4.2.jar lib/morphia-1.2.1.j
+ ar lib/mongo-java-driver-3.2.2.jar lib/cglib-nodep-2.2.2.jar lib/prox
+ ytoys-1.0.jar lib/mina-core-2.0.16.jar lib/mina-http-2.0.16.jar lib/f
+ astjson-1.2.34.jar lib/httpclient-4.5.3.jar lib/httpcore-4.4.6.jar li
+ b/commons-logging-1.2.jar lib/commons-codec-1.9.jar lib/geronimo-jms_
+ 1.1_spec-1.1.1.jar lib/activemq-client-5.14.0.jar lib/hawtbuf-1.11.ja
+ r lib/geronimo-j2ee-management_1.1_spec-1.0.1.jar lib/mail-1.4.7.jar 
+ lib/activation-1.1.jar lib/redisson-3.5.3.jar lib/netty-common-4.1.15
+ .Final.jar lib/netty-codec-4.1.15.Final.jar lib/netty-buffer-4.1.15.F
+ inal.jar lib/netty-transport-4.1.15.Final.jar lib/netty-resolver-4.1.
+ 15.Final.jar lib/netty-handler-4.1.15.Final.jar lib/cache-api-1.0.0.j
+ ar lib/reactor-stream-2.0.8.RELEASE.jar lib/reactor-core-2.0.8.RELEAS
+ E.jar lib/reactive-streams-1.0.0.jar lib/jackson-dataformat-yaml-2.7.
+ 9.jar lib/snakeyaml-1.15.jar lib/jackson-core-2.7.9.jar lib/jackson-d
+ atabind-2.7.9.jar lib/jackson-annotations-2.7.0.jar lib/zero-allocati
+ on-hashing-0.8.jar lib/byte-buddy-1.6.14.jar lib/jodd-bean-3.7.1.jar 
+ lib/jodd-core-3.7.1.jar lib/game-message-releases.jar lib/game-model-
+ releases.jar lib/slf4j-log4j12-1.7.18.jar lib/slf4j-api-1.7.18.jar li
+ b/log4j-1.2.17.jar lib/converter-simplexml-1.6.1.jar lib/retrofit-1.6
+ .1.jar lib/gson-2.2.4.jar lib/simple-xml-2.7.1.jar lib/stax-api-1.0.1
+ .jar lib/stax-1.2.0.jar lib/xpp3-1.1.3.3.jar
+Build-Jdk: 1.8.0_121
+Created-By: Maven Integration for Eclipse
+Main-Class: com.jjy.game.cluster.AppCluster
+

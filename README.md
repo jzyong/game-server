@@ -1,8 +1,8 @@
-	一个基于棋牌游戏的分布式java游戏服务器，理论上可以无限水平扩展网关服，大厅服、游戏服达到人数承载。每个以scripts名字结尾的目录都为相应项目的脚本文件。
+	<p>一个基于棋牌游戏的分布式java游戏服务器，理论上可以无限水平扩展网关服，大厅服、游戏服达到人数承载。每个以scripts名字结尾的目录都为相应项目的脚本文件。</p>
 
 # game-engine
-Java游戏服务器开发核心组件包，包括：
-1、Mina和Netty对TCP、HTTP、Udp、WebSocket的通信底层封装
+Java游戏服务器开发核心组件包，包括：<br>
+1、Mina和Netty对TCP、HTTP、Udp、WebSocket的通信底层封装<br>
 2.ActiveMQ通信、Redis订阅发布等中间件封装
 3、mongodb、redis集群数据底层封装，redis使用jedis、fastjson的序列化和反序列化封装
 4、线程模型、消息处理器的设计封装

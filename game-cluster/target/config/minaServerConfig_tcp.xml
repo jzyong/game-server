@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaServerConfig>
+   <port>8000</port>
+   <orderedThreadPoolExecutorSize>10</orderedThreadPoolExecutorSize>
+   <receiveBufferSize>1048576</receiveBufferSize>
+   <sendBufferSize>1048576</sendBufferSize>
+   <reuseAddress>true</reuseAddress>
+   <tcpNoDelay>true</tcpNoDelay>
+   <readerIdleTime>1200</readerIdleTime>
+   <writerIdleTime>1200</writerIdleTime>
+   <soLinger>0</soLinger>
+</minaServerConfig>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<threadPoolExecutorConfig>
+   <name>游戏线程池执行器:0</name>
+   <corePoolSize>20</corePoolSize>
+   <maxPoolSize>400</maxPoolSize>
+   <keepAliveTime>30</keepAliveTime>
+   <heart>1000</heart>
+</threadPoolExecutorConfig>

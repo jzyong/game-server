@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaServerConfig>
+   <id>1</id>
+   <ip>192.168.0.17</ip>
+   <port>9001</port>
+   <httpPort>9002</httpPort>
+   <type>HALL</type>
+   <orderedThreadPoolExecutorSize>300</orderedThreadPoolExecutorSize>
+   <receiveBufferSize>1048576</receiveBufferSize>
+   <sendBufferSize>1048576</sendBufferSize>
+   <reuseAddress>true</reuseAddress>
+   <tcpNoDelay>true</tcpNoDelay>
+   <readerIdleTime>180</readerIdleTime> <!--3分钟没收到客户端请求消息，断开当前链接-->
+   <writerIdleTime>0</writerIdleTime>
+   <soLinger>0</soLinger>
+   <channel>jjy</channel>  <!--获取配置等需要-->
+</minaServerConfig>

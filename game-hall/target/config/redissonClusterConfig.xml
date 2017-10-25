@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RedissonClusterConfig>
+	<nodes>
+		<entry>redis://192.168.0.71:7000</entry>
+		<entry>redis://192.168.0.71:7001</entry>
+		<entry>redis://192.168.0.71:7002</entry>
+		<entry>redis://192.168.0.71:7003</entry>
+		<entry>redis://192.168.0.71:7004</entry>
+		<entry>redis://192.168.0.71:7005</entry>
+	</nodes>
+
+</RedissonClusterConfig>

@@ -1,0 +1,109 @@
+option java_package = "com.jjy.game.message.bydr";
+import "Mid.proto";
+
+//玩家进入机器房间
+message EnterRoomRequest{
+	optional MID mid				= 1 [default = EnterRoomReq]; 	//消息id
+	required RoomType type			= 2 [default = CLASSICS]; 		//房间类型 
+	required int32 rank				= 3; //房间级别
+}
+//玩家进入机器房间
+message EnterRoomResponse{
+	optional MID mid				= 1 [default = EnterRoomRes]; 	//消息id
+	optional int32 result			= 2; //结果
+	optional RoomInfo roomInfo		= 3; //房间信息
+	repeated FishInfo fishInfo		= 4; //鱼群信息
+	repeated RoomRoleInfo roleInfo  = 5; //角色信息
+}
+
+
+//报名参加竞技赛
+message ApplyAthleticsRequest{
+	optional MID mid				= 1 [default = ApplyAthleticsReq]; 	//消息id
+	optional RoomType type			= 2; //类型 0竞技赛
+	optional int32 rank				= 3; //级别
+}
+//报名参加竞技赛
+message ApplyAthleticsResponse{
+	optional MID mid				= 1 [default = ApplyAthleticsRes]; 	//消息id
+	optional int32 result			= 2; //结果
+	repeated int64 roleId			= 3; //报名的玩家ID
+}
+
+
+//退出房间
+message QuitRoomRequest{
+	optional MID mid				= 1 [default = QuitRoomReq]; 	//消息id
+}
+//退出房间
+message QuitRoomResponse{
+	optional MID mid				= 1 [default = QuitRoomRes]; 	//消息id
+	optional int32 result			= 2; //结果
+	optional int32 rid				= 3; //角色ID
+}
+
+
+//鱼进入房间
+message FishEnterRoomResponse{
+	optional MID mid				= 1 [default = FishEnterRoomRes]; 	//消息id
+	repeated FishInfo fishInfo		= 2; //进入的鱼群
+}
+
+//返回房间信息
+message RoomInfoResponse{
+	optional MID mid				= 1 [default = RoomInfoRes]; 	//消息id
+	optional RoomInfo roomInfo		= 2; //房间信息
+	repeated FishInfo fishInfo		= 3; //鱼群信息
+	repeated RoomRoleInfo roleInfo  = 4; //角色信息
+}
+
+//房间变更消息
+message RoomChangeResponse{
+	optional MID mid				= 1 [default = RoomChangeRes]; 	//消息id
+	optional RoomInfo roomInfo		= 2; //房间信息
+}
+
+
+enum RoomType{
+	CLASSICS		= 1;	//经典场
+	ARENA			= 2;	//竞技场
+}
+
+//鱼群信息
+message FishInfo{
+	repeated int64 id			= 1; //唯一ID，多个为鱼群
+	repeated int32 configId		= 2; //鱼配置ID（和id对应，同一鱼群不同的鱼）
+	repeated int32 trackId		= 3; //鱼游动的轨迹ID 鱼潮发阵型ID
+	optional int32 formation	= 4; //鱼群阵型 0普通情况 1boss 100阵型id
+	required int64 bornTime		= 5; //出生时间戳
+	required int64 serverTime	= 6; //系统时间戳
+	optional int32 speed		= 7; //速度
+	optional int32 topSpeed		= 9;//极速
+	optional int64 topSpeedStartTime=10;//极速开始时间
+}
+
+//房间机器信息
+message RoomInfo{
+	required int64 id				= 1; //房间编号
+	optional int32 rank				= 2; //级别
+	optional int32 type 			= 3; //房间类型
+	optional int64 cumulativeGold	= 4; //累积奖
+	optional int64 state			= 5; //房间状态（二进制位标识）4096冰冻，8192鱼潮，16384 BOSS
+}
+
+//房间角色信息
+message RoomRoleInfo{
+	required string nick		= 1; //昵称
+	required string icon		= 2; //头像
+	required int32 level		= 3; //等级
+	required int64 gold			= 4; //金币
+	optional string sign		= 5; //签名、心情
+	optional int32 popularity	= 6; //人气
+	optional int32 seatNo		= 7; //座位编号
+	optional bool vip			= 8; //是否为VIP
+	optional int64 diamond		= 9; //钻石
+	required int64 rid			= 10;//角色ID
+	optional int32 robotNo		= 11;//机器人编号 0玩家
+	optional int32 ownerId		= 12;//机器人所属玩家ID
+	optional string sid			= 13;//机器人请求用的sid
+}	

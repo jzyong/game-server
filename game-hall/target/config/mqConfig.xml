@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MqConfig>
+	<user>tonyxy</user>
+	<password>codingtony</password>
+	<host>127.0.0.1</host>
+	<port>61616</port>
+</MqConfig>

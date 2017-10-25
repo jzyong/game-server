@@ -1,0 +1,67 @@
+option java_package = "com.jjy.game.message.hall";
+import "Mid.proto";
+
+
+//登录（进入游戏）
+message LoginRequest {
+	optional MID mid			= 1 [default = LoginReq]; 	//消息id
+	optional string account                 = 2; //账号
+	optional string password                = 3; //密码
+    optional LoginType loginType            = 4; //登录类型 
+	optional int64 sessionId				= 5; //会话ID（服务器内部使用）
+	optional int32 gateId					= 6; //网关ID（服务器内部使用）
+	optional string ip						= 7; //IP地址（服务器内部使用）
+	optional string version					= 8; //版本号
+}
+message LoginResponse {
+	optional MID mid			= 1 [default = LoginRes]; 	//消息id
+	optional bool isOk 			= 2; //请求是否发送成功
+	optional int64 uid 			= 3; //用户id
+	optional int64 rid			= 4; //角色ID
+	optional int64 sessionId	= 5; //会话ID
+}
+
+//退出游戏
+message QuitRequest{
+	optional MID mid			= 1 [default = QuitReq]; 	//消息id
+	optional int64 rid 			= 2; //角色ID
+}
+
+//退出游戏
+message QuitResponse{
+	optional MID mid			= 1 [default = QuitRes]; 	//消息id
+	optional int32 result		= 2; //结果
+}
+
+
+
+//登录子游戏
+message LoginSubGameRequest{
+	optional MID mid			= 1 [default = LoginSubGameReq]; 	//消息id
+	required int64 rid			= 2; //角色id
+	optional int32 type			= 3; //类型 0登录，1重连 2跨服登录
+	optional int32 gameType 	= 4; //游戏类型 101捕鱼达人
+}
+
+//登录子游戏
+message LoginSubGameResponse{
+	optional MID mid			= 1 [default = LoginSubGameRes]; 	//消息id
+	optional int32 result		= 2; //结果
+}
+
+//退出子游戏
+message QuitSubGameRequest{
+	optional MID mid			= 1 [default = QuitSubGameReq]; 	//消息id
+	optional int64 rid 			= 2; //角色ID
+}
+//退出子游戏
+message QuitSubGameResponse{
+	optional MID mid			= 1 [default = QuitSubGameRes]; 	//消息id
+	optional int32 result		= 2; //结果
+}
+
+
+//登录类型
+enum LoginType{
+    ACCOUNT             = 1; //账号登录
+}
