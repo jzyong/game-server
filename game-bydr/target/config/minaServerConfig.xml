@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<minaServerConfig>
+   <id>${GAME.ID}</id>
+   <ip>${GAME.HOST}</ip>
+   <port>${GAME.PORT}</port>
+   <httpPort>${GAME.HTTPPORT}</httpPort>
+   <type>GAME_BYDR</type>
+   <orderedThreadPoolExecutorSize>50</orderedThreadPoolExecutorSize>
+   <receiveBufferSize>1048576</receiveBufferSize>
+   <sendBufferSize>1048576</sendBufferSize>
+   <reuseAddress>true</reuseAddress>
+   <tcpNoDelay>true</tcpNoDelay>
+   <readerIdleTime>180</readerIdleTime> <!--3分钟没收到客户端请求消息，断开当前链接-->
+   <writerIdleTime>0</writerIdleTime>
+   <soLinger>0</soLinger>
+   <channel>jjy</channel>  <!--获取配置等需要-->
+</minaServerConfig>

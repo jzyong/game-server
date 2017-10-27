@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nettyClientConfig>
+    <id>${GAME.ID}</id>
+    <receiveBufferSize>1048576</receiveBufferSize>
+    <sendBufferSize>1048576</sendBufferSize>
+    <type>GAME_BYDR</type>
+    <maxConnectCount>1</maxConnectCount>
+    <groupThreadNum>2</groupThreadNum>
+    <info>NettyFirst</info> <!-- 配置次参数优先使用netty通信，否则默认使用mina，一般只选择其一开发即可，此处测试 -->
+	<ip>${GAME.CONNTO.CLUSTER.HOST}</ip>
+	<port>8000</port>
+</nettyClientConfig>

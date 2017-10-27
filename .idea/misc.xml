@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/game-manage" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/jedis/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/game-bydr/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-gate/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-hall/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/pom.xml" />
+        <option value="$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool/pom.properties" />
+        <option value="$PROJECT_DIR$/game-tool/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-tool/pom.xml" />
+        <option value="$PROJECT_DIR$/game-model/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-engine/trunk/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-engine/trunk/pom.xml" />
+        <option value="$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/pom.xml" />
+        <option value="$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage/pom.properties" />
+        <option value="$PROJECT_DIR$/game-manage/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-manage/pom.xml" />
+        <option value="$PROJECT_DIR$/game-cluster/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-message/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/pom.xml" />
+        <option value="$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper/pom.properties" />
+        <option value="$PROJECT_DIR$/game-zookeeper/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-zookeeper/pom.xml" />
+        <option value="$PROJECT_DIR$/game-bydr-world/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-bydr-scripts/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-gate-scripts/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-gate-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-hall-scripts/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-hall-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-tool-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-cluster-scripts/target/maven-archiver/pom.properties" />
+        <option value="$PROJECT_DIR$/game-cluster-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/pom.xml" />
+        <option value="$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts/pom.properties" />
+        <option value="$PROJECT_DIR$/game-bydr-world-scripts/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/game-bydr-world/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>

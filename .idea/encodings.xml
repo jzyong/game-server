@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr-world" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr-world-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-bydr-world-scripts/target/classes/META-INF/maven/com.jjy.game/game-bydr-world-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-cluster" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-cluster-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-cluster-scripts/target/classes/META-INF/maven/com.jjy.game/game-cluster-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-engine/trunk" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-gate" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-gate-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-gate-scripts/target/classes/META-INF/maven/com.jjy.game/game-gate-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-hall" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-hall-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-hall-scripts/target/classes/META-INF/maven/com.jjy.game/game-hall-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-manage/target/m2e-wtp/web-resources/META-INF/maven/com.jjy.game/game-manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-message" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-tool" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-tool-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-tool-scripts/target/classes/META-INF/maven/com.jjy.game/game-tool-scripts" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-tool/target/classes/META-INF/maven/com.jjy.game/game-tool" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-zookeeper" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/game-zookeeper/target/classes/META-INF/maven/com.jjy.game/game-zookeeper" charset="UTF-8" />
+  </component>
+</project>

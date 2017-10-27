@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="game-bydr" />
+        <module name="game-bydr-scripts (2)" />
+        <module name="game-bydr-scripts (3) (com.jjy.game)" />
+        <module name="game-bydr-world-scripts (1)" />
+        <module name="game-bydr-world-scripts (2)" />
+        <module name="game-bydr-world-scripts (3) (com.jjy.game)" />
+        <module name="game-cluster" />
+        <module name="game-cluster-scripts (1)" />
+        <module name="game-cluster-scripts (2)" />
+        <module name="game-cluster-scripts (3) (com.jjy.game)" />
+        <module name="game-engine" />
+        <module name="game-gate" />
+        <module name="game-gate-scripts (1)" />
+        <module name="game-gate-scripts (2)" />
+        <module name="game-gate-scripts (3)" />
+        <module name="game-gate-scripts (3) (com.jjy.game)" />
+        <module name="game-hall" />
+        <module name="game-hall-scripts (1)" />
+        <module name="game-hall-scripts (2)" />
+        <module name="game-hall-scripts (3)" />
+        <module name="game-hall-scripts (3) (com.jjy.game)" />
+        <module name="game-manage (1)" />
+        <module name="game-manage (2)" />
+        <module name="game-manage (3) (com.jjy.game)" />
+        <module name="game-message" />
+        <module name="game-model" />
+        <module name="game-tool (1)" />
+        <module name="game-tool (2)" />
+        <module name="game-tool (3) (com.jjy.game)" />
+        <module name="game-tool-scripts (1)" />
+        <module name="game-tool-scripts (2)" />
+        <module name="game-tool-scripts (3) (com.jjy.game)" />
+        <module name="game-zookeeper (1)" />
+        <module name="game-zookeeper (2)" />
+        <module name="game-zookeeper (3) (com.jjy.game)" />
+        <module name="jedis" />
+        <module name="maven-archiver (1)" />
+        <module name="maven-archiver (10)" />
+        <module name="maven-archiver (11)" />
+        <module name="maven-archiver (12)" />
+        <module name="maven-archiver (13)" />
+        <module name="maven-archiver (14)" />
+        <module name="maven-archiver (15)" />
+        <module name="maven-archiver (2)" />
+        <module name="maven-archiver (3)" />
+        <module name="maven-archiver (4)" />
+        <module name="maven-archiver (5)" />
+        <module name="maven-archiver (6)" />
+        <module name="maven-archiver (7)" />
+        <module name="maven-archiver (8)" />
+        <module name="maven-archiver (9)" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="game" target="1.8" />
+      <module name="game-bydr" target="1.8" />
+      <module name="game-bydr-scripts (1)" target="1.8" />
+      <module name="game-bydr-scripts (2)" target="1.5" />
+      <module name="game-bydr-scripts (3)" target="1.8" />
+      <module name="game-bydr-scripts (3) (com.jjy.game)" target="1.8" />
+      <module name="game-bydr-world" target="1.8" />
+      <module name="game-bydr-world-scripts (1)" target="1.8" />
+      <module name="game-bydr-world-scripts (2)" target="1.5" />
+      <module name="game-bydr-world-scripts (3)" target="1.8" />
+      <module name="game-bydr-world-scripts (3) (com.jjy.game)" target="1.8" />
+      <module name="game-cluster" target="1.8" />
+      <module name="game-cluster-scripts (1)" target="1.8" />
+      <module name="game-cluster-scripts (2)" target="1.5" />
+      <module name="game-cluster-scripts (3)" target="1.8" />
+      <module name="game-cluster-scripts (3) (com.jjy.game)" target="1.8" />
+      <module name="game-engine" target="1.8" />
+      <module name="game-gate" target="1.8" />
+      <module name="game-gate-scripts (1)" target="1.8" />
+      <module name="game-gate-scripts (2)" target="1.5" />
+      <module name="game-gate-scripts (3)" target="1.8" />
+      <module name="game-gate-scripts (3) (com.jjy.game)" target="1.8" />
+      <module name="game-hall" target="1.8" />
+      <module name="game-hall-scripts (1)" target="1.8" />
+      <module name="game-hall-scripts (2)" target="1.5" />
+      <module name="game-hall-scripts (3)" target="1.8" />
+      <module name="game-hall-scripts (3) (com.jjy.game)" target="1.8" />
+      <module name="game-manage (1)" target="1.8" />
+      <module name="game-manage (2)" target="1.5" />
+      <module name="game-manage (3)" target="1.8" />
+      <module name="game-manage (3) (com.jjy.game)" target="1.8" />
+      <module name="game-message" target="1.8" />
+      <module name="game-model" target="1.8" />
+      <module name="game-tool (1)" target="1.8" />
+      <module name="game-tool (2)" target="1.5" />
+      <module name="game-tool (3)" target="1.8" />
+      <module name="game-tool (3) (com.jjy.game)" target="1.8" />
+      <module name="game-tool-scripts (1)" target="1.5" />
+      <module name="game-tool-scripts (2)" target="1.5" />
+      <module name="game-tool-scripts (3)" target="1.5" />
+      <module name="game-tool-scripts (3) (com.jjy.game)" target="1.5" />
+      <module name="game-zookeeper (1)" target="1.5" />
+      <module name="game-zookeeper (2)" target="1.5" />
+      <module name="game-zookeeper (3)" target="1.5" />
+      <module name="game-zookeeper (3) (com.jjy.game)" target="1.5" />
+      <module name="jedis" target="1.7" />
+      <module name="maven-archiver" target="1.5" />
+      <module name="maven-archiver (1)" target="1.5" />
+      <module name="maven-archiver (10)" target="1.5" />
+      <module name="maven-archiver (11)" target="1.5" />
+      <module name="maven-archiver (12)" target="1.5" />
+      <module name="maven-archiver (13)" target="1.5" />
+      <module name="maven-archiver (14)" target="1.5" />
+      <module name="maven-archiver (15)" target="1.5" />
+      <module name="maven-archiver (2)" target="1.5" />
+      <module name="maven-archiver (3)" target="1.5" />
+      <module name="maven-archiver (4)" target="1.5" />
+      <module name="maven-archiver (5)" target="1.5" />
+      <module name="maven-archiver (6)" target="1.5" />
+      <module name="maven-archiver (7)" target="1.5" />
+      <module name="maven-archiver (8)" target="1.5" />
+      <module name="maven-archiver (9)" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
