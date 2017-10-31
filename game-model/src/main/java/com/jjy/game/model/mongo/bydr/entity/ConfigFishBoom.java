@@ -19,8 +19,10 @@ import com.jjy.game.model.mongo.IConfigChecker;
 @Entity(value = "config_fish_boom", noClassnameStored = true)
 public class ConfigFishBoom implements IConfigChecker{
 
+	@Id
+	@Indexed
 	/**编号*/
-	private int configId;
+	private int id;
 	/**阵型id*/
 	private List formationIds;
 	/**时间*/
@@ -31,12 +33,12 @@ public class ConfigFishBoom implements IConfigChecker{
 	private List surviveTimes;
 
 	/**编号*/
-	public int getConfigId(){
-		return this.configId;
+	public int getId(){
+		return this.id;
 	}
 	
-	public void setConfigId(int configId){
-		this.configId=configId;
+	public void setId(int id){
+		this.id=id;
 	}
 	/**阵型id*/
 	public List getFormationIds(){
@@ -70,57 +72,5 @@ public class ConfigFishBoom implements IConfigChecker{
 	public void setSurviveTimes(List surviveTimes){
 		this.surviveTimes=surviveTimes;
 	}
-
-	@Id
-	@Indexed
-	private int id;
-
-	/** 名称 */
-	private String name;
-	/** 鱼的种类 */
-	private int type;
-
-	private int baseSpeed;
-
-
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
-	
-	
-
-	public int getBaseSpeed() {
-		return baseSpeed;
-	}
-
-	public void setBaseSpeed(int baseSpeed) {
-		this.baseSpeed = baseSpeed;
-	}
-
-
-
-	
 
 }

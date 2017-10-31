@@ -5,6 +5,12 @@
 /*/target/
 /game-bydr/target/
 /game-hall/target/
+/game-ai/target/
+/game-bydr-world/target/
+/game-cluster/target/
+/game-engine/target/
+/game-message/target/
+/game-model/target/
 /*/*.classpath
 /*/*.project
 .classpath

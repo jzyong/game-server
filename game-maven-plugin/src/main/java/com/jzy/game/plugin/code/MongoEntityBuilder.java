@@ -105,7 +105,7 @@ public class MongoEntityBuilder extends AbstractMojo {
 				// 表单迭代
 				for (String sheetName : sheetNames) {
 					String className = sheetNameToClassName(sheetName);
-					if (entityClassNames.contains(sheetName)) { // 配置已经生成
+					if (entityClassNames.contains(className)) { // 配置已经生成
 						continue;
 					}
 					Three<List<String>, List<String>, List<String>> metaDatas = ExcelUtil.getMetaData(file.getPath(),
