@@ -1,6 +1,7 @@
 ##ignore this file##
 /target/
 /game-bydr/target/
+/game-hall/target/
 .classpath
 .project
 .settings      
