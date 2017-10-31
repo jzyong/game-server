@@ -1,4 +1,6 @@
 ##ignore this file##
+/.idea/
+/log/
 /target/
 /game-bydr/target/
 /game-hall/target/
