@@ -2,8 +2,11 @@
 /.idea/
 /log/
 /target/
+/*/target/
 /game-bydr/target/
 /game-hall/target/
+/*/*.classpath
+/*/*.project
 .classpath
 .project
 .settings      
