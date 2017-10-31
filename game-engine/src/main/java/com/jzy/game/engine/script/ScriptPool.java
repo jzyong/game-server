@@ -34,6 +34,8 @@ import org.slf4j.Logger;
 
 /**
  * 脚本加载管理容器
+ * <br>
+ * 服务定位器模式
  *
  * @author JiangZhiYong
  * @date 2017-03-30 QQ:359135103

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<description>游戏服务器配置文件，数据表配置文件</description>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.jjy.game</groupId>
+		<artifactId>game</artifactId>
+		<version>releases</version>
+	</parent>
+	<artifactId>game-config</artifactId>
+	<name>game-config</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+	</dependencies>
+</project>

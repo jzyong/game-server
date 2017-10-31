@@ -15,6 +15,7 @@
 		<module>game-bydr</module>
 		<module>game-hall</module>
 		<module>game-bydr-world</module>
+    <module>game-config</module>
   </modules>
 
 	<properties>
@@ -64,16 +65,16 @@
 						<groupId>com.jzy.game</groupId>
 						<artifactId>game-maven-plugin</artifactId>
 						<version>releases</version>
-						<executions>
+						<!-- <executions>
 							<execution>
-								<!-- 更新项目代码 -->
+								更新项目代码
 								<id>updateProject</id>
 								<phase>clean</phase>
 								<goals>
 									<goal>updateProject</goal>
 								</goals>
 							</execution>
-						</executions>
+						</executions> -->
 					</plugin>
 				</plugins>
 			</build>

@@ -37,6 +37,25 @@
 			<version>3.5</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.23</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.15</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.15</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -80,19 +99,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			 <!-- 引入自己开发的包，测试用 -->
-		<!--	<plugin>
-				<groupId>com.jzy.game</groupId>
-				<artifactId>game-maven-plugin</artifactId>
-				<version>releases</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>mongoDao</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
+			<!-- 引入自己开发的包，测试用 -->
+			<!-- <plugin> <groupId>com.jzy.game</groupId> <artifactId>game-maven-plugin</artifactId> 
+				<version>releases</version> <executions> <execution> <goals> <goal>mongoDao</goal> 
+				</goals> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 
