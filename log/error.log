@@ -1,3 +1,0 @@
-2017-10-31 10:07:22 TimerThread.java:85 - [ ERROR ] TimerThread:end=全局同步线程:ClusterTcpServer=heart=1000
-2017-10-31 10:07:25 TimerThread.java:85 - [ ERROR ] TimerThread:end=全局同步线程:GateTcpUserServer=heart=1000
-2017-10-31 10:07:55 MsgUtil.java:281 - [ ERROR ] (0x00000003: nio socket, server, /127.0.0.1:55334 => /127.0.0.1:8001) -->连接关闭原因 http isClosing

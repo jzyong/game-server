@@ -1,7 +1,0 @@
-2017-10-31 10:07:22 TimerThread.java:85 - [ ERROR ] TimerThread:end=全局同步线程:ClusterTcpServer=heart=1000
-2017-10-31 10:07:22 TcpServer.java:136 - [ WARN ] 已开始监听TCP端口：8000
-2017-10-31 10:07:22 HttpServer.java:109 - [ WARN ] 已开始监听HTTP端口：8001
-2017-10-31 10:07:22 ScriptPool.java:264 - [ WARN ] 找到脚本并且需要编译的文件共：8
-2017-10-31 10:07:23 ServerThread.java:128 - [ WARN ] 线程：全局同步线程:ClusterTcpServer 执行 com.jzy.game.engine.thread.timer.event.ServerHeartTimer 消耗时间过长 45毫秒,当前命令数 0 条
-2017-10-31 10:07:26 DefaultProtocolHandler.java:51 - [ WARN ] 已打开连接(0x00000002: nio socket, server, /192.168.0.17:55326 => /192.168.0.17:8000)
-2017-10-31 10:07:55 MsgUtil.java:281 - [ ERROR ] (0x00000003: nio socket, server, /127.0.0.1:55334 => /127.0.0.1:8001) -->连接关闭原因 http isClosing
