@@ -46,6 +46,20 @@
 							<entityPath>/com/jjy/game/model/mongo</entityPath>
 						</configuration>
 						<executions>
+							<!-- 生成配置文件实体类 -->
+							<execution>
+								<configuration>
+									<!-- 实体类生成路径 -->
+									<entityPackage>\com\jjy\game\model\mongo\bydr\entity</entityPackage>
+									<!-- 配置表路径 -->
+									<configTablePath>E:\Java\game-server\game-config\src\main\resources\table</configTablePath>
+								</configuration>
+								<id>mongoEntity</id>
+								<goals>
+									<goal>mongoEntity</goal>
+								</goals>
+							</execution>
+
 							<!-- 生成配置文件dao -->
 							<execution>
 								<id>mongoDao</id>
