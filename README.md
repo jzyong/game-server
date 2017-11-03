@@ -2,8 +2,7 @@
 
 		
 
-![项目架构图]
-(https://github.com/jzyong/game-server/tree/master/game-config/src/main/resources/image/server-architecture.jpg)
+![项目架构图](https://github.com/jzyong/game-server/tree/master/game-config/src/main/resources/image/server-architecture.jpg)
 		
 		
 # game-engine
