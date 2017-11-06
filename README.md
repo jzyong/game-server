@@ -2,7 +2,7 @@
 
 详细请查看[wiki](https://github.com/jzyong/game-server/wiki)
 
-![项目架构图](https://github.com/jzyong/game-server/game-config/src/main/resources/image/server-architecture.jpg)
+![项目架构图](https://github.com/jzyong/game-server/tree/master/game-config/src/main/resources/image/server-architecture.jpg)
 
 QQ交流群:144709243
 		
