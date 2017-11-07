@@ -10,6 +10,10 @@
 /game-engine/target/
 /game-message/target/
 /game-model/target/
+/game-log/target/
+/game-log-scripts/target/
+/game-billing/target/
+/game-billing-scripts/target/
 /*/*.classpath
 /*/*.project
 .classpath

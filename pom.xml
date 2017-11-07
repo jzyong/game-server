@@ -15,8 +15,8 @@
 		<module>game-bydr</module>
 		<module>game-hall</module>
 		<module>game-bydr-world</module>
-    <module>game-config</module>
-  </modules>
+		<module>game-billing-scripts</module>
+	</modules>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
