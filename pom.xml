@@ -15,7 +15,6 @@
 		<module>game-bydr</module>
 		<module>game-hall</module>
 		<module>game-bydr-world</module>
-		<module>game-billing-scripts</module>
 	</modules>
 
 	<properties>
