@@ -1,4 +1,0 @@
-option java_package = "com.jjy.game.message.hall";
-import "Mid.proto";
-
-
