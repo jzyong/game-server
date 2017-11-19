@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<threadPoolExecutorConfig>
-   <name>默认线程池执行器:0</name>
-   <corePoolSize>100</corePoolSize>
-   <maxPoolSize>300</maxPoolSize>
-   <keepAliveTime>30</keepAliveTime>
-</threadPoolExecutorConfig>
