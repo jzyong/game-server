@@ -2,7 +2,7 @@ package com.jzy.game.ai.path;
 
 import org.junit.Test;
 
-import com.jzy.game.ai.path.NavMesh;
+import com.jzy.game.ai.nav.NavMesh;
 import com.jzy.game.engine.util.FileUtil;
 
 /**

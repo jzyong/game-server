@@ -11,7 +11,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.jzy.game.ai.path;
+package com.jzy.game.ai.nav;
 
 import com.badlogic.gdx.ai.pfa.Heuristic;
 import com.badlogic.gdx.math.Vector3;
