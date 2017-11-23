@@ -3,7 +3,7 @@ package com.jzy.game.ai.btree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.badlogic.gdx.ai.btree.annotation.TaskConstraint;
+import com.jzy.game.ai.btree.annotation.TaskConstraint;
 import com.jzy.game.engine.cache.IMemoryObject;
 
 /**
@@ -13,7 +13,7 @@ import com.jzy.game.engine.cache.IMemoryObject;
  * @QQ 359135103 2017年11月22日 下午2:33:32
  * @fix JiangZhiYong
  * @param <E>
- *            所属的对象，如NPC
+ *            黑板对象，所属的对象，如NPC
  */
 @TaskConstraint
 public abstract class Task<E> implements IMemoryObject {

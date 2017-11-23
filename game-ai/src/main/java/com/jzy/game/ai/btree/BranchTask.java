@@ -19,7 +19,7 @@ package com.jzy.game.ai.btree;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.ai.btree.annotation.TaskConstraint;
+import com.jzy.game.ai.btree.annotation.TaskConstraint;
 
 /**
  * 分支任务节点<br>

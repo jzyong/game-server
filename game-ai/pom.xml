@@ -13,11 +13,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-ai</artifactId>
 			<version>1.8.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.jzy.game</groupId>
 			<artifactId>game-engine</artifactId>

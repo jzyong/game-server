@@ -16,7 +16,7 @@
 
 package com.jzy.game.ai.btree;
 
-import com.badlogic.gdx.ai.btree.annotation.TaskConstraint;
+import com.jzy.game.ai.btree.annotation.TaskConstraint;
 
 /**
  * 叶子节点任务 <br>
