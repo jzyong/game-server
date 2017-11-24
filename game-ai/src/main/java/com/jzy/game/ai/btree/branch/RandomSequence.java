@@ -19,14 +19,11 @@ package com.jzy.game.ai.btree.branch;
 import java.util.Arrays;
 import java.util.List;
 
-import com.jzy.game.ai.btree.SingleRunningChildBranch;
 import com.jzy.game.ai.btree.Task;
 
-/**
- * 选择节点<br>
- * A {@code Selector} is a branch task that runs every children until one of
- * them succeeds. If a child task fails, the selector will start and run the
- * next child task.
+/**随机顺序执行节点<br>
+ * A {@code RandomSequence} is a sequence task's variant that runs its children
+ * in a random order.
  * 
  * @param <E>
  *            type of the blackboard object that tasks use to read or modify
@@ -34,47 +31,37 @@ import com.jzy.game.ai.btree.Task;
  * 
  * @author implicit-invocation
  */
-public class Selector<E> extends SingleRunningChildBranch<E> {
+public class RandomSequence<E> extends Sequence<E> {
 
-	/** Creates a {@code Selector} branch with no children. */
-	public Selector() {
+	/** Creates a {@code RandomSequence} branch with no children. */
+	public RandomSequence() {
 		super();
 	}
 
 	/**
-	 * Creates a {@code Selector} branch with the given children.
+	 * Creates a {@code RandomSequence} branch with the given children.
 	 * 
 	 * @param tasks
 	 *            the children of this task
 	 */
-	public Selector(Task<E>... tasks) {
-		super(Arrays.asList(tasks));
-	}
-
-	/**
-	 * Creates a {@code Selector} branch with the given children.
-	 * 
-	 * @param tasks
-	 *            the children of this task
-	 */
-	public Selector(List<Task<E>> tasks) {
+	public RandomSequence(List<Task<E>> tasks) {
 		super(tasks);
 	}
 
-	@Override
-	public void childFail(Task<E> runningTask) {
-		super.childFail(runningTask);
-		if (++currentChildIndex < children.size()) {
-			run(); // Run next child
-		} else {
-			fail(); // All children processed, return failure status
-		}
+	/**
+	 * Creates a {@code RandomSequence} branch with the given children.
+	 * 
+	 * @param tasks
+	 *            the children of this task
+	 */
+	public RandomSequence(Task<E>... tasks) {
+		super(Arrays.asList(tasks));
 	}
 
 	@Override
-	public void childSuccess(Task<E> runningTask) {
-		super.childSuccess(runningTask);
-		success(); // Return success status when a child says it succeeded
+	public void start() {
+		super.start();
+		if (randomChildren == null)
+			randomChildren = createRandomChildren();
 	}
-
 }

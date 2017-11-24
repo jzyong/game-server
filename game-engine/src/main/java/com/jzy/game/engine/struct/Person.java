@@ -15,6 +15,7 @@ import com.jzy.game.engine.cache.cooldown.Cooldown;
 import com.jzy.game.engine.mina.message.IDMessage;
 
 import io.netty.channel.Channel;
+import reactor.rx.broadcast.BehaviorBroadcaster;
 
 /**
  * 人物
@@ -76,7 +77,7 @@ public abstract class Person {
 
 	/** 连接会话 */
 	protected transient IoSession ioSession;
-
+	
 	protected transient Channel channel;
 
 	public long getId() {

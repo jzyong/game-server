@@ -19,7 +19,7 @@ package com.jzy.game.ai.btree;
 import com.jzy.game.ai.btree.annotation.TaskConstraint;
 
 /**
- * 装饰模式任务
+ * 装饰模式任务<br>
  * 
  * A {@code Decorator} is a wrapper that provides custom behavior for its child.
  * The child can be of any kind (branch task, leaf task, or another decorator).

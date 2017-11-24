@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 行为树
+ * 行为树 <br>
+ * 参考文档地址：https://github.com/libgdx/gdx-ai/wiki/Behavior-Trees
  * 
  * @author implicit-invocation
  * @author davebaol
