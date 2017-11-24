@@ -1,4 +1,4 @@
-title cluster
-java -jar -server -Xms512M -Xmx1024M target/game-bydr-0.0.1-SNAPSHOT.jar
+title game-bydr
+java -jar -server -Xms512M -Xmx1024M target/game-bydr-releases.jar
 
 pause

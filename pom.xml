@@ -8,6 +8,7 @@
 	<name>game</name>
 	<description>棋牌游戏服务器</description>
 	<modules>
+		<module>game-engine</module>
 		<module>game-gate</module>
 		<module>game-model</module>
 		<module>game-cluster</module>

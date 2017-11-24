@@ -1,4 +1,4 @@
 title cluster
-java -jar -server -Xms512M -Xmx512M target/game-cluster-0.0.1-SNAPSHOT.jar
+java -jar -server -Xms512M -Xmx512M target/game-cluster-releases.jar
 
 pause

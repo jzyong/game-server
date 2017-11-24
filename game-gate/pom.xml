@@ -97,7 +97,7 @@
 
 		<filters>
 			<filter>
-                src/main/resources/Filter/LOCAL_JZY.properties
+                src/main/resources/Filter/LOCAL_DEFAULT.properties
             </filter>
 		</filters>
 		<resources>
