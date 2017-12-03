@@ -13,16 +13,20 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<!-- <dependency>
-			<groupId>com.badlogicgames.gdx</groupId>
-			<artifactId>gdx-ai</artifactId>
-			<version>1.8.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.badlogicgames.gdx</groupId> <artifactId>gdx-ai</artifactId> 
+			<version>1.8.0</version> </dependency> -->
 		<dependency>
 			<groupId>com.jzy.game</groupId>
 			<artifactId>game-engine</artifactId>
 			<version>releases</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+		<dependency>
+			<groupId>com.vividsolutions</groupId>
+			<artifactId>jts</artifactId>
+			<version>1.13</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

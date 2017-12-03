@@ -1,6 +1,7 @@
 package com.jzy.game.ai.unity.nav;
 
 import org.junit.Test;
+import com.jzy.game.ai.unity.nav.map.NavMesh;
 
 /**
  * 测试寻路

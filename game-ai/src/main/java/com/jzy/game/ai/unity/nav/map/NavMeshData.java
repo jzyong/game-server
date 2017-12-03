@@ -1,6 +1,7 @@
-package com.jzy.game.ai.unity.nav;
+package com.jzy.game.ai.unity.nav.map;
 
 import java.io.Serializable;
+import com.jzy.game.ai.unity.nav.Vector3;
 
 /**
  * navmesh寻路三角形网格数据 <br>
