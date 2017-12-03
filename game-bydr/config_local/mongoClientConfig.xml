@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<com.jjy.game.engine.mongo.MongoClientConfig>
+<com.jzy.game.engine.mongo.MongoClientConfig>
     <dbName>bydr_bydr</dbName>
     <url>${MONGO_URL}</url>
-</com.jjy.game.engine.mongo.MongoClientConfig>
+</com.jzy.game.engine.mongo.MongoClientConfig>
 
 
 

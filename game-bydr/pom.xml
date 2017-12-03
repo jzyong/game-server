@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>捕鱼达人游戏逻辑服</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
@@ -44,7 +44,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.jjy.game.bydr.AppBydr</mainClass>
+                            <mainClass>com.jzy.game.bydr.AppBydr</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

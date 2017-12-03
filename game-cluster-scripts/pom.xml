@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>集群服务器脚本</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>

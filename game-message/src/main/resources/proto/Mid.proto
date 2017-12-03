@@ -1,4 +1,4 @@
-option java_package = "com.jjy.game.message";
+option java_package = "com.jzy.game.message";
 
 //1-10000 		内部消息(游戏服务器内部使用)
 //10001-20000           大厅消息（所有非大厅消息，网关进行转发到子游戏服务器处理）

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>服务器集群管理，监测子游戏、大厅服务器状态</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<!-- <version>${game.version}</version> -->
 		<version>releases</version>
@@ -45,7 +45,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.jjy.game.cluster.AppCluster</mainClass>
+							<mainClass>com.jzy.game.cluster.AppCluster</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

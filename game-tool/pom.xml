@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<description>工具项目,界面为NetBeans拖拽，请勿修改</description>
-	<groupId>com.jjy.game</groupId>
+	<groupId>com.jzy.game</groupId>
 	<version>releases</version>
 	<artifactId>game-tool</artifactId>
 	<packaging>jar</packaging>
@@ -64,8 +64,8 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<!-- <mainClass>com.jjy.game.tool.db.DBTool</mainClass> -->
-							<mainClass>com.jjy.game.tool.client.PressureClient</mainClass>
+							<!-- <mainClass>com.jzy.game.tool.db.DBTool</mainClass> -->
+							<mainClass>com.jzy.game.tool.client.PressureClient</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

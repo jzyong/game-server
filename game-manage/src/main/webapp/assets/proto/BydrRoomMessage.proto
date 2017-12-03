@@ -1,4 +1,4 @@
-option java_package = "com.jjy.game.message.bydr";
+option java_package = "com.jzy.game.message.bydr";
 import "Mid.proto";
 
 //玩家进入机器房间

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>捕鱼达人游戏脚本</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
@@ -35,8 +35,8 @@
 				<artifactId>game-maven-plugin</artifactId>
 				<version>releases</version>
 				<configuration>
-					<messagePath>\com\jjy\game\message\bydr</messagePath>	<!-- protobuf类路径 -->
-					<scriptPath>\com\jjy\game\bydr\tcp</scriptPath>	<!-- 生成Handler类路径 -->
+					<messagePath>\com\jzy\game\message\bydr</messagePath>	<!-- protobuf类路径 -->
+					<scriptPath>\com\jzy\game\bydr\tcp</scriptPath>	<!-- 生成Handler类路径 -->
 				</configuration>
 				<executions>
 					<execution>

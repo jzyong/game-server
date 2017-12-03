@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.jjy.game</groupId>
+	<groupId>com.jzy.game</groupId>
 	<version>releases</version>
 	<artifactId>game-tool-scripts</artifactId>
 	<name>game-tool-scripts</name>
@@ -19,7 +19,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.jjy.game</groupId>
+			<groupId>com.jzy.game</groupId>
 			<artifactId>game-tool</artifactId>
 			<version>releases</version>
 		</dependency>

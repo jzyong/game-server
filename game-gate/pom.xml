@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>游戏大厅服务器兼网关，子游戏通过此服务器进行通信</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
@@ -47,7 +47,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.jjy.game.gate.AppGate</mainClass>
+							<mainClass>com.jzy.game.gate.AppGate</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

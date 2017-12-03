@@ -1,4 +1,4 @@
-option java_package = "com.jjy.game.message";
+option java_package = "com.jzy.game.message";
 import "Mid.proto";
 
 //注册服务器

@@ -1,4 +1,4 @@
-option java_package = "com.jjy.game.message.hall";
+option java_package = "com.jzy.game.message.hall";
 import "Mid.proto";
 
 

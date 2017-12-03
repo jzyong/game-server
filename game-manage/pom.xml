@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>游戏服务器监控，gm命令</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<!-- <version>${game.version}</version> -->
 		<version>releases</version>

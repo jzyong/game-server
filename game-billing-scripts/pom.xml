@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.jjy.game</groupId>
+    <groupId>com.jzy.game</groupId>
     <artifactId>game</artifactId>
     <version>releases</version>
   </parent>

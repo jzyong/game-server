@@ -14,5 +14,5 @@
    <readerIdleTime>180</readerIdleTime> <!--3分钟没收到客户端请求消息，断开当前链接-->
    <writerIdleTime>0</writerIdleTime>
    <soLinger>0</soLinger>
-   <channel>JJY</channel>  <!--获取配置等需要-->
+   <channel>jzy</channel>  <!--获取配置等需要-->
 </minaServerConfig>

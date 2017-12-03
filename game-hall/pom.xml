@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>大厅服务器，处理大厅逻辑，以及聊天、排行榜、好友等</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
@@ -44,7 +44,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.jjy.game.hall.AppHall</mainClass>
+							<mainClass>com.jzy.game.hall.AppHall</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

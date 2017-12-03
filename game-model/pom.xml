@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>公共模型模块</description>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
@@ -43,14 +43,14 @@
 						<version>releases</version>
 						<configuration>
 							<!-- 该目录 entity目录实体自动生成mongo dao -->
-							<entityPath>/com/jjy/game/model/mongo</entityPath>
+							<entityPath>/com/jzy/game/model/mongo</entityPath>
 						</configuration>
 						<executions>
 							<!-- 生成配置文件实体类 -->
 							<execution>
 								<configuration>
 									<!-- 实体类生成路径 -->
-									<entityPackage>\com\jjy\game\model\mongo\bydr\entity</entityPackage>
+									<entityPackage>\com\jzy\game\model\mongo\bydr\entity</entityPackage>
 									<!-- 配置表路径 -->
 									<configTablePath>E:\Java\game-server\game-config\src\main\resources\table</configTablePath>
 								</configuration>

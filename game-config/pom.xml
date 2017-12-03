@@ -5,7 +5,7 @@
 	<description>游戏服务器配置文件，数据表配置文件</description>
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.jjy.game</groupId>
+		<groupId>com.jzy.game</groupId>
 		<artifactId>game</artifactId>
 		<version>releases</version>
 	</parent>
