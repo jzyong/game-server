@@ -36,10 +36,14 @@
 			<artifactId>protobuf-java</artifactId>
 			<version>2.6.1</version>
 		</dependency>
+		<!-- <dependency> <groupId>com.jzy.game</groupId> <artifactId>jedis</artifactId> 
+			<version>releases</version> </dependency> -->
 		<dependency>
-			<groupId>com.jzy.game</groupId>
+			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>releases</version>
+			<version>2.9.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
@@ -96,11 +100,8 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 		<!-- redisson 添加了netty -->
-		<!-- <dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.1.14.Final</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>io.netty</groupId> <artifactId>netty-all</artifactId> 
+			<version>4.1.14.Final</version> </dependency> -->
 
 	</dependencies>
 	<build>
