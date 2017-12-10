@@ -68,4 +68,20 @@ public class TriangleKNode extends KNode implements Serializable, Cloneable {
         contained = UNKNOWN_VALUE;
     }
 
+    public void setContained(int contained) {
+        this.contained = contained;
+    }
+    
+    public int getContained() {
+        return contained;
+    }
+    
+    /**
+     * 是否为凹点
+     * @return
+     */
+    public boolean isConcave() {
+        return concave;
+    }
+
 }

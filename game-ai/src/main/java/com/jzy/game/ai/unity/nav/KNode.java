@@ -77,6 +77,19 @@ public class KNode implements Serializable, Comparable<KNode> {
         return fCost;
     }
     
-    
+    /**
+     * 清除当前节点连接点，及该节点在其他节点中的对象
+     */
+    public void clearConnectedNodes() {
+        //移除其他节点中的关系
+        for (int k = connectedNodes.size() - 1; k >= 0; k--) {
+            List<KNode> otherConnectedNodes = connectedNodes.get(k).getConnectedNodes();
+            int index = otherConnectedNodes.indexOf(this);
+            if (index != -1) {
+                otherConnectedNodes.remove(index);
+            }
+        }
+        connectedNodes.clear();
+    }
     
 }
