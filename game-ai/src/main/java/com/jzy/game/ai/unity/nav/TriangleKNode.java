@@ -84,4 +84,9 @@ public class TriangleKNode extends KNode implements Serializable, Cloneable {
         return concave;
     }
 
+	public int getPointNum() {
+		return pointNum;
+	}
+
+    
 }
