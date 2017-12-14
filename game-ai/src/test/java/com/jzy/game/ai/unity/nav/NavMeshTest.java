@@ -9,7 +9,8 @@ import com.jzy.game.ai.unity.nav.map.NavMesh;
  *
  */
 public class NavMeshTest {
-	private static final String FILE_PATH="E:\\Project\\game-server\\trunk\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
+//	private static final String FILE_PATH="E:\\Project\\game-server\\trunk\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
+	private static final String FILE_PATH="C:\\Users\\Administrator\\Desktop\\Nav_build\\1000.navmesh";
 	
 	@Test
 	public void test(){

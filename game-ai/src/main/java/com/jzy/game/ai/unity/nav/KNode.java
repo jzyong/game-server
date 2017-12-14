@@ -19,11 +19,13 @@ public class KNode implements Serializable, Comparable<KNode> {
     
     protected long id = 0;  // 里的id是防止clone后，地址变更，无法查找
     protected List<KNode> connectedNodes;   //周围连接的节点
-    protected List<KNode> tempConnectedNodes; //临时保存周围连接的节点
-    protected Vector3 point; //当前节点代表的坐标点
+    protected List<KNode> tempConnectedNodes; //临时保存周围连接的节点，A*寻路临时保存数据
+    protected Vector3 point; 	  //当前节点代表的坐标点
     protected double gCost;       // distance to startPoint, via the parent nodes.
     protected double hCost;       // distance straight to endPoint.
     protected double fCost;       // gCost+hCost. This is what the the A* algorithm uses to sort the openList in PathFinder.
+    protected double distToParent;// 到父节点的距离
+    protected KNode parent;		  // 父节点
     
     public KNode() {
         id = ID_CREATE.getAndIncrement();
@@ -92,4 +94,65 @@ public class KNode implements Serializable, Comparable<KNode> {
         connectedNodes.clear();
     }
     
+    
+    /**临时，
+     * 清除当前节点连接点，及该节点在其他节点中的对象
+     */
+    public void clearTempConnectedNodes() {
+        for (int k = tempConnectedNodes.size() - 1; k >= 0; k--) {
+            List<KNode> otherConnectedNodes = tempConnectedNodes.get(k).getTempConnectedNodes();
+            otherConnectedNodes.remove(this);
+        }
+        tempConnectedNodes.clear();
+    }
+    
+    /**
+     * 清除之前的寻路数据
+     */
+    public void clearForReuse() {
+        clearConnectedNodes();
+        clearTempConnectedNodes();
+        gCost = G_COST_NOT_CALCULATED_FLAG;
+        hCost = 0;
+        fCost = 0;
+        distToParent = 0;
+        parent = null;
+    }
+    
+    public void setPoint(Vector3 p) {
+        this.point = p;
+    }
+    
+    /**
+     * 计算G消耗，到父节点的距离+父节点距离....
+     */
+    public void calcGCost() {
+        if (parent == null) {
+            gCost = 0;
+        } else {
+            gCost = (this.getDistanceToParent() + getParent().getGCost());
+        }
+    }
+    
+    public double getGCost() {
+        return gCost;
+    }
+
+    
+    /**
+     * 到父节点距离
+     * @return
+     */
+    double getDistanceToParent() {
+        return point.distance(getParent().getPoint());
+    }
+
+	public KNode getParent() {
+		return parent;
+	}
+    
+	public void setParent(KNode parent) {
+        this.parent = parent;
+        this.distToParent = this.getDistanceToParent();
+    }
 }
