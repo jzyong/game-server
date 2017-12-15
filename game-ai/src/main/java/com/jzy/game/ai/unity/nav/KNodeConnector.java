@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.jzy.game.ai.unity.nav.path.BlockDistanceAndQuad;
-import com.jzy.game.ai.unity.nav.path.BlockDistanceComarable;
-
 /**
  * 节点连接关系处理
  * 

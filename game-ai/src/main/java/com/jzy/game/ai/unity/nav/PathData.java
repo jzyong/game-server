@@ -2,15 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jzy.game.ai.unity.nav.path;
+package com.jzy.game.ai.unity.nav;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import com.jzy.game.ai.unity.nav.KNode;
-import com.jzy.game.ai.unity.nav.Vector3;
 
 /**
  * 寻路数据
@@ -58,7 +55,7 @@ public class PathData implements Serializable, Cloneable {
 		},
 		ERROR2 {
 			public String getMessage() {
-				return "Error, start node can not be connected to obstacle nodes or end node. Increase maxTempNodeConnectionDist or check that start node is not inside an obstacle.";
+				return "开始节点搜索不到可连接节点和结束节点，增加最大搜索距离和检测节点是否在块中";
 			}
 
 			public boolean isError() {
@@ -67,7 +64,7 @@ public class PathData implements Serializable, Cloneable {
 		},
 		ERROR3 {
 			public String getMessage() {
-				return "Error, end node can not be connected to obstacle nodes or start node. Increase maxTempNodeConnectionDist or check that end node is not inside an obstacle.";
+				return "结束节点搜索不到可连接节点和结束节点，增加最大搜索距离和检测节点是否在块中";
 			}
 
 			public boolean isError() {
@@ -76,7 +73,7 @@ public class PathData implements Serializable, Cloneable {
 		},
 		ERROR4 {
 			public String getMessage() {
-				return "Error, no path found. Could be due to obstacles fencing in the start or end node, or because maxTempNodeConnectionDist or maxSearchDistStartToEnd are not large enough.";
+				return "路径未找到，可能障碍物围住了开始位置和结束位置，或者可搜索最大路径不够大";
 			}
 
 			public boolean isError() {

@@ -1,8 +1,6 @@
-package com.jzy.game.ai.unity.nav.path;
+package com.jzy.game.ai.unity.nav;
 
 import java.io.Serializable;
-
-import com.jzy.game.ai.unity.nav.TriangleBlock;
 
 
 /**

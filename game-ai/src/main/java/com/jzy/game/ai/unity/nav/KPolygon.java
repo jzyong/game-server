@@ -358,20 +358,88 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
         }
         return false;
     }
+    
+    /**
+     * 获取最靠近边界的点
+     * @param p
+     * @return
+     */
+    public Vector3 getBoundaryPointClosestTo(Vector3 p) {
+        return getBoundaryPointClosestTo(p.x, p.z);
+    }
+    
+    /**
+     * 获取最靠近边界的点
+     * @param x
+     * @param z
+     * @return
+     */
+    public Vector3 getBoundaryPointClosestTo(double x, double z) {
+        double closestDistanceSq = Double.MAX_VALUE;
+        int closestIndex = -1;
+        int closestNextIndex = -1;
 
+        int nextI;
+        for (int i = 0; i < points.size(); i++) {	//获取点到多边形边最近的两个点
+            nextI = (i + 1 == points.size() ? 0 : i + 1);
+            Vector3 p = this.getPoints().get(i);
+            Vector3 pNext = this.getPoints().get(nextI);
+            double ptSegDistSq = Vector3.ptSegDistSq(p.x, p.z, pNext.x, pNext.z, x, z);
+            if (ptSegDistSq < closestDistanceSq) {
+                closestDistanceSq = ptSegDistSq;
+                closestIndex = i;
+                closestNextIndex = nextI;
+            }
+        }
+        Vector3 p = this.getPoints().get(closestIndex);
+        Vector3 pNext = this.getPoints().get(closestNextIndex);
+        return Vector3.getClosestPointOnSegment(p.x, p.z, pNext.x, pNext.z, x, z);
+    }
+
+    public double[] getBoundsArray() {
+        return getBoundsArray(new double[4]);
+    }
+
+    public double[] getBoundsArray(double[] bounds) {
+        double leftX = Double.MAX_VALUE;
+        double botY = Double.MAX_VALUE;
+        double rightX = -Double.MAX_VALUE;
+        double topY = -Double.MAX_VALUE;
+
+        for (int i = 0; i < points.size(); i++) {
+            if (points.get(i).x < leftX) {
+                leftX = points.get(i).x;
+            }
+            if (points.get(i).x > rightX) {
+                rightX = points.get(i).x;
+            }
+            if (points.get(i).z < botY) {
+                botY = points.get(i).z;
+            }
+            if (points.get(i).z > topY) {
+                topY = points.get(i).z;
+            }
+        }
+        bounds[0] = leftX;
+        bounds[1] = botY;
+        bounds[2] = rightX;
+        bounds[3] = topY;
+        return bounds;
+    }
+    
 
     // ===========java图像显示==============
 
     @Override
     public Rectangle getBounds() {
-        // TODO Auto-generated method stub
-        return null;
+    	 double[] bounds = getBoundsArray();
+         return new Rectangle((int) (bounds[0]), (int) (bounds[1]), (int) Math.ceil(bounds[2]), (int) Math.ceil(bounds[3]));
     }
 
     @Override
     public Rectangle2D getBounds2D() {
-        // TODO Auto-generated method stub
-        return null;
+    	 double[] bounds = getBoundsArray();
+         return new Rectangle2D.Double(bounds[0], bounds[1], bounds[2], bounds[3]);
     }
 
     // The essence of the ray-crossing method is as follows. Think of standing
@@ -411,45 +479,163 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
     }
 
     @Override
-    public boolean intersects(double x, double y, double w, double h) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean intersects(double x, double z, double w, double h) {
+    	 if (x + w < center.x - radius
+                 || x > center.x + radius
+                 || z + h < center.z - radius
+                 || z > center.z + radius) {
+             return false;
+         }
+         for (int i = 0; i < points.size(); i++) {
+             int nextI = (i + 1 >= points.size() ? 0 : i + 1);
+             if (Vector3.linesIntersect(x, z, x + w, z, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                     || Vector3.linesIntersect(x, z, x, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                     || Vector3.linesIntersect(x, z + h, x + w, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                     || Vector3.linesIntersect(x + w, z, x + w, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)) {
+                 return true;
+             }
+         }
+         double px = points.get(0).x;
+         double py = points.get(0).z;
+         if (px > x && px < x + w && py > z && py < z + h) {
+             return true;
+         }
+         if (contains(x, z) == true) {
+             return true;
+         }
+         return false;
     }
 
     @Override
     public boolean intersects(Rectangle2D r) {
-        // TODO Auto-generated method stub
-        return false;
+    	 return this.intersects(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
     @Override
-    public boolean contains(double x, double y, double w, double h) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean contains(double x, double z, double w, double h) {
+    	if (x + w < center.x - radius
+                || x > center.x + radius
+                || z + h < center.z - radius
+                || z > center.z + radius) {
+            return false;
+        }
+        for (int i = 0; i < points.size(); i++) {
+            int nextI = (i + 1 >= points.size() ? 0 : i + 1);
+            if (Vector3.linesIntersect(x, z, x + w, z, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                    || Vector3.linesIntersect(x, z, x, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                    || Vector3.linesIntersect(x, z + h, x + w, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)
+                    || Vector3.linesIntersect(x + w, z, x + w, z + h, points.get(i).x, points.get(i).z, points.get(nextI).x, points.get(nextI).z)) {
+                return false;
+            }
+        }
+        double px = points.get(0).x;
+        double py = points.get(0).z;
+        if (px > x && px < x + w && py > z && py < z + h) {
+            return false;
+        }
+        return contains(x, z) == true;
     }
 
     @Override
     public boolean contains(Rectangle2D r) {
-        // TODO Auto-generated method stub
-        return false;
+    	 return this.contains(r.getX(), r.getY(), r.getWidth(), r.getHeight());
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at) {
-        // TODO Auto-generated method stub
-        return null;
+    	return new KPolygonIterator(this, at);
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
-        // TODO Auto-generated method stub
-        return null;
+    	 return new KPolygonIterator(this, at);
     }
 
     @Override
     public KPolygon getPolygon() {
-        // TODO Auto-generated method stub
-        return null;
+        return this;
     }
 
+    public class KPolygonIterator implements PathIterator {
+
+        int type = PathIterator.SEG_MOVETO;
+        int index = 0;
+        KPolygon polygon;
+        Vector3 currentPoint;
+        AffineTransform affine;
+
+        double[] singlePointSetDouble = new double[2];
+
+        KPolygonIterator(KPolygon kPolygon) {
+            this(kPolygon, null);
+        }
+
+        KPolygonIterator(KPolygon kPolygon, AffineTransform at) {
+            this.polygon = kPolygon;
+            this.affine = at;
+            currentPoint = polygon.getPoint(0);
+        }
+
+        public int getWindingRule() {
+            return PathIterator.WIND_EVEN_ODD;
+        }
+
+        @Override
+        public boolean isDone() {
+            if (index == polygon.points.size() + 1) {
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void next() {
+            index++;
+        }
+
+        public void assignPointAndType() {
+            if (index == 0) {
+                currentPoint = polygon.getPoint(0);
+                type = PathIterator.SEG_MOVETO;
+            } else if (index == polygon.points.size()) {
+                type = PathIterator.SEG_CLOSE;
+            } else {
+                currentPoint = polygon.getPoint(index);
+                type = PathIterator.SEG_LINETO;
+            }
+        }
+
+        @Override
+        public int currentSegment(float[] coords) {
+            assignPointAndType();
+            if (type != PathIterator.SEG_CLOSE) {
+                if (affine != null) {
+                    float[] singlePointSetFloat = new float[2];
+                    singlePointSetFloat[0] = (float) currentPoint.x;
+                    singlePointSetFloat[1] = (float) currentPoint.z;
+                    affine.transform(singlePointSetFloat, 0, coords, 0, 1);
+                } else {
+                    coords[0] = (float) currentPoint.x;
+                    coords[1] = (float) currentPoint.z;
+                }
+            }
+            return type;
+        }
+
+        @Override
+        public int currentSegment(double[] coords) {
+            assignPointAndType();
+            if (type != PathIterator.SEG_CLOSE) {
+                if (affine != null) {
+                    singlePointSetDouble[0] = currentPoint.x;
+                    singlePointSetDouble[1] = currentPoint.z;
+                    affine.transform(singlePointSetDouble, 0, coords, 0, 1);
+                } else {
+                    coords[0] = currentPoint.x;
+                    coords[1] = currentPoint.z;
+                }
+            }
+            return type;
+        }
+    }
 }

@@ -25,7 +25,7 @@ public interface Block extends PolygonHolder{
 
     /**
      * 
-     * 起点多边形，原始多边线
+     * 起点多边形，原始多边形
      * @return
      */
     public KPolygon getInnerPolygon();

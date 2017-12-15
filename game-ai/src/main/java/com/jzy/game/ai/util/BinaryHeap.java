@@ -1,4 +1,4 @@
-package com.jzy.game.ai.unity.nav.path;
+package com.jzy.game.ai.util;
 
 import java.io.Serializable;
 

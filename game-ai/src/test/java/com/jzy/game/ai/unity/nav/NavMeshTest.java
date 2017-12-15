@@ -1,7 +1,6 @@
 package com.jzy.game.ai.unity.nav;
 
 import org.junit.Test;
-import com.jzy.game.ai.unity.nav.map.NavMesh;
 
 /**
  * 测试寻路
@@ -10,10 +9,12 @@ import com.jzy.game.ai.unity.nav.map.NavMesh;
  */
 public class NavMeshTest {
 //	private static final String FILE_PATH="E:\\Project\\game-server\\trunk\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
-	private static final String FILE_PATH="C:\\Users\\Administrator\\Desktop\\Nav_build\\1000.navmesh";
+	private static final String FILE_PATH="E:\\code\\sf\\trunk\\net.sz.framework.java\\net.sz.framework\\net.sz.framework.way.navmesh\\target\\1100.navmesh";
 	
 	@Test
 	public void test(){
-		NavMesh navMesh=new NavMesh(FILE_PATH);
+		NavMesh navMesh=new NavMesh(FILE_PATH,true);
+		navMesh.path(new Vector3(291, 0, 90), new Vector3(728, 0, 550));
+//		navMesh.path(new Vector3(44, 0, 14), new Vector3(108, 0, 77));
 	}
 }
