@@ -1,8 +1,9 @@
-package com.jzy.game.ai.unity.nav.ui;
+package com.jzy.game.ai.nav.node.ui;
 
-import com.jzy.game.ai.unity.nav.TriangleBlock;
-import com.jzy.game.ai.unity.nav.Vector3;
 import java.util.ArrayList;
+
+import com.jzy.game.ai.nav.node.TriangleBlock;
+import com.jzy.game.ai.nav.node.Vector3;
 
 /**
  * navmesh主界面

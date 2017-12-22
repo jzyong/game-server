@@ -1,4 +1,4 @@
-package com.jzy.game.ai.unity.nav;
+package com.jzy.game.ai.nav.node;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;

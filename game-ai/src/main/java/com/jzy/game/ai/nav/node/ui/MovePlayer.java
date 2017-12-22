@@ -1,8 +1,8 @@
-package com.jzy.game.ai.unity.nav.ui;
+package com.jzy.game.ai.nav.node.ui;
 
-import com.jzy.game.ai.unity.nav.NavMesh;
-import com.jzy.game.ai.unity.nav.PathData;
-import com.jzy.game.ai.unity.nav.Vector3;
+import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.PathData;
+import com.jzy.game.ai.nav.node.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
 
 

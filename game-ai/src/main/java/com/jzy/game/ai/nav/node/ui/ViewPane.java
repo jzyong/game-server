@@ -1,12 +1,8 @@
 /**
  * 特别鸣谢修仙项目组负责人吴章义
  */
-package com.jzy.game.ai.unity.nav.ui;
+package com.jzy.game.ai.nav.node.ui;
 
-import com.jzy.game.ai.unity.nav.KPolygon;
-import com.jzy.game.ai.unity.nav.NavMesh;
-import com.jzy.game.ai.unity.nav.TriangleBlock;
-import com.jzy.game.ai.unity.nav.Vector3;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -18,6 +14,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+
+import com.jzy.game.ai.nav.node.KPolygon;
+import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.TriangleBlock;
+import com.jzy.game.ai.nav.node.Vector3;
 
 /**
  * 地图显示面板

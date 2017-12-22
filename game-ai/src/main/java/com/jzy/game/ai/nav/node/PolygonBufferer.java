@@ -1,4 +1,4 @@
-package com.jzy.game.ai.unity.nav;
+package com.jzy.game.ai.nav.node;
 
 
 

@@ -1,7 +1,5 @@
-package com.jzy.game.ai.unity.nav.ui;
+package com.jzy.game.ai.nav.node.ui;
 
-import com.jzy.game.ai.unity.nav.NavMesh;
-import com.jzy.game.ai.unity.nav.Vector3;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -10,6 +8,9 @@ import java.util.Random;
 import javax.swing.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.Vector3;
 
 /**
  * 地图显示窗口

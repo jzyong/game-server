@@ -2,6 +2,9 @@ package com.jzy.game.ai.unity.nav;
 
 import org.junit.Test;
 
+import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.Vector3;
+
 /**
  * 测试寻路
  * @author JiangZhiYong

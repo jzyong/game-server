@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jzy.game.ai.unity.nav;
+package com.jzy.game.ai.nav.node;
 
 import java.io.Serializable;
 import java.util.ArrayList;
