@@ -22,6 +22,7 @@ import com.jzy.game.ai.nav.node.Vector3;
 
 /**
  * 地图显示面板
+ *
  * @author wzyi
  * @fix JiangZhiYong
  */
@@ -37,7 +38,8 @@ public class ViewPane extends JComponent {
     Vector3 direction;
     Vector3 stop;
     KPolygon poly = null;
-    protected boolean isRenderRandomPoints;
+    protected boolean isRenderRandomPoints; //是否渲染随机点
+    protected boolean isRenderXingZouCeng = true; //是否渲行走层
 
     public ViewPane(MovePlayer player) {
         this.player = player;
@@ -46,8 +48,8 @@ public class ViewPane extends JComponent {
 
         stop = getStopPoint(center, test, 5);
     }
-    
-     public static Vector3 getStopPoint(Vector3 up, Vector3 end, double distance) {
+
+    public static Vector3 getStopPoint(Vector3 up, Vector3 end, double distance) {
         if (distance >= up.distance(end)) {
             return up;
         }
@@ -97,16 +99,17 @@ public class ViewPane extends JComponent {
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-       
-       
-        
+
         //渲染行走区
-         float g4 = 0.2f;
+        float g4 = 0.2f;
+
         g.setColor(new Color(g4, g4, g4));
         for (TriangleBlock block : player.getMap().getPathAreas()) {
 
             KPolygon p = block.getPolygon();
-            g.fill(p);
+            if (isRenderXingZouCeng) {
+                g.fill(p);
+            }
             if (isRenderRandomPoints) {
                 g.setColor(Color.RED);
                 for (Vector3 object : block.getRandomPoints()) {
@@ -115,16 +118,16 @@ public class ViewPane extends JComponent {
                 g.setColor(new Color(g4, g4, g4));
             }
         }
-        
-         //渲染阻挡
+
+        //渲染阻挡
         g4 = 0.1f;
         g.setColor(new Color(g4, g4, g4));
-        List<TriangleBlock> blocks=new ArrayList<>(player.getMap().getBlockAreas());
+        List<TriangleBlock> blocks = new ArrayList<>(player.getMap().getBlockAreas());
         for (TriangleBlock block : blocks) {
             KPolygon p = block.getPolygon();
             g.fill(p);
         }
-        
+
         g.setColor(Color.LIGHT_GRAY);
         if (player.pathData.points.size() > 0) {
             Vector3 currentPoint = player.getPos();
@@ -173,10 +176,18 @@ public class ViewPane extends JComponent {
     public NavMesh getMap() {
         return player.getMap();
     }
+
     /**
      * 改变随机点是否显示
      */
-    public void changeShowRandomPoint(){
-        isRenderRandomPoints=!isRenderRandomPoints;
+    public void changeShowRandomPoint() {
+        isRenderRandomPoints = !isRenderRandomPoints;
+    }
+
+    /**
+     * 改变行走层渲染
+     */
+    public void changeShowXingZouCeng() {
+        isRenderXingZouCeng = !isRenderXingZouCeng;
     }
 }

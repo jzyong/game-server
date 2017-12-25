@@ -623,6 +623,22 @@ public class Vector3 implements Serializable, Cloneable {
         copy.z -= z;
         return copy;
     }
+    
+    /**
+     * x轴加一个常量
+     * @param x
+     */
+    public void addX(double x) {
+    	this.x+=x;
+    }
+    
+    public void addY(double y) {
+    	this.y+=y;
+    }
+    
+    public void addZ(double z) {
+    	this.z+=z;
+    }
 
     /**
      * 是否为0向量

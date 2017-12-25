@@ -106,7 +106,7 @@ public class NavMesh implements Serializable, Cloneable {
         this.mapID = data.getMapID();
         LOGGER.info("加载地图{}宽{}高{}，开始坐标({},{}),结束坐标({},{})", mapID, width, height, startX, startZ, endX, endZ);
         if (this.editor) {
-            scale = 850 / height;
+            scale = 750 / height;
         } else {
             scale = 1;
         }
@@ -147,6 +147,8 @@ public class NavMesh implements Serializable, Cloneable {
 		// 坐标缩放
 		if (editor) {
 			for (Vector3 vector : vertices) {
+				vector.addX(-this.startX);
+				vector.addZ(-this.startZ);
 				vector.scale(scale);
 			}
 		}

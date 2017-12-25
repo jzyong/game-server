@@ -80,16 +80,16 @@ public class MapWindow {
         frame = new JFrame(this.getClass().getSimpleName());
 
         if (this.view.getPlayer().getMap() != null) {
-//        double width = Toolkit.getDefaultToolkit().getScreenSize().width - 300; //得到当前屏幕分辨率的高
-//        double height = Toolkit.getDefaultToolkit().getScreenSize().height - 200;//得到当前屏幕分辨率的宽
-            frame.setSize((int) (this.view.getPlayer().map.getWidth() * this.view.getPlayer().map.getScale()) + 10,
-                    (int) (this.view.getPlayer().map.getHeight() * this.view.getPlayer().map.getScale()) + 55);//设置大小
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width - 300; //得到当前屏幕分辨率的高
+        double height = Toolkit.getDefaultToolkit().getScreenSize().height - 200;//得到当前屏幕分辨率的宽
+            frame.setSize((int) width,
+                    (int)height);//设置大小
         } else {
             frame.setSize(300, 300);//设置大小
         }
 
-        frame.setLocation(350, 50); //设置窗体居中显示
-        frame.setResizable(false);//禁用最大化按钮
+        frame.setLocation(0,0); //设置窗体居中显示
+        frame.setResizable(true);//禁用最大化按钮
         frame.add(view);
 
         frame.setMenuBar(menuBar);
@@ -205,7 +205,10 @@ public class MapWindow {
             map = new NavMesh(filePath, true);
             if (map != null && player != null) {
                 player.setMap(map);
-                frame.setSize((int) (map.getWidth() * map.getScale()) + 10, (int) (map.getHeight() * map.getScale()) + 55);
+                int width=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+                int hight=(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+                frame.setSize(width ,hight);
+                frame.setResizable(true);
             }
 //            if (view!=null) {
 //                view.setBounds((int)(-map.getStartX()*map.getScale()), (int)(-map.getStartZ()*map.getScale())

@@ -51,7 +51,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.jzy.game.ai.unity.nav.ui.Main</mainClass>
+							<mainClass>com.jzy.game.ai.nav.node.ui.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
