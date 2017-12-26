@@ -80,8 +80,8 @@ public class MapWindow {
         frame = new JFrame(this.getClass().getSimpleName());
 
         if (this.view.getPlayer().getMap() != null) {
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width - 300; //得到当前屏幕分辨率的高
-        double height = Toolkit.getDefaultToolkit().getScreenSize().height - 200;//得到当前屏幕分辨率的宽
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width ; //得到当前屏幕分辨率的高
+        double height = Toolkit.getDefaultToolkit().getScreenSize().height;//得到当前屏幕分辨率的宽
             frame.setSize((int) width,
                     (int)height);//设置大小
         } else {
@@ -228,7 +228,8 @@ public class MapWindow {
         File file = new File(System.getProperty("user.dir"));
 
         String path = file.getPath();
-        path +=  File.separatorChar + "target" + File.separatorChar + "config" + File.separatorChar + "navmesh" + File.separatorChar + "101.navmesh";
+//        path +=  File.separatorChar + "target" + File.separatorChar + "config" + File.separatorChar + "navmesh" + File.separatorChar + "101.navmesh";
+        path +=  File.separatorChar + "101.navmesh";
         map = loadMap(path);
 
         player = new MovePlayer(map);
