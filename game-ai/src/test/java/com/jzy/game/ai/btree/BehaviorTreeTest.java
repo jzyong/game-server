@@ -1,5 +1,6 @@
 package com.jzy.game.ai.btree;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jzy.game.ai.btree.branch.Parallel;
@@ -20,6 +21,7 @@ import com.jzy.game.engine.util.MathUtil;
  * @QQ 359135103
  * 2017年11月22日 下午6:03:17
  */
+@Ignore
 public class BehaviorTreeTest {
 
 	/**

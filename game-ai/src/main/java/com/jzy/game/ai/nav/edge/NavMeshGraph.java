@@ -1,7 +1,10 @@
 package com.jzy.game.ai.nav.edge;
 //package com.jzy.game.ai.nav;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.badlogic.gdx.ai.pfa.Connection;
@@ -17,27 +20,34 @@ import com.badlogic.gdx.utils.ArrayMap;
  * @QQ 359135103 2017年11月7日 下午4:43:33
  */
 public class NavMeshGraph implements IndexedGraph<Triangle> {
+	private static final org.slf4j.Logger LOGGER=LoggerFactory.getLogger(NavMeshGraph.class);
 
 	private final transient NavMeshData navMeshData;
+	private List<Triangle> triangles=new ArrayList<>();
+	
 	/** 寻路三角形对应的共享边 */
-	private final ArrayMap<Triangle, Array<Edge>> pathSharedEdges;
+	private final ArrayMap<Triangle, Array<Edge>> sharedEdges;
+	/** 独立边*/
+	private final ArrayMap<Triangle, Array<Edge>> isolatedEdgesMap; 
 
 	public NavMeshGraph(NavMeshData navMeshData) {
 		super();
 		this.navMeshData = navMeshData;
 		// 寻路三角形
-		Array<Triangle> pathTriangles = createTriangles(0);
+		Array<Triangle> pathTriangles = createTriangles();
 		// 共享的连接边
 		Array<IndexConnection> pathIndexConnections = getIndexConnections(
 				navMeshData.getPathTriangles().toArray(new Integer[navMeshData.getPathTriangles().size()]));
 		// 三角形共享连接边
-		pathSharedEdges = createSharedEdgesMap(pathIndexConnections, pathTriangles, navMeshData.getPathVertices());
+		sharedEdges = createSharedEdgesMap(pathIndexConnections, pathTriangles, navMeshData.getPathVertices());
+		isolatedEdgesMap = createIsolatedEdgesMap(sharedEdges);
+		//TODO 2018-1-8 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Array<Connection<Triangle>> getConnections(Triangle fromNode) {
-		return (Array<Connection<Triangle>>) (Array<?>) pathSharedEdges.getValueAt(fromNode.index);
+		return (Array<Connection<Triangle>>) (Array<?>) sharedEdges.getValueAt(fromNode.index);
 	}
 
 	@Override
@@ -47,7 +57,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 
 	@Override
 	public int getNodeCount() {
-		return pathSharedEdges.size;
+		return sharedEdges.size;
 	}
 
 	public NavMeshData getNavMeshData() {
@@ -55,34 +65,28 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	}
 
 	/**
-	 * 创建
+	 * 创建三角形列表
 	 * 
-	 * @param type
-	 *            0寻路 1阻挡
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年11月7日 下午5:58:20
 	 * @return
 	 */
-	private Array<Triangle> createTriangles(int type) {
-		Array<Triangle> triangles = new Array<>();
+	private Array<Triangle> createTriangles() {
+		Array<Triangle> list = new Array<>();
 		List<Integer> vertexIndexs; // 顶点
 		List<Vector3> vertices; // 坐标
-		if (type == 0) {
-			vertexIndexs = navMeshData.getPathTriangles();
-			vertices = navMeshData.getPathVertices();
-		} else {
-			vertexIndexs = navMeshData.getBlockTriangles();
-			vertices = navMeshData.getBlockVertices();
-		}
+		vertexIndexs = navMeshData.getPathTriangles();
+		vertices = navMeshData.getPathVertices();
 		int triangleIndex = 0; // 三角形下标
 		for (int i = 0; i < vertexIndexs.size() - 3;) {
 			Triangle triangle = new Triangle(vertices.get(vertexIndexs.get(i)), vertices.get(vertexIndexs.get(i + 1)),
 					vertices.get(vertexIndexs.get(i + 2)), triangleIndex++);
 			i = i + 3;
+			list.add(triangle);
 			triangles.add(triangle);
 		}
 
-		return triangles;
+		return list;
 	}
 
 	/**
@@ -101,13 +105,13 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		short i = 0;
 		int j, a0, a1, a2, b0, b1, b2, triAIndex, triBIndex;
 		while (i < indices.length) {
-			triAIndex = (short) (i / 3);
+			triAIndex = (short) (i / 3);	//A三角形编号
 			a0 = indices[i++];
 			a1 = indices[i++];
 			a2 = indices[i++];
 			j = i;
 			while (j < indices.length) {
-				triBIndex = (short) (j / 3);
+				triBIndex = (short) (j / 3);	//B三角形编号
 				b0 = indices[j++];
 				b1 = indices[j++];
 				b2 = indices[j++];
@@ -122,7 +126,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		return indexConnections;
 	}
 
-	/**
+	/**检测是否有共享边
 	 * Checks if the two triangles have shared vertex indices. The edge will always
 	 * follow the vertex winding order of the triangle A. Since all triangles have
 	 * the same winding order, triangle A should have the opposite edge direction to
@@ -164,7 +168,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		return false;
 	}
 
-	/**
+	/**创建每个三角形的共享边列表
 	 * Creates a map over each triangle and its Edge connections to other triangles.
 	 * Each edge must follow the vertex winding order of the triangle associated
 	 * with it. Since all triangles are assumed to have the same winding order, this
@@ -206,6 +210,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	}
 
 	/**
+	 * 存储相互连接三角形的关系
 	 * Class for storing the edge connection data between two adjacent triangles.
 	 */
 	private static class IndexConnection {
@@ -225,8 +230,55 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	}
 
 	public ArrayMap<Triangle, Array<Edge>> getPathSharedEdges() {
-		return pathSharedEdges;
+		return sharedEdges;
+	}
+	
+	/**
+	 * 获取所有三角形列表
+	 * @return
+	 */
+	public List<Triangle> getTriangles(){
+		return triangles;
 	}
 
+	/**
+	 * 创建有一条边与其他三角形无连接的边关系
+	 * Map the isolated edges for each triangle which does not have all three edges connected to other triangles.
+	 *
+	 * @param connectionMap
+	 * @return
+	 */
+	private static ArrayMap<Triangle, Array<Edge>> createIsolatedEdgesMap(ArrayMap<Triangle, Array<Edge>> connectionMap) {
+
+		ArrayMap<Triangle, Array<Edge>> disconnectionMap = new ArrayMap<Triangle, Array<Edge>>();
+
+		for (int i = 0; i < connectionMap.size; i++) {
+			Triangle tri = connectionMap.getKeyAt(i);
+			Array<Edge> connectedEdges = connectionMap.getValueAt(i);
+
+			Array<Edge> disconnectedEdges = new Array<Edge>();
+			disconnectionMap.put(tri, disconnectedEdges);
+
+			if (connectedEdges.size < 3) {
+				// This triangle does not have all edges connected to other triangles
+				boolean ab = true;
+				boolean bc = true;
+				boolean ca = true;
+				for (Edge edge : connectedEdges) {
+					if (edge.rightVertex == tri.a && edge.leftVertex == tri.b) ab = false;
+					else if (edge.rightVertex == tri.b && edge.leftVertex == tri.c) bc = false;
+					else if (edge.rightVertex == tri.c && edge.leftVertex == tri.a) ca = false;
+				}
+				if (ab) disconnectedEdges.add(new Edge(tri, null, tri.a, tri.b));
+				if (bc) disconnectedEdges.add(new Edge(tri, null, tri.b, tri.c));
+				if (ca) disconnectedEdges.add(new Edge(tri, null, tri.c, tri.a));
+			}
+			int totalEdges = (connectedEdges.size + disconnectedEdges.size);
+			if (totalEdges != 3) {
+				LOGGER.debug("Wrong number of edges (" + totalEdges + ") in triangle " + tri.getIndex());
+			}
+		}
+		return disconnectionMap;
+	}
 	
 }

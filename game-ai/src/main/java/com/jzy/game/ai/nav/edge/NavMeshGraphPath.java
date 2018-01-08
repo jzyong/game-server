@@ -19,6 +19,7 @@ import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.math.Vector3;
 
 /**
+ * 路径点
  * @author jsjolund
  */
 public class NavMeshGraphPath extends DefaultGraphPath<Connection<Triangle>> {

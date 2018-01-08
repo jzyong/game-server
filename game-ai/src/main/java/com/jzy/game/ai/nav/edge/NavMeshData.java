@@ -20,10 +20,6 @@ public class NavMeshData {
 	/** 结束X坐标 */
 	private float endX;
 	private float endZ;
-	/** 阻挡顶点下标 */
-	private List<Integer> blockTriangles;
-	/** 阻挡坐标 */
-	private List<Vector3> blockVertices;
 
 	/** 寻路顶点下标 */
 	private List<Integer> pathTriangles;
@@ -68,22 +64,6 @@ public class NavMeshData {
 
 	public void setEndZ(float endZ) {
 		this.endZ = endZ;
-	}
-
-	public List<Integer> getBlockTriangles() {
-		return blockTriangles;
-	}
-
-	public void setBlockTriangles(List<Integer> blockTriangles) {
-		this.blockTriangles = blockTriangles;
-	}
-
-	public List<Vector3> getBlockVertices() {
-		return blockVertices;
-	}
-
-	public void setBlockVertices(List<Vector3> blockVertices) {
-		this.blockVertices = blockVertices;
 	}
 
 	public List<Integer> getPathTriangles() {

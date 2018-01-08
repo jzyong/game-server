@@ -12,9 +12,9 @@ import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
  */
 public class NavMesh {
 
-	private final NavMeshGraph graph;
-	private final NavMeshHeuristic heuristic;
-	private final IndexedAStarPathFinder<Triangle> pathFinder;
+	private final NavMeshGraph graph;	//导航数据图
+	private final NavMeshHeuristic heuristic;	//寻路消耗计算
+	private final IndexedAStarPathFinder<Triangle> pathFinder;	//A*寻路算法
 	
 	/**
 	 * 
