@@ -280,7 +280,9 @@ public class MapWindow {
                             break;
                         case MouseEvent.MOUSE_CLICKED:
                             /*有缩放*/
-                            main.setPosition(new Vector3(e.getX() / view.getMap().getScale(), e.getY() / view.getMap().getScale()));
+                            Vector3 positon=  new Vector3(e.getX() / view.getMap().getScale(), e.getY() / view.getMap().getScale());
+                            view.getMap().amendPointY(positon);
+                            main.setPosition(positon);
                             view.getPlayer().pos.x = e.getX();
                             view.getPlayer().pos.z = e.getY();
                             break;
