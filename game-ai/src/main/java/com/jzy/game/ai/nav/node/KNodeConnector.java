@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.jzy.game.engine.util.math.Vector3;
+
 /**
  * 节点连接关系处理
  * 
@@ -67,7 +69,7 @@ public class KNodeConnector<T extends Block> implements Serializable, Cloneable 
 				continue;
 			}
 			for (TriangleKNode node : nearBlock.getNodes()) { // 变量多边形的节点
-				if (kPolygon.getCenter().distanceSq(node.getPoint()) <= kPolygon.getRadiusSq()) { // 当前多边形中心点到其他节点距离的平方<=小于多边形半径的平方
+				if (kPolygon.getCenter().dst2(node.getPoint()) <= kPolygon.getRadiusSq()) { // 当前多边形中心点到其他节点距离的平方<=小于多边形半径的平方
 					boolean contained = kPolygon.contains(node.getPoint());
 					if (contained) {
 						node.setContained(TriangleKNode.TRUE_VALUE); // 节点在多边形内部
@@ -516,7 +518,7 @@ public class KNodeConnector<T extends Block> implements Serializable, Cloneable 
 				// blocks (including nearBlock itself).
 				// Should check closest node first, and block whose points were found to be
 				// reachable
-				double nodeToNode2DistSq = p.distanceSq(p2);
+				double nodeToNode2DistSq = p.dst2(p2);
 				if (nodeToNode2DistSq > maxConnectionDistanceSq) { // 超过最大距离
 					continue;
 				}

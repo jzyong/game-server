@@ -19,7 +19,7 @@ package com.jzy.game.ai.btree;
 import java.util.Collections;
 import java.util.List;
 
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.util.math.MathUtil;
 
 /**
  * 只能运行一个子任务的分支任务<br>
@@ -140,11 +140,11 @@ public abstract class SingleRunningChildBranch<E> extends BranchTask<E> {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		this.currentChildIndex = 0;
 		this.runningChild = null;
 		this.randomChildren = null;
-		super.release();
+		super.reset();
 	}
 
 }

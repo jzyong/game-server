@@ -3,6 +3,8 @@ package com.jzy.game.ai.nav.node;
 
 
 import java.io.Serializable;
+
+import com.jzy.game.engine.util.math.Vector3;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;

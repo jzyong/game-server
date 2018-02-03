@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jzy.game.engine.util.math.Vector3;
+
 /**
  * 自定义多边形,包括三角形<br>
  * 封装了在java2D图像显示，多边形可凸或凹，但不能相交
@@ -25,7 +27,7 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
     protected double area;              // 面积
     protected Vector3 center;           // 中心坐标
     protected double radius;            // 半径，中点到顶点的最大距离
-    protected double y = -1;            // 多边形的平均y轴高度
+    protected float y = -1;            // 多边形的平均y轴高度
     protected double radiusSq;          // 半径的平方
 
     /**
@@ -111,8 +113,8 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
             center.z = points.get(0).z;
             return;
         }
-        double cx = 0.0f;
-        double cz = 0.0f;
+        float cx = 0.0f;
+        float cz = 0.0f;
         Vector3 pointIBefore = (!points.isEmpty() ? points.get(points.size() - 1) : null);
         for (int i = 0; i < points.size(); i++) {
             Vector3 pointI = points.get(i);
@@ -141,7 +143,7 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
         double maxRadiusSq = -1;
         int furthestPointIndex = 0;
         for (int i = 0; i < points.size(); i++) {
-            double currentRadiusSq = (center.distanceSq(points.get(i)));
+            double currentRadiusSq = (center.dst2(points.get(i)));
             if (currentRadiusSq > maxRadiusSq) {
                 maxRadiusSq = currentRadiusSq;
                 furthestPointIndex = i;
@@ -217,7 +219,7 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
         return radius;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
@@ -374,7 +376,7 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
      * @param z
      * @return
      */
-    public Vector3 getBoundaryPointClosestTo(double x, double z) {
+    public Vector3 getBoundaryPointClosestTo(float x, float z) {
         double closestDistanceSq = Double.MAX_VALUE;
         int closestIndex = -1;
         int closestNextIndex = -1;

@@ -81,7 +81,7 @@
 		</profile>
 	</profiles>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>maven-central</id>
 			<name>maven-central</name>
@@ -117,7 +117,7 @@
 			<name>snapshots</name>
 			<url>http://192.168.0.71:8081/repository/snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 
 
 </project>

@@ -225,7 +225,7 @@ public class Parallel<E> extends BranchTask<E> {
 	public void resetAllChildren() {
 		for (int i = 0, n = getChildCount(); i < n; i++) {
 			Task<E> child = getChild(i);
-			child.release();
+			child.reset();
 		}
 	}
 
@@ -322,13 +322,13 @@ public class Parallel<E> extends BranchTask<E> {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		policy = Policy.Sequence;
 		orchestrator = Orchestrator.Resume;
 		noRunningTasks = true;
 		lastResult = null;
 		currentChildIndex = 0;
-		super.release();
+		super.reset();
 	}
 
 	/** The enumeration of the policies supported by the {@link Parallel} task. */

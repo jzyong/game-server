@@ -37,7 +37,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	public void put(T value) {
 		synchronized (this.cache) {
 			if ((!this.cache.contains(value)) && (this.cache.size() < this.MAX_SIZE)) {
-				value.release();
+				value.reset();
 				this.cache.add(value);
 			}
 		}
@@ -60,7 +60,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 				if ((!this.cache.contains(value)) && (this.cache.size() < this.MAX_SIZE)) {
 					this.cache.add(value);
 				}
-				value.release();
+				value.reset();
 			}
 		}
 	}

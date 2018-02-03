@@ -1,7 +1,7 @@
 package com.jzy.game.ai.nav.edge;
 
-import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.math.Vector3;
+import com.jzy.game.ai.pfa.Connection;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * 相连接三角形的共享边

@@ -80,9 +80,9 @@ public abstract class LoopDecorator<E> extends Decorator<E> {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		loop = false;
-		super.release();
+		super.reset();
 	}
 
 }

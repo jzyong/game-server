@@ -12,9 +12,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
+import com.jzy.game.ai.nav.NavMesh;
+import com.jzy.game.ai.nav.NavMeshData;
 import com.jzy.game.engine.util.FileUtil;
-import com.jzy.game.engine.util.MathUtil;
 import com.jzy.game.engine.util.TimeUtil;
+import com.jzy.game.engine.util.math.MathUtil;
+import com.jzy.game.engine.util.math.Vector3;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.shape.random.RandomPointsBuilder;
 
@@ -24,9 +27,9 @@ import com.vividsolutions.jts.shape.random.RandomPointsBuilder;
  *
  * @author JiangZhiYong
  */
-public class NavMesh implements Serializable, Cloneable {
+public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(NavMesh.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NodeNavMesh.class);
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -81,7 +84,7 @@ public class NavMesh implements Serializable, Cloneable {
 	 * @param filePath
 	 *            文件路径
 	 */
-	public NavMesh(String filePath) {
+	public NodeNavMesh(String filePath) {
 		this(filePath, false);
 	}
 
@@ -89,7 +92,7 @@ public class NavMesh implements Serializable, Cloneable {
      * @param filePath 文件路径
      * @param editor 是否为编辑器模式true会被缩放
      */
-    public NavMesh(String filePath, boolean editor) {
+    public NodeNavMesh(String filePath, boolean editor) {
         LOGGER.info("ss");
         this.editor = editor;
         String txtFile = FileUtil.readTxtFile(filePath);
@@ -152,7 +155,7 @@ public class NavMesh implements Serializable, Cloneable {
 			for (Vector3 vector : vertices) {
 				vector.addX(-this.startX);
 				vector.addZ(-this.startZ);
-				vector.scale(scale);
+				vector.scl(scale);
 			}
 		}
 
@@ -227,7 +230,7 @@ public class NavMesh implements Serializable, Cloneable {
 
 		if (editor) {
 			for (Vector3 li : vertices) {
-				li.scale(scale);
+				li.scl(scale);
 			}
 		}
 
@@ -295,7 +298,7 @@ public class NavMesh implements Serializable, Cloneable {
 	 * @param height
 	 * @return
 	 */
-	public final KPolygon getKPolygon(Vector3 position, double distance, Vector3 sourceDirection, float width,
+	public final KPolygon getKPolygon(Vector3 position, float distance, Vector3 sourceDirection, float width,
 			float height) {
 		Vector3 source = position.unityTranslate(sourceDirection, 0, distance);
 		Vector3 corner_1 = source.unityTranslate(sourceDirection, -90, width / 2);
@@ -385,7 +388,7 @@ public class NavMesh implements Serializable, Cloneable {
 	 * @param z
 	 * @return
 	 */
-	public Vector3 getPointInPaths(double x, double z) {
+	public Vector3 getPointInPaths(float x, float z) {
 		Vector3 movedPoint = new Vector3(x, z);
 		for (TriangleBlock block : this.pathAreas) {
 			if (block.getInnerPolygon().contains(movedPoint)) {

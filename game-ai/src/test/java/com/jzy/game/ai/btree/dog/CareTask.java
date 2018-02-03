@@ -47,9 +47,9 @@ public class CareTask extends LeafTask<Dog> {
 //	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		urgentProb = 0.8f;
-		super.release();
+		super.reset();
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.jzy.game.ai.nav.node.ui;
 
-import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.NodeNavMesh;
 import com.jzy.game.ai.nav.node.PathData;
-import com.jzy.game.ai.nav.node.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
+import com.jzy.game.engine.util.math.Vector3;
 
 
 /**
@@ -21,9 +21,9 @@ public class MovePlayer {
     protected float speedZ;
     protected float moveAngle;
     protected Vector3 currentTargetPoint = null;
-    protected NavMesh map;
+    protected NodeNavMesh map;
 
-    public MovePlayer(NavMesh map) {
+    public MovePlayer(NodeNavMesh map) {
         pathData = new PathData();
         speed = 200;
         this.map = map;
@@ -56,8 +56,8 @@ public class MovePlayer {
             if (timeUntilTargetReached < 0) {
                 return;
             }
-            double xCoordToWorkOutAngle = currentTargetPoint.x - pos.x;
-            double yCoordToWorkOutAngle = currentTargetPoint.z - pos.z;
+            float xCoordToWorkOutAngle = currentTargetPoint.x - pos.x;
+            float yCoordToWorkOutAngle = currentTargetPoint.z - pos.z;
             if (xCoordToWorkOutAngle != 0 || yCoordToWorkOutAngle != 0) {
                 double dirAngle = Vector3.findAngle(0, 0, xCoordToWorkOutAngle, yCoordToWorkOutAngle);//(float)Math.atan(yCoordToWorkOutAngle/xCoordToWorkOutAngle);
                 moveAngle = (float) dirAngle;
@@ -133,14 +133,14 @@ public class MovePlayer {
     /**
      * @return the map
      */
-    public NavMesh getMap() {
+    public NodeNavMesh getMap() {
         return map;
     }
 
     /**
      * @param map the map to set
      */
-    public void setMap(NavMesh map) {
+    public void setMap(NodeNavMesh map) {
         this.map = map;
     }
 }

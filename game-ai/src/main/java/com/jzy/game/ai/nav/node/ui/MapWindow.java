@@ -9,8 +9,8 @@ import javax.swing.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jzy.game.ai.nav.node.NavMesh;
-import com.jzy.game.ai.nav.node.Vector3;
+import com.jzy.game.ai.nav.node.NodeNavMesh;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * 地图显示窗口
@@ -199,10 +199,10 @@ public class MapWindow {
         gameLoopThread.start();
     }
 
-    private NavMesh loadMap(String filePath) {
-        NavMesh map = null;
+    private NodeNavMesh loadMap(String filePath) {
+        NodeNavMesh map = null;
         try {
-            map = new NavMesh(filePath, true);
+            map = new NodeNavMesh(filePath, true);
             if (map != null && player != null) {
                 player.setMap(map);
                 int width=(int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
@@ -224,7 +224,7 @@ public class MapWindow {
     }
 
     private ViewPane createViePane() {
-        NavMesh map = null;
+        NodeNavMesh map = null;
         File file = new File(System.getProperty("user.dir"));
 
         String path = file.getPath();

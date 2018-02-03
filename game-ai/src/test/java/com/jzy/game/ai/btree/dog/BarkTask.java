@@ -56,10 +56,10 @@ public class BarkTask extends LeafTask<Dog> {
 //	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		times = 1;
 		t = 0;
-		super.release();
+		super.reset();
 	}
 
 }

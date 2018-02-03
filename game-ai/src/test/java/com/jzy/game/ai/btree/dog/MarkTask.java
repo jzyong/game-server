@@ -48,8 +48,8 @@ public class MarkTask extends LeafTask<Dog> {
 //	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		i = 0;
-		super.release();
+		super.reset();
 	}
 }

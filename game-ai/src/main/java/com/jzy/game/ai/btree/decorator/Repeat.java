@@ -113,9 +113,9 @@ public class Repeat<E> extends LoopDecorator<E> {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		count = 0;
 		times = 0;
-		super.release();
+		super.reset();
 	}
 }

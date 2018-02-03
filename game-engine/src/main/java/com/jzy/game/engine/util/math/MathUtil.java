@@ -1,4 +1,4 @@
-package com.jzy.game.engine.util;
+package com.jzy.game.engine.util.math;
 
 import java.util.ArrayList;
 import java.util.Collection;

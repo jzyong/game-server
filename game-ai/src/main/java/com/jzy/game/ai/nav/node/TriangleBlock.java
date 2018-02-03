@@ -3,6 +3,8 @@ package com.jzy.game.ai.nav.node;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jzy.game.engine.util.math.Vector3;
 import com.vividsolutions.jts.geom.Coordinate;
 
 /**
@@ -128,7 +130,7 @@ public class TriangleBlock implements Serializable, Block, Cloneable {
      */
     public void addRandomPoints(Coordinate[] points) {
         for (Coordinate point : points) {
-            Vector3 p = new Vector3(point.x, getOuterPolygon().getY(), point.y);
+            Vector3 p = new Vector3((float)point.x, getOuterPolygon().getY(), (float)point.y);
             this.randomPoints.add(p);
         }
         randomNum = this.randomPoints.size();

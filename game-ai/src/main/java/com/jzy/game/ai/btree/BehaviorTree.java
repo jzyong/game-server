@@ -179,12 +179,12 @@ public class BehaviorTree<E> extends Task<E> {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		removeListeners();
 		this.rootTask = null;
 		this.object = null;
 		this.listeners = null;
-		super.release();
+		super.reset();
 	}
 
 	@Override

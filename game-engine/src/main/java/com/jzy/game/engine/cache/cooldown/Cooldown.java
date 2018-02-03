@@ -97,7 +97,7 @@ public class Cooldown implements IMemoryObject, Serializable {
 
 	@JSONField(serialize = false)
 	@Override
-	public void release() {
+	public void reset() {
 		this.setKey(null);
 		this.setType(null);
 		this.setStart(0);

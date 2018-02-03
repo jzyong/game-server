@@ -160,7 +160,7 @@ public class Fish implements IMemoryObject, Serializable {
 //	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		this.id = Config.getId();
 		this.bornTime = 0;
 		this.configId = 0;

@@ -9,7 +9,7 @@ package com.jzy.game.engine.cache;
 public interface IMemoryObject {
 
 	/**
-	 * 对象释放
+	 * 对象释放并重置
 	 */
-	public void release();
+	public void reset();
 }

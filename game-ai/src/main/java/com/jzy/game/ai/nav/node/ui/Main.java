@@ -3,7 +3,7 @@ package com.jzy.game.ai.nav.node.ui;
 import java.util.ArrayList;
 
 import com.jzy.game.ai.nav.node.TriangleBlock;
-import com.jzy.game.ai.nav.node.Vector3;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * navmesh主界面

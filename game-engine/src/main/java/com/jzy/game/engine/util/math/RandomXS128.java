@@ -1,15 +1,19 @@
-package com.jzy.game.engine.util;
+
+package com.jzy.game.engine.util.math;
 
 import java.util.Random;
 
-/**
- * 随机
- *
- * @author JiangZhiYong
- * @date 2017-03-23
- * QQ:359135103
- */
+/** This class implements the xorshift128+ algorithm that is a very fast, top-quality 64-bit pseudo-random number generator. The
+ * quality of this PRNG is much higher than {@link Random}'s, and its cycle length is 2<sup>128</sup>&nbsp;&minus;&nbsp;1, which
+ * is more than enough for any single-thread application. More details and algorithms can be found <a
+ * href="http://xorshift.di.unimi.it/">here</a>.
+ * <p>
+ * Instances of RandomXS128 are not thread-safe.
+ * 
+ * @author Inferno
+ * @author davebaol */
 public class RandomXS128 extends Random {
+	private static final long serialVersionUID = 1L;
 
 	/** Normalization constant for double. */
 	private static final double NORM_DOUBLE = 1.0 / (1L << 53);
@@ -46,8 +50,7 @@ public class RandomXS128 extends Random {
 
 	/** Returns the next pseudo-random, uniformly distributed {@code long} value from this random number generator's sequence.
 	 * <p>
-	 * Subclasses should override this, as this is used by all other methods.
-     * @return  */
+	 * Subclasses should override this, as this is used by all other methods. */
 	@Override
 	public long nextLong () {
 		long s1 = this.seed0;
@@ -57,8 +60,7 @@ public class RandomXS128 extends Random {
 		return (this.seed1 = (s1 ^ s0 ^ (s1 >>> 17) ^ (s0 >>> 26))) + s0;
 	}
 
-	/** This protected method is final because, contrary to the superclass, it's not used anymore by the other methods.
-     * @return  */
+	/** This protected method is final because, contrary to the superclass, it's not used anymore by the other methods. */
 	@Override
 	protected final int next (int bits) {
 		return (int)(nextLong() & ((1L << bits) - 1));
@@ -66,8 +68,7 @@ public class RandomXS128 extends Random {
 
 	/** Returns the next pseudo-random, uniformly distributed {@code int} value from this random number generator's sequence.
 	 * <p>
-	 * This implementation uses {@link #nextLong()} internally.
-     * @return  */
+	 * This implementation uses {@link #nextLong()} internally. */
 	@Override
 	public int nextInt () {
 		return (int)nextLong();
@@ -103,8 +104,7 @@ public class RandomXS128 extends Random {
 	/** Returns a pseudo-random, uniformly distributed {@code double} value between 0.0 and 1.0 from this random number generator's
 	 * sequence.
 	 * <p>
-	 * This implementation uses {@link #nextLong()} internally.
-     * @return  */
+	 * This implementation uses {@link #nextLong()} internally. */
 	@Override
 	public double nextDouble () {
 		return (nextLong() >>> 11) * NORM_DOUBLE;
@@ -113,8 +113,7 @@ public class RandomXS128 extends Random {
 	/** Returns a pseudo-random, uniformly distributed {@code float} value between 0.0 and 1.0 from this random number generator's
 	 * sequence.
 	 * <p>
-	 * This implementation uses {@link #nextLong()} internally.
-     * @return  */
+	 * This implementation uses {@link #nextLong()} internally. */
 	@Override
 	public float nextFloat () {
 		return (float)((nextLong() >>> 40) * NORM_FLOAT);
@@ -122,8 +121,7 @@ public class RandomXS128 extends Random {
 
 	/** Returns a pseudo-random, uniformly distributed {@code boolean } value from this random number generator's sequence.
 	 * <p>
-	 * This implementation uses {@link #nextLong()} internally.
-     * @return  */
+	 * This implementation uses {@link #nextLong()} internally. */
 	@Override
 	public boolean nextBoolean () {
 		return (nextLong() & 1) != 0;

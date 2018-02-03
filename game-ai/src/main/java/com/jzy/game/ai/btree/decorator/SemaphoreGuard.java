@@ -147,10 +147,10 @@ public class SemaphoreGuard<E> extends Decorator<E> {
 
 
 	@Override
-	public void release() {
+	public void reset() {
 		name = null;
 		semaphore = null;
 		semaphoreAcquired = false;
-		super.release();
+		super.reset();
 	}
 }

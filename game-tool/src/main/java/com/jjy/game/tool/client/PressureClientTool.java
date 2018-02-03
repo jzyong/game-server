@@ -20,7 +20,8 @@ import com.jzy.game.engine.mina.config.MinaClientConfig.MinaClienConnToConfig;
 import com.jzy.game.engine.mina.service.SingleMinaTcpClientService;
 import com.jzy.game.engine.script.ScriptManager;
 import com.jzy.game.engine.util.HttpUtil;
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.util.math.MathUtil;
+
 import javax.swing.JTextArea;
 
 /**

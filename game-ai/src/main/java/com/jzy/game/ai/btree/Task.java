@@ -277,7 +277,7 @@ public abstract class Task<E> implements IMemoryObject {
 	}
 
 	@Override
-	public void release() {
+	public void reset() {
 		control = null;
 		guard = null;
 		status = Status.FRESH;

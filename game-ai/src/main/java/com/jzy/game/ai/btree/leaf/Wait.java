@@ -95,11 +95,11 @@ public class Wait<E> extends LeafTask<E> {
 	// }
 
 	@Override
-	public void release() {
+	public void reset() {
 		seconds = INIT_SECONDS;
 		startTime = 0;
 		timeout = 0;
-		super.release();
+		super.reset();
 	}
 
 }

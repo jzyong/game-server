@@ -1,6 +1,9 @@
-package com.jzy.game.ai.nav.node;
+package com.jzy.game.ai.nav;
 
 import java.io.Serializable;
+
+import com.alibaba.fastjson.JSON;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * navmesh寻路三角形网格数据 <br>
@@ -101,5 +104,8 @@ public class NavMeshData implements Serializable {
 	public void setMapID(int mapID) {
 		this.mapID = mapID;
 	}
-
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 }

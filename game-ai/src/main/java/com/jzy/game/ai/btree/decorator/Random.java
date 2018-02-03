@@ -20,7 +20,7 @@ import com.jzy.game.ai.btree.Decorator;
 import com.jzy.game.ai.btree.Task;
 import com.jzy.game.ai.btree.annotation.TaskAttribute;
 import com.jzy.game.ai.btree.annotation.TaskConstraint;
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.util.math.MathUtil;
 
 /**
  * 结果随机<br>
@@ -137,9 +137,9 @@ public class Random<E> extends Decorator<E> {
 
 
 	@Override
-	public void release() {
+	public void reset() {
 		this.p = 0;
 		this.success = INIT_PRO;
-		super.release();
+		super.reset();
 	}
 }

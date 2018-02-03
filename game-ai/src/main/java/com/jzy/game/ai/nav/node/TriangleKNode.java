@@ -2,6 +2,8 @@ package com.jzy.game.ai.nav.node;
 
 import java.io.Serializable;
 
+import com.jzy.game.engine.util.math.Vector3;
+
 /**
  * 三角形顶点节点
  * 

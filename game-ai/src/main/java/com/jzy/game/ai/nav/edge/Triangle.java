@@ -1,11 +1,13 @@
 package com.jzy.game.ai.nav.edge;
 //package com.jzy.game.ai.nav;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
-import com.badlogic.gdx.ai.pfa.Connection;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
+import com.jzy.game.ai.pfa.Connection;
+import com.jzy.game.engine.util.math.MathUtil;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * 三角形
@@ -22,7 +24,7 @@ public class Triangle {
 	/** 中点 */
 	public Vector3 center;
 	/** 三角形和其他三角形的共享边 */
-	public transient Array<Connection<Triangle>> connections;
+	public transient List<Connection<Triangle>> connections;
 
 	public Triangle(Vector3 a, Vector3 b, Vector3 c, int index) {
 		this.a = a;
@@ -30,19 +32,19 @@ public class Triangle {
 		this.c = c;
 		this.index = index;
 		this.center = new Vector3(a).add(b).add(c).scl(1f / 3f);
-		this.connections = new Array<Connection<Triangle>>();
+		this.connections = new ArrayList<Connection<Triangle>>();
 	}
 
 	@Override
 	public String toString() {
-		return JSON.toJSONString(this);
+		return "Triangle [index=" + index + ", a=" + a + ", b=" + b + ", c=" + c + ", center=" + center + "]";
 	}
 
 	public int getIndex() {
 		return this.index;
 	}
 
-	public Array<Connection<Triangle>> getConnections() {
+	public List<Connection<Triangle>> getConnections() {
 		return connections;
 	}
 
@@ -72,8 +74,8 @@ public class Triangle {
 	 * @return Output for chaining
 	 */
 	public Vector3 getRandomPoint(Vector3 out) {
-		final float sr1 = (float) Math.sqrt(MathUtils.random());
-		final float r2 = MathUtils.random();
+		final float sr1 = (float) Math.sqrt(MathUtil.random());
+		final float r2 = MathUtil.random();
 		final float k1 = 1 - sr1;
 		final float k2 = sr1 * (1 - r2);
 		final float k3 = sr1 * r2;
@@ -101,4 +103,27 @@ public class Triangle {
 		return 0.5f * (float) Math.sqrt(r * r + s * s + t * t);
 	}
 
+	
+	/**
+	 * 判断一个点是否在三角形内,二维判断
+	 * <br> http://www.yalewoo.com/in_triangle_test.html
+	 * @param vector3
+	 */
+	public boolean isInnerPoint(Vector3 point) {
+		boolean res=Vector3.pointInLineLeft(a, b, point);
+		if(res!=Vector3.pointInLineLeft(b, c, point)) {
+			return false;
+		}
+		if(res!=Vector3.pointInLineLeft(c, a, point)) {
+			return false;
+		}
+		if(Vector3.cross2D(a, b, c)==0) {	//三点共线
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	
 }

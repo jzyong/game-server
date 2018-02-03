@@ -17,7 +17,7 @@
 package com.jzy.game.ai.btree.dog;
 
 import com.jzy.game.ai.btree.BehaviorTree;
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.util.math.MathUtil;
 
 /**狗角色对象
  *  @author implicit-invocation

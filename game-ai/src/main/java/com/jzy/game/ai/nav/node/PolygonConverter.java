@@ -2,6 +2,8 @@ package com.jzy.game.ai.nav.node;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import com.jzy.game.engine.util.math.Vector3;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.CoordinateSequence;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -65,7 +67,7 @@ public class PolygonConverter implements Serializable, Cloneable {
         Vector3 lastAddedPoint = null;
         for (int i = 0; i < coordinateSequence.size() - 1; i++) {
             Coordinate coord = coordinateSequence.getCoordinate(i);
-            Vector3 p = new Vector3(coord.x, coord.z, coord.y);
+            Vector3 p = new Vector3((float)coord.x, (float)coord.z, (float)coord.y);
             if (lastAddedPoint != null && p.x == lastAddedPoint.x && p.z == lastAddedPoint.z) {
                 // Don't add the point since it's the same as the last one
                 continue;

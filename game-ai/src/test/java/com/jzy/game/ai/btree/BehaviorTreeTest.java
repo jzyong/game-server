@@ -13,7 +13,7 @@ import com.jzy.game.ai.btree.dog.Dog;
 import com.jzy.game.ai.btree.dog.MarkTask;
 import com.jzy.game.ai.btree.dog.RestTask;
 import com.jzy.game.ai.btree.dog.WalkTask;
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.util.math.MathUtil;
 
 /**
  * 行为树测试

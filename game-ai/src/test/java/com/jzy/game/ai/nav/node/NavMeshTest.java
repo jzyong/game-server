@@ -2,8 +2,8 @@ package com.jzy.game.ai.nav.node;
 
 import org.junit.Test;
 
-import com.jzy.game.ai.nav.node.NavMesh;
-import com.jzy.game.ai.nav.node.Vector3;
+import com.jzy.game.ai.nav.node.NodeNavMesh;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * 测试寻路
@@ -16,7 +16,7 @@ public class NavMeshTest {
 	
 	@Test
 	public void test(){
-		NavMesh navMesh=new NavMesh(FILE_PATH,true);
+		NodeNavMesh navMesh=new NodeNavMesh(FILE_PATH,true);
 		navMesh.path(new Vector3(291, 0, 90), new Vector3(728, 0, 550));
 //		navMesh.path(new Vector3(44, 0, 14), new Vector3(108, 0, 77));
 	}

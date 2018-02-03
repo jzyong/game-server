@@ -16,9 +16,9 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import com.jzy.game.ai.nav.node.KPolygon;
-import com.jzy.game.ai.nav.node.NavMesh;
+import com.jzy.game.ai.nav.node.NodeNavMesh;
 import com.jzy.game.ai.nav.node.TriangleBlock;
-import com.jzy.game.ai.nav.node.Vector3;
+import com.jzy.game.engine.util.math.Vector3;
 
 /**
  * 地图显示面板
@@ -49,7 +49,7 @@ public class ViewPane extends JComponent {
         stop = getStopPoint(center, test, 5);
     }
 
-    public static Vector3 getStopPoint(Vector3 up, Vector3 end, double distance) {
+    public static Vector3 getStopPoint(Vector3 up, Vector3 end, float distance) {
         if (distance >= up.distance(end)) {
             return up;
         }
@@ -173,7 +173,7 @@ public class ViewPane extends JComponent {
         return player;
     }
 
-    public NavMesh getMap() {
+    public NodeNavMesh getMap() {
         return player.getMap();
     }
 
