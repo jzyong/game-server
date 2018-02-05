@@ -2,7 +2,7 @@ package com.jzy.game.ai.nav.edge;
 ///*******************************************************************************
 
 import com.jzy.game.ai.pfa.Heuristic;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 // * Copyright 2015 See AUTHORS file.
 // * Licensed under the Apache License, Version 2.0 (the "License");

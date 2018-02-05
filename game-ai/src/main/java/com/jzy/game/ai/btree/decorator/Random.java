@@ -20,7 +20,7 @@ import com.jzy.game.ai.btree.Decorator;
 import com.jzy.game.ai.btree.Task;
 import com.jzy.game.ai.btree.annotation.TaskAttribute;
 import com.jzy.game.ai.btree.annotation.TaskConstraint;
-import com.jzy.game.engine.util.math.MathUtil;
+import com.jzy.game.engine.math.MathUtil;
 
 /**
  * 结果随机<br>

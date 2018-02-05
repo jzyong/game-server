@@ -3,7 +3,7 @@ package com.jzy.game.ai.nav.node;
 import org.junit.Test;
 
 import com.jzy.game.ai.nav.node.NodeNavMesh;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 测试寻路

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 寻路数据

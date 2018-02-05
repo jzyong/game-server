@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 import com.vividsolutions.jts.geom.Coordinate;
 
 /**

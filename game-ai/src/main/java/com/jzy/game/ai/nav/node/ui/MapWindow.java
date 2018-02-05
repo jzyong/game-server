@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jzy.game.ai.nav.node.NodeNavMesh;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 地图显示窗口

@@ -19,7 +19,7 @@ package com.jzy.game.ai.btree;
 import java.util.Collections;
 import java.util.List;
 
-import com.jzy.game.engine.util.math.MathUtil;
+import com.jzy.game.engine.math.MathUtil;
 
 /**
  * 只能运行一个子任务的分支任务<br>

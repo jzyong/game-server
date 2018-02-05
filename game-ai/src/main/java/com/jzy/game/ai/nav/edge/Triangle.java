@@ -6,8 +6,8 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.pfa.Connection;
-import com.jzy.game.engine.util.math.MathUtil;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.MathUtil;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 三角形
@@ -121,6 +121,28 @@ public class Triangle {
 			return false;
 		}
 		
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + index;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Triangle other = (Triangle) obj;
+		if (index != other.index)
+			return false;
 		return true;
 	}
 	

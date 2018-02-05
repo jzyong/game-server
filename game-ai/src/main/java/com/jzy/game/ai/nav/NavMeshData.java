@@ -3,7 +3,7 @@ package com.jzy.game.ai.nav;
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSON;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * navmesh寻路三角形网格数据 <br>

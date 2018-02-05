@@ -3,7 +3,7 @@ package com.jzy.game.ai.nav.edge;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 三角形测试

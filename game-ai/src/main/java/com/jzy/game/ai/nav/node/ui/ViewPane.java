@@ -18,7 +18,7 @@ import javax.swing.JComponent;
 import com.jzy.game.ai.nav.node.KPolygon;
 import com.jzy.game.ai.nav.node.NodeNavMesh;
 import com.jzy.game.ai.nav.node.TriangleBlock;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 地图显示面板

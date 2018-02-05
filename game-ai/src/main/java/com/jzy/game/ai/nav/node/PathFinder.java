@@ -5,7 +5,7 @@ import java.util.*;
 
 import com.jzy.game.ai.util.BinaryHeap;
 import com.jzy.game.ai.util.Tracker;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 通过阻挡区域寻路，A*算法

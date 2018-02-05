@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.nav.NavMesh;
 import com.jzy.game.ai.nav.NavMeshData;
+import com.jzy.game.engine.math.MathUtil;
+import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
 import com.jzy.game.engine.util.TimeUtil;
-import com.jzy.game.engine.util.math.MathUtil;
-import com.jzy.game.engine.util.math.Vector3;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.shape.random.RandomPointsBuilder;
 
@@ -36,15 +36,7 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
 	 * 是否为编辑器模式true会被缩放
 	 */
 	private final boolean editor;
-	/**
-	 * 地图宽x轴
-	 */
-	private float width;
-	/**
-	 * 地图高y轴
-	 */
-	private float height;
-	private int mapID;
+
 	private float startX;
 	private float startZ;
 	private float endX;
@@ -107,8 +99,8 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
         this.startZ = data.getStartZ();
         this.endX = data.getEndX();
         this.endZ = data.getEndZ();
-        this.mapID = data.getMapID();
-        LOGGER.info("加载地图{}宽{}高{}，开始坐标({},{}),结束坐标({},{})", mapID, width, height, startX, startZ, endX, endZ);
+        this.mapId = data.getMapID();
+        LOGGER.info("加载地图{}宽{}高{}，开始坐标({},{}),结束坐标({},{})", mapId, width, height, startX, startZ, endX, endZ);
         if (this.editor) {
         	 double w=Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.7;
              double h=Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.7;
@@ -585,8 +577,8 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
 		return height;
 	}
 
-	public int getMapID() {
-		return mapID;
+	public int getMapId() {
+		return mapId;
 	}
 
 	public float getStartX() {

@@ -4,6 +4,9 @@ package com.jzy.game.ai.pfa;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jzy.game.engine.util.TimeUtil;
 
 /** 
@@ -29,8 +32,11 @@ import com.jzy.game.engine.util.TimeUtil;
  * 
  * @param <N> Type of node
  * 
- * @author davebaol */
+ * @author davebaol 
+ * @fix JiangZhiYong
+ * */
 public class IndexedAStarPathFinder<N> implements PathFinder<N> {
+	private static final Logger LOGGER=LoggerFactory.getLogger(IndexedAStarPathFinder.class);
 	IndexedGraph<N> graph;	//图数据
 	NodeRecord<N>[] nodeRecords;
 	NodeBinaryHeap<NodeRecord<N>> openList;
@@ -58,7 +64,10 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 	@Override
 	public boolean searchConnectionPath (N startNode, N endNode, Heuristic<N> heuristic, GraphPath<Connection<N>> outPath) {
-
+		if(startNode==null||endNode==null) {
+			return false;
+		}
+		
 		// Perform AStar
 		boolean found = search(startNode, endNode, heuristic);
 
@@ -104,6 +113,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 			// Terminate if we reached the goal node
 			if (current.node == endNode) return true;
+			LOGGER.debug("当前节点{},目标节点{}",current.node.toString(),endNode.toString());
 
 			visitChildren(endNode, heuristic);
 

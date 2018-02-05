@@ -2,8 +2,8 @@ package com.jzy.game.ai.nav.node.ui;
 
 import com.jzy.game.ai.nav.node.NodeNavMesh;
 import com.jzy.game.ai.nav.node.PathData;
+import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
-import com.jzy.game.engine.util.math.Vector3;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.jzy.game.engine.util.math;
+package com.jzy.game.engine.math;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
@@ -25,6 +25,9 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	static public final float radiansToDegrees = (float) (180f / Math.PI);
 	/** 零向量 */
 	public static final Vector3 ZERO = new Vector3();
+	public final static Vector3 X = new Vector3(1, 0, 0);
+	public final static Vector3 Y = new Vector3(0, 1, 0);
+	public final static Vector3 Z = new Vector3(0, 0, 1);
 
 	// 坐标
 	public volatile float x;

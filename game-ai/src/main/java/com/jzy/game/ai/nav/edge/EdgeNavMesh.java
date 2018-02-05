@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.nav.NavMesh;
 import com.jzy.game.ai.nav.NavMeshData;
 import com.jzy.game.ai.pfa.IndexedAStarPathFinder;
-import com.jzy.game.engine.util.math.Vector3;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 寻路网格
@@ -51,9 +51,16 @@ public class EdgeNavMesh extends NavMesh {
 	 * @param toPoint
 	 * @param path
 	 */
-	public void findPath(Vector3 fromPoint, Vector3 toPoint, NavMeshGraphPath path) {
+	public boolean findPath(Vector3 fromPoint, Vector3 toPoint, NavMeshGraphPath path) {
 		path.clear();
-		//TODO 20180203
+		Triangle fromTriangle = getTriangle(fromPoint);
+		if (pathFinder.searchConnectionPath(fromTriangle, getTriangle(toPoint), heuristic, path)) {
+			path.start = new Vector3(fromPoint);
+			path.end = new Vector3(toPoint);
+			path.startTri = fromTriangle;
+			return true;
+		}
+		return false;
 	}
 
 	/**

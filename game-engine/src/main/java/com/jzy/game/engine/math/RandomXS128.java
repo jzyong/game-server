@@ -1,5 +1,5 @@
 
-package com.jzy.game.engine.util.math;
+package com.jzy.game.engine.math;
 
 import java.util.Random;
 
