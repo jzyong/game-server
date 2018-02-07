@@ -93,6 +93,7 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
             return;
         }
         NavMeshData data = JSON.parseObject(txtFile, NavMeshData.class);
+        data.check();
         this.width = Math.abs(data.getEndX() - data.getStartX());
         this.height = Math.abs(data.getEndZ() - data.getStartZ());
         this.startX = data.getStartX();

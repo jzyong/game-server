@@ -113,7 +113,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 			// Terminate if we reached the goal node
 			if (current.node == endNode) return true;
-			LOGGER.debug("当前节点{},目标节点{}",current.node.toString(),endNode.toString());
+//			LOGGER.debug("当前节点{},目标节点{}",current.node.toString(),endNode.toString());
 
 			visitChildren(endNode, heuristic);
 

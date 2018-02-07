@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.nav.edge.EdgeNavMesh;
+import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
 import com.jzy.game.engine.util.TimeUtil;
@@ -69,8 +70,16 @@ public class EdgeNavMeshTest {
 	@Test
 	public  void testFindPath() {
 		NavMeshGraphPath path=new NavMeshGraphPath();
-		navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), path);
-		System.out.println(path.nodes.toString());
+		long start=TimeUtil.currentTimeMillis();
+		for(int i=0;i<100000;i++) {
+			navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), path);
+		}
+		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
+		
+//		for(Connection<Triangle> connection:path.nodes) {
+////			System.out.println("路径："+connection.toString());
+//		}
+		
 	}
 	
 	@Test

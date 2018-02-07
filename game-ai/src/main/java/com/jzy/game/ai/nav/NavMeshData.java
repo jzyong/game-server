@@ -1,6 +1,11 @@
 package com.jzy.game.ai.nav;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.engine.math.Vector3;
@@ -13,6 +18,7 @@ import com.jzy.game.engine.math.Vector3;
  *
  */
 public class NavMeshData implements Serializable {
+	private static final Logger LOGGER=LoggerFactory.getLogger(NavMeshData.class);
 	private static final long serialVersionUID = 1L;
 	/** 阻挡顶点序号 */
 	private int[] blockTriangles;
@@ -32,6 +38,39 @@ public class NavMeshData implements Serializable {
 	private float endZ;
 	/** navmesh地图id */
 	private int mapID;
+
+	/**
+	 * 数据检测，客户端的顶点坐标和三角形数据有可能是重复的
+	 */
+	public void check() {
+		amendmentSameVector(blockTriangles, blockVertices);
+		amendmentSameVector(pathTriangles, pathVertices);
+	}
+
+	/**
+	 * 修正重复坐标，使坐标相同的下标修改为一致
+	 */
+	public void amendmentSameVector(int[] indexs, Vector3[] vertices) {
+		if (indexs == null || vertices == null) {
+			return;
+		}
+		Map<Vector3, Integer> map = new HashMap<>();
+		// 检测路径重复点
+		for (int i = 0; i < vertices.length; i++) {
+			// 重复出现的坐标
+			if (map.containsKey(vertices[i])) {
+				for (int j = 0; j < indexs.length; j++) {
+					if (indexs[j] == i) { // 修正重复的坐标
+//						System.out.println(String.format("坐标重复为%s", indexs[j],i,vertices[i].toString()));
+						indexs[j] = map.get(vertices[i]);
+					}
+				}
+//				vertices[i] = null;
+			} else {
+				map.put(vertices[i], i);
+			}
+		}
+	}
 
 	public int[] getBlockTriangles() {
 		return blockTriangles;
@@ -104,6 +143,7 @@ public class NavMeshData implements Serializable {
 	public void setMapID(int mapID) {
 		this.mapID = mapID;
 	}
+
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);

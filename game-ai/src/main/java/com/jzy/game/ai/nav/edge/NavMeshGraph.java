@@ -45,6 +45,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	public NavMeshGraph(NavMeshData navMeshData) {
 		super();
 		this.navMeshData = navMeshData;
+		navMeshData.check();
 		// 寻路三角形
 		List<Triangle> pathTriangles = createTriangles();
 		// 共享的连接边
@@ -122,24 +123,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	 * @return
 	 */
 	private static Set<IndexConnection> getIndexConnections(int[] indices) {
-		Set<IndexConnection> indexConnections = new TreeSet<IndexConnection>(new Comparator<IndexConnection>() {
-
-			@Override
-			public int compare(IndexConnection o1, IndexConnection o2) {
-				if(o1.fromTriIndex>o2.fromTriIndex) {
-					return 1;
-				}else if(o1.fromTriIndex<o2.fromTriIndex) {
-					return -1;
-				}else {
-//					if(o1.toTriIndex>o2.toTriIndex) {
-//						return 1;
-//					}else if(o1.toTriIndex<o2.toTriIndex) {
-//						return -1;
-//					}
-				}
-				return 0;
-			}
-		});
+		Set<IndexConnection> indexConnections = new HashSet<IndexConnection>();
 		int[] edge = { -1, -1 };
 		short i = 0;
 		int j, a0, a1, a2, b0, b1, b2, triAIndex, triBIndex;
@@ -166,7 +150,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 					indexConnections.add(indexConnection2);
 					edge[0] = -1;
 					edge[1] = -1;
-					LOGGER.debug("共享边：{} -> {}",indexConnection1.toString(),indexConnection2.toString());
+//					LOGGER.debug("共享边：{} -> {}",indexConnection1.toString(),indexConnection2.toString());
 				}
 			}
 		}
@@ -248,7 +232,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 			Edge edge = new Edge(fromNode, toNode, edgeVertexA, edgeVertexB);
 			connectionMap.get(fromNode).add(edge);
 			fromNode.connections.add(edge);
-			LOGGER.debug("三角形：{} -->{}   {}-->{}",fromNode.getIndex(),toNode.getIndex(),fromNode.toString(),toNode.toString());
+//			LOGGER.debug("三角形：{} -->{}   {}-->{}",fromNode.getIndex(),toNode.getIndex(),fromNode.toString(),toNode.toString());
 		}
 		return connectionMap;
 	}
