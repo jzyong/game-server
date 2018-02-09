@@ -1,6 +1,7 @@
-# java文件
+﻿# java文件
 *.class
 *.jar
+*.navmesh
 
 
 # ide工具文件

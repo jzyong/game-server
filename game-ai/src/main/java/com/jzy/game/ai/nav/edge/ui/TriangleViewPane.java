@@ -95,18 +95,24 @@ public class TriangleViewPane extends JComponent {
 		Graphics2D g = backImageGraphics2D;
 
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-		float backGroundGrey = 77f / 255f;
+		float backGroundGrey = 25f / 255f;
 		g.setColor(new Color(backGroundGrey, backGroundGrey, backGroundGrey));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// 渲染行走区
-		float g4 = 0.2f;
-		g.setColor(new Color(g4, g4, g4));
+		float g4 = 0.4f;
+		Color triangleColor = new Color(g4, g4, g4);
+		g.setColor(triangleColor);
 		for (Triangle triangle : player.getMap().getGraph().getTriangles()) {
 
 			g.fill(triangle);
+			
+			//三角形顶点序号
+			g.setColor(Color.GREEN);
+			g.drawString(String.valueOf(triangle.index), triangle.center.x, triangle.center.z);
+			g.setColor(triangleColor);
 //			if (isRenderRandomPoints) {		//TODO 暂时没有随机点
 //				g.setColor(Color.RED);
 //				for (Vector3 object : block.getRandomPoints()) {

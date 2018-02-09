@@ -209,7 +209,7 @@ public class NavMeshWindow {
 		EdgeNavMesh map = null;
 		try {
 			String navMeshStr = FileUtil.readTxtFile(filePath);
-			map = new EdgeNavMesh(navMeshStr,5);
+			map = new EdgeNavMesh(navMeshStr,10);	//TODO 做成可设置？
 			if (map != null && player != null) {
 				player.setMap(map);
 				int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();

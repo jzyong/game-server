@@ -10,7 +10,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
