@@ -50,7 +50,7 @@ public class ViewPane extends JComponent {
     }
 
     public static Vector3 getStopPoint(Vector3 up, Vector3 end, float distance) {
-        if (distance >= up.distance(end)) {
+        if (distance >= up.dst(end)) {
             return up;
         }
         return end.createPointFromAngle(end.findAngle(up), distance);

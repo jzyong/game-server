@@ -51,7 +51,7 @@ public class MovePlayer {
             Vector3 oldPos = new Vector3();
             oldPos.x = pos.x;
             oldPos.z = pos.z;
-            double distUntilTargetReached =Vector3.distance(currentTargetPoint.x, currentTargetPoint.z, pos.x, pos.z);
+            double distUntilTargetReached =Vector3.dst(currentTargetPoint.x, currentTargetPoint.z, pos.x, pos.z);
             double timeUntilTargetReached = distUntilTargetReached / speed;
             if (timeUntilTargetReached < 0) {
                 return;

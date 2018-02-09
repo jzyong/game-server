@@ -48,12 +48,26 @@ public interface Vector<T extends Vector<T>> {
 	 * @return This vector for chaining
 	 */
 	T nor();
-	
-	/** @return The euclidean length */
-	float len ();
 
-	/** This method is faster than {@link Vector#len()} because it avoids calculating a square root. It is useful for comparisons,
-	 * but not for getting exact lengths, as the return value is the square of the actual length.
-	 * @return The squared euclidean length */
-	float len2 ();
+	/** @return The euclidean length */
+	float len();
+
+	/**
+	 * This method is faster than {@link Vector#len()} because it avoids calculating
+	 * a square root. It is useful for comparisons, but not for getting exact
+	 * lengths, as the return value is the square of the actual length.
+	 * 
+	 * @return The squared euclidean length
+	 */
+	float len2();
+
+	/**
+	 * First scale a supplied vector, then add it to this vector.
+	 * 
+	 * @param v
+	 *            addition vector
+	 * @param scalar
+	 *            for scaling the addition vector
+	 */
+	T mulAdd(T v, float scalar);
 }

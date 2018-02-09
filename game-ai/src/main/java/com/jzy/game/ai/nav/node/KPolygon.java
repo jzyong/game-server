@@ -149,7 +149,7 @@ public class KPolygon implements Serializable, Cloneable, PolygonHolder, Shape {
                 furthestPointIndex = i;
             }
         }
-        radius = (center.distance(points.get(furthestPointIndex)));
+        radius = (center.dst(points.get(furthestPointIndex)));
         radiusSq = radius * radius;
     }
 

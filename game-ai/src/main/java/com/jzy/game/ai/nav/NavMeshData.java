@@ -49,6 +49,7 @@ public class NavMeshData implements Serializable {
 
 	/**
 	 * 修正重复坐标，使坐标相同的下标修改为一致
+	 * TODO 去除重复的顶点
 	 */
 	public void amendmentSameVector(int[] indexs, Vector3[] vertices) {
 		if (indexs == null || vertices == null) {

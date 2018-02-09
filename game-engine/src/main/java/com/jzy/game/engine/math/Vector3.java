@@ -133,6 +133,18 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		final float c = z2 - z1;
 		return a * a + b * b + c * c;
 	}
+	
+	/** Returns the squared distance between this point and the given point
+	 * @param x The x-component of the other point
+	 * @param y The y-component of the other point
+	 * @param z The z-component of the other point
+	 * @return The squared distance */
+	public float dst2 (float x, float y, float z) {
+		final float a = x - this.x;
+		final float b = y - this.y;
+		final float c = z - this.z;
+		return a * a + b * b + c * c;
+	}
 
 	/**
 	 *
@@ -141,8 +153,8 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @param p
 	 * @return
 	 */
-	public float distance(Vector3 p) {
-		return distance(this.x, this.z, p.x, p.z);
+	public float dst(Vector3 p) {
+		return dst(this.x, this.z, p.x, p.z);
 	}
 
 	/**
@@ -156,10 +168,18 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @param z2
 	 * @return
 	 */
-	public static float distance(float x1, float z1, float x2, float z2) {
+	public static float dst(float x1, float z1, float x2, float z2) {
 		x1 -= x2;
 		z1 -= z2;
 		return (float) Math.sqrt(x1 * x1 + z1 * z1);
+	}
+	
+	/** @return the distance between this point and the given point */
+	public float dst (float x, float y, float z) {
+		final float a = x - this.x;
+		final float b = y - this.y;
+		final float c = z - this.z;
+		return (float)Math.sqrt(a * a + b * b + c * c);
 	}
 
 	/**
@@ -584,11 +604,14 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * 点乘
+	 * <p>
+	 * 判断两个向量是否垂直;计算一个向量在某个方向上的投影长度
+	 * </p>
 	 *
 	 * @param vector
 	 * @return
 	 */
-	public double dot(final Vector3 vector) {
+	public float dot(final Vector3 vector) {
 		return x * vector.x + y * vector.y + z * vector.z;
 	}
 
@@ -622,6 +645,11 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @return
 	 */
 	public float len() {
+		return (float) Math.sqrt(x * x + y * y + z * z);
+	}
+
+	/** @return The euclidean length */
+	public static float len(final float x, final float y, final float z) {
 		return (float) Math.sqrt(x * x + y * y + z * z);
 	}
 
@@ -791,7 +819,8 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
-	 * Sets this vector to the cross product between it and the other vector.
+	 * Sets this vector to the cross product between it and the other vector. <br>
+	 * 叉乘更多的是判断某个平面的方向。从这个平面上选两个不共线的向量，叉乘的结果就是这个平面的法向量
 	 * 
 	 * @param vector
 	 *            The other vector
@@ -802,6 +831,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
+	 * 叉乘<br>
 	 * Sets this vector to the cross product between it and the other vector.
 	 * 
 	 * @param x
@@ -856,6 +886,29 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return cross2D(fromPoint, toPoint, p) > 0;
 	}
 
+	/**
+	 * Left-multiplies the vector by the given matrix, assuming the fourth (w)
+	 * component of the vector is 1.
+	 * 
+	 * @param matrix
+	 *            The matrix
+	 * @return This vector for chaining
+	 */
+	public Vector3 mul(final Matrix4 matrix) {
+		final float l_mat[] = matrix.val;
+		return this.set(x * l_mat[Matrix4.M00] + y * l_mat[Matrix4.M01] + z * l_mat[Matrix4.M02] + l_mat[Matrix4.M03],
+				x * l_mat[Matrix4.M10] + y * l_mat[Matrix4.M11] + z * l_mat[Matrix4.M12] + l_mat[Matrix4.M13],
+				x * l_mat[Matrix4.M20] + y * l_mat[Matrix4.M21] + z * l_mat[Matrix4.M22] + l_mat[Matrix4.M23]);
+	}
+	
+	@Override
+	public Vector3 mulAdd (Vector3 vec, float scalar) {
+		this.x += vec.x * scalar;
+		this.y += vec.y * scalar;
+		this.z += vec.z * scalar;
+		return this;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -884,5 +937,4 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return true;
 	}
 
-	
 }

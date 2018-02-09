@@ -64,7 +64,13 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 	@Override
 	public boolean searchConnectionPath (N startNode, N endNode, Heuristic<N> heuristic, GraphPath<Connection<N>> outPath) {
-		if(startNode==null||endNode==null) {
+		if(startNode==null) {
+			LOGGER.debug("起点坐标不在寻路层中");
+			return false;
+		}
+		
+		if(endNode==null) {
+			LOGGER.debug("终点坐标不在寻路层中");
 			return false;
 		}
 		
@@ -113,7 +119,7 @@ public class IndexedAStarPathFinder<N> implements PathFinder<N> {
 
 			// Terminate if we reached the goal node
 			if (current.node == endNode) return true;
-//			LOGGER.debug("当前节点{},目标节点{}",current.node.toString(),endNode.toString());
+			LOGGER.debug("当前节点{},目标节点{}",current.node.toString(),endNode.toString());
 
 			visitChildren(endNode, heuristic);
 

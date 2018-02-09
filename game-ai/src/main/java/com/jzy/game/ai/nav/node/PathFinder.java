@@ -69,7 +69,7 @@ public class PathFinder implements Serializable {
             if (tempReachableNodesExist(blocks)) {
                 return null;
             }
-            double startToEndDist = start.distance(end);
+            double startToEndDist = start.dst(end);
             if (startToEndDist > maxSearchDistStartToEnd) {
                 // no point doing anything since startToEndDist is greater than maxSearchDistStartToEnd.
                 PathData pathData = new PathData(PathData.Result.ERROR1);
@@ -159,7 +159,7 @@ public class PathFinder implements Serializable {
                             continue;
                         }
                         double currentGCost = reachableNode.getGCost();
-                        double newGCost = currentNode.getGCost() + currentNode.getPoint().distance(reachableNode.getPoint());
+                        double newGCost = currentNode.getGCost() + currentNode.getPoint().dst(reachableNode.getPoint());
                         if (newGCost < currentGCost) {
                             reachableNode.setParent(currentNode);
                             reachableNode.setGCost(newGCost);	//reachableNode.calcGCost();
@@ -188,7 +188,7 @@ public class PathFinder implements Serializable {
                             continue;
                         }
                         double currentGCost = reachableNode.getGCost();
-                        double newGCost = currentNode.getGCost() + currentNode.getPoint().distance(reachableNode.getPoint());
+                        double newGCost = currentNode.getGCost() + currentNode.getPoint().dst(reachableNode.getPoint());
                         if (newGCost < currentGCost) {
                             reachableNode.setParent(currentNode);
                             reachableNode.setGCost(newGCost);	//reachableNode.calcGCost();
@@ -254,7 +254,7 @@ public class PathFinder implements Serializable {
         HashSet<KNode> nodes = new HashSet<>();
         ArrayList<Vector3> points = new ArrayList<>();
         while (true) {
-        	System.out.println(currentNode.getPoint().toString());
+//        	System.out.println(currentNode.getPoint().toString());
             nodes.add(currentNode);
             points.add(currentNode.getPoint());
             KNode parentNode = currentNode.getParent();

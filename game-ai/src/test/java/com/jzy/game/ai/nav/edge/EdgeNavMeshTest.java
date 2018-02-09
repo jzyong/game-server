@@ -1,5 +1,7 @@
 package com.jzy.game.ai.nav.edge;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +23,7 @@ public class EdgeNavMeshTest {
 	/** 地图数据路径 */
 	// private static final String meshPath =
 	// "E:\\Java\\game-server\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
-	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\101.navmesh";
+	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
 	EdgeNavMesh navMesh;
 
 	@Before
@@ -65,20 +67,29 @@ public class EdgeNavMeshTest {
 
 	/**
 	 * 查找路径
-	 * TODO 寻路地图数据存在问题，图连接不上
 	 */
 	@Test
 	public  void testFindPath() {
 		NavMeshGraphPath path=new NavMeshGraphPath();
+		NavMeshPointPath pointPath=new NavMeshPointPath();
 		long start=TimeUtil.currentTimeMillis();
-		for(int i=0;i<100000;i++) {
-			navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), path);
+		
+		for(int i=0;i<1;i++) {
+//			navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), path);	
+//			List<Vector3> list = navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), pointPath);				//1
+//			List<Vector3> list = navMesh.findPath(new Vector3(61,13,191), new Vector3(305,35,213), pointPath);				//2
+//			List<Vector3> list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(50,28,100), pointPath);			//3
+//			List<Vector3> list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f), pointPath);	//4 找不到路径？？
+//			List<Vector3> list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(116f,48.5f,177f), pointPath);	//4-1
+//			List<Vector3> list = navMesh.findPath(new Vector3(116f,48.5f,177f), new Vector3(221.4f,70,161.3f), pointPath);	//4-2 //找不到路径
+			List<Vector3> list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(105.6f,56f,182), pointPath);	//4-3 //找不到路径
+//			List<Vector3> list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f), pointPath);	//5 
+			if(list!=null) {
+				list.forEach(v->System.out.println(v.toString()));
+			}
 		}
 		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
 		
-//		for(Connection<Triangle> connection:path.nodes) {
-////			System.out.println("路径："+connection.toString());
-//		}
 		
 	}
 	

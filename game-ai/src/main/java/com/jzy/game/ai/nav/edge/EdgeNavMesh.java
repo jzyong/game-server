@@ -1,6 +1,7 @@
 package com.jzy.game.ai.nav.edge;
 //package com.jzy.game.ai.nav;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.alibaba.fastjson.JSON;
@@ -62,6 +63,24 @@ public class EdgeNavMesh extends NavMesh {
 		}
 		return false;
 	}
+	
+	/**
+	 * 获取路径
+	 * @param fromPoint
+	 * @param toPoint
+	 * @param navMeshPointPath
+	 * @return
+	 */
+	public List<Vector3> findPath(Vector3 fromPoint, Vector3 toPoint,NavMeshPointPath navMeshPointPath) {
+		NavMeshGraphPath navMeshGraphPath = new NavMeshGraphPath();
+		boolean find = findPath(fromPoint, toPoint,navMeshGraphPath);
+		if(!find) {
+			return navMeshPointPath.getVectors();
+		}
+		navMeshPointPath.calculateForGraphPath(navMeshGraphPath,false);
+		return navMeshPointPath.getVectors();
+	}
+	
 
 	/**
 	 * 获取坐标点所在的三角形

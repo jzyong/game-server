@@ -161,7 +161,7 @@ public class KNode implements Serializable, Comparable<KNode> {
 	 * @return
 	 */
 	double getDistanceToParent() {
-		return point.distance(getParent().getPoint());
+		return point.dst(getParent().getPoint());
 	}
 
 	public KNode getParent() {
@@ -206,7 +206,7 @@ public class KNode implements Serializable, Comparable<KNode> {
 	 * @param endNode
 	 */
 	public void calcHCost(KNode endNode) {
-		hCost = point.distance(endNode.getPoint());
+		hCost = point.dst(endNode.getPoint());
 	}
 
 	public double getHCost() {

@@ -139,7 +139,7 @@ public class KNodeConnector<T extends Block> implements Serializable, Cloneable 
 		Vector3 point = knode.getPoint(); // 节点坐标
 		for (int n = 0; n < blocks.size(); n++) {
 			Block nearBlock = blocks.get(n);
-			double distance = point.distance(nearBlock.getInnerPolygon().getCenter())
+			double distance = point.dst(nearBlock.getInnerPolygon().getCenter())
 					- nearBlock.getInnerPolygon().getRadius(); // 外边距
 			blockDistances.add(new BlockDistanceComarable(nearBlock, distance));
 		}
@@ -192,7 +192,7 @@ public class KNodeConnector<T extends Block> implements Serializable, Cloneable 
 					continue;
 				}
 				Vector3 point2 = knode2.getPoint();
-				double nodeToNode2Dist = point.distance(point2); // 两节点距离
+				double nodeToNode2Dist = point.dst(point2); // 两节点距离
 				if (nodeToNode2Dist > maxConnectionDistance) { // 距离大于最大连接距离
 					continue;
 				}
@@ -476,7 +476,7 @@ public class KNodeConnector<T extends Block> implements Serializable, Cloneable 
 		Vector3 p = node.getPoint();
 		for (int n = 0; n < blocks.size(); n++) {
 			KPolygon poly = blocks.get(n).getInnerPolygon();
-			double distEyeToCenterLessRadius = p.distance(poly.getCenter()) - poly.getRadius();
+			double distEyeToCenterLessRadius = p.dst(poly.getCenter()) - poly.getRadius();
 			// Note that distCenterToEyeLessCircBound can be negative.
 			double distEyeToCenterLessRadiusSqSigned = distEyeToCenterLessRadius * distEyeToCenterLessRadius;
 			if (distEyeToCenterLessRadius < 0) {
