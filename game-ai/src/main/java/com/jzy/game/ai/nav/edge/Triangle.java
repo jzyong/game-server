@@ -1,6 +1,12 @@
 package com.jzy.game.ai.nav.edge;
 //package com.jzy.game.ai.nav;
 
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +21,13 @@ import com.jzy.game.engine.math.Vector3;
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午4:41:27
  */
-public class Triangle {
+public class Triangle implements Shape{
 	/** 三角形序号 */
 	public int index;
 	public Vector3 a;
 	public Vector3 b;
 	public Vector3 c;
+	public float y;	//三角形高度，三个顶点的平均高度
 	/** 中点 */
 	public Vector3 center;
 	/** 三角形和其他三角形的共享边 */
@@ -30,6 +37,7 @@ public class Triangle {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.y=(a.y+b.y+c.y)/3;
 		this.index = index;
 		this.center = new Vector3(a).add(b).add(c).scl(1f / 3f);
 		this.connections = new ArrayList<Connection<Triangle>>();
@@ -145,7 +153,153 @@ public class Triangle {
 			return false;
 		return true;
 	}
+
+	@Override
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Rectangle2D getBounds2D() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean contains(double x, double y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean contains(Point2D p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean intersects(double x, double y, double w, double h) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean intersects(Rectangle2D r) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean contains(double x, double y, double w, double h) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean contains(Rectangle2D r) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform at) {
+		return new TrianglePathIterator(this, at);
+	}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform at, double flatness) {
+		return new TrianglePathIterator(this, at);
+	}
 	
-	
+	public class TrianglePathIterator implements PathIterator {
+
+        int type = PathIterator.SEG_MOVETO;
+        int index = 0;
+        Triangle triangle;
+        Vector3 currentPoint;
+        AffineTransform affine;
+
+        double[] singlePointSetDouble = new double[2];
+
+        TrianglePathIterator(Triangle triangle) {
+            this(triangle, null);
+        }
+
+        TrianglePathIterator(Triangle triangle, AffineTransform at) {
+            this.triangle = triangle;
+            this.affine = at;
+            currentPoint =triangle.a;
+        }
+
+        public int getWindingRule() {
+            return PathIterator.WIND_EVEN_ODD;
+        }
+
+        @Override
+        public boolean isDone() {
+            if (index == 4) {	//3or4 ??
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void next() {
+            index++;
+        }
+
+        public void assignPointAndType() {
+            if (index == 0) {
+                currentPoint =triangle.a;
+                type = PathIterator.SEG_MOVETO;
+            } else if (index == 3) {
+                type = PathIterator.SEG_CLOSE;
+            } else {
+            	if(index==0) {
+            		currentPoint=triangle.a;
+            	}else if(index==1) {
+            		currentPoint=triangle.b;
+            	}else {
+            		currentPoint=triangle.c;
+            	}
+//                currentPoint = polygon.getPoint(index);
+                type = PathIterator.SEG_LINETO;
+            }
+        }
+
+        @Override
+        public int currentSegment(float[] coords) {
+            assignPointAndType();
+            if (type != PathIterator.SEG_CLOSE) {
+                if (affine != null) {
+                    float[] singlePointSetFloat = new float[2];
+                    singlePointSetFloat[0] = (float) currentPoint.x;
+                    singlePointSetFloat[1] = (float) currentPoint.z;
+                    affine.transform(singlePointSetFloat, 0, coords, 0, 1);
+                } else {
+                    coords[0] = (float) currentPoint.x;
+                    coords[1] = (float) currentPoint.z;
+                }
+            }
+            return type;
+        }
+
+        @Override
+        public int currentSegment(double[] coords) {
+            assignPointAndType();
+            if (type != PathIterator.SEG_CLOSE) {
+                if (affine != null) {
+                    singlePointSetDouble[0] = currentPoint.x;
+                    singlePointSetDouble[1] = currentPoint.z;
+                    affine.transform(singlePointSetDouble, 0, coords, 0, 1);
+                } else {
+                    coords[0] = currentPoint.x;
+                    coords[1] = currentPoint.z;
+                }
+            }
+            return type;
+        }
+    }
 	
 }

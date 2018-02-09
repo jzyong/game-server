@@ -18,7 +18,7 @@ import com.jzy.game.engine.math.Vector3;
  *
  */
 public class NavMeshData implements Serializable {
-	private static final Logger LOGGER=LoggerFactory.getLogger(NavMeshData.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NavMeshData.class);
 	private static final long serialVersionUID = 1L;
 	/** 阻挡顶点序号 */
 	private int[] blockTriangles;
@@ -42,14 +42,31 @@ public class NavMeshData implements Serializable {
 	/**
 	 * 数据检测，客户端的顶点坐标和三角形数据有可能是重复的
 	 */
-	public void check() {
+	public void check(int scale) {
 		amendmentSameVector(blockTriangles, blockVertices);
 		amendmentSameVector(pathTriangles, pathVertices);
+		scaleVector(blockVertices, scale);
+		scaleVector(pathVertices, scale);
 	}
 
 	/**
-	 * 修正重复坐标，使坐标相同的下标修改为一致
-	 * TODO 去除重复的顶点
+	 * 缩放向量
+	 * 
+	 * @param scale
+	 */
+	private void scaleVector(Vector3[] vertices, int scale) {
+		if (vertices == null || scale == 1) {
+			return;
+		}
+		for (Vector3 vector3 : vertices) {
+			vector3.addX(-this.startX);		//缩放移动
+			vector3.addZ(-this.startZ);
+			vector3.scl(scale);
+		}
+	}
+
+	/**
+	 * 修正重复坐标，使坐标相同的下标修改为一致 TODO 去除重复的顶点
 	 */
 	public void amendmentSameVector(int[] indexs, Vector3[] vertices) {
 		if (indexs == null || vertices == null) {
@@ -62,11 +79,12 @@ public class NavMeshData implements Serializable {
 			if (map.containsKey(vertices[i])) {
 				for (int j = 0; j < indexs.length; j++) {
 					if (indexs[j] == i) { // 修正重复的坐标
-//						System.out.println(String.format("坐标重复为%s", indexs[j],i,vertices[i].toString()));
+						// System.out.println(String.format("坐标重复为%s",
+						// indexs[j],i,vertices[i].toString()));
 						indexs[j] = map.get(vertices[i]);
 					}
 				}
-//				vertices[i] = null;
+				// vertices[i] = null;
 			} else {
 				map.put(vertices[i], i);
 			}

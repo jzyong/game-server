@@ -42,10 +42,10 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	private int numConnectedEdges; // 相互连接边的数目
 	private int numTotalEdges; // 三角形总边数
 
-	public NavMeshGraph(NavMeshData navMeshData) {
+	public NavMeshGraph(NavMeshData navMeshData,int scale) {
 		super();
 		this.navMeshData = navMeshData;
-		navMeshData.check();
+		navMeshData.check(scale);
 		// 寻路三角形
 		List<Triangle> pathTriangles = createTriangles();
 		// 共享的连接边
