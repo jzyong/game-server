@@ -39,6 +39,9 @@ public class NavMeshData implements Serializable {
 	/** navmesh地图id */
 	private int mapID;
 
+	private transient float width;	//宽
+	private transient float height;	//高
+
 	/**
 	 * 数据检测，客户端的顶点坐标和三角形数据有可能是重复的
 	 */
@@ -47,6 +50,9 @@ public class NavMeshData implements Serializable {
 		amendmentSameVector(pathTriangles, pathVertices);
 		scaleVector(blockVertices, scale);
 		scaleVector(pathVertices, scale);
+
+		this.width = Math.abs(this.getEndX() - this.getStartX());
+		this.height = Math.abs(this.getEndZ() - this.getStartZ());
 	}
 
 	/**
@@ -59,7 +65,7 @@ public class NavMeshData implements Serializable {
 			return;
 		}
 		for (Vector3 vector3 : vertices) {
-			vector3.addX(-this.startX);		//缩放移动
+			vector3.addX(-this.startX); // 缩放移动
 			vector3.addZ(-this.startZ);
 			vector3.scl(scale);
 		}
@@ -161,6 +167,23 @@ public class NavMeshData implements Serializable {
 
 	public void setMapID(int mapID) {
 		this.mapID = mapID;
+	}
+	
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
 	@Override

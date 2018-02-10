@@ -7,6 +7,7 @@ import com.jzy.game.engine.math.Vector3;
 
 /**
  * navmesh主界面
+ *
  * @author JiangZhiYong
  */
 public class EdgeNavStart extends javax.swing.JFrame {
@@ -46,10 +47,14 @@ public class EdgeNavStart extends javax.swing.JFrame {
         showRandomPointButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        triangleIndexButton = new javax.swing.JButton();
+        vectorIndexButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        scaleComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("当前坐标:");
+        jLabel1.setText("当前坐标：");
 
         randomPointButton.setText("随机坐标");
         randomPointButton.addActionListener(new java.awt.event.ActionListener() {
@@ -70,25 +75,56 @@ public class EdgeNavStart extends javax.swing.JFrame {
         jTextArea1.setText("R键：重置坐标\nP键：暂停\n\n");
         jScrollPane1.setViewportView(jTextArea1);
 
+        triangleIndexButton.setText("三角形序号");
+        triangleIndexButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                triangleIndexButtonActionPerformed(evt);
+            }
+        });
+
+        vectorIndexButton.setText("坐标序号");
+        vectorIndexButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vectorIndexButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("缩放倍数：");
+
+        scaleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30" }));
+        scaleComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                scaleComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(randomPointButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(showRandomPointButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(triangleIndexButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(vectorIndexButton)
+                            .addGap(19, 19, 19))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(randomPointButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(showRandomPointButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(37, 37, 37)
-                                .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10, 10, 10)))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scaleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,13 +133,19 @@ public class EdgeNavStart extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(randomPointButton)
-                    .addComponent(showRandomPointButton))
-                .addGap(45, 45, 45)
+                    .addComponent(showRandomPointButton)
+                    .addComponent(triangleIndexButton)
+                    .addComponent(vectorIndexButton))
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(scaleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -117,8 +159,24 @@ public class EdgeNavStart extends javax.swing.JFrame {
     static TriangleBlock addPolygons = null;
 
     private void showRandomPointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showRandomPointButtonActionPerformed
-       mapWindow.view.changeShowRandomPoint();
+        mapWindow.triangleViewPane.changeShowRandomPoint();
     }//GEN-LAST:event_showRandomPointButtonActionPerformed
+
+    private void triangleIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleIndexButtonActionPerformed
+        // 显示隐藏三角形序号
+        this.mapWindow.triangleViewPane.changeShowTriangleIndex();
+    }//GEN-LAST:event_triangleIndexButtonActionPerformed
+
+    private void vectorIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vectorIndexButtonActionPerformed
+        this.mapWindow.triangleViewPane.changeShowVectorIndex();
+    }//GEN-LAST:event_vectorIndexButtonActionPerformed
+
+    private void scaleComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scaleComboBoxItemStateChanged
+          if (this.mapWindow == null) {
+            return;
+        }
+        this.mapWindow.loadMap(NavMeshWindow.lastFilePath, Integer.parseInt(scaleComboBox.getSelectedItem().toString()));
+    }//GEN-LAST:event_scaleComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -160,10 +218,14 @@ public class EdgeNavStart extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField position;
     private javax.swing.JButton randomPointButton;
+    private javax.swing.JComboBox<String> scaleComboBox;
     private javax.swing.JButton showRandomPointButton;
+    private javax.swing.JButton triangleIndexButton;
+    private javax.swing.JButton vectorIndexButton;
     // End of variables declaration//GEN-END:variables
 }

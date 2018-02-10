@@ -15,7 +15,8 @@ import com.jzy.game.engine.math.Vector3;
 
 /**
  * 寻路网格
- * 
+ * <br>
+ * TODO 获取不在寻路中，离当前点最近且在寻路层中的点；随机或者指定点的周围坐标点
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午4:40:36
  */

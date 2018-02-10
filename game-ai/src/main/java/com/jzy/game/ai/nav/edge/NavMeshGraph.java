@@ -47,7 +47,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		this.navMeshData = navMeshData;
 		navMeshData.check(scale);
 		// 寻路三角形
-		List<Triangle> pathTriangles = createTriangles();
+		List<Triangle> pathTriangles = createTriangles(scale);
 		// 共享的连接边
 		Set<IndexConnection> pathIndexConnections = getIndexConnections(navMeshData.getPathTriangles());
 		// 三角形共享连接边
@@ -97,7 +97,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	 * @QQ 359135103 2017年11月7日 下午5:58:20
 	 * @return
 	 */
-	private List<Triangle> createTriangles() {
+	private List<Triangle> createTriangles(int scale) {
 		int[] vertexIndexs; // 顶点
 		Vector3[] vertices; // 坐标
 		vertexIndexs = navMeshData.getPathTriangles();
@@ -105,8 +105,16 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		int triangleIndex = 0; // 三角形下标
 		int length=vertexIndexs.length-3;
 		for (int i = 0; i <=length ;) {
-			Triangle triangle = new Triangle(vertices[vertexIndexs[i++]], vertices[vertexIndexs[i ++]],
-					vertices[vertexIndexs[i ++]], triangleIndex++);
+			int aIndex = vertexIndexs[i++];
+			int bIndex = vertexIndexs[i++];
+			int cIndex = vertexIndexs[i++];
+			Triangle triangle=null;
+			if(scale!=1) {
+				triangle = new Triangle(vertices[aIndex], vertices[bIndex],vertices[cIndex], triangleIndex++,aIndex,bIndex,cIndex);
+			}else {
+				triangle = new Triangle(vertices[aIndex], vertices[bIndex],vertices[cIndex], triangleIndex++);
+			}
+			
 			triangles.add(triangle);
 		}
 
@@ -134,13 +142,13 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 			a2 = indices[i++];
 			j = i;
 			while (j < indices.length) {
-				
+
 				triBIndex = (short) (j / 3); // B三角形编号
 				b0 = indices[j++];
 				b1 = indices[j++];
 				b2 = indices[j++];
-				if(triAIndex==triBIndex) {
-//					j+=3;
+				if (triAIndex == triBIndex) {
+					// j+=3;
 					continue;
 				}
 				if (hasSharedEdgeIndices(a0, a1, a2, b0, b1, b2, edge)) {
@@ -150,11 +158,12 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 					indexConnections.add(indexConnection2);
 					edge[0] = -1;
 					edge[1] = -1;
-//					LOGGER.debug("共享边：{} -> {}",indexConnection1.toString(),indexConnection2.toString());
+					// LOGGER.debug("共享边：{} ->
+					// {}",indexConnection1.toString(),indexConnection2.toString());
 				}
 			}
 		}
-		LOGGER.debug("连接个数：{}",indexConnections.size());
+		LOGGER.debug("连接个数：{}", indexConnections.size());
 		return indexConnections;
 	}
 
@@ -216,7 +225,8 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	private static Map<Triangle, List<Edge>> createSharedEdgesMap(Set<IndexConnection> indexConnections,
 			List<Triangle> triangles, List<Vector3> vertexVectors) {
 
-		Map<Triangle, List<Edge>> connectionMap = new TreeMap<Triangle, List<Edge>>((o1,o2)->o1.getIndex()-o2.getIndex());
+		Map<Triangle, List<Edge>> connectionMap = new TreeMap<Triangle, List<Edge>>(
+				(o1, o2) -> o1.getIndex() - o2.getIndex());
 		// connectionMap.ordered = true;
 
 		for (Triangle tri : triangles) {
@@ -232,7 +242,8 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 			Edge edge = new Edge(fromNode, toNode, edgeVertexA, edgeVertexB);
 			connectionMap.get(fromNode).add(edge);
 			fromNode.connections.add(edge);
-//			LOGGER.debug("三角形：{} -->{}   {}-->{}",fromNode.getIndex(),toNode.getIndex(),fromNode.toString(),toNode.toString());
+			// LOGGER.debug("三角形：{} -->{}
+			// {}-->{}",fromNode.getIndex(),toNode.getIndex(),fromNode.toString(),toNode.toString());
 		}
 		return connectionMap;
 	}
@@ -297,8 +308,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 				return false;
 			return true;
 		}
-		
-		
+
 	}
 
 	public Map<Triangle, List<Edge>> getPathSharedEdges() {

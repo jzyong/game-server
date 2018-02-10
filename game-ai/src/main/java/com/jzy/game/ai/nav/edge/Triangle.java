@@ -31,8 +31,10 @@ public class Triangle implements Shape{
 	public Vector3 center;
 	/** 三角形和其他三角形的共享边 */
 	public transient List<Connection<Triangle>> connections;
+	/**三角形顶点序号*/
+	public int[] vectorIndex;
 
-	public Triangle(Vector3 a, Vector3 b, Vector3 c, int index) {
+	public Triangle(Vector3 a, Vector3 b, Vector3 c, int index,int ...vectorIndex) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -40,6 +42,7 @@ public class Triangle implements Shape{
 		this.index = index;
 		this.center = new Vector3(a).add(b).add(c).scl(1f / 3f);
 		this.connections = new ArrayList<Connection<Triangle>>();
+		this.vectorIndex=vectorIndex;
 	}
 
 	@Override
