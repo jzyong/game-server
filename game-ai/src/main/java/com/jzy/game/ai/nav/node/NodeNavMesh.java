@@ -92,7 +92,7 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
             LOGGER.warn("navmesh数据{}读取失败", filePath);
             return;
         }
-        NavMeshData data = JSON.parseObject(txtFile, NavMeshData.class);
+        NodeData data = JSON.parseObject(txtFile, NodeData.class);
         data.check(1);
         this.width = Math.abs(data.getEndX() - data.getStartX());
         this.height = Math.abs(data.getEndZ() - data.getStartZ());
@@ -381,7 +381,7 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
 	 * @param z
 	 * @return
 	 */
-	public Vector3 getPointInPaths(float x, float z) {
+	public Vector3 getPointInPath(float x, float z) {
 		Vector3 movedPoint = new Vector3(x, z);
 		for (TriangleBlock block : this.pathAreas) {
 			if (block.getInnerPolygon().contains(movedPoint)) {

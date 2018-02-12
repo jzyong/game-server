@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge.ui;
+package com.jzy.game.ai.nav.polygon.ui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jzy.game.ai.nav.NavMeshData;
-import com.jzy.game.ai.nav.edge.EdgeNavMesh;
+import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
 
@@ -21,14 +21,14 @@ import com.jzy.game.engine.util.FileUtil;
  *
  * @author JiangZhiYong
  */
-public class NavMeshWindow {
+public class PolygonMeshWindow {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(NavMeshWindow.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PolygonMeshWindow.class);
 
 	static JPanel p = new JPanel();
 
 	protected JFrame frame;
-	protected TriangleViewPane triangleViewPane;
+	protected PolygonViewPane polygonViewPane;
 	protected JScrollPane jScrollPane;
 	protected volatile boolean keepRunning = true;
 	protected boolean pause = false;
@@ -44,11 +44,11 @@ public class NavMeshWindow {
 	protected JFileChooser chooser;
 	protected String choosertitle;
 	protected MovePlayer player;
-	protected EdgeNavStart main;
+	protected PolygonNavStart main;
 	/** 缓存上次加载文件 */
 	public static String lastFilePath = "";
 
-	public NavMeshWindow(EdgeNavStart main) {
+	public PolygonMeshWindow(PolygonNavStart main) {
 		this.main = main;
 		main.setMapWindow(this);
 		MenuBar menuBar = new MenuBar();
@@ -88,14 +88,14 @@ public class NavMeshWindow {
 
 		menuBar.add(menu);
 
-		this.triangleViewPane = createViePane();
+		this.polygonViewPane = createViePane();
 
 		frame = new JFrame("三角形navmesh寻路");
-		jScrollPane = new JScrollPane(triangleViewPane);
-		if (this.triangleViewPane.getPlayer().getMap() != null) {
+		jScrollPane = new JScrollPane(polygonViewPane);
+		if (this.polygonViewPane.getPlayer().getMap() != null) {
 			double width = Toolkit.getDefaultToolkit().getScreenSize().width; // 得到当前屏幕分辨率的高
 			double height = Toolkit.getDefaultToolkit().getScreenSize().height;// 得到当前屏幕分辨率的宽
-			triangleViewPane.setPreferredSize(new Dimension((int) width, (int) height));
+			polygonViewPane.setPreferredSize(new Dimension((int) width, (int) height));
 			frame.setSize((int) width, (int) height);// 设置大小
 		} else {
 			frame.setSize(300, 300);// 设置大小
@@ -139,7 +139,7 @@ public class NavMeshWindow {
 				}
 			}
 		});
-		triangleViewPane.addMouseListener(new MouseListener() {
+		polygonViewPane.addMouseListener(new MouseListener() {
 			public void mousePressed(MouseEvent e) {
 				synchronized (mutex) {
 					events.add(e);
@@ -170,7 +170,7 @@ public class NavMeshWindow {
 				}
 			}
 		});
-		triangleViewPane.addMouseMotionListener(new MouseMotionListener() {
+		polygonViewPane.addMouseMotionListener(new MouseMotionListener() {
 			public void mouseMoved(MouseEvent e) {
 				synchronized (mutex) {
 					events.add(e);
@@ -200,7 +200,7 @@ public class NavMeshWindow {
 					}
 					try {
 						Thread.sleep(1);
-						triangleViewPane.render();
+						polygonViewPane.render();
 					} catch (Exception e) {
 						e.printStackTrace(System.out);
 					}
@@ -217,18 +217,18 @@ public class NavMeshWindow {
 	 * @param filePath
 	 * @return
 	 */
-	public EdgeNavMesh loadMap(String filePath,int scale) {
-		EdgeNavMesh map = null;
+	public PolygonNavMesh loadMap(String filePath,int scale) {
+		PolygonNavMesh map = null;
         lastFilePath=filePath;
 		try {
 			String navMeshStr = FileUtil.readTxtFile(filePath);
-			map = new EdgeNavMesh(navMeshStr,scale);	
+			map = new PolygonNavMesh(navMeshStr,scale);	
 			if (map != null && player != null) {
 				player.setMap(map);
 				int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 				int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-				NavMeshData navMeshData= map.getGraph().getNavMeshData();
-				triangleViewPane.setPreferredSize(new Dimension((int)(navMeshData.getWidth()*scale*(1+navMeshData.getHeight()/(navMeshData.getWidth()+navMeshData.getHeight()))), 
+				NavMeshData navMeshData= map.getGraph().getPolygonData();
+				polygonViewPane.setPreferredSize(new Dimension((int)(navMeshData.getWidth()*scale*(1+navMeshData.getHeight()/(navMeshData.getWidth()+navMeshData.getHeight()))), 
 						(int)(navMeshData.getHeight()*scale*(1+navMeshData.getWidth()/(navMeshData.getWidth()+navMeshData.getHeight())))));
 				frame.setSize(width, height);
 //				frame.setPreferredSize(new Dimension(width, height));
@@ -244,8 +244,8 @@ public class NavMeshWindow {
 		return null;
 	}
 
-	private TriangleViewPane createViePane() {
-		EdgeNavMesh map = null;
+	private PolygonViewPane createViePane() {
+		PolygonNavMesh map = null;
 		File file = new File(System.getProperty("user.dir"));
 
 		String path = file.getPath();
@@ -256,12 +256,12 @@ public class NavMeshWindow {
 
 		player = new MovePlayer(map);
 
-		return new TriangleViewPane(player);
+		return new PolygonViewPane(player);
 	}
 
 	public void init() {
-		triangleViewPane.getPlayer().setPos(new Vector3(400, 280));
-		triangleViewPane.getPlayer().setTarget(triangleViewPane.getPlayer().getPos().copy());
+		polygonViewPane.getPlayer().setPos(new Vector3(400, 280));
+		polygonViewPane.getPlayer().setTarget(polygonViewPane.getPlayer().getPos().copy());
 	}
 
 	/**
@@ -297,11 +297,11 @@ public class NavMeshWindow {
 						curMouseMovePoint.z = e.getY();
 						break;
 					case MouseEvent.MOUSE_DRAGGED:
-						Vector3 p = triangleViewPane.getMap().getPointInPath(e.getX(), e.getY());
+						Vector3 p = polygonViewPane.getMap().getPointInPath(e.getX(), e.getY());
 						if (p != null) {
-							triangleViewPane.getPlayer().target.x = e.getX();
-							triangleViewPane.getPlayer().target.z = e.getY();
-							triangleViewPane.getPlayer().path();
+							polygonViewPane.getPlayer().target.x = e.getX();
+							polygonViewPane.getPlayer().target.z = e.getY();
+							polygonViewPane.getPlayer().path();
 						}
 						break;
 					case MouseEvent.MOUSE_CLICKED:
@@ -311,8 +311,8 @@ public class NavMeshWindow {
 							positon = new Vector3(e.getX(), e.getY());
 						}
 						main.setPosition(positon);
-						triangleViewPane.getPlayer().pos.x = e.getX();
-						triangleViewPane.getPlayer().pos.z = e.getY();
+						polygonViewPane.getPlayer().pos.x = e.getX();
+						polygonViewPane.getPlayer().pos.z = e.getY();
 						break;
 					default:
 						break;
@@ -345,7 +345,7 @@ public class NavMeshWindow {
 	double totalSeconds = 0;
 
 	public void update(float seconds) {
-		triangleViewPane.getPlayer().update(seconds);
+		polygonViewPane.getPlayer().update(seconds);
 		totalSeconds += seconds;
 
 	}

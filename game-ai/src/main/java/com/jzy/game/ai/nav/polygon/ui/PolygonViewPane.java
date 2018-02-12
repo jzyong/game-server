@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge.ui;
+package com.jzy.game.ai.nav.polygon.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import com.jzy.game.ai.nav.edge.EdgeNavMesh;
-import com.jzy.game.ai.nav.edge.Triangle;
+import com.jzy.game.ai.nav.polygon.Polygon;
+import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -21,7 +21,7 @@ import com.jzy.game.engine.math.Vector3;
  *
  * @author JiangZhiYong
  */
-public class TriangleViewPane extends JPanel {
+public class PolygonViewPane extends JPanel {
 
     private static final long serialVersionUID = 1L;
     protected Image backImage;
@@ -33,12 +33,12 @@ public class TriangleViewPane extends JPanel {
     Vector3 translate;
     Vector3 direction;
     Vector3 stop;
-    Triangle triangle = null;
+    Polygon polygon = null;
     protected boolean isRenderRandomPoints; // 是否渲染随机点
     protected boolean isShowTriangleIndex;  //是否显示三角形序号
     protected boolean isShowVectorIndex;  //是否显示坐标序号
 
-    public TriangleViewPane(MovePlayer player) {
+    public PolygonViewPane(MovePlayer player) {
         this.player = player;
        stop = getStopPoint(center, test, 5);
 
@@ -92,20 +92,21 @@ public class TriangleViewPane extends JPanel {
         float g4 = 0.4f;
         Color triangleColor = new Color(g4, g4, g4);
         g.setColor(triangleColor);
-        for (Triangle triangle : player.getMap().getGraph().getTriangles()) {
+        for (Polygon polygon : player.getMap().getGraph().getPolygons()) {
 
-            g.fill(triangle);
+            g.fill(polygon);
 
             //三角形顶点序号
             if (this.isShowTriangleIndex) {
                 g.setColor(Color.GREEN);
-                g.drawString(String.valueOf(triangle.index), triangle.center.x, triangle.center.z);
+                g.drawString(String.valueOf(polygon.index), polygon.center.x, polygon.center.z);
             }
-            if (this.isShowVectorIndex&&triangle.vectorIndex!=null) {
+            if (this.isShowVectorIndex&&polygon.vectorIndexs!=null) {		
                 g.setColor(Color.BLUE);
-                g.drawString(String.valueOf(triangle.vectorIndex[0]), triangle.a.x, triangle.a.z);
-                g.drawString(String.valueOf(triangle.vectorIndex[1]), triangle.b.x, triangle.b.z);
-                g.drawString(String.valueOf(triangle.vectorIndex[2]), triangle.c.x, triangle.c.z);
+                for(int i=0;i<polygon.vectorIndexs.length;i++) {
+                	Vector3 point = polygon.getPoint(i);
+                	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x, point.z);
+                }
             }
             g.setColor(triangleColor);
 //			if (isRenderRandomPoints) {		//TODO 暂时没有随机点
@@ -144,7 +145,7 @@ public class TriangleViewPane extends JPanel {
         return player;
     }
 
-    public EdgeNavMesh getMap() {
+    public PolygonNavMesh getMap() {
         return player.getMap();
     }
 

@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge.ui;
+package com.jzy.game.ai.nav.polygon.ui;
 
 import java.util.ArrayList;
 
@@ -10,21 +10,21 @@ import com.jzy.game.engine.math.Vector3;
  *
  * @author JiangZhiYong
  */
-public class EdgeNavStart extends javax.swing.JFrame {
+public class PolygonNavStart extends javax.swing.JFrame {
 
     /**
      * @param mapWindow the mapWindow to set
      */
-    public void setMapWindow(NavMeshWindow mapWindow) {
+    public void setMapWindow(PolygonMeshWindow mapWindow) {
         this.mapWindow = mapWindow;
     }
 
-    private NavMeshWindow mapWindow;
+    private PolygonMeshWindow mapWindow;
 
     /**
      * Creates new form Main
      */
-    public EdgeNavStart() {
+    public PolygonNavStart() {
         initComponents();
     }
 
@@ -159,23 +159,23 @@ public class EdgeNavStart extends javax.swing.JFrame {
     static TriangleBlock addPolygons = null;
 
     private void showRandomPointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showRandomPointButtonActionPerformed
-        mapWindow.triangleViewPane.changeShowRandomPoint();
+        mapWindow.polygonViewPane.changeShowRandomPoint();
     }//GEN-LAST:event_showRandomPointButtonActionPerformed
 
     private void triangleIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleIndexButtonActionPerformed
         // 显示隐藏三角形序号
-        this.mapWindow.triangleViewPane.changeShowTriangleIndex();
+        this.mapWindow.polygonViewPane.changeShowTriangleIndex();
     }//GEN-LAST:event_triangleIndexButtonActionPerformed
 
     private void vectorIndexButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vectorIndexButtonActionPerformed
-        this.mapWindow.triangleViewPane.changeShowVectorIndex();
+        this.mapWindow.polygonViewPane.changeShowVectorIndex();
     }//GEN-LAST:event_vectorIndexButtonActionPerformed
 
     private void scaleComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_scaleComboBoxItemStateChanged
           if (this.mapWindow == null) {
             return;
         }
-        this.mapWindow.loadMap(NavMeshWindow.lastFilePath, Integer.parseInt(scaleComboBox.getSelectedItem().toString()));
+        this.mapWindow.loadMap(PolygonMeshWindow.lastFilePath, Integer.parseInt(scaleComboBox.getSelectedItem().toString()));
     }//GEN-LAST:event_scaleComboBoxItemStateChanged
 
     /**
@@ -195,13 +195,13 @@ public class EdgeNavStart extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EdgeNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PolygonNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EdgeNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PolygonNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EdgeNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PolygonNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EdgeNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PolygonNavStart.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -209,9 +209,9 @@ public class EdgeNavStart extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EdgeNavStart main = new EdgeNavStart();
+                PolygonNavStart main = new PolygonNavStart();
                 main.setVisible(true);
-                NavMeshWindow map = new NavMeshWindow(main);
+                PolygonMeshWindow map = new PolygonMeshWindow(main);
             }
         });
     }

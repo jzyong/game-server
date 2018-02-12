@@ -1,5 +1,5 @@
 
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.GeometryUtil;
@@ -18,7 +18,7 @@ import java.util.List;
  * @author jsjolund
  * @fix JiangZhiYong
  */
-public class NavMeshPointPath implements Iterable<Vector3> {
+public class TrianglePointPath implements Iterable<Vector3> {
 	public static final Vector3 V3_UP = Vector3.Y;
 	public static final Vector3 V3_DOWN = new Vector3(V3_UP).scl(-1);
 	
@@ -39,7 +39,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 		 * Path edges connected to this point. Can be used for spline generation at some
 		 * point perhaps...
 		 */
-		public List<Edge> connectingEdges = new ArrayList<Edge>();
+		public List<TriangleEdge> connectingEdges = new ArrayList<TriangleEdge>();
 		/**
 		 * The point where the path crosses an edge.
 		 */
@@ -96,7 +96,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 		 * @param edge
 		 *            边
 		 */
-		public void setPlanes(Vector3 pivot, Edge edge) {
+		public void setPlanes(Vector3 pivot, TriangleEdge edge) {
 			setLeftPlane(pivot, edge.leftVertex);
 			setRightPlane(pivot, edge.rightVertex);
 		}
@@ -132,15 +132,15 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 	private EdgePoint lastPointAdded; // 最后一个边点
 	private List<Vector3> vectors = new ArrayList<Vector3>(); // 路径坐标点
 	private List<EdgePoint> pathPoints = new ArrayList<EdgePoint>();
-	private Edge lastEdge; // 最后一个边
+	private TriangleEdge lastEdge; // 最后一个边
 
 	@Override
 	public Iterator<Vector3> iterator() {
 		return vectors.iterator();
 	}
 
-	private Edge getEdge(int index) {
-		return (Edge) ((index == nodes.size()) ? lastEdge : nodes.get(index));
+	private TriangleEdge getEdge(int index) {
+		return (TriangleEdge) ((index == nodes.size()) ? lastEdge : nodes.get(index));
 	}
 
 	private int numEdges() {
@@ -154,7 +154,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 	 * @param trianglePath
 	 * @param calculateCrossPoint true 计算三角形的交叉点，false 只计算拐点
 	 */
-	public void calculateForGraphPath(NavMeshGraphPath trianglePath,boolean calculateCrossPoint) {
+	public void calculateForGraphPath(TriangleGraphPath trianglePath,boolean calculateCrossPoint) {
 		clear();
 		nodes = trianglePath.nodes;
 		this.start = new Vector3(trianglePath.start);
@@ -196,7 +196,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 			addPoint(start, startTri);
 			addPoint(end, startTri);
 		} else {
-			lastEdge = new Edge(nodes.get(nodes.size() - 1).getToNode(), nodes.get(nodes.size() - 1).getToNode(), end,
+			lastEdge = new TriangleEdge(nodes.get(nodes.size() - 1).getToNode(), nodes.get(nodes.size() - 1).getToNode(), end,
 					end);
 			calculateEdgePoints(calculateCrossPoint);
 		}
@@ -271,7 +271,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 	 * @param index
 	 * @return
 	 */
-	public List<Edge> getCrossedEdges(int index) {
+	public List<TriangleEdge> getCrossedEdges(int index) {
 		return pathPoints.get(index).connectingEdges;
 	}
 
@@ -305,7 +305,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 	 * @return
 	 */
 	private void calculateEdgePoints(boolean calculateCrossPoint) {
-		Edge edge = getEdge(0);
+		TriangleEdge edge = getEdge(0);
 		addPoint(start, edge.fromNode);
 		lastPointAdded.fromNode = edge.fromNode;
 
@@ -414,7 +414,7 @@ public class NavMeshPointPath implements Iterable<Vector3> {
 
 		EdgePoint previousLast = lastPointAdded;
 
-		Edge edge = getEdge(endIndex);
+		TriangleEdge edge = getEdge(endIndex);
 		EdgePoint end = new EdgePoint(new Vector3(endPoint), edge.toNode);
 
 		for (int i = startIndex; i < endIndex; i++) {

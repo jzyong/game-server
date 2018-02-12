@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Vector3;
@@ -9,7 +9,7 @@ import com.jzy.game.engine.math.Vector3;
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午4:50:11
  */
-public class Edge implements Connection<Triangle> {
+public class TriangleEdge implements Connection<Triangle> {
 	/** 右顶点 */
 	public Vector3 rightVertex;
 	public Vector3 leftVertex;
@@ -19,7 +19,7 @@ public class Edge implements Connection<Triangle> {
 	/** 指向的三角形 */
 	public Triangle toNode;
 
-	public Edge(Triangle fromNode, Triangle toNode, Vector3 rightVertex, Vector3 leftVertex) {
+	public TriangleEdge(Triangle fromNode, Triangle toNode, Vector3 rightVertex, Vector3 leftVertex) {
 		this.fromNode = fromNode;
 		this.toNode = toNode;
 		this.rightVertex = rightVertex;

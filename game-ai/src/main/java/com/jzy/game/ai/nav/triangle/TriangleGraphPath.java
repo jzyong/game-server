@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 ///*******************************************************************************
 // * Copyright 2015 See AUTHORS file.
 // * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ import com.jzy.game.engine.math.Vector3;
  * 路径点
  * @author jsjolund
  */
-public class NavMeshGraphPath extends DefaultGraphPath<Connection<Triangle>> {
+public class TriangleGraphPath extends DefaultGraphPath<Connection<Triangle>> {
 	/**
 	 * The start point when generating a point path for this triangle path
 	 */

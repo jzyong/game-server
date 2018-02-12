@@ -1,10 +1,10 @@
-package com.jzy.game.ai.nav.edge.ui;
+package com.jzy.game.ai.nav.triangle.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jzy.game.ai.nav.edge.EdgeNavMesh;
-import com.jzy.game.ai.nav.edge.NavMeshPointPath;
+import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
+import com.jzy.game.ai.nav.triangle.TrianglePointPath;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
 
@@ -13,21 +13,21 @@ import com.jzy.game.engine.util.TimeUtil;
  * 移动玩家
  * @fix JiangZhiYong
  */
-public class MovePlayer {
+public class TrianglePlayer {
 
     protected Vector3 pos = new Vector3();
     protected Vector3 target = new Vector3();
     protected Vector3 targetAdjusted = new Vector3();
     protected List<Vector3> paths=new ArrayList<>();
-    protected NavMeshPointPath navMeshPointPath=new NavMeshPointPath();
+    protected TrianglePointPath navMeshPointPath=new TrianglePointPath();
     protected float speed;
     protected float speedX;
     protected float speedZ;
     protected float moveAngle;
     protected Vector3 currentTargetPoint = null;
-    protected EdgeNavMesh map;
+    protected TriangleNavMesh map;
 
-    public MovePlayer(EdgeNavMesh map) {
+    public TrianglePlayer(TriangleNavMesh map) {
         speed = 200;
         this.map = map;
     }
@@ -137,14 +137,14 @@ public class MovePlayer {
     /**
      * @return the map
      */
-    public EdgeNavMesh getMap() {
+    public TriangleNavMesh getMap() {
         return map;
     }
 
     /**
      * @param map the map to set
      */
-    public void setMap(EdgeNavMesh map) {
+    public void setMap(TriangleNavMesh map) {
         this.map = map;
     }
 

@@ -1,16 +1,14 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 //package com.jzy.game.ai.nav;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import org.slf4j.LoggerFactory;
 
@@ -27,22 +25,22 @@ import com.jzy.game.engine.math.Vector3;
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午4:43:33
  */
-public class NavMeshGraph implements IndexedGraph<Triangle> {
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(NavMeshGraph.class);
+public class TriangleGraph implements IndexedGraph<Triangle> {
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(TriangleGraph.class);
 
 	private final transient NavMeshData navMeshData;
 	private List<Triangle> triangles = new ArrayList<>();
 
 	/** 寻路三角形对应的共享边 */
-	private final Map<Triangle, List<Edge>> sharedEdges;
+	private final Map<Triangle, List<TriangleEdge>> sharedEdges;
 	/** 独立边 */
-	private final Map<Triangle, List<Edge>> isolatedEdgesMap;
+	private final Map<Triangle, List<TriangleEdge>> isolatedEdgesMap;
 
 	private int numDisconnectedEdges; // 不相连边的个数
 	private int numConnectedEdges; // 相互连接边的数目
 	private int numTotalEdges; // 三角形总边数
 
-	public NavMeshGraph(NavMeshData navMeshData,int scale) {
+	public TriangleGraph(NavMeshData navMeshData,int scale) {
 		super();
 		this.navMeshData = navMeshData;
 		navMeshData.check(scale);
@@ -56,10 +54,10 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 		isolatedEdgesMap = createIsolatedEdgesMap(sharedEdges);
 
 		// Count edges of different types
-		for (List<Edge> edges : isolatedEdgesMap.values()) {
+		for (List<TriangleEdge> edges : isolatedEdgesMap.values()) {
 			numDisconnectedEdges += edges.size();
 		}
-		for (List<Edge> edges : sharedEdges.values()) {
+		for (List<TriangleEdge> edges : sharedEdges.values()) {
 			numConnectedEdges += edges.size();
 		}
 		numConnectedEdges /= 2;
@@ -222,15 +220,15 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	 * @param vertexVectors
 	 * @return
 	 */
-	private static Map<Triangle, List<Edge>> createSharedEdgesMap(Set<IndexConnection> indexConnections,
+	private static Map<Triangle, List<TriangleEdge>> createSharedEdgesMap(Set<IndexConnection> indexConnections,
 			List<Triangle> triangles, List<Vector3> vertexVectors) {
 
-		Map<Triangle, List<Edge>> connectionMap = new TreeMap<Triangle, List<Edge>>(
+		Map<Triangle, List<TriangleEdge>> connectionMap = new TreeMap<Triangle, List<TriangleEdge>>(
 				(o1, o2) -> o1.getIndex() - o2.getIndex());
 		// connectionMap.ordered = true;
 
 		for (Triangle tri : triangles) {
-			connectionMap.put(tri, new ArrayList<Edge>());
+			connectionMap.put(tri, new ArrayList<TriangleEdge>());
 		}
 
 		for (IndexConnection indexConnection : indexConnections) {
@@ -239,7 +237,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 			Vector3 edgeVertexA = vertexVectors.get(indexConnection.edgeVertexIndex1);
 			Vector3 edgeVertexB = vertexVectors.get(indexConnection.edgeVertexIndex2);
 
-			Edge edge = new Edge(fromNode, toNode, edgeVertexA, edgeVertexB);
+			TriangleEdge edge = new TriangleEdge(fromNode, toNode, edgeVertexA, edgeVertexB);
 			connectionMap.get(fromNode).add(edge);
 			fromNode.connections.add(edge);
 			// LOGGER.debug("三角形：{} -->{}
@@ -311,7 +309,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 
 	}
 
-	public Map<Triangle, List<Edge>> getPathSharedEdges() {
+	public Map<Triangle, List<TriangleEdge>> getPathSharedEdges() {
 		return sharedEdges;
 	}
 
@@ -331,14 +329,14 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 	 * @param connectionMap
 	 * @return
 	 */
-	private static Map<Triangle, List<Edge>> createIsolatedEdgesMap(Map<Triangle, List<Edge>> connectionMap) {
+	private static Map<Triangle, List<TriangleEdge>> createIsolatedEdgesMap(Map<Triangle, List<TriangleEdge>> connectionMap) {
 
-		Map<Triangle, List<Edge>> disconnectionMap = new HashMap<Triangle, List<Edge>>();
+		Map<Triangle, List<TriangleEdge>> disconnectionMap = new HashMap<Triangle, List<TriangleEdge>>();
 
 		for (Triangle tri : connectionMap.keySet()) {
-			List<Edge> connectedEdges = connectionMap.get(tri);
+			List<TriangleEdge> connectedEdges = connectionMap.get(tri);
 
-			List<Edge> disconnectedEdges = new ArrayList<Edge>();
+			List<TriangleEdge> disconnectedEdges = new ArrayList<TriangleEdge>();
 			disconnectionMap.put(tri, disconnectedEdges);
 
 			if (connectedEdges.size() < 3) {
@@ -346,7 +344,7 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 				boolean ab = true;
 				boolean bc = true;
 				boolean ca = true;
-				for (Edge edge : connectedEdges) {
+				for (TriangleEdge edge : connectedEdges) {
 					if (edge.rightVertex == tri.a && edge.leftVertex == tri.b)
 						ab = false;
 					else if (edge.rightVertex == tri.b && edge.leftVertex == tri.c)
@@ -355,11 +353,11 @@ public class NavMeshGraph implements IndexedGraph<Triangle> {
 						ca = false;
 				}
 				if (ab)
-					disconnectedEdges.add(new Edge(tri, null, tri.a, tri.b));
+					disconnectedEdges.add(new TriangleEdge(tri, null, tri.a, tri.b));
 				if (bc)
-					disconnectedEdges.add(new Edge(tri, null, tri.b, tri.c));
+					disconnectedEdges.add(new TriangleEdge(tri, null, tri.b, tri.c));
 				if (ca)
-					disconnectedEdges.add(new Edge(tri, null, tri.c, tri.a));
+					disconnectedEdges.add(new TriangleEdge(tri, null, tri.c, tri.a));
 			}
 			int totalEdges = (connectedEdges.size() + disconnectedEdges.size());
 			if (totalEdges != 3) {

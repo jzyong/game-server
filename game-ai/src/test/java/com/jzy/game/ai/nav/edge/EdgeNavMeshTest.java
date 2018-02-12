@@ -7,7 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
-import com.jzy.game.ai.nav.edge.EdgeNavMesh;
+import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
+import com.jzy.game.ai.nav.triangle.TriangleGraph;
+import com.jzy.game.ai.nav.triangle.TriangleGraphPath;
+import com.jzy.game.ai.nav.triangle.TrianglePointPath;
+import com.jzy.game.ai.nav.triangle.Triangle;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
@@ -24,13 +28,13 @@ public class EdgeNavMeshTest {
 	// private static final String meshPath =
 	// "E:\\Java\\game-server\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
 	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
-	EdgeNavMesh navMesh;
+	TriangleNavMesh navMesh;
 
 	@Before
 	public void init() {
 		long start = TimeUtil.currentTimeMillis();
 		String navMeshStr = FileUtil.readTxtFile(meshPath);
-		navMesh = new EdgeNavMesh(navMeshStr);
+		navMesh = new TriangleNavMesh(navMeshStr);
 		System.out.println("加载地图耗时：" + (TimeUtil.currentTimeMillis() - start));
 	}
 
@@ -42,7 +46,7 @@ public class EdgeNavMeshTest {
 	 */
 	@Test
 	public void testLoadNavMesh() {
-		NavMeshGraph graph = navMesh.getGraph();
+		TriangleGraph graph = navMesh.getGraph();
 		System.out.println(String.format("三角形个数：%d 所有边%s 共享边：%d 独立边：%d", graph.getTriangleCont(),
 				graph.getNumTotalEdges(), graph.getNumConnectedEdges(), graph.getNumDisconnectedEdges()));
 //		System.out.println(JSON.toJSONString(navMesh.getGraph().getTriangles()));
@@ -70,8 +74,8 @@ public class EdgeNavMeshTest {
 	 */
 	@Test
 	public  void testFindPath() {
-		NavMeshGraphPath path=new NavMeshGraphPath();
-		NavMeshPointPath pointPath=new NavMeshPointPath();
+		TriangleGraphPath path=new TriangleGraphPath();
+		TrianglePointPath pointPath=new TrianglePointPath();
 		long start=TimeUtil.currentTimeMillis();
 		
 		for(int i=0;i<1;i++) {

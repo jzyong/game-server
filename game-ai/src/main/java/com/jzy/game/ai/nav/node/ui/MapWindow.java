@@ -39,9 +39,9 @@ public class MapWindow {
     protected JFileChooser chooser;
     protected String choosertitle;
     protected MovePlayer player;
-    protected Main main;
+    protected NodeNavStart main;
 
-    public MapWindow(Main main) {
+    public MapWindow(NodeNavStart main) {
         this.main = main;
         main.setMapWindow(this);
         MenuBar menuBar = new MenuBar();
@@ -271,7 +271,7 @@ public class MapWindow {
                             curMouseMovePoint.z = e.getY();
                             break;
                         case MouseEvent.MOUSE_DRAGGED:
-                            Vector3 p = view.getMap().getPointInPaths(e.getX(), e.getY());
+                            Vector3 p = view.getMap().getPointInPath(e.getX(), e.getY());
                             if (p != null) {
                                 view.getPlayer().target.x = e.getX();
                                 view.getPlayer().target.z = e.getY();

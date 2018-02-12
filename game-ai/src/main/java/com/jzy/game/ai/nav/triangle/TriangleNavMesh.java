@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 //package com.jzy.game.ai.nav;
 
 import java.util.List;
@@ -17,18 +17,19 @@ import com.jzy.game.engine.math.Vector3;
  * 寻路网格
  * <br>
  * TODO 获取不在寻路中，离当前点最近且在寻路层中的点；随机或者指定点的周围坐标点
+ * @note 限制：三角形顶点需要在寻路层边缘，不能存在共边不共顶点
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午4:40:36
  */
-public class EdgeNavMesh extends NavMesh {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EdgeNavMesh.class);
+public class TriangleNavMesh extends NavMesh {
+	private static final Logger LOGGER = LoggerFactory.getLogger(TriangleNavMesh.class);
 
-	private final NavMeshGraph graph; // 导航数据图
-	private final NavMeshHeuristic heuristic; // 寻路消耗计算
+	private final TriangleGraph graph; // 导航数据图
+	private final TriangleHeuristic heuristic; // 寻路消耗计算
 	private final IndexedAStarPathFinder<Triangle> pathFinder; // A*寻路算法
 
 	
-	public EdgeNavMesh(String navMeshStr) {
+	public TriangleNavMesh(String navMeshStr) {
 		this(navMeshStr,1);
 	}
 	
@@ -38,17 +39,17 @@ public class EdgeNavMesh extends NavMesh {
 	 *            导航网格数据
 	 *            @param scale 放大倍数
 	 */
-	public EdgeNavMesh(String navMeshStr,int scale) {
-		graph = new NavMeshGraph(JSON.parseObject(navMeshStr, NavMeshData.class),scale);
+	public TriangleNavMesh(String navMeshStr,int scale) {
+		graph = new TriangleGraph(JSON.parseObject(navMeshStr, TriangleData.class),scale);
 		pathFinder = new IndexedAStarPathFinder<Triangle>(graph);
-		heuristic = new NavMeshHeuristic();
+		heuristic = new TriangleHeuristic();
 	}
 
-	public NavMeshGraph getGraph() {
+	public TriangleGraph getGraph() {
 		return graph;
 	}
 
-	public NavMeshHeuristic getHeuristic() {
+	public TriangleHeuristic getHeuristic() {
 		return heuristic;
 	}
 
@@ -63,7 +64,7 @@ public class EdgeNavMesh extends NavMesh {
 	 * @param toPoint
 	 * @param path
 	 */
-	private boolean findPath(Vector3 fromPoint, Vector3 toPoint, NavMeshGraphPath path) {
+	private boolean findPath(Vector3 fromPoint, Vector3 toPoint, TriangleGraphPath path) {
 		path.clear();
 		Triangle fromTriangle = getTriangle(fromPoint);
 		if (pathFinder.searchConnectionPath(fromTriangle, getTriangle(toPoint), heuristic, path)) {
@@ -83,8 +84,8 @@ public class EdgeNavMesh extends NavMesh {
 	 * @param navMeshPointPath
 	 * @return
 	 */
-	public List<Vector3> findPath(Vector3 fromPoint, Vector3 toPoint, NavMeshPointPath navMeshPointPath) {
-		NavMeshGraphPath navMeshGraphPath = new NavMeshGraphPath();
+	public List<Vector3> findPath(Vector3 fromPoint, Vector3 toPoint, TrianglePointPath navMeshPointPath) {
+		TriangleGraphPath navMeshGraphPath = new TriangleGraphPath();
 		boolean find = findPath(fromPoint, toPoint, navMeshGraphPath);
 		if (!find) {
 			return navMeshPointPath.getVectors();
@@ -92,6 +93,7 @@ public class EdgeNavMesh extends NavMesh {
 		navMeshPointPath.calculateForGraphPath(navMeshGraphPath, false);
 		return navMeshPointPath.getVectors();
 	}
+	
 
 	/**
 	 * 获取坐标点所在的三角形

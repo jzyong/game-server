@@ -1,5 +1,9 @@
 package com.jzy.game.ai.nav;
 
+import java.util.List;
+
+import com.jzy.game.engine.math.Vector3;
+
 /**
  * navmesh寻路入口
  * 
@@ -12,7 +16,7 @@ public abstract class NavMesh {
 	protected float width;
 	/** 地图高y轴 */
 	protected float height;
-	/**配置id*/
+	/** 配置id */
 	protected int mapId;
 
 	public float getWidth() {
@@ -39,4 +43,13 @@ public abstract class NavMesh {
 		this.mapId = mapId;
 	}
 
+	/**
+	 * 或者在路径中的坐标点<br>
+	 * 屏幕输入坐标点
+	 * 
+	 * @param x
+	 * @param z
+	 * @return
+	 */
+	public abstract Vector3 getPointInPath(float x, float z);
 }

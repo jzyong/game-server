@@ -20,10 +20,6 @@ import com.jzy.game.engine.math.Vector3;
 public class NavMeshData implements Serializable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NavMeshData.class);
 	private static final long serialVersionUID = 1L;
-	/** 阻挡顶点序号 */
-	private int[] blockTriangles;
-	/** 阻挡坐标 */
-	private Vector3[] blockVertices;
 
 	/** 行走区顶点序号 */
 	private int[] pathTriangles;
@@ -44,11 +40,11 @@ public class NavMeshData implements Serializable {
 
 	/**
 	 * 数据检测，客户端的顶点坐标和三角形数据有可能是重复的
+	 * <br>
+	 * TODO 小三角形合并成大三角形或多边形；判断顶点是否在寻路层中，寻路层中的顶点不能作为路径点；两点所连线段是否穿过阻挡区，不穿过，直接获取坐标点
 	 */
 	public void check(int scale) {
-		amendmentSameVector(blockTriangles, blockVertices);
 		amendmentSameVector(pathTriangles, pathVertices);
-		scaleVector(blockVertices, scale);
 		scaleVector(pathVertices, scale);
 
 		this.width = Math.abs(this.getEndX() - this.getStartX());
@@ -60,7 +56,7 @@ public class NavMeshData implements Serializable {
 	 * 
 	 * @param scale
 	 */
-	private void scaleVector(Vector3[] vertices, int scale) {
+	protected void scaleVector(Vector3[] vertices, int scale) {
 		if (vertices == null || scale == 1) {
 			return;
 		}
@@ -72,7 +68,7 @@ public class NavMeshData implements Serializable {
 	}
 
 	/**
-	 * 修正重复坐标，使坐标相同的下标修改为一致 TODO 去除重复的顶点
+	 * 修正重复坐标，使坐标相同的下标修改为一致
 	 */
 	public void amendmentSameVector(int[] indexs, Vector3[] vertices) {
 		if (indexs == null || vertices == null) {
@@ -97,21 +93,6 @@ public class NavMeshData implements Serializable {
 		}
 	}
 
-	public int[] getBlockTriangles() {
-		return blockTriangles;
-	}
-
-	public void setBlockTriangles(int[] blockTriangles) {
-		this.blockTriangles = blockTriangles;
-	}
-
-	public Vector3[] getBlockVertices() {
-		return blockVertices;
-	}
-
-	public void setBlockVertices(Vector3[] blockVertices) {
-		this.blockVertices = blockVertices;
-	}
 
 	public int[] getPathTriangles() {
 		return pathTriangles;

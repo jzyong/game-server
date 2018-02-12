@@ -3,8 +3,8 @@ package com.jzy.game.ai.nav.node;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jzy.game.ai.nav.edge.EdgeNavMesh;
 import com.jzy.game.ai.nav.node.NodeNavMesh;
+import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
 
@@ -33,11 +33,11 @@ public class NodeNavMeshTest {
 	
 	/**
 	 * 
-	 * <p>1.三角形个数296,短距离寻路10000次,{@link NodeNavMesh}平均耗时8500ms，{@link EdgeNavMesh}平均耗时450ms</p>
-	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时15000ms，{@link EdgeNavMesh}平均耗时1500ms</p>
-	 * <p>3.三角形个数975,短距离寻路10000次,{@link NodeNavMesh}平均耗时1300ms，{@link EdgeNavMesh}平均耗时300ms</p>
-	 * <p>4.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时90000ms，{@link EdgeNavMesh}未找到路径？？？</p>
-	 * <p>5.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link EdgeNavMesh}4400ms</p>
+	 * <p>1.三角形个数296,短距离寻路10000次,{@link NodeNavMesh}平均耗时8500ms，{@link TriangleNavMesh}平均耗时450ms</p>
+	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时15000ms，{@link TriangleNavMesh}平均耗时1500ms</p>
+	 * <p>3.三角形个数975,短距离寻路10000次,{@link NodeNavMesh}平均耗时1300ms，{@link TriangleNavMesh}平均耗时300ms</p>
+	 * <p>4.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时90000ms，{@link TriangleNavMesh}未找到路径？？？</p>
+	 * <p>5.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link TriangleNavMesh}4400ms</p>
 	 */
 	@Test
 	public void testFindPath() {

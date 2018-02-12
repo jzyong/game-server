@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 ///*******************************************************************************
 
 import com.jzy.game.ai.pfa.Heuristic;
@@ -23,7 +23,7 @@ import com.jzy.game.engine.math.Vector3;
  * <br>
  * @author jsjolund
  */
-public class NavMeshHeuristic implements Heuristic<Triangle> {
+public class TriangleHeuristic implements Heuristic<Triangle> {
 
 	private final static Vector3 A_AB = new Vector3();
 	private final static Vector3 A_BC = new Vector3();
