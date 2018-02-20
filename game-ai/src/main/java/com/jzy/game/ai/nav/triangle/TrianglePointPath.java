@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * NavMesh 生成坐标路径点 TODO 减少坐标点数，只要三角形顶点坐标
+ * NavMesh 生成坐标路径点 
  * 
  * @author jsjolund
  * @fix JiangZhiYong

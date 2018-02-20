@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -90,7 +90,7 @@ public class PolygonMeshWindow {
 
 		this.polygonViewPane = createViePane();
 
-		frame = new JFrame("三角形navmesh寻路");
+		frame = new JFrame("多边形navmesh寻路");
 		jScrollPane = new JScrollPane(polygonViewPane);
 		if (this.polygonViewPane.getPlayer().getMap() != null) {
 			double width = Toolkit.getDefaultToolkit().getScreenSize().width; // 得到当前屏幕分辨率的高

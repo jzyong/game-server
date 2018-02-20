@@ -1,4 +1,4 @@
-package com.jzy.game.ai.nav.edge;
+package com.jzy.game.ai.nav.triangle;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import com.jzy.game.engine.util.TimeUtil;
  * @author JiangZhiYong
  * @QQ 359135103 2017年11月7日 下午5:38:46
  */
-public class EdgeNavMeshTest {
+public class TriangleNavMeshTest {
 	/** 地图数据路径 */
 	// private static final String meshPath =
 	// "E:\\Java\\game-server\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";

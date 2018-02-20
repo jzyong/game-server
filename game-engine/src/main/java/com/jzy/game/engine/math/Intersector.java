@@ -134,6 +134,33 @@ public final class Intersector {
 		}
 		return oddNodes;
 	}
+	
+	 /**
+	  * 三维坐标x，z轴 检测点是否在多边形内部
+     * Checks whether the given point is in the polygon.
+     * 
+     * @param polygon
+     *            The polygon vertices passed as an array
+     * @param point
+     *            The point
+     * @return true if the point is in the polygon
+     */
+    public static boolean isPointInPolygon(List<Vector3> polygon, Vector3 point) {
+        Vector3 lastVertice = polygon.get(polygon.size()-1);
+        boolean oddNodes = false;
+        for (int i = 0; i < polygon.size(); i++) {
+            Vector3 vertice = polygon.get(i);
+            if ((vertice.z < point.z && lastVertice.z >= point.z)
+                    || (lastVertice.z < point.z && vertice.z >= point.z)) {
+                if (vertice.x
+                        + (point.z - vertice.z) / (lastVertice.z - vertice.z) * (lastVertice.x - vertice.x) < point.x) {
+                    oddNodes = !oddNodes;
+                }
+            }
+            lastVertice = vertice;
+        }
+        return oddNodes;
+    }
 
 	/**
 	 * Returns true if the specified point is in the polygon.

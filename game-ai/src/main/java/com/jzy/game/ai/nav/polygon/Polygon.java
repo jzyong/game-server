@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.jzy.game.engine.math.Intersector;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -192,6 +192,16 @@ public class Polygon implements Shape {
 	public Vector3 getPoint(int i) {
 		return points.get(i);
 	}
+	
+	/**
+	 * 坐标点是否在多边形内部
+	 * @param point
+	 * @return
+	 */
+	public boolean isInnerPoint(Vector3 point) {
+	    return Intersector.isPointInPolygon(points, point);
+	}
+	
 
 	@Override
 	public Rectangle getBounds() {

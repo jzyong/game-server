@@ -48,9 +48,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 		triangleData.check(scale);
 		PolygonData polygonData = triangleConvertPolygon(triangleData);
 		calculateIndexConnections(polygonData.getPathPolygons());
-		for(int i=0;i<20;i++) {
+//		for(int i=0;i<20;i++) {
 			mergePolygon(polygonData);
-		}
+//		}
 		
 		initCalculate(polygonData, scale);
 	}

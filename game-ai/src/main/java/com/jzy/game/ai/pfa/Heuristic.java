@@ -3,6 +3,7 @@ package com.jzy.game.ai.pfa;
 
 /** 
  * 消耗计算接口
+ * <br>
  * A {@code Heuristic} generates estimates of the cost to move from a given node to the goal.
  * <p>
  * With a heuristic function pathfinding algorithms can choose the node that is most likely to lead to the optimal path. The
