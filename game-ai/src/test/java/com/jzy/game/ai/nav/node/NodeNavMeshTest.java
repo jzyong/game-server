@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jzy.game.ai.nav.node.NodeNavMesh;
+import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
 import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.TimeUtil;
@@ -15,7 +16,8 @@ import com.jzy.game.engine.util.TimeUtil;
  */
 public class NodeNavMeshTest {
 //	private static final String FILE_PATH="E:\\Project\\game-server\\trunk\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
-	private static final String FILE_PATH="E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
+//	private static final String FILE_PATH="E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
+	private static final String FILE_PATH="E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
 	private NodeNavMesh navMesh;
 	
 	@Before
@@ -32,26 +34,28 @@ public class NodeNavMeshTest {
 	
 	
 	/**
-	 * 
-	 * <p>1.三角形个数296,短距离寻路10000次,{@link NodeNavMesh}平均耗时8500ms，{@link TriangleNavMesh}平均耗时450ms</p>
-	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时15000ms，{@link TriangleNavMesh}平均耗时1500ms</p>
+	 * <h3>2018-2-23 </h3>
+	 * <p>1.三角形个数296,短距离寻路10000次,{@link NodeNavMesh}平均耗时4900ms，{@link TriangleNavMesh}平均耗时200ms,{@link PolygonNavMesh}平均耗时：125ms</p>
+	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时7386ms，{@link TriangleNavMesh}平均耗时723ms,{@link PolygonNavMesh}平均耗时：420ms</p>
 	 * <p>3.三角形个数975,短距离寻路10000次,{@link NodeNavMesh}平均耗时1300ms，{@link TriangleNavMesh}平均耗时300ms</p>
 	 * <p>4.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时90000ms，{@link TriangleNavMesh}未找到路径？？？</p>
 	 * <p>5.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link TriangleNavMesh}4400ms</p>
 	 */
 	@Test
-	public void testFindPath() {
+	public void testPerformance() {
 		long start = TimeUtil.currentTimeMillis();
+		PathData path=null;
 		for(int i=0;i<10000;i++) {
-//			PathData path = navMesh.path(new Vector3(61,13,191), new Vector3(107,11,146));			//1
-//			PathData path = navMesh.path(new Vector3(61,13,191),new Vector3(305,35,213));			//2
+//		    path = navMesh.path(new Vector3(61,13,191), new Vector3(107,11,146));			//1
+			path = navMesh.path(new Vector3(61,13,191),new Vector3(305,35,213));			//2
 //			PathData path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(50,28,100));		//3
 //			PathData path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f));//4
-			PathData path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f));//5
-//			if(path!=null&&path.points!=null) {
-//				path.points.forEach(p->System.out.println(p.toString()));
-//			}
+//			PathData path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f));//5
+//			
 		}
 		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
+		if(path!=null&&path.points!=null) {
+          path.points.forEach(p->System.out.println(p.toString()));
+      }
 	}
 }

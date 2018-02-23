@@ -161,6 +161,7 @@
             <StringItem index="11" value="20"/>
             <StringItem index="12" value="25"/>
             <StringItem index="13" value="30"/>
+            <StringItem index="14" value="50"/>
           </StringArray>
         </Property>
       </Properties>

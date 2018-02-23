@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import com.jzy.game.ai.nav.polygon.Polygon;
 import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
+import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -105,7 +106,7 @@ public class PolygonViewPane extends JPanel {
                 g.setColor(Color.BLUE);
                 for(int i=0;i<polygon.vectorIndexs.length;i++) {
                 	Vector3 point = polygon.getPoint(i);
-                	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x, point.z);
+                	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x+MathUtil.random(-4, 4), point.z+MathUtil.random(-4,4));
                 }
             }
             g.setColor(triangleColor);

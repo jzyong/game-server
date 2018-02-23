@@ -40,7 +40,7 @@ public class TriangleGraph implements IndexedGraph<Triangle> {
 	private int numConnectedEdges; // 相互连接边的数目
 	private int numTotalEdges; // 三角形总边数
 
-	public TriangleGraph(NavMeshData navMeshData,int scale) {
+    public TriangleGraph(NavMeshData navMeshData,int scale) {
 		super();
 		this.navMeshData = navMeshData;
 		navMeshData.check(scale);
