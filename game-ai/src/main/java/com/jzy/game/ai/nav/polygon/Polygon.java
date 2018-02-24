@@ -206,9 +206,18 @@ public class Polygon implements Shape {
     public boolean isInnerPoint(Vector3 point) {
         return Intersector.isPointInPolygon(points, point);
     }
+    
+    
 
 
     @Override
+	public String toString() {
+		return "Polygon [index=" + index + ", points=" + points + ", y=" + y + ", center=" + center + ", area=" + area
+				+ ", counterClockWise=" + counterClockWise + ", convex=" + convex + ", radius=" + radius + ", radiusSq="
+				+ radiusSq + ", vectorIndexs=" + Arrays.toString(vectorIndexs) + "]";
+	}
+
+	@Override
     public Rectangle getBounds() {
         throw new UnsupportedOperationException();
     }
