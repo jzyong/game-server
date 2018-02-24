@@ -149,10 +149,10 @@ public class PolygonPointPath implements Iterable<Vector3> {
 
 	/**
 	 * 计算路径点 <br>
-	 * Calculate the shortest path through the navigation mesh triangles.
+	 * Calculate the shortest path through the navigation mesh polygons.
 	 *
 	 * @param polygonlePath
-	 * @param calculateCrossPoint true 计算三角形的交叉点，false 只计算拐点
+	 * @param calculateCrossPoint true 计算与多边形边的交叉点，3D高度计算需要，false 只计算拐点
 	 */
 	public void calculateForGraphPath(PolygonGraphPath polygonlePath,boolean calculateCrossPoint) {
 		clear();
@@ -298,6 +298,16 @@ public class PolygonPointPath implements Iterable<Vector3> {
 
 	/**
 	 * 根据多边形路径计算最短路径坐标点 <br>
+	 * <p>
+	 * 1.下一组边与上一个路径点的向量全部在前一组边的范围内，直接把下一组边的两点替换前一组边的两点。<br>
+	 * 2.下一组边的右边点与上一个路径点向量在上一组边的范围内，但左边的点不在范围内，把下一组边的右边点替换前一组边的右边点<br>
+	 * 3.下一组边的左边点与上一个路径点向量在上一组边的范围内，但右边的点不在范围内，把下一组边的左边点替换前一组边的左边点<br>
+	 * 4.下一组边两个点组成的向量都在上一组边的左边，那么上一组边的左边点成为拐点<br>
+	 * 5.下一组边两个点组成的向量都在上一组边的右边，那么上一组边的右边点成为拐点<br>
+	 * 6.假如下一组边左边的点和上一组边的左边点重合，则把上一组边的左边点成为拐点<br>
+	 * 7.假如下一组边右边的点和上一组边的右边点重合，则把上一组边的右边点成为拐点<br>
+	 * 8.当寻路达到最后一个多边形，直接判断终点和上一个路径点的向量是否在上一个边两点的中间，假如不是，再增加一个拐点<br>
+	 * </p>
 	 * http://blog.csdn.net/yxriyin/article/details/39207709 Calculate the shortest
 	 * point path through the path triangles, using the Simple Stupid Funnel
 	 * Algorithm.

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
+import com.jzy.game.ai.nav.polygon.PolygonPointPath;
 import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.ai.nav.triangle.TrianglePointPath;
 import com.jzy.game.engine.math.Vector3;
@@ -20,7 +21,7 @@ public class MovePlayer {
     protected Vector3 target = new Vector3();
     protected Vector3 targetAdjusted = new Vector3();
     protected List<Vector3> paths=new ArrayList<>();
-//    protected TrianglePointPath navMeshPointPath=new TrianglePointPath();		//TODO
+    protected PolygonPointPath navMeshPointPath=new PolygonPointPath();		
     protected float speed;
     protected float speedX;
     protected float speedZ;
@@ -35,7 +36,7 @@ public class MovePlayer {
 
     public void path() {
         long time = TimeUtil.currentTimeMillis();
-//        paths= map.findPath(pos, targetAdjusted, navMeshPointPath);	//TODO
+        paths= map.findPath(pos, targetAdjusted, navMeshPointPath);	
         time = TimeUtil.currentTimeMillis() - time;
         System.out.println("寻路耗时：" + time);
     }

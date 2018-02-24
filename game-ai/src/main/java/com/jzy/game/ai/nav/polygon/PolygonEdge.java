@@ -19,6 +19,7 @@ public class PolygonEdge implements Connection<Polygon>{
 	public Polygon fromNode;
 	/** 指向的多边形 */
 	public Polygon toNode;
+	private float cost;
 	
 	public PolygonEdge(Polygon fromNode, Polygon toNode, Vector3 rightVertex, Vector3 leftVertex) {
 		this.fromNode = fromNode;
@@ -29,7 +30,10 @@ public class PolygonEdge implements Connection<Polygon>{
 
 	@Override
 	public float getCost() {
-		return 1;
+		if(cost==0) {
+			cost=fromNode.center.dst(toNode.center);
+		}
+		return cost;
 	}
 
 	@Override

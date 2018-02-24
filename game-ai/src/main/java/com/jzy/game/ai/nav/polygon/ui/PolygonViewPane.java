@@ -106,7 +106,7 @@ public class PolygonViewPane extends JPanel {
                 g.setColor(Color.BLUE);
                 for(int i=0;i<polygon.vectorIndexs.length;i++) {
                 	Vector3 point = polygon.getPoint(i);
-                	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x+MathUtil.random(-4, 4), point.z+MathUtil.random(-4,4));
+                	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x/*+MathUtil.random(-4, 4)*/, point.z/*+MathUtil.random(-4,4)*/);
                 }
             }
             g.setColor(triangleColor);

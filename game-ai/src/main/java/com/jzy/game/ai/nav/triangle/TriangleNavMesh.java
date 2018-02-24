@@ -103,6 +103,7 @@ public class TriangleNavMesh extends NavMesh {
 	 * @return
 	 */
 	public Triangle getTriangle(Vector3 point) {
+		//TODO 高度判断，有可能有分层重叠多边形
 		Optional<Triangle> optional = graph.getTriangles().stream().filter(t -> t.isInnerPoint(point)).findFirst();
 		if (optional.isPresent()) {
 			return optional.get();

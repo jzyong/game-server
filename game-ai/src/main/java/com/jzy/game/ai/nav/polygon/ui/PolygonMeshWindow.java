@@ -75,10 +75,6 @@ public class PolygonMeshWindow {
 				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				chooser.setAcceptAllFileFilterUsed(false);
 				if (chooser.showOpenDialog(p) == JFileChooser.APPROVE_OPTION) {
-					// log.error("getCurrentDirectory(): "
-					// + chooser.getCurrentDirectory());
-					// log.error("getSelectedFile() : "
-					// + chooser.getSelectedFile());
 					loadMap(chooser.getSelectedFile().getAbsolutePath(), 5);
 				} else {
 					LOGGER.error("No Selection ");
