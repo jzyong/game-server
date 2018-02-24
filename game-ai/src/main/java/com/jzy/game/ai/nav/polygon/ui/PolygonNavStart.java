@@ -75,7 +75,7 @@ public class PolygonNavStart extends javax.swing.JFrame {
         jTextArea1.setText("R键：重置坐标\nP键：暂停\n\n");
         jScrollPane1.setViewportView(jTextArea1);
 
-        triangleIndexButton.setText("三角形序号");
+        triangleIndexButton.setText("多边形序号");
         triangleIndexButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 triangleIndexButtonActionPerformed(evt);
@@ -91,7 +91,7 @@ public class PolygonNavStart extends javax.swing.JFrame {
 
         jLabel2.setText("缩放倍数：");
 
-        scaleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30" }));
+        scaleComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20", "25", "30", "50" }));
         scaleComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 scaleComboBoxItemStateChanged(evt);

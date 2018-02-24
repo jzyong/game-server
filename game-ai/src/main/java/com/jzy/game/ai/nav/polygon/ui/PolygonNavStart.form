@@ -124,7 +124,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="triangleIndexButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x4e09;&#x89d2;&#x5f62;&#x5e8f;&#x53f7;"/>
+        <Property name="text" type="java.lang.String" value="&#x591a;&#x8fb9;&#x5f62;&#x5e8f;&#x53f7;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="triangleIndexButtonActionPerformed"/>
@@ -146,7 +146,7 @@
     <Component class="javax.swing.JComboBox" name="scaleComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="14">
+          <StringArray count="15">
             <StringItem index="0" value="1"/>
             <StringItem index="1" value="2"/>
             <StringItem index="2" value="3"/>
