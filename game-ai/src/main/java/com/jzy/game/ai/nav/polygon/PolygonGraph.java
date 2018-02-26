@@ -151,7 +151,7 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 				}
 				/** unity自带navmesh导出工具存在共享边包含关系(共享边存在三个顶点)，强制加成共享边 
-				*   TODO 能解决部分问，但是unity自带工具导出地图还存在找不到共边的其他问题
+				*   TODO 能解决部分问，但是unity自带工具导出地图还存在找不到共边的其他问题 
 				**/
 				else if (av1.equal(bv1, precision) && !av2.equal(bv0, precision)
 						&& Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv0.x, bv0.z) == 0) {
