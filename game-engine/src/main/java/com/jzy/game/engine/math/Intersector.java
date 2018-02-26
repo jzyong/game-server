@@ -192,7 +192,7 @@ public final class Intersector {
 //	private final static Vector2 s = new Vector2();
 //	private final static Vector2 e = new Vector2();
 
-//	/**
+//	/**多边形是否相交<br>
 //	 * Intersects two resulting polygons with the same winding and sets the overlap
 //	 * polygon resulting from the intersection. Follows the Sutherland-Hodgman
 //	 * algorithm.

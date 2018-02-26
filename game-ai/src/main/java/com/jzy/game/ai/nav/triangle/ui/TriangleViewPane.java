@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.ai.nav.triangle.Triangle;
+import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.engine.math.Vector3;
 
 /**

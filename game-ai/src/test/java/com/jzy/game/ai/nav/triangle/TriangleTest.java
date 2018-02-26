@@ -3,7 +3,6 @@ package com.jzy.game.ai.nav.triangle;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.jzy.game.ai.nav.triangle.Triangle;
 import com.jzy.game.engine.math.Vector3;
 
 /**

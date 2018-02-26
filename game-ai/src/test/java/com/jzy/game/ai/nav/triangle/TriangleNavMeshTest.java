@@ -11,7 +11,6 @@ import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.ai.nav.triangle.TriangleGraph;
 import com.jzy.game.ai.nav.triangle.TriangleGraphPath;
 import com.jzy.game.ai.nav.triangle.TrianglePointPath;
-import com.jzy.game.ai.nav.triangle.Triangle;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;

@@ -147,15 +147,40 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
                     return true;
 
                     // 逆序相等
-                } else if (bv0 != null && av1.equal(bv1, precision) && av2.equal(bv0, precision)) {
+                } else if (/*bv0 != null &&*/ av1.equal(bv1, precision) && av2.equal(bv0, precision)) {
                     edge[0] = av1;
                     edge[1] = av2;
                     return true;
+                    
+                  //  unity自带navmesh导出工具存在共享边包含关系(共享边存在三个顶点)，强制加成共享边
                 }
+//                else if(av1.equal(bv1, precision)&&!av2.equal(bv0, precision)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv0.x, bv0.z)==0) {
+//                	 Vector3 dirVector1 = Vector3.dirVector(av1, av2);
+//                	 Vector3 dirVector2 = Vector3.dirVector(av1, bv0);
+//                	 edge[0] = av1;
+//                	 if(dirVector1.len2()>dirVector2.len2()) {
+//                		 edge[1]=bv0;
+//                	 }
+//                     edge[1] = av2;
+//                     if(dirVector1.nor().equal(dirVector2, 0.001f)) {
+//                    	 return true;
+//                     }
+//                }else if(!av1.equal(bv1, precision) && av2.equal(bv0, precision)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv1.x, bv1.z)==0) {
+//                	 Vector3 dirVector1 = Vector3.dirVector(av2, av1);
+//                	 Vector3 dirVector2 = Vector3.dirVector(av2, bv1);
+//                	 edge[0] = av1;
+//                	 if(dirVector1.len2()>dirVector2.len2()) {
+//                		 edge[1]=bv1;
+//                	 }
+//                     edge[1] = av2;
+//                     if(dirVector1.nor().equal(dirVector2, 0.001f)) {
+//                    	 return true;
+//                     }
+//                }
             }
         }
 
-        // TODO unity顶点坐标不相同，但是变共边？？？
+       
         return false;
     }
 
@@ -184,7 +209,17 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
                 continue;
             }
             if (LOGGER.isDebugEnabled()) {
-                polygon.print();
+//                polygon.print();
+//                polygons.forEach(p->{
+//                	if(p.contains(polygon)) {
+//                		LOGGER.warn("多边形{}是多边形{}的内嵌多边形",polygon.getIndex(),p.getIndex());
+//                	}else if(polygon.contains(p)) {
+//                		LOGGER.warn("多边形{}是多边形{}的内嵌多边形",p.getIndex(),polygon.getIndex());
+//                	}
+//                	if(p.intersectsEdge(polygon)) {
+//                		LOGGER.warn("多边形{}与多边形{}的边相交",p.getIndex(),polygon.getIndex());
+//                	}
+//                });
             }
 
             polygons.add(polygon);
