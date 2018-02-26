@@ -49,9 +49,9 @@ public class NodeNavMeshTest {
 		for(int i=0;i<10000;i++) {
 //		    path = navMesh.path(new Vector3(61,13,191), new Vector3(107,11,146));			//1
 //			path = navMesh.path(new Vector3(61,13,191),new Vector3(305,35,213));			//2
-//			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(50,28,100));		//3
+			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(50,28,100));		//3
 //			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f));//4
-			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f));//5
+//			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f));//5
 //			
 		}
 		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));

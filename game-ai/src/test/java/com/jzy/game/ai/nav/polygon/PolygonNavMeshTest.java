@@ -17,7 +17,7 @@ import com.jzy.game.engine.util.TimeUtil;
  * @mail 359135103@qq.com
  */
 public class PolygonNavMeshTest {
-	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\101.navmesh";
+	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
     @Before
@@ -30,12 +30,12 @@ public class PolygonNavMeshTest {
     
     
     /**
-	 * <h3>2018-2-24 </h3>
-	 * <p>1.三角形个数296,短距离寻路10000次,{@link NodeNavMesh}平均耗时4900ms，{@link TriangleNavMesh}平均耗时200ms,{@link PolygonNavMesh}平均耗时：125ms</p>
-	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时7386ms，{@link TriangleNavMesh}平均耗时723ms,{@link PolygonNavMesh}平均耗时：420ms</p>
-	 * <p>3.三角形个数975,短距离寻路10000次,{@link NodeNavMesh}平均耗时737ms，{@link TriangleNavMesh}平均耗时133ms,{@link PolygonNavMesh}平均耗时：110ms</p>
-	 * <p>4.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时48000ms，{@link TriangleNavMesh}未找到路径？？？,{@link PolygonNavMesh} 未找到路径</p>
-	 * <p>5.三角形个数975,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link TriangleNavMesh}4400ms</p>
+	 * <h3>2018-2-26 </h3>
+	 * <p>1.三角形个数260,短距离寻路10000次,{@link NodeNavMesh}平均耗时4900ms，{@link TriangleNavMesh}平均耗时200ms,{@link PolygonNavMesh}平均耗时：120ms</p>
+	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时7386ms，{@link TriangleNavMesh}平均耗时723ms,{@link PolygonNavMesh}平均耗时：385ms</p>
+	 * <p>3.三角形个数789,短距离寻路10000次,{@link NodeNavMesh}平均耗时737ms，{@link TriangleNavMesh}平均耗时133ms,{@link PolygonNavMesh}平均耗时：110ms</p>
+	 * <p>4.三角形个数789,长距离寻路10000次,{@link NodeNavMesh}平均耗时48000ms，{@link TriangleNavMesh}未处理unity共享边问题，查询失败,{@link PolygonNavMesh} 1215ms</p>
+	 * <p>5.三角形个数789,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link TriangleNavMesh}1029ms,{@link PolygonNavMesh}平均耗时：800ms</p>
 	 */
     @Test
     public void testPerformance() {
@@ -43,11 +43,11 @@ public class PolygonNavMeshTest {
         List<Vector3> paths=null;
         long start=TimeUtil.currentTimeMillis();
         for(int i=0;i<10000;i++) {
-            paths = navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), pointPath);         //1
+//            paths = navMesh.findPath(new Vector3(61,13,191), new Vector3(107,11,146), pointPath);         //1
 //            paths = navMesh.findPath(new Vector3(61,13,191), new Vector3(305,35,213),  pointPath);          //2
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(50,28,100),  pointPath);          //3
-//            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f),  pointPath);     //4 无法查找到路径
-//            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f),  pointPath);     //5 
+//            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f),  pointPath);     //4 
+            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f),  pointPath);     //5 
         }
         System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
         if(paths!=null) {
