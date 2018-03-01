@@ -1,7 +1,6 @@
 package com.jzy.game.ai.nav.polygon.ui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -14,7 +13,6 @@ import javax.swing.JPanel;
 
 import com.jzy.game.ai.nav.polygon.Polygon;
 import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
-import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
 
 /**
