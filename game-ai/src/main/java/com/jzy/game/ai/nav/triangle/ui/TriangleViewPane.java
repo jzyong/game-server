@@ -101,20 +101,25 @@ public class TriangleViewPane extends JPanel {
                 g.setColor(Color.GREEN);
                 g.drawString(String.valueOf(triangle.index), triangle.center.x, triangle.center.z);
             }
+            //坐标序号
             if (this.isShowVectorIndex&&triangle.vectorIndex!=null) {
                 g.setColor(Color.BLUE);
                 g.drawString(String.valueOf(triangle.vectorIndex[0]), triangle.a.x, triangle.a.z);
                 g.drawString(String.valueOf(triangle.vectorIndex[1]), triangle.b.x, triangle.b.z);
                 g.drawString(String.valueOf(triangle.vectorIndex[2]), triangle.c.x, triangle.c.z);
             }
-            g.setColor(triangleColor);
-//			if (isRenderRandomPoints) {		//TODO 暂时没有随机点
-//				g.setColor(Color.RED);
-//				for (Vector3 object : block.getRandomPoints()) {
-//					g.fill(new Ellipse2D.Double(object.getX() - 3 / 2f, object.getZ() - 3 / 2f, 3, 3));
-//				}
-//				g.setColor(new Color(g4, g4, g4));
-//			}
+            //三角形内随机点
+			if (isRenderRandomPoints) {		
+				g.setColor(Color.RED);
+				
+				Vector3 out=new Vector3();
+				float count = triangle.area()/100;
+				for(int i=0;i<count;i++) {
+					triangle.getRandomPoint(out);
+					g.fill(new Ellipse2D.Double(out.getX() - 3 / 2f, out.getZ() - 3 / 2f, 3, 3));
+				}
+			}
+			 g.setColor(triangleColor);
         }
 
         //渲染寻路路线

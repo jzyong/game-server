@@ -197,13 +197,14 @@ public class TriangleNavMeshWindow {
 					processEvents();
 					if (pause != true) {
 						update(seconds);
+						try {
+							Thread.sleep(1);
+							triangleViewPane.render();
+						} catch (Exception e) {
+							e.printStackTrace(System.out);
+						}
 					}
-					try {
-						Thread.sleep(1);
-						triangleViewPane.render();
-					} catch (Exception e) {
-						e.printStackTrace(System.out);
-					}
+					
 					lastUpdateNanos = currentNanos;
 				}
 			}

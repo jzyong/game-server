@@ -935,6 +935,36 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		}
 		return false;
 	}
+	
+	/**
+	 * 清空坐标，设为0
+	 */
+	public void clear() {
+		this.x=0;
+		this.y=0;
+		this.z=0;
+	}
+	
+    /**
+     * 根据两点组成的直线在xz平面的角度，顺时针
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static float toUnityDegrees(Vector3 start, Vector3 end) {
+        return Vector3.toUnityDegrees(findAngle(start, end));
+    }
+
+    /**
+     * java弧度转unity角度
+     *
+     * @param angle
+     * @return
+     */
+    public static float toUnityDegrees(float angle) {
+        return (float) (90 - Math.toDegrees(angle));
+    }
 
 	@Override
 	public Vector3 mulAdd(Vector3 vec, float scalar) {

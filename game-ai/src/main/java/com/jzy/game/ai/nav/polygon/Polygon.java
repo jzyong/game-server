@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Intersector;
+import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -48,6 +49,8 @@ public class Polygon implements Shape {
 	public int[] vectorIndexs;
 	/** 和其他多边形的共享变 */
 	public transient List<Connection<Polygon>> connections;
+	/**预先生成的随机点*/
+	public List<Vector3> randomPoints=new ArrayList<>();
 
 	public Polygon(int index, List<Vector3> points, int[] vectorIndexs) {
 		this.index = index;
@@ -267,6 +270,8 @@ public class Polygon implements Shape {
 				+ radiusSq + ", vectorIndexs=" + Arrays.toString(vectorIndexs) + "]";
 	}
 
+	
+	
 	@Override
 	public Rectangle getBounds() {
 		throw new UnsupportedOperationException();

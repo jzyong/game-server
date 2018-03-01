@@ -2,13 +2,17 @@ package com.jzy.game.ai.nav.polygon;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.jzy.game.ai.nav.triangle.Triangle;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.ai.pfa.IndexedGraph;
 import com.jzy.game.engine.math.Vector3;
@@ -26,10 +30,13 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 	private Map<Polygon, List<PolygonEdge>> sharedEdges;
 	private Set<IndexConnection> indexConnections = new HashSet<>();
+	/**坐标缩放倍数*/
+	private int scale;
 
 	private PolygonData polygonData;
 
 	public PolygonGraph(PolygonData polygonData, int scale) {
+		this.scale=scale;
 		this.polygonData = polygonData;
 		this.polygonData.check(scale);
 		initCalculate(polygonData, scale);
@@ -43,6 +50,7 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	 */
 	private void initCalculate(PolygonData polygonData, int scale) {
 		createPolygons(polygonData, scale);
+		createPathRandomPoint();
 		calculateIndexConnections(polygonData.getPathPolygonIndexs());
 		sharedEdges = createSharedEdgesMap(indexConnections, polygons);
 	}
@@ -224,7 +232,32 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 			polygons.add(polygon);
 
 		}
+		
 		return polygons;
+	}
+	
+	/**
+	 * 创建多边形内的随机点
+	 * <br>
+	 * 未找到合适方法，先生成三角形，三角形生成随机点，判断点是在哪个多边形内
+	 */
+	public void createPathRandomPoint() {
+		int[] indexs = polygonData.getPathTriangles();
+		Vector3[] vertices = polygonData.getPathVertices();
+		for(int i=0;i<indexs.length;) {
+			Triangle triangle =new Triangle(vertices[indexs[i++]], vertices[indexs[i++]], vertices[indexs[i++]], i);
+			int count= (int)(triangle.area()/(this.scale*5))+1;
+			//TODO 分层问题？
+			Optional<Polygon> findAny = polygons.stream().filter(p->p.isInnerPoint(triangle.center)).findAny();
+			if(!findAny.isPresent()) {
+				continue;
+			}
+			
+			for(int j=0;j<count;j++) {
+				findAny.get().randomPoints.add(triangle.getRandomPoint(new Vector3()));
+			}
+		}
+		
 	}
 
 	public PolygonData getPolygonData() {

@@ -24,4 +24,19 @@ public class TriangleTest {
 		Assert.assertFalse(triangle.isInnerPoint(point1));
 		Assert.assertTrue(triangle.isInnerPoint(point2));
 	}
+	
+	/**
+	 * 获取三角形内部随机点
+	 */
+	@Test
+	public void testGetRandomPoint() {
+		Triangle triangle=new Triangle(new Vector3(0, 0), new Vector3(10, 0), new Vector3(0, 10), 1);
+		
+		Vector3 vector3=new Vector3();
+		for(int i=0;i<100000000;i++) {
+			triangle.getRandomPoint(vector3);
+//			System.out.println();
+		}
+		
+	}
 }

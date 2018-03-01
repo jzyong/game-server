@@ -109,14 +109,17 @@ public class PolygonViewPane extends JPanel {
                 	g.drawString(String.valueOf(polygon.vectorIndexs[i]), point.x/*+MathUtil.random(-4, 4)*/, point.z/*+MathUtil.random(-4,4)*/);
                 }
             }
-            g.setColor(triangleColor);
-//			if (isRenderRandomPoints) {		//TODO 暂时没有随机点
-//				g.setColor(Color.RED);
-//				for (Vector3 object : block.getRandomPoints()) {
-//					g.fill(new Ellipse2D.Double(object.getX() - 3 / 2f, object.getZ() - 3 / 2f, 3, 3));
-//				}
-//				g.setColor(new Color(g4, g4, g4));
-//			}
+           
+            //随机点
+			if (isRenderRandomPoints) {		
+				g.setColor(Color.RED);
+//				player.getMap().getGraph().createPathRandomPoint();
+				for (Vector3 object : polygon.randomPoints) {
+					g.fill(new Ellipse2D.Double(object.getX() - 3 / 2f, object.getZ() - 3 / 2f, 3, 3));
+				}
+				g.setColor(new Color(g4, g4, g4));
+			}
+			 g.setColor(triangleColor);
         }
 
         //渲染寻路路线
