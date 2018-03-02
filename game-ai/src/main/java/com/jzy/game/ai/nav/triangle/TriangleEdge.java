@@ -19,6 +19,10 @@ public class TriangleEdge implements Connection<Triangle> {
 	/** 指向的三角形 */
 	public Triangle toNode;
 
+	public TriangleEdge(Vector3 rightVertex, Vector3 leftVertex) {
+		this(null, null, rightVertex, leftVertex);
+	}
+
 	public TriangleEdge(Triangle fromNode, Triangle toNode, Vector3 rightVertex, Vector3 leftVertex) {
 		this.fromNode = fromNode;
 		this.toNode = toNode;

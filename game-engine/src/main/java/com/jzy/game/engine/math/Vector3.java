@@ -162,6 +162,17 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return dst(this.x, this.z, p.x, p.z);
 	}
 
+	
+	/**
+	 * 两坐标距离
+	 * @param vector1
+	 * @param vector2
+	 * @return
+	 */
+	public static float dst(Vector3 vector1,Vector3 vector2) {
+		return dst(vector1.x, vector1.z, vector2.x, vector2.z);
+	}
+	
 	/**
 	 * * 平面两坐标点距离
 	 *
@@ -934,6 +945,15 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * siteIsEqual
+	 * @param vector3
+	 * @return
+	 */
+	public boolean equal(Vector3 vector3) {
+		return this.equal(vector3, 0.0001f);
 	}
 	
 	/**
