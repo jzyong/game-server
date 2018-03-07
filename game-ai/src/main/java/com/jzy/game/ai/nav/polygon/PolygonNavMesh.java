@@ -1,16 +1,19 @@
 package com.jzy.game.ai.nav.polygon;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.nav.NavMesh;
-import com.jzy.game.ai.nav.triangle.Triangle;
-import com.jzy.game.ai.nav.triangle.TriangleData;
-import com.jzy.game.ai.nav.triangle.TriangleGraphPath;
 import com.jzy.game.ai.pfa.IndexedAStarPathFinder;
+import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
+import com.jzy.game.engine.util.TimeUtil;
 
 /**
  * 多边形寻路
@@ -54,30 +57,30 @@ public final class PolygonNavMesh extends NavMesh {
 	}
 
 	/**
-     * 查询路径
-     * 
-     * @param fromPoint
-     * @param toPoint
-     * @param path
-     */
-    public boolean findPath(Vector3 fromPoint, Vector3 toPoint, PolygonGraphPath path) {
-        path.clear();
-        Polygon fromPolygon = getPolygon(fromPoint);
-        Polygon toPolygon;
-        //起点终点在同一个多边形中
-        if(fromPolygon!=null&&fromPolygon.isInnerPoint(toPoint)) {
-        	toPolygon= fromPolygon;
-        }else {
-        	toPolygon=getPolygon(toPoint);
-        }
-        if (pathFinder.searchConnectionPath(fromPolygon,toPolygon , heuristic, path)) {
-            path.start = new Vector3(fromPoint);
-            path.end = new Vector3(toPoint);
-            path.startPolygon = fromPolygon;
-            return true;
-        }
-        return false;
-    }
+	 * 查询路径
+	 * 
+	 * @param fromPoint
+	 * @param toPoint
+	 * @param path
+	 */
+	public boolean findPath(Vector3 fromPoint, Vector3 toPoint, PolygonGraphPath path) {
+		path.clear();
+		Polygon fromPolygon = getPolygon(fromPoint);
+		Polygon toPolygon;
+		// 起点终点在同一个多边形中
+		if (fromPolygon != null && fromPolygon.isInnerPoint(toPoint)) {
+			toPolygon = fromPolygon;
+		} else {
+			toPolygon = getPolygon(toPoint);
+		}
+		if (pathFinder.searchConnectionPath(fromPolygon, toPolygon, heuristic, path)) {
+			path.start = new Vector3(fromPoint);
+			path.end = new Vector3(toPoint);
+			path.startPolygon = fromPolygon;
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 查询路径
@@ -147,6 +150,135 @@ public final class PolygonNavMesh extends NavMesh {
 		}
 		vector3.y = polygon.y;
 		return vector3;
+	}
+
+	/**
+	 * 获取矩形
+	 * 
+	 * @param position
+	 *            当前位置，一般为玩家坐标
+	 * @param distance
+	 *            矩形最近边中点到当前位置的距离
+	 * @param sourceDirection
+	 *            方向向量
+	 * @param width
+	 *            宽度
+	 * @param height
+	 *            高度
+	 * @return
+	 */
+	public Polygon getRectangle(Vector3 position, float distance, Vector3 sourceDirection, float width, float height) {
+		Vector3 source = position.unityTranslate(sourceDirection, 0f, distance); // 中心坐标
+		Vector3 corner_1 = source.unityTranslate(sourceDirection, -90, width / 2);
+		Vector3 corner_2 = source.unityTranslate(sourceDirection, 90, width / 2);
+		Vector3 corner_3 = corner_2.unityTranslate(sourceDirection, 0, height);
+		Vector3 corner_4 = corner_1.unityTranslate(sourceDirection, 0, height);
+		List<Vector3> list = new ArrayList<>(4);
+		list.add(corner_1);
+		list.add(corner_4);
+		list.add(corner_3);
+		list.add(corner_2);
+		return new Polygon(list);
+	}
+
+	/**
+	 * 获取扇形 <br>
+	 * 由多边形组成
+	 * 
+	 * @param position
+	 *            当前位置，一般为玩家坐标
+	 * @param sourceDirection
+	 *            方向向量
+	 * @param distance
+	 *            扇形起点到当前位置的距离
+	 * @param radius
+	 *            扇形半径
+	 * @param degrees
+	 *            扇形角度
+	 * @return
+	 */
+	public final Polygon getSector(Vector3 position, Vector3 sourceDirection, float distance, float radius,
+			float degrees) {
+		Vector3 source = position.unityTranslate(sourceDirection, 0, distance); // 中心坐标
+		Vector3 forward_l = source.unityTranslate(sourceDirection, -degrees / 2, radius);
+		Vector3 forward_r = source.unityTranslate(sourceDirection, degrees / 2, radius);
+		List<Vector3> sectors = new ArrayList<>(6);
+		sectors.add(source);
+		sectors.add(forward_l);
+		int size = (int) (degrees / 10) / 2 - 1;
+		for (int i = -size; i <= size; i++) {
+			Vector3 forward = source.unityTranslate(sourceDirection, i * 10, radius);
+			sectors.add(forward);
+		}
+		sectors.add(forward_r);
+		return new Polygon(sectors);
+	}
+
+	/**
+	 * 获取N正多边形 <br>
+	 * N大于15基本上接近圆
+	 * 
+	 * @param center
+	 *            中心点
+	 * @param radius
+	 *            半径
+	 * @param vertexCount
+	 *            顶点个数
+	 * @return
+	 */
+	public final Polygon getNPolygon(Vector3 center, float radius, int vertexCount) {
+		if (vertexCount < 3) {
+			vertexCount = 3;
+		}
+		List<Vector3> sectors = new ArrayList<>(vertexCount);
+		float degrees = 360f / vertexCount;
+		// float randomDegrees =MathUtil.random() * 360; //随机转向
+		for (int i = 0; i < vertexCount; i++) {
+			Vector3 source = center.translateCopy(i * degrees /* + randomDegrees */, radius);
+			sectors.add(source);
+		}
+		return new Polygon(sectors);
+	}
+
+	@Override
+	public List<Vector3> getRandomPointsInPath(Vector3 center, float radius, float minDisToCenter) {
+		float dis2 = radius * radius + minDisToCenter;
+		float dis = 0;
+		List<Polygon> list = new ArrayList<>();
+		for (Polygon polygon : getGraph().getPolygons()) {
+			dis = polygon.center.dst2(center);
+			if (dis <= dis2 && dis >= minDisToCenter) {
+				list.add(polygon);
+			} else {
+				for (Vector3 vector3 : polygon.points) {
+					dis = vector3.dst2(center);
+					if (dis <= dis2 && dis >= minDisToCenter) {
+						list.add(polygon);
+						break;
+					}
+				}
+			}
+		}
+
+		List<Vector3> vector3s = new ArrayList<>();
+		list.forEach(p -> {
+			p.randomPoints.forEach(v -> {
+				if (v.dst2(center) <= dis2) {
+					vector3s.add(v);
+				}
+			});
+		});
+
+		return vector3s;
+	}
+
+	/**
+	 * <p>效率不高，对800米范围进行 10000次平均耗时1700ms 根据随机点个数，随机距离改变 <p>
+	 */
+	@Override
+	public Vector3 getRandomPointInPath(Vector3 center, float radius, float minDisToCenter) {
+		List<Vector3> list = getRandomPointsInPath(center, radius, minDisToCenter);
+		return MathUtil.random(list);
 	}
 
 	public PolygonGraph getGraph() {

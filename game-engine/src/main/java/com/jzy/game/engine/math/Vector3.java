@@ -1,11 +1,11 @@
 package com.jzy.game.engine.math;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
-import java.awt.Frame;
 import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * unity三维向量 <br>
@@ -38,7 +38,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		super();
 	}
 
-	public Vector3(double degree) {
+	public Vector3(float degree) {
 		degree = 90 - degree;
 		x = (float) Math.cos(degreesToRadians * degree);
 		z = (float) Math.sin(degreesToRadians * degree);
@@ -392,12 +392,13 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * Unity 平移
+	 * @note 只计算了2D平面移动
 	 *
 	 * @param sourceDirection
 	 *            方向向量
 	 * @param degrees
-	 *            方向度数
-	 * @param distance
+	 *            额外方向度数
+	 * @param distance 平移距离
 	 * @return
 	 */
 	public Vector3 unityTranslate(Vector3 sourceDirection, float degrees, float distance) {
@@ -406,10 +407,10 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * Unity 平移
-	 *
+	 *@note 只计算了2D平面移动
 	 * @param degrees
 	 *            unity角度
-	 * @param distance
+	 * @param distance 距离
 	 * @return
 	 */
 	public Vector3 unityTranslate(float degrees, float distance) {
@@ -437,7 +438,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @param radius
 	 * @return
 	 */
-	public Vector3 translateCopy(double degrees, double radius) {
+	public Vector3 translateCopy(float degrees, float radius) {
 		Vector3 p = this.clone();
 		double angle = degrees * Math.PI / 180;
 		p.x = (float) (x + (radius * Math.cos(angle)));
@@ -577,19 +578,21 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * 是否在扇形中
-	 *
-	 * @param sourceDirection
-	 * @param target
-	 * @param radius
-	 * @param degrees
+	 * <br>
+	 * 性能一般 1亿次 需要43500ms
+	 * @param sourceDirection 扇形方向向量
+	 * @param target 比较的目标点
+	 * @param radius 半径
+	 * @param degrees 度数
 	 * @return
 	 */
 	public boolean isInSector(Vector3 sourceDirection, Vector3 target, float radius, float degrees) {
-		if (this.equals(target)) {
+		Vector3 t=new Vector3(target);
+		if (this.equals(t)) {
 			return true;
 		}
-		double dis = this.dst2(target);
-		Vector3 vt = target.sub(this);
+		double dis = this.dst2(t);
+		Vector3 vt = t.sub(this);
 		vt.y = 0;
 		if (vt.isZero()) {
 			return true;

@@ -210,26 +210,30 @@ public class PolygonMeshWindow {
 
 	/**
 	 * 加载地图
+	 * 
 	 * @param filePath
 	 * @return
 	 */
-	public PolygonNavMesh loadMap(String filePath,int scale) {
+	public PolygonNavMesh loadMap(String filePath, int scale) {
 		PolygonNavMesh map = null;
-        lastFilePath=filePath;
+		lastFilePath = filePath;
 		try {
 			String navMeshStr = FileUtil.readTxtFile(filePath);
-			map = new PolygonNavMesh(navMeshStr,scale);	
+			map = new PolygonNavMesh(navMeshStr, scale);
 			if (map != null && player != null) {
 				player.setMap(map);
 				int width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 				int height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-				NavMeshData navMeshData= map.getGraph().getPolygonData();
-				polygonViewPane.setPreferredSize(new Dimension((int)(navMeshData.getWidth()*scale*(1+navMeshData.getHeight()/(navMeshData.getWidth()+navMeshData.getHeight()))), 
-						(int)(navMeshData.getHeight()*scale*(1+navMeshData.getWidth()/(navMeshData.getWidth()+navMeshData.getHeight())))));
+				NavMeshData navMeshData = map.getGraph().getPolygonData();
+				polygonViewPane.setPreferredSize(new Dimension(
+						(int) (navMeshData.getWidth() * scale
+								* (1 + navMeshData.getHeight() / (navMeshData.getWidth() + navMeshData.getHeight()))),
+						(int) (navMeshData.getHeight() * scale
+								* (1 + navMeshData.getWidth() / (navMeshData.getWidth() + navMeshData.getHeight())))));
 				frame.setSize(width, height);
-//				frame.setPreferredSize(new Dimension(width, height));
+				// frame.setPreferredSize(new Dimension(width, height));
 				frame.setResizable(true);
-				
+
 			}
 			return map;
 		} catch (Exception e) {
@@ -264,13 +268,12 @@ public class PolygonMeshWindow {
 	 * 随机移动
 	 */
 	public void randMove() {
-		// TODO 暂时不支持
-		// Vector3 t = view.getMap().getRandomPointInPaths(view.getPlayer().pos, 80, 2);
-		// if (t != null) {
-		// view.getPlayer().target.x = t.x;
-		// view.getPlayer().target.z = t.z;
-		// view.getPlayer().path();
-		// }
+		Vector3 t = polygonViewPane.getMap().getRandomPointInPath(polygonViewPane.getPlayer().pos, 800, 2);
+		if (t != null) {
+			polygonViewPane.getPlayer().target.x = t.x;
+			polygonViewPane.getPlayer().target.z = t.z;
+			polygonViewPane.getPlayer().path();
+		}
 	}
 
 	public void processEvents() {

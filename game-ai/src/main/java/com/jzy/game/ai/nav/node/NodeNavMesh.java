@@ -347,9 +347,9 @@ public class NodeNavMesh extends NavMesh implements Serializable, Cloneable {
 			vertexCount = 3;
 		}
 		List<Vector3> sectors = new ArrayList<>(vertexCount);
-		double degrees = 360d / vertexCount;
+		float degrees = 360f / vertexCount;
 		Random random = new Random(TimeUtil.currentTimeMillis());
-		double randomDegrees = random.nextFloat() * 360;
+		float randomDegrees = random.nextFloat() * 360;
 		for (int i = 0; i < vertexCount; i++) {
 			Vector3 source = center.translateCopy(i * degrees + randomDegrees, radius);
 			sectors.add(source);

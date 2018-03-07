@@ -16,6 +16,7 @@ import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.engine.math.Intersector;
 import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.math.Vector3;
+import com.jzy.game.engine.script.IIDScript;
 
 /**
  * 多边形,用于navmesh寻路
@@ -52,6 +53,12 @@ public class Polygon implements Shape {
 	/**预先生成的随机点*/
 	public List<Vector3> randomPoints=new ArrayList<>();
 
+	/**
+	 * 
+	 * @param index 寻路索引编号
+	 * @param points 坐标点
+	 * @param vectorIndexs 坐标顶点序号
+	 */
 	public Polygon(int index, List<Vector3> points, int[] vectorIndexs) {
 		this.index = index;
 		this.vectorIndexs = vectorIndexs;
@@ -62,6 +69,10 @@ public class Polygon implements Shape {
 
 	public Polygon(int index, Vector3... point) {
 		this(index, Arrays.asList(point), null);
+	}
+	
+	public Polygon(List<Vector3> points) {
+		this(0, points, null);
 	}
 
 	/**
@@ -231,6 +242,7 @@ public class Polygon implements Shape {
 
 	/**
 	 * 坐标点是否在多边形内部
+	 * <p>比{@code isInnerPoint}速度慢
 	 * @param p
 	 * @return
 	 */
