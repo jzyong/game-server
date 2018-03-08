@@ -129,7 +129,7 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	private boolean hasSharedEdgeIndices(int[] polygonAIndex, int[] polygonBIndex, Vector3[] edge) {
 		int aLength = polygonAIndex.length;
 		int bLength = polygonBIndex.length;
-		float precision = 0.001f;
+		float precision = 0.1f;
 		for (int i = 0; i < polygonAIndex.length; i++) {
 			Vector3 av1 = polygonData.getPathVertices()[polygonAIndex[i]];
 			Vector3 av2 = polygonData.getPathVertices()[polygonAIndex[(i + 1) % aLength]];
@@ -166,11 +166,11 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					Vector3 dirVector1 = Vector3.dirVector(av1, av2);
 					Vector3 dirVector2 = Vector3.dirVector(av1, bv0);
 					edge[0] = av1;
-					if (dirVector1.len2() > dirVector2.len2()) {
+					edge[1] = av2;
+					if (dirVector1.len2() > dirVector2.len2()) {	//取内部点
 						edge[1] = bv0;
 					}
-					edge[1] = av2;
-					if (dirVector1.nor().equal(dirVector2.nor(), 0.001f)) {
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {	//求单位向量判断相等，有问题，计算的为三维？
 						return true;
 					}
 				} else if (!av1.equal(bv1, precision) && av2.equal(bv0, precision)
@@ -178,11 +178,48 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					Vector3 dirVector1 = Vector3.dirVector(av2, av1);
 					Vector3 dirVector2 = Vector3.dirVector(av2, bv1);
 					edge[0] = av1;
+					edge[1] = av2;
 					if (dirVector1.len2() > dirVector2.len2()) {
 						edge[1] = bv1;
 					}
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
+						return true;
+					}
+					
+					//逆序第一个顶点共顶点
+				}else if(av1.equal(bv2)&&!av2.equal(bv1)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv1.x, bv1.z)==0) {
+					Vector3 dirVector1 = Vector3.dirVector(av1, av2);
+					Vector3 dirVector2 = Vector3.dirVector(av1, bv1);
+					edge[0] = av1;
 					edge[1] = av2;
-					if (dirVector1.nor().equal(dirVector2.nor(), 0.001f)) {
+					if (dirVector1.len2() > dirVector2.len2()) {
+						edge[1] = bv1;
+					}
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
+						return true;
+					}
+					//逆序第二个顶点共顶点
+				}else if(!av1.equal(bv2)&&av2.equal(bv1)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv2.x, bv2.z)==0) {
+					Vector3 dirVector1 = Vector3.dirVector(av2, av1);
+					Vector3 dirVector2 = Vector3.dirVector(av2, bv2);
+					edge[0] = av2;
+					edge[1] = av1;
+					if (dirVector1.len2() > dirVector2.len2()) {
+						edge[1] = bv2;
+					}
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
+						return true;
+					}
+					//顺序
+				}else if(!av1.equal(bv1)&&av2.equal(bv2)&&Vector3.relCCW(av2.x, av2.z, av1.x, av1.z, bv1.x, bv1.z)==0) {
+					Vector3 dirVector1 = Vector3.dirVector(av2, av1);
+					Vector3 dirVector2 = Vector3.dirVector(av2, bv1);
+					edge[0] = av2;
+					edge[1] = av1;
+					if (dirVector1.len2() > dirVector2.len2()) {
+						edge[1] = bv1;
+					}
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
 						return true;
 					}
 				}
@@ -266,6 +303,11 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 	public List<Polygon> getPolygons() {
 		return polygons;
+	}
+	
+
+	public int getScale() {
+		return scale;
 	}
 
 	private static Map<Polygon, List<PolygonEdge>> createSharedEdgesMap(Set<IndexConnection> indexConnections,

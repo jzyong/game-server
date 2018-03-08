@@ -48,7 +48,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.jzy.game.ai.nav.node.ui.Main</mainClass>
+							<mainClass>com.jzy.game.ai.nav.polygon.ui.PolygonNavStart</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

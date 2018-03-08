@@ -28,33 +28,35 @@ public class PolygonViewPane extends JPanel {
 	protected Graphics2D backImageGraphics2D;
 	protected final MovePlayer player;
 
-	Vector3 dir=new Vector3(0, 45, 0);	//方向向量
-	
+	Vector3 dir = new Vector3(0, 45, 0); // 方向向量
+
 	Polygon rectangle;
-	Vector3 rectangleOriginPoint = new Vector3(60, 0, 60);	//矩形原点
-	Vector3 rectangleComparePoint = new Vector3(100, 0, 100); //矩形比较点
-	
+	Vector3 rectangleOriginPoint = new Vector3(60, 0, 60); // 矩形原点
+	Vector3 rectangleComparePoint = new Vector3(100, 0, 100); // 矩形比较点
+
 	Polygon sector;
-	Vector3 sectorOriginPoint = new Vector3(200, 0, 60);	//扇形原点
-	Vector3 sectorComparePoint = new Vector3(100, 0, 100); //扇形比较点
-	
+	Vector3 sectorOriginPoint = new Vector3(200, 0, 60); // 扇形原点
+	Vector3 sectorComparePoint = new Vector3(100, 0, 100); // 扇形比较点
+
 	Polygon nPolygon;
+
+	Polygon renderPolygon; // 特殊渲染的多边形
 
 	protected boolean isRenderRandomPoints; // 是否渲染随机点
 	protected boolean isShowTriangleIndex; // 是否显示三角形序号
 	protected boolean isShowVectorIndex; // 是否显示坐标序号
-	
+
 	public PolygonViewPane(MovePlayer player) {
 		this.player = player;
-		
+
 		Vector3 rectinit = new Vector3(10f, 10f);
 		rectangle = player.getMap().getRectangle(rectinit, 50f, dir, 50f, 80f);
-		rectangleOriginPoint=rectinit.unityTranslate(dir.y, 50);
-		
+		rectangleOriginPoint = rectinit.unityTranslate(dir.y, 50);
+
 		Vector3 sectorinit = new Vector3(200f, 10f);
 		sector = player.getMap().getSector(sectorinit, dir, 30f, 80f, 60f);
-		sectorOriginPoint=sectorinit.unityTranslate(dir.y, 30);
-		
+		sectorOriginPoint = sectorinit.unityTranslate(dir.y, 30);
+
 		nPolygon = player.getMap().getNPolygon(new Vector3(450, 60), 40, 30);
 	}
 
@@ -89,7 +91,19 @@ public class PolygonViewPane extends JPanel {
 	}
 
 	protected void renderOther(Graphics2D g) {
+	}
 
+	/**
+	 * 设置选择渲染的多边形
+	 * 
+	 * @param polygon
+	 */
+	public void setRenderPolygon(Polygon polygon) {
+		if (this.renderPolygon == null || polygon.index != this.renderPolygon.index) {
+			this.renderPolygon = polygon;
+		} else {
+			renderPolygon = null;
+		}
 	}
 
 	protected void renderWorld() {
@@ -152,8 +166,6 @@ public class PolygonViewPane extends JPanel {
 		double r = 5;
 		g.fill(new Ellipse2D.Double(player.getPos().x - r, player.getPos().z - r, 2 * r, 2 * r));
 
-		
-
 		// 渲染矩形
 		g.setColor(triangleColor);
 		g.fill(rectangle);
@@ -161,11 +173,11 @@ public class PolygonViewPane extends JPanel {
 		if (rectangleOriginPoint.y > 360) {
 			rectangleOriginPoint.y = 0;
 		}
-		rectangleComparePoint = rectangleOriginPoint.unityTranslate(rectangleOriginPoint.y,50); // 多边形比较点
-//		if(rectangle.contains(rectangleComparePoint)) {
-			if(rectangle.isInnerPoint(rectangleComparePoint)) {
+		rectangleComparePoint = rectangleOriginPoint.unityTranslate(rectangleOriginPoint.y, 50); // 多边形比较点
+		// if(rectangle.contains(rectangleComparePoint)) {
+		if (rectangle.isInnerPoint(rectangleComparePoint)) {
 			g.setColor(Color.RED);
-		}else {
+		} else {
 			g.setColor(Color.BLUE);
 		}
 		g.fill(new Ellipse2D.Double(rectangleComparePoint.x - r, rectangleComparePoint.z - r, 2 * r, 2 * r));
@@ -173,25 +185,36 @@ public class PolygonViewPane extends JPanel {
 		// 渲染扇形
 		g.setColor(triangleColor);
 		g.fill(sector);
-		sectorOriginPoint.y+=0.5f;
-		if(sectorOriginPoint.y>360) {
-			sectorOriginPoint.y=0;
+		sectorOriginPoint.y += 0.5f;
+		if (sectorOriginPoint.y > 360) {
+			sectorOriginPoint.y = 0;
 		}
-		sectorComparePoint=sectorOriginPoint.unityTranslate(sectorOriginPoint.y, 60);
-		
-		if(sectorOriginPoint.isInSector(dir, sectorComparePoint, 80f, 60f)) {
+		sectorComparePoint = sectorOriginPoint.unityTranslate(sectorOriginPoint.y, 60);
+
+		if (sectorOriginPoint.isInSector(dir, sectorComparePoint, 80f, 60f)) {
 			g.setColor(Color.RED);
-		}else {
+		} else {
 			g.setColor(Color.BLUE);
 		}
 		g.fill(new Ellipse2D.Double(sectorComparePoint.x - r, sectorComparePoint.z - r, 2 * r, 2 * r));
 
-		
 		// 渲染N边形
-		 g.setColor(triangleColor);
+		g.setColor(triangleColor);
 		g.fill(nPolygon);
 
-		
+		// 点击选择的多边形
+		if (renderPolygon != null) {
+			g.setColor(Color.GRAY);
+			g.fill(renderPolygon);
+			g.setColor(Color.green);
+			g.drawString(String.valueOf(renderPolygon.index), renderPolygon.center.x, renderPolygon.center.z);
+			g.setColor(Color.BLUE);
+			for (int i = 0; i < renderPolygon.vectorIndexs.length; i++) {
+				Vector3 point = renderPolygon.getPoint(i);
+				g.drawString(String.valueOf(renderPolygon.vectorIndexs[i]), point.x, point.z);
+			}
+		}
+
 		renderOther(g);
 	}
 
@@ -220,4 +243,5 @@ public class PolygonViewPane extends JPanel {
 	public void changeShowVectorIndex() {
 		this.isShowVectorIndex = !isShowVectorIndex;
 	}
+
 }

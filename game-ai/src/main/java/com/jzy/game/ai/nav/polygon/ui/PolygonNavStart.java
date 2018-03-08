@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jzy.game.ai.nav.node.TriangleBlock;
 import com.jzy.game.engine.math.Vector3;
+import com.jzy.game.engine.util.TimeUtil;
 
 /**
  * navmesh主界面
@@ -46,7 +47,7 @@ public class PolygonNavStart extends javax.swing.JFrame {
         randomPointButton = new javax.swing.JButton();
         showRandomPointButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        logTextArea = new javax.swing.JTextArea();
         triangleIndexButton = new javax.swing.JButton();
         vectorIndexButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -70,10 +71,10 @@ public class PolygonNavStart extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("R键：重置坐标\nP键：暂停\n\n");
-        jScrollPane1.setViewportView(jTextArea1);
+        logTextArea.setColumns(20);
+        logTextArea.setRows(5);
+        logTextArea.setText("R键：重置坐标\nP键：暂停\n双击选中多边形\n\n");
+        jScrollPane1.setViewportView(logTextArea);
 
         triangleIndexButton.setText("多边形序号");
         triangleIndexButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,27 +106,29 @@ public class PolygonNavStart extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(randomPointButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(showRandomPointButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(triangleIndexButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(vectorIndexButton)
-                            .addGap(19, 19, 19))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(randomPointButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(showRandomPointButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(triangleIndexButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(vectorIndexButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(position, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scaleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(scaleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(248, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,12 +218,22 @@ public class PolygonNavStart extends javax.swing.JFrame {
             }
         });
     }
+    
+    /**
+     * 显示日志
+     * @param log 
+     */
+    public void showLog(String log){
+        logTextArea.append("\r\n");
+        String time = TimeUtil.getDateTimeFormat(TimeUtil.YYYYMMDDHHMMSS);
+        logTextArea.append(time+":"+log);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea logTextArea;
     private javax.swing.JTextField position;
     private javax.swing.JButton randomPointButton;
     private javax.swing.JComboBox<String> scaleComboBox;

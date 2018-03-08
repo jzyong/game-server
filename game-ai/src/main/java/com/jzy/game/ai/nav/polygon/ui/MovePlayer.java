@@ -30,7 +30,7 @@ public class MovePlayer {
     protected PolygonNavMesh map;
 
     public MovePlayer(PolygonNavMesh map) {
-        speed = 200;
+        speed = 50*map.getGraph().getScale();
         this.map = map;
     }
 

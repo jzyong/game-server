@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.jzy.game.ai.nav.NavMeshData;
+import com.jzy.game.ai.nav.polygon.Polygon;
 import com.jzy.game.ai.nav.polygon.PolygonNavMesh;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
@@ -312,6 +313,16 @@ public class PolygonMeshWindow {
 						main.setPosition(positon);
 						polygonViewPane.getPlayer().pos.x = e.getX();
 						polygonViewPane.getPlayer().pos.z = e.getY();
+						
+						//双击渲染选中的多边形
+						if(e.getClickCount()>1) {
+							Polygon polygon = polygonViewPane.getPlayer().getMap().getPolygon(new Vector3(e.getX(), e.getY()));
+							if(polygon!=null) {
+								polygonViewPane.setRenderPolygon(polygon);
+								
+								main.showLog(polygon.print());
+							}
+						}
 						break;
 					default:
 						break;
