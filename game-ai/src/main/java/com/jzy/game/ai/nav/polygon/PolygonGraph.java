@@ -1,6 +1,7 @@
 package com.jzy.game.ai.nav.polygon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -32,8 +33,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	private Set<IndexConnection> indexConnections = new HashSet<>();
 	/**坐标缩放倍数*/
 	private int scale;
-
 	private PolygonData polygonData;
+	/**缓存的随机点		x			z*/
+	private final Map<Integer, Map<Integer, List<Vector3>>> allRandomPointsInPath = new HashMap<>();
 
 	public PolygonGraph(PolygonData polygonData, int scale) {
 		this.scale=scale;
@@ -53,6 +55,7 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 		createPathRandomPoint();
 		calculateIndexConnections(polygonData.getPathPolygonIndexs());
 		sharedEdges = createSharedEdgesMap(indexConnections, polygons);
+		initPathRandomPoint();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -294,7 +297,35 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 				findAny.get().randomPoints.add(triangle.getRandomPoint(new Vector3()));
 			}
 		}
-		
+	}
+	
+	/**
+	 * 初始化所有随机点
+	 * <br>以空间换时间
+	 * @param polygonGraph
+	 */
+	public void initPathRandomPoint() {
+		int count=0;
+		int x,z;
+		for(Polygon polygon:getPolygons()) {
+			for(Vector3 point:polygon.randomPoints) {
+				x=(int) point.x;
+				z=(int) point.z;
+				Map<Integer, List<Vector3>> map = allRandomPointsInPath.get(x);
+				if(map==null) {
+					map=new HashMap<>();
+					allRandomPointsInPath.put(x, map);
+				}
+				List<Vector3> list=map.get(z);
+				if(list==null) {
+					list=new ArrayList<>();
+					map.put(z, list);
+				}
+				list.add(point);
+				count++;
+			}
+		}
+		LOGGER.debug("地图{}随机点{}",getPolygonData().getMapID(),count);
 	}
 
 	public PolygonData getPolygonData() {
@@ -308,6 +339,11 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 	public int getScale() {
 		return scale;
+	}
+	
+
+	public Map<Integer, Map<Integer, List<Vector3>>> getAllRandomPointsInPath() {
+		return allRandomPointsInPath;
 	}
 
 	private static Map<Polygon, List<PolygonEdge>> createSharedEdgesMap(Set<IndexConnection> indexConnections,

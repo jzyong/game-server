@@ -1,9 +1,14 @@
 package com.jzy.game.ai.nav.polygon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -242,38 +247,31 @@ public final class PolygonNavMesh extends NavMesh {
 
 	@Override
 	public List<Vector3> getRandomPointsInPath(Vector3 center, float radius, float minDisToCenter) {
-		float dis2 = radius * radius + minDisToCenter;
-		float dis = 0;
-		List<Polygon> list = new ArrayList<>();
-		for (Polygon polygon : getGraph().getPolygons()) {
-			dis = polygon.center.dst2(center);
-			if (dis <= dis2 && dis >= minDisToCenter) {
-				list.add(polygon);
-			} else {
-				for (Vector3 vector3 : polygon.points) {
-					dis = vector3.dst2(center);
-					if (dis <= dis2 && dis >= minDisToCenter) {
-						list.add(polygon);
-						break;
+
+		int x = (int) center.x;
+		int z = (int) center.z;
+		int offset = (int) Math.ceil(radius);
+		List<Vector3> targets = new ArrayList<>();
+		Set<Entry<Integer, Map<Integer, List<Vector3>>>> entrySet = this.graph.getAllRandomPointsInPath().entrySet();
+		
+		for(Entry<Integer, Map<Integer, List<Vector3>>> entry:entrySet) {
+			if(Math.abs(entry.getKey().intValue() - x) <= offset) {
+				Set<Entry<Integer, List<Vector3>>> entrySet2 = entry.getValue().entrySet();
+				for(Entry<Integer, List<Vector3>> entry2:entrySet2) {
+					if(Math.abs(entry2.getKey()-z)<=radius) {
+						targets.addAll(entry2.getValue());
 					}
 				}
 			}
 		}
+		return targets;
 
-		List<Vector3> vector3s = new ArrayList<>();
-		list.forEach(p -> {
-			p.randomPoints.forEach(v -> {
-				if (v.dst2(center) <= dis2) {
-					vector3s.add(v);
-				}
-			});
-		});
-
-		return vector3s;
 	}
 
 	/**
-	 * <p>效率不高，对800米范围进行 10000次平均耗时1700ms 根据随机点个数，随机距离改变 <p>
+	 * <p>
+	 * 效率不高，远距离寻路耗时
+	 * <p>
 	 */
 	@Override
 	public Vector3 getRandomPointInPath(Vector3 center, float radius, float minDisToCenter) {

@@ -17,7 +17,8 @@ import com.jzy.game.engine.util.TimeUtil;
  * @mail 359135103@qq.com
  */
 public class PolygonNavMeshTest {
-	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
+//	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
+	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\101.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
     @Before
@@ -75,5 +76,23 @@ public class PolygonNavMeshTest {
         if(paths!=null) {
             paths.forEach(p->System.out.println(p.toString()));
         }
+    }
+    
+    /**
+     * 测试获取随机点
+     * <p>
+     * 1.随机点范围跨多个多边形100000次，半径：300，耗时：8308;半径300,耗时： 9077
+     * 2.随机点范围在一个多边形内100000次，半径：300，耗时：8308;半径300,耗时： 9077
+     * 
+     * <p>
+     */
+    @Test
+    public void testFindRandomPointInPath() {
+    	long begin=TimeUtil.currentTimeMillis();
+    	for(int i=0;i<10000;i++) {
+    		navMesh.getRandomPointsInPath(new Vector3(205,19,113), 5f, 0.2f);
+//    		navMesh.getRandomPointsInPath(new Vector3(109.2f,10f,59.2f), 10f, 0.2f);
+    	}
+    	System.out.println("耗时："+(TimeUtil.currentTimeMillis()-begin));
     }
 }
