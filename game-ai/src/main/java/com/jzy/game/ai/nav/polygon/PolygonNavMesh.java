@@ -34,6 +34,7 @@ import com.jzy.game.engine.util.TimeUtil;
  * 7、到上一步，2D寻路部分结束。人物根据路径点做移动。<br>
  * 8、假如需要3D高度计算，那么在获得了刚才2D寻路的路径点之后，再分别和途径的多边形的边做交点计算，得出经过每一个边时的交点，那么当多边形与多边形之间有高低变化，路径点也就通过边的交点同样的产生高度的变化。<br>
  * <p>
+ * <p>unity多边形寻路网格导出脚本{@code PolygonNavMeshWindow}</p>
  * 
  * @author JiangZhiYong
  * @date 2018年2月23日
