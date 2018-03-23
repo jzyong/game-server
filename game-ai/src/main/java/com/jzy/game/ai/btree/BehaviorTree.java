@@ -27,6 +27,7 @@ public class BehaviorTree<E> extends Task<E> {
 	/** 监听器 */
 	public List<Listener<E>> listeners;
 
+	/**保卫条件任务*/
 	GuardEvaluator<E> guardEvaluator;
 
 	/**
@@ -256,6 +257,7 @@ public class BehaviorTree<E> extends Task<E> {
 		public void childAdded(Task<E> task, int index);
 	}
 
+	/**保卫条件任务*/
 	private static final class GuardEvaluator<E> extends Task<E> {
 
 		// No argument constructor useful for Kryo serialization

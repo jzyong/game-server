@@ -30,6 +30,11 @@ public abstract class Task<E> implements IMemoryObject {
 
 	/** 当前任务的防护条件 */
 	protected Task<E> guard;
+	
+	/**节点名称，调试识别*/
+	protected String name;
+	/**分数，权重*/
+	protected int score;
 
 	/**
 	 * 添加子任务
@@ -87,7 +92,7 @@ public abstract class Task<E> implements IMemoryObject {
 	}
 
 	/**
-	 * 设置父任务
+	 * 设置控制任务
 	 * 
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年11月22日 下午4:06:58
@@ -284,6 +289,26 @@ public abstract class Task<E> implements IMemoryObject {
 		tree = null;
 
 	}
+	
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
 
 	/**
 	 * The enumeration of the values that a task's status can have.

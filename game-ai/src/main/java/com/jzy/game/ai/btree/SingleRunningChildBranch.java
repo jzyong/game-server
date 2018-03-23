@@ -134,7 +134,6 @@ public abstract class SingleRunningChildBranch<E> extends BranchTask<E> {
 	@SuppressWarnings("unchecked")
 	protected Task<E>[] createRandomChildren() {
 		Task<E>[] rndChildren = new Task[children.size()];
-		Collections.shuffle(children); 	//TODO 是否需要打乱
 		System.arraycopy(children.toArray(new Task[children.size()]), 0, rndChildren, 0, children.size());
 		return rndChildren;
 	}
