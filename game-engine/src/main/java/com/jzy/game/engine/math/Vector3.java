@@ -162,17 +162,17 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return dst(this.x, this.z, p.x, p.z);
 	}
 
-	
 	/**
 	 * 两坐标距离
+	 * 
 	 * @param vector1
 	 * @param vector2
 	 * @return
 	 */
-	public static float dst(Vector3 vector1,Vector3 vector2) {
+	public static float dst(Vector3 vector1, Vector3 vector2) {
 		return dst(vector1.x, vector1.z, vector2.x, vector2.z);
 	}
-	
+
 	/**
 	 * * 平面两坐标点距离
 	 *
@@ -392,13 +392,15 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * Unity 平移
+	 * 
 	 * @note 只计算了2D平面移动
 	 *
 	 * @param sourceDirection
 	 *            方向向量
 	 * @param degrees
 	 *            额外方向度数
-	 * @param distance 平移距离
+	 * @param distance
+	 *            平移距离
 	 * @return
 	 */
 	public Vector3 unityTranslate(Vector3 sourceDirection, float degrees, float distance) {
@@ -407,10 +409,12 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 
 	/**
 	 * Unity 平移
-	 *@note 只计算了2D平面移动
+	 * 
+	 * @note 只计算了2D平面移动
 	 * @param degrees
 	 *            unity角度
-	 * @param distance 距离
+	 * @param distance
+	 *            距离
 	 * @return
 	 */
 	public Vector3 unityTranslate(float degrees, float distance) {
@@ -577,17 +581,21 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
-	 * 是否在扇形中
-	 * <br>
+	 * 是否在扇形中 <br>
 	 * 性能一般 1亿次 需要43500ms
-	 * @param sourceDirection 扇形方向向量
-	 * @param target 比较的目标点
-	 * @param radius 半径
-	 * @param degrees 度数
+	 * 
+	 * @param sourceDirection
+	 *            扇形方向向量
+	 * @param target
+	 *            比较的目标点
+	 * @param radius
+	 *            半径
+	 * @param degrees
+	 *            度数
 	 * @return
 	 */
 	public boolean isInSector(Vector3 sourceDirection, Vector3 target, float radius, float degrees) {
-		Vector3 t=new Vector3(target);
+		Vector3 t = new Vector3(target);
 		if (this.equals(t)) {
 			return true;
 		}
@@ -717,9 +725,10 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	public boolean isZero() {
 		return x == 0 && y == 0 && z == 0;
 	}
-	
+
 	/**
 	 * 线段是否相交
+	 * 
 	 * @param p1
 	 * @param p2
 	 * @param p3
@@ -727,11 +736,12 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @return
 	 */
 	public static boolean linesIntersect(Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4) {
-        return linesIntersect(p1.x, p1.z, p2.x, p2.z, p3.x, p3.z, p4.x, p4.z);
-    }
+		return linesIntersect(p1.x, p1.z, p2.x, p2.z, p3.x, p3.z, p4.x, p4.z);
+	}
 
 	/**
 	 * 线段是否相交
+	 * 
 	 * @param x1
 	 * @param z1
 	 * @param x2
@@ -949,45 +959,46 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * siteIsEqual
+	 * 
 	 * @param vector3
 	 * @return
 	 */
 	public boolean equal(Vector3 vector3) {
 		return this.equal(vector3, 0.0001f);
 	}
-	
+
 	/**
 	 * 清空坐标，设为0
 	 */
 	public void clear() {
-		this.x=0;
-		this.y=0;
-		this.z=0;
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
 	}
-	
-    /**
-     * 根据两点组成的直线在xz平面的角度，顺时针
-     *
-     * @param start
-     * @param end
-     * @return
-     */
-    public static float toUnityDegrees(Vector3 start, Vector3 end) {
-        return Vector3.toUnityDegrees(findAngle(start, end));
-    }
 
-    /**
-     * java弧度转unity角度
-     *
-     * @param angle
-     * @return
-     */
-    public static float toUnityDegrees(float angle) {
-        return (float) (90 - Math.toDegrees(angle));
-    }
+	/**
+	 * 根据两点组成的直线在xz平面的角度，顺时针
+	 *
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static float toUnityDegrees(Vector3 start, Vector3 end) {
+		return Vector3.toUnityDegrees(findAngle(start, end));
+	}
+
+	/**
+	 * java弧度转unity角度
+	 *
+	 * @param angle
+	 * @return
+	 */
+	public static float toUnityDegrees(float angle) {
+		return (float) (90 - Math.toDegrees(angle));
+	}
 
 	@Override
 	public Vector3 mulAdd(Vector3 vec, float scalar) {
@@ -1007,6 +1018,19 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	public static Vector3 dirVector(Vector3 from, Vector3 to) {
 		Vector3 vector3 = new Vector3(to.x - from.x, to.y - from.y, to.z - from.z);
 		return vector3;
+	}
+
+	/**
+	 * 两向量是否靠近
+	 * 
+	 * @param vector3
+	 * @param maxDistance
+	 *            最大距离
+	 * @return true 接近 false 远离
+	 */
+	public boolean isColoseTo(Vector3 vector3, float maxDistance) {
+		float distSq = this.x * vector3.x + this.y * vector3.y + this.z * vector3.z;
+		return distSq <= maxDistance * maxDistance;
 	}
 
 	@Override
