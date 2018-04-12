@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jzy.game</groupId>
 	<artifactId>game</artifactId>
@@ -66,59 +67,43 @@
 						<groupId>com.jzy.game</groupId>
 						<artifactId>game-maven-plugin</artifactId>
 						<version>releases</version>
-						<!-- <executions>
-							<execution>
-								更新项目代码
-								<id>updateProject</id>
-								<phase>clean</phase>
-								<goals>
-									<goal>updateProject</goal>
-								</goals>
-							</execution>
-						</executions> -->
+						<!-- <executions> <execution> 更新项目代码 <id>updateProject</id> <phase>clean</phase> 
+							<goals> <goal>updateProject</goal> </goals> </execution> </executions> -->
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
 
-	<!-- <repositories>
-		<repository>
-			<id>maven-central</id>
-			<name>maven-central</name>
-			<url>http://192.168.0.71:8081/repository/maven-central/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>maven-releases</id>
-			<name>Releases</name>
-			<url>http://192.168.0.71:8081/repository/maven-releases/</url>
-		</repository>
-		<repository>
-			<id>snapshots</id>
-			<name>Snapshots</name>
-			<url>http://192.168.0.71:8081/repository/snapshots/</url>
-		</repository>
-	</repositories>
+	<url>https://jzyong.github.io/game-server/</url>
 
-	<distributionManagement>
-		<repository>
-			<id>maven-releases</id>
-			<name>Nexus Releases Repository</name>
-			<url>http://192.168.0.71:8081/repository/maven-releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>snapshots</name>
-			<url>http://192.168.0.71:8081/repository/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement> -->
+	<developers>
+		<developer>
+			<id>jzyong</id>
+			<name>Jzyong</name>
+			<email>359135103@qq.com</email>
+			<url>https://jzyong.github.io/game-server/</url>
+		</developer>
+	</developers>
+	
+	<scm>
+		<url>https://github.com/jzyong/game-server</url>
+		<developerConnection>scm:git:git://github.com/jzyong/game-server.git</developerConnection>
+		<connection>scm:git:git://github.com/jzyong/game-server.git</connection>
+	</scm>
+	
+
+	<!-- <repositories> <repository> <id>maven-central</id> <name>maven-central</name> 
+		<url>http://192.168.0.71:8081/repository/maven-central/</url> <layout>default</layout> 
+		<releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> 
+		</snapshots> </repository> <repository> <id>maven-releases</id> <name>Releases</name> 
+		<url>http://192.168.0.71:8081/repository/maven-releases/</url> </repository> 
+		<repository> <id>snapshots</id> <name>Snapshots</name> <url>http://192.168.0.71:8081/repository/snapshots/</url> 
+		</repository> </repositories> <distributionManagement> <repository> <id>maven-releases</id> 
+		<name>Nexus Releases Repository</name> <url>http://192.168.0.71:8081/repository/maven-releases/</url> 
+		</repository> <snapshotRepository> <id>snapshots</id> <name>snapshots</name> 
+		<url>http://192.168.0.71:8081/repository/snapshots/</url> </snapshotRepository> 
+		</distributionManagement> -->
 
 
 </project>
