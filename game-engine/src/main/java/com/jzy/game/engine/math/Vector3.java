@@ -208,7 +208,9 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
-	 * 判断坐标相对选择方向 Returns a positive float if (px, py) is counter-clockwise to (x2,
+	 * 判断坐标相对选择方向 
+	 * <br>
+	 * Returns a positive float if (px, py) is counter-clockwise to (x2,
 	 * z2) relative to (x1, z1). in the cartesian coordinate space (positive x-axis
 	 * extends right, positive z-axis extends up). Returns a negative double if (px,
 	 * py) is clockwise to (x2, z2) relative to (x1, z1). Returns a 0.0 if (px, py),
@@ -223,7 +225,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 * @param z2
 	 * @param px
 	 * @param py
-	 * @return 0 三点共线
+	 * @return 0 三点共线 ；1逆时针方向 选择；-1顺时针选择
 	 */
 	public static int relCCW(float x1, float z1, float x2, float z2, float px, float py) {
 		float ccw = relCCWDouble(x1, z1, x2, z2, px, py);

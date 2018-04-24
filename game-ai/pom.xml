@@ -101,4 +101,20 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
+	<developers>
+		<developer>
+			<id>jzyong</id>
+			<name>Jzyong</name>
+			<email>359135103@qq.com</email>
+			<url>https://jzyong.github.io/game-server/</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://github.com/jzyong/game-server</url>
+		<developerConnection>scm:git:git://github.com/jzyong/game-server.git</developerConnection>
+		<connection>scm:git:git://github.com/jzyong/game-server.git</connection>
+	</scm>
 </project>
