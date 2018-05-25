@@ -9,7 +9,7 @@ import com.jzy.game.bydr.manager.RoomManager;
 import com.jzy.game.bydr.script.IFishScript;
 import com.jzy.game.bydr.struct.Fish;
 import com.jzy.game.bydr.struct.room.Room;
-import com.jzy.game.engine.util.MathUtil;
+import com.jzy.game.engine.math.MathUtil;
 
 /**
  * 刷新房间鱼群
