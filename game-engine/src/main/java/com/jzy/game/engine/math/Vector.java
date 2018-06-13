@@ -81,4 +81,11 @@ public interface Vector<T extends Vector<T>> {
     default boolean equal(Vector3 vector3, float precision) {
         return false;
     }
+    
+    /** Linearly interpolates between this vector and the target vector by alpha which is in the range [0,1]. The result is stored
+   	 * in this vector.
+   	 * @param target The target vector
+   	 * @param alpha The interpolation coefficient
+   	 * @return This vector for chaining. */
+   	T lerp (T target, float alpha);
 }
