@@ -30,15 +30,15 @@ import com.jzy.game.engine.util.MsgUtil;
 public abstract class DefaultProtocolHandler implements IoHandler {
 
 	protected static final Logger log = LoggerFactory.getLogger(DefaultProtocolHandler.class);
-	protected final int messageHeaderLenght; // 消息头长度
+	protected final int messageHeaderLength; // 消息头长度
 
 	/**
 	 * 
-	 * @param messageHeaderLenght
+	 * @param messageHeaderLength
 	 *            消息头长度
 	 */
-	public DefaultProtocolHandler(int messageHeaderLenght) {
-		this.messageHeaderLenght = messageHeaderLenght;
+	public DefaultProtocolHandler(int messageHeaderLength) {
+		this.messageHeaderLength = messageHeaderLength;
 	}
 
 	@Override
@@ -82,19 +82,19 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
 		try {
-			if (bytes.length < messageHeaderLenght) {
-				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLenght);
+			if (bytes.length < messageHeaderLength) {
+				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLength);
 				return;
 			}
-			int offset = messageHeaderLenght > 4 ? 8 : 0;
+			int offset = messageHeaderLength > 4 ? 8 : 0;
 			int msgID = MsgUtil.getMessageID(bytes, offset); // 消息ID
 
 			if (ScriptManager.getInstance().tcpMsgIsRegister(msgID)) {
 				Class<? extends IHandler> handlerClass = ScriptManager.getInstance().getTcpHandler(msgID);
 				HandlerEntity handlerEntity = ScriptManager.getInstance().getTcpHandlerEntity(msgID);
 				if (handlerClass != null) {
-					Message message = MsgUtil.buildMessage(handlerEntity.msg(), bytes, messageHeaderLenght,
-							bytes.length - messageHeaderLenght);
+					Message message = MsgUtil.buildMessage(handlerEntity.msg(), bytes, messageHeaderLength,
+							bytes.length - messageHeaderLength);
 					TcpHandler handler = (TcpHandler) handlerClass.newInstance();
 					if (handler != null) {
 						if (offset > 0) { // 偏移量大于0，又发玩家ID

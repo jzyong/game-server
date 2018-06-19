@@ -32,16 +32,16 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 	private static final Logger log = LoggerFactory.getLogger(ClientProtocolHandler.class);
 	protected Service<MinaServerConfig> service;
 
-	public ClientProtocolHandler(int messageHeaderLenght) {
-		super(messageHeaderLenght);
+	public ClientProtocolHandler(int messageHeaderLength) {
+		super(messageHeaderLength);
 	}
 
 	@Override
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
 		try {
-			if (bytes.length < messageHeaderLenght) {
-				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLenght);
+			if (bytes.length < messageHeaderLength) {
+				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLength);
 				return;
 			}
 			int mid = IntUtil.bigEndianByteToInt(bytes, 0, 4); // 消息ID
@@ -53,8 +53,8 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 				HandlerEntity handlerEntity = ScriptManager.getInstance().getTcpHandlerEntity(mid);
 				if (handlerClass != null) {
 //					log.info("{} {} bytes:{}",messageHeaderLenght, bytes.length, bytes );
-					Message message = MsgUtil.buildMessage(handlerEntity.msg(), bytes, messageHeaderLenght,
-							bytes.length - messageHeaderLenght);
+					Message message = MsgUtil.buildMessage(handlerEntity.msg(), bytes, messageHeaderLength,
+							bytes.length - messageHeaderLength);
 					TcpHandler handler = (TcpHandler) handlerClass.newInstance();
 					if (handler != null) {
 						messageHandler(session, handlerEntity, message, handler);

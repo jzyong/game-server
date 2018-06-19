@@ -42,8 +42,8 @@ public class ClientProtocolEncoder extends ProtocolEncoderImpl {
 			byte[] data = (byte[]) obj; // 消息ID（4字节）+protobuf
 			buf = IoBuffer.allocate(data.length + 6);
 			// 消息长度
-			byte[] lenghtBytes = IntUtil.short2Bytes((short) (data.length + 4), ByteOrder.LITTLE_ENDIAN);
-			buf.put(lenghtBytes);
+			byte[] lengthBytes = IntUtil.short2Bytes((short) (data.length + 4), ByteOrder.LITTLE_ENDIAN);
+			buf.put(lengthBytes);
 
 			// 消息ID ,将顺序改变为前端客户端顺序
 			byte[] idBytes = new byte[4];

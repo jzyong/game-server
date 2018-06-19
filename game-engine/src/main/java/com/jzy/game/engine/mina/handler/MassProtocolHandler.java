@@ -25,10 +25,10 @@ import org.slf4j.Logger;
 public abstract class MassProtocolHandler implements IoHandler {
 
 	protected static final Logger log = LoggerFactory.getLogger(MassProtocolHandler.class);
-	protected final int messageHeaderLenght;
+	protected final int messageHeaderLength;
 
 	public MassProtocolHandler() {
-		this.messageHeaderLenght = 4;
+		this.messageHeaderLength = 4;
 	}
 
 	@Override
@@ -74,8 +74,8 @@ public abstract class MassProtocolHandler implements IoHandler {
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
 		try {
-			if (bytes.length < messageHeaderLenght) {
-				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLenght);
+			if (bytes.length < messageHeaderLength) {
+				log.error("messageReceived:消息长度{}小于等于消息头长度{}", bytes.length, messageHeaderLength);
 				return;
 			}
 			IoBuffer buff = IoBuffer.wrap(bytes);

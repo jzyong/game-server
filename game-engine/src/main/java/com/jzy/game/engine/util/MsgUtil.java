@@ -62,8 +62,8 @@ public class MsgUtil {
 																// protobuf长度4字节
 
 		// 消息长度
-		byte[] lenghtBytes = IntUtil.short2Bytes((short) (protobufLength + 8), ByteOrder.LITTLE_ENDIAN);
-		buf.put(lenghtBytes);
+		byte[] lengthBytes = IntUtil.short2Bytes((short) (protobufLength + 8), ByteOrder.LITTLE_ENDIAN);
+		buf.put(lengthBytes);
 		// buf.putInt(protobufLength + 8);
 		// 消息ID
 		buf.put(IntUtil.writeIntToBytesLittleEnding(msgID));
