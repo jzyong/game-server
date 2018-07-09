@@ -26,4 +26,18 @@ public class Vector3Test {
 		assertTrue(vector3.isColoseTo(vector32, 2.5f));
 		assertFalse(vector3.isColoseTo(vector32, 1.99f));
 	}
+	
+	
+	/**
+	 * 测试移动
+	 */
+	@Test
+	public void testMove() {
+		Vector3 vector3 = Vector3.move(2f, new Vector3(), new Vector3(10f, 10f, 10f), 2f);
+		System.out.println(vector3.toString());
+		
+		Vector3 vector2 = Vector3.move(5f, new Vector3(), new Vector3(10f, 10f, 10f), 4f);
+		System.out.println(vector2.toString());
+	}
+	
 }

@@ -208,10 +208,9 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
-	 * 判断坐标相对选择方向 
-	 * <br>
-	 * Returns a positive float if (px, py) is counter-clockwise to (x2,
-	 * z2) relative to (x1, z1). in the cartesian coordinate space (positive x-axis
+	 * 判断坐标相对选择方向 <br>
+	 * Returns a positive float if (px, py) is counter-clockwise to (x2, z2)
+	 * relative to (x1, z1). in the cartesian coordinate space (positive x-axis
 	 * extends right, positive z-axis extends up). Returns a negative double if (px,
 	 * py) is clockwise to (x2, z2) relative to (x1, z1). Returns a 0.0 if (px, py),
 	 * (x1, z1) and (x2, z2) are collinear. Note that this method gives different
@@ -674,6 +673,15 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return (float) Math.sqrt(x * x + y * y + z * z);
 	}
 
+	/**
+	 * 2D平面长度
+	 * 
+	 * @return
+	 */
+	public float len2D() {
+		return (float) Math.sqrt(x * x + z * z);
+	}
+
 	/** @return The euclidean length */
 	public static float len(final float x, final float y, final float z) {
 		return (float) Math.sqrt(x * x + y * y + z * z);
@@ -699,6 +707,16 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	 */
 	public Vector3 sub(float x, float y, float z) {
 		return this.set(this.x - x, this.y - y, this.z - z);
+	}
+
+	/**
+	 * 坐标相减
+	 * 
+	 * @param start
+	 * @param end
+	 */
+	public static Vector3 sub(Vector3 left, Vector3 right) {
+		return new Vector3(left.x - right.x, left.y - right.y, left.z - right.z);
 	}
 
 	/**
@@ -907,6 +925,17 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return this.scl(1f / (float) Math.sqrt(len2));
 	}
 
+	/**
+	 * 2D平面单位向量
+	 * 
+	 * @return
+	 */
+	public void nor2D() {
+		float length = len2D();
+		this.x /= length;
+		this.z /= length;
+	}
+
 	@Override
 	public float len2() {
 		return x * x + y * y + z * z;
@@ -1064,10 +1093,40 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	@Override
-	public Vector3 lerp (final Vector3 target, float alpha) {
+	public Vector3 lerp(final Vector3 target, float alpha) {
 		x += alpha * (target.x - x);
 		y += alpha * (target.y - y);
 		z += alpha * (target.z - z);
 		return this;
+	}
+
+	/**
+	 * 平面移动 <br>
+	 * y坐标不正确
+	 * 
+	 * @param deltaTime
+	 *            过去时间
+	 * @param targetPositon
+	 *            目标位置
+	 * @param speed
+	 *            速度
+	 * @return
+	 */
+	public static Vector3 move(float deltaTime, Vector3 currentPosition, Vector3 targetPositon, float speed) {
+		Vector3 toMoveVec = sub(targetPositon, currentPosition); // 移动方向
+		float distToTarget = toMoveVec.len2D();
+		toMoveVec.nor2D();
+		if (distToTarget > 0.1f) {
+			if (distToTarget > (speed * deltaTime)) {
+				toMoveVec.scl(speed * deltaTime);
+				toMoveVec.add(currentPosition);
+				float alpha = toMoveVec.len2D() / distToTarget;
+				toMoveVec.y = currentPosition.y + alpha * (targetPositon.y - currentPosition.y);
+				return toMoveVec;
+			} else {
+				return targetPositon;
+			}
+		}
+		return targetPositon;
 	}
 }
