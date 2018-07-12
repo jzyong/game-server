@@ -107,9 +107,9 @@ public final class MathUtil {
 
 	// ---
 	/**
-	 * Returns atan2 in radians, faster but less accurate than Math.atan2.
-	 * Average error of 0.00231 radians (0.1323 degrees), largest error of
-	 * 0.00488 radians (0.2796 degrees).
+	 * Returns atan2 in radians, faster but less accurate than Math.atan2. Average
+	 * error of 0.00231 radians (0.1323 degrees), largest error of 0.00488 radians
+	 * (0.2796 degrees).
 	 *
 	 * @return
 	 */
@@ -183,6 +183,18 @@ public final class MathUtil {
 	 */
 	static public long random(long start, long end) {
 		return start + (long) (random.nextDouble() * (end - start));
+	}
+
+	/**
+	 * 产生在start 到 end 范围内的随机向量
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	static public Vector3 random(Vector3 start, Vector3 end) {
+		Vector3 random = new Vector3(random(), random(), random());	
+		return Vector3.sub(end, start).scl(random).add(start);
 	}
 
 	/**
@@ -347,11 +359,11 @@ public final class MathUtil {
 	}
 
 	/**
-	 * Returns a triangularly distributed random number between -1.0 (exclusive)
-	 * and 1.0 (exclusive), where values around zero are more likely.
+	 * Returns a triangularly distributed random number between -1.0 (exclusive) and
+	 * 1.0 (exclusive), where values around zero are more likely.
 	 * <p>
-	 * This is an optimized version of
-	 * {@link #randomTriangular(float, float, float) randomTriangular(-1, 1, 0)}
+	 * This is an optimized version of {@link #randomTriangular(float, float, float)
+	 * randomTriangular(-1, 1, 0)}
 	 *
 	 * @return
 	 */
@@ -361,12 +373,11 @@ public final class MathUtil {
 
 	/**
 	 * Returns a triangularly distributed random number between {@code -max}
-	 * (exclusive) and {@code max} (exclusive), where values around zero are
-	 * more likely.
+	 * (exclusive) and {@code max} (exclusive), where values around zero are more
+	 * likely.
 	 * <p>
-	 * This is an optimized version of
-	 * {@link #randomTriangular(float, float, float) randomTriangular(-max, max,
-	 * 0)}
+	 * This is an optimized version of {@link #randomTriangular(float, float, float)
+	 * randomTriangular(-max, max, 0)}
 	 *
 	 * @param max
 	 *            the upper limit
@@ -379,12 +390,10 @@ public final class MathUtil {
 	/**
 	 * Returns a triangularly distributed random number between {@code min}
 	 * (inclusive) and {@code max} (exclusive), where the {@code mode} argument
-	 * defaults to the midpoint between the bounds, giving a symmetric
-	 * distribution.
+	 * defaults to the midpoint between the bounds, giving a symmetric distribution.
 	 * <p>
-	 * This method is equivalent of
-	 * {@link #randomTriangular(float, float, float) randomTriangular(min, max,
-	 * (min + max) * .5f)}
+	 * This method is equivalent of {@link #randomTriangular(float, float, float)
+	 * randomTriangular(min, max, (min + max) * .5f)}
 	 *
 	 * @param min
 	 *            the lower limit
@@ -398,8 +407,8 @@ public final class MathUtil {
 
 	/**
 	 * Returns a triangularly distributed random number between {@code min}
-	 * (inclusive) and {@code max} (exclusive), where values around {@code mode}
-	 * are more likely.
+	 * (inclusive) and {@code max} (exclusive), where values around {@code mode} are
+	 * more likely.
 	 *
 	 * @param min
 	 *            the lower limit
@@ -420,8 +429,8 @@ public final class MathUtil {
 
 	// ---
 	/**
-	 * Returns the next power of two. Returns the specified value if the value
-	 * is already a power of two.
+	 * Returns the next power of two. Returns the specified value if the value is
+	 * already a power of two.
 	 *
 	 * @return
 	 */
@@ -504,9 +513,9 @@ public final class MathUtil {
 	}
 
 	/**
-	 * Linearly interpolates between two angles in radians. Takes into account
-	 * that angles wrap at two pi and always takes the direction with the
-	 * smallest delta angle.
+	 * Linearly interpolates between two angles in radians. Takes into account that
+	 * angles wrap at two pi and always takes the direction with the smallest delta
+	 * angle.
 	 *
 	 * @param fromRadians
 	 *            start angle in radians
@@ -522,9 +531,9 @@ public final class MathUtil {
 	}
 
 	/**
-	 * Linearly interpolates between two angles in degrees. Takes into account
-	 * that angles wrap at 360 degrees and always takes the direction with the
-	 * smallest delta angle.
+	 * Linearly interpolates between two angles in degrees. Takes into account that
+	 * angles wrap at 360 degrees and always takes the direction with the smallest
+	 * delta angle.
 	 *
 	 * @param fromDegrees
 	 *            start angle in degrees
