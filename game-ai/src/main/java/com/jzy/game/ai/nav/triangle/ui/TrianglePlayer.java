@@ -36,7 +36,7 @@ public class TrianglePlayer {
         long time = TimeUtil.currentTimeMillis();
         paths= map.findPath(pos, targetAdjusted, navMeshPointPath);
         time = TimeUtil.currentTimeMillis() - time;
-        System.out.println("寻路耗时：" + time);
+//        System.out.println("寻路耗时：" + time);
     }
 
     public void update(double seconds) {

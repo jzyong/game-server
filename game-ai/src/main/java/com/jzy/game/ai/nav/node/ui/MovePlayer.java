@@ -33,7 +33,7 @@ public class MovePlayer {
         long time = TimeUtil.currentTimeMillis();
         pathData = map.path(pos, targetAdjusted);
         time = TimeUtil.currentTimeMillis() - time;
-        System.out.println("寻路耗时：" + time);
+//        System.out.println("寻路耗时：" + time);
     }
 
     public void update(double seconds) {

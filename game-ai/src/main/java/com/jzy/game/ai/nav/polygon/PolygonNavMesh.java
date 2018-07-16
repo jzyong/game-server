@@ -79,6 +79,17 @@ public final class PolygonNavMesh extends NavMesh {
 		} else {
 			toPolygon = getPolygon(toPoint);
 		}
+		
+		if(fromPolygon==null) {
+			LOGGER.warn("起始坐标：{}不在寻路层中",fromPoint.toString());
+			return false;
+		}
+		
+		if(toPolygon==null) {
+			LOGGER.warn("终点坐标：{}不在寻路层中",toPoint.toString());
+			return false;
+		}
+		
 		if (pathFinder.searchConnectionPath(fromPolygon, toPolygon, heuristic, path)) {
 			path.start = new Vector3(fromPoint);
 			path.end = new Vector3(toPoint);
@@ -143,6 +154,13 @@ public final class PolygonNavMesh extends NavMesh {
 		if (findFirst.isPresent()) {
 			return findFirst.get();
 		}
+		
+//		//在多边形边上
+//		Optional<Polygon> optional = graph.getPolygons().stream().filter(p->p.isOnEdge(point)).findFirst();
+//		if(optional.isPresent()) {
+//			return optional.get();
+//		}
+		
 		return null;
 	}
 

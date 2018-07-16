@@ -215,13 +215,29 @@ public class Polygon implements Shape {
 
 	/**
 	 * 坐标点是否在多边形内部
-	 * 
+	 * <br>
+	 * 在多边形边上返回false，顶点为true
 	 * @param point
 	 * @return
 	 */
 	public boolean isInnerPoint(Vector3 point) {
 		return Intersector.isPointInPolygon(points, point);
 	}
+	
+	/**
+	 * 点是否在多边形上
+	 * @param point
+	 * @return
+	 */
+	public boolean isOnEdge(Vector3 point) {
+		for(int i=0;i<points.size();i++) {
+			if(Vector3.isPointOnSegment(points.get(i), points.get((i+1)%points.size()), point)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 
 	/**
 	 * 是否包含另外一个多边形

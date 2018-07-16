@@ -358,7 +358,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 	}
 
 	/**
-	 * 点到执行距离的平方
+	 * 点到直线距离的平方
 	 *
 	 * @param x1
 	 * @param z1
@@ -1129,4 +1129,23 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		}
 		return targetPositon;
 	}
+
+	/**
+	 * 点是否在线段上
+	 * <br>
+	 * https://blog.csdn.net/u013447865/article/details/39503941
+	 * @param start
+	 * @param end
+	 * @param point
+	 * @return
+	 */
+	public static boolean isPointOnSegment(Vector3 start, Vector3 end, Vector3 point) {
+		if ((point.x - start.x) * (end.z - start.z) == (end.x - start.x) * (point.z - start.z)
+				&& Math.min(start.x, end.x) <= point.x && point.x <= Math.max(start.x, end.x)
+				&& Math.min(start.z, end.z) <= point.z && point.z <= Math.max(start.z, end.z))
+			return true;
+		else
+			return false;
+	}
+
 }

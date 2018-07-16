@@ -19,11 +19,11 @@ public final class Intersector {
 	private final static Vector3 v0 = new Vector3();
 	private final static Vector3 v1 = new Vector3();
 	private final static Vector3 v2 = new Vector3();
-//	private final static List<Float> floatArray = new ArrayList<>();
-//	private final static List<Float> floatArray2 = new ArrayList<>();
+	// private final static List<Float> floatArray = new ArrayList<>();
+	// private final static List<Float> floatArray2 = new ArrayList<>();
 
-	/**点是否在三角形内部
-	 * <br>
+	/**
+	 * 点是否在三角形内部 <br>
 	 * Returns whether the given point is inside the triangle. This assumes that the
 	 * point is on the plane of the triangle. No check is performed that this is the
 	 * case.
@@ -119,7 +119,7 @@ public final class Intersector {
 	 * @return true if the point is in the polygon
 	 */
 	public static boolean isPointInPolygon(List<Vector2> polygon, Vector2 point) {
-		Vector2 lastVertice = polygon.get(polygon.size()-1);
+		Vector2 lastVertice = polygon.get(polygon.size() - 1);
 		boolean oddNodes = false;
 		for (int i = 0; i < polygon.size(); i++) {
 			Vector2 vertice = polygon.get(i);
@@ -134,33 +134,36 @@ public final class Intersector {
 		}
 		return oddNodes;
 	}
+
+	/**
+	 * 三维坐标x，z轴 检测点是否在多边形内部 <br>
+	 * 在多边形边上返回false，顶点为
+	 * <br>
+	 * true Checks whether the given point is in the polygon.
+	 * 
+	 * @param polygon
+	 *            The polygon vertices passed as an array
+	 * @param point
+	 *            The point
+	 * @return true if the point is in the polygon
+	 */
+	public static boolean isPointInPolygon(List<Vector3> polygon, Vector3 point) {
+		Vector3 lastVertice = polygon.get(polygon.size() - 1);
+		boolean oddNodes = false;
+		for (int i = 0; i < polygon.size(); i++) {
+			Vector3 vertice = polygon.get(i);
+			if ((vertice.z < point.z && lastVertice.z >= point.z)
+					|| (lastVertice.z < point.z && vertice.z >= point.z)) {
+				if (vertice.x
+						+ (point.z - vertice.z) / (lastVertice.z - vertice.z) * (lastVertice.x - vertice.x) < point.x) {
+					oddNodes = !oddNodes;
+				}
+			}
+			lastVertice = vertice;
+		}
+		return oddNodes;
+	}
 	
-	 /**
-	  * 三维坐标x，z轴 检测点是否在多边形内部
-     * Checks whether the given point is in the polygon.
-     * 
-     * @param polygon
-     *            The polygon vertices passed as an array
-     * @param point
-     *            The point
-     * @return true if the point is in the polygon
-     */
-    public static boolean isPointInPolygon(List<Vector3> polygon, Vector3 point) {
-        Vector3 lastVertice = polygon.get(polygon.size()-1);
-        boolean oddNodes = false;
-        for (int i = 0; i < polygon.size(); i++) {
-            Vector3 vertice = polygon.get(i);
-            if ((vertice.z < point.z && lastVertice.z >= point.z)
-                    || (lastVertice.z < point.z && vertice.z >= point.z)) {
-                if (vertice.x
-                        + (point.z - vertice.z) / (lastVertice.z - vertice.z) * (lastVertice.x - vertice.x) < point.x) {
-                    oddNodes = !oddNodes;
-                }
-            }
-            lastVertice = vertice;
-        }
-        return oddNodes;
-    }
 
 	/**
 	 * Returns true if the specified point is in the polygon.
@@ -186,77 +189,81 @@ public final class Intersector {
 		return oddNodes;
 	}
 
-//	private final static Vector2 ip = new Vector2();
-//	private final static Vector2 ep1 = new Vector2();
-//	private final static Vector2 ep2 = new Vector2();
-//	private final static Vector2 s = new Vector2();
-//	private final static Vector2 e = new Vector2();
+	// private final static Vector2 ip = new Vector2();
+	// private final static Vector2 ep1 = new Vector2();
+	// private final static Vector2 ep2 = new Vector2();
+	// private final static Vector2 s = new Vector2();
+	// private final static Vector2 e = new Vector2();
 
-//	/**多边形是否相交<br>
-//	 * Intersects two resulting polygons with the same winding and sets the overlap
-//	 * polygon resulting from the intersection. Follows the Sutherland-Hodgman
-//	 * algorithm.
-//	 *
-//	 * @param p1
-//	 *            The polygon that is being clipped
-//	 * @param p2
-//	 *            The clip polygon
-//	 * @param overlap
-//	 *            The intersection of the two polygons (optional)
-//	 * @return Whether the two polygons intersect.
-//	 */
-//	public static boolean intersectPolygons(Polygon p1, Polygon p2, Polygon overlap) {
-//		// reusable points to trace edges around polygon
-//		floatArray2.clear();
-//		floatArray.clear();
-//		floatArray2.addAll(p1.getTransformedVertices());
-//		if (p1.getVertices().length == 0 || p2.getVertices().length == 0) {
-//			return false;
-//		}
-//		for (int i = 0; i < p2.getTransformedVertices().length; i += 2) {
-//			ep1.set(p2.getTransformedVertices()[i], p2.getTransformedVertices()[i + 1]);
-//			// wrap around to beginning of array if index points to end;
-//			if (i < p2.getTransformedVertices().length - 2) {
-//				ep2.set(p2.getTransformedVertices()[i + 2], p2.getTransformedVertices()[i + 3]);
-//			} else {
-//				ep2.set(p2.getTransformedVertices()[0], p2.getTransformedVertices()[1]);
-//			}
-//			if (floatArray2.size == 0) {
-//				return false;
-//			}
-//			s.set(floatArray2.get(floatArray2.size - 2), floatArray2.get(floatArray2.size - 1));
-//			for (int j = 0; j < floatArray2.size; j += 2) {
-//				e.set(floatArray2.get(j), floatArray2.get(j + 1));
-//				// determine if point is inside clip edge
-//				if (Intersector.pointLineSide(ep2, ep1, e) > 0) {
-//					if (!(Intersector.pointLineSide(ep2, ep1, s) > 0)) {
-//						Intersector.intersectLines(s, e, ep1, ep2, ip);
-//						if (floatArray.size < 2 || floatArray.get(floatArray.size - 2) != ip.x
-//								|| floatArray.get(floatArray.size - 1) != ip.y) {
-//							floatArray.add(ip.x);
-//							floatArray.add(ip.y);
-//						}
-//					}
-//					floatArray.add(e.x);
-//					floatArray.add(e.y);
-//				} else if (Intersector.pointLineSide(ep2, ep1, s) > 0) {
-//					Intersector.intersectLines(s, e, ep1, ep2, ip);
-//					floatArray.add(ip.x);
-//					floatArray.add(ip.y);
-//				}
-//				s.set(e.x, e.y);
-//			}
-//			floatArray2.clear();
-//			floatArray2.addAll(floatArray);
-//			floatArray.clear();
-//		}
-//		if (!(floatArray2.size == 0)) {
-//			overlap.setVertices(floatArray2.toArray());
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
+	// /**多边形是否相交<br>
+	// * Intersects two resulting polygons with the same winding and sets the
+	// overlap
+	// * polygon resulting from the intersection. Follows the Sutherland-Hodgman
+	// * algorithm.
+	// *
+	// * @param p1
+	// * The polygon that is being clipped
+	// * @param p2
+	// * The clip polygon
+	// * @param overlap
+	// * The intersection of the two polygons (optional)
+	// * @return Whether the two polygons intersect.
+	// */
+	// public static boolean intersectPolygons(Polygon p1, Polygon p2, Polygon
+	// overlap) {
+	// // reusable points to trace edges around polygon
+	// floatArray2.clear();
+	// floatArray.clear();
+	// floatArray2.addAll(p1.getTransformedVertices());
+	// if (p1.getVertices().length == 0 || p2.getVertices().length == 0) {
+	// return false;
+	// }
+	// for (int i = 0; i < p2.getTransformedVertices().length; i += 2) {
+	// ep1.set(p2.getTransformedVertices()[i], p2.getTransformedVertices()[i + 1]);
+	// // wrap around to beginning of array if index points to end;
+	// if (i < p2.getTransformedVertices().length - 2) {
+	// ep2.set(p2.getTransformedVertices()[i + 2], p2.getTransformedVertices()[i +
+	// 3]);
+	// } else {
+	// ep2.set(p2.getTransformedVertices()[0], p2.getTransformedVertices()[1]);
+	// }
+	// if (floatArray2.size == 0) {
+	// return false;
+	// }
+	// s.set(floatArray2.get(floatArray2.size - 2), floatArray2.get(floatArray2.size
+	// - 1));
+	// for (int j = 0; j < floatArray2.size; j += 2) {
+	// e.set(floatArray2.get(j), floatArray2.get(j + 1));
+	// // determine if point is inside clip edge
+	// if (Intersector.pointLineSide(ep2, ep1, e) > 0) {
+	// if (!(Intersector.pointLineSide(ep2, ep1, s) > 0)) {
+	// Intersector.intersectLines(s, e, ep1, ep2, ip);
+	// if (floatArray.size < 2 || floatArray.get(floatArray.size - 2) != ip.x
+	// || floatArray.get(floatArray.size - 1) != ip.y) {
+	// floatArray.add(ip.x);
+	// floatArray.add(ip.y);
+	// }
+	// }
+	// floatArray.add(e.x);
+	// floatArray.add(e.y);
+	// } else if (Intersector.pointLineSide(ep2, ep1, s) > 0) {
+	// Intersector.intersectLines(s, e, ep1, ep2, ip);
+	// floatArray.add(ip.x);
+	// floatArray.add(ip.y);
+	// }
+	// s.set(e.x, e.y);
+	// }
+	// floatArray2.clear();
+	// floatArray2.addAll(floatArray);
+	// floatArray.clear();
+	// }
+	// if (!(floatArray2.size == 0)) {
+	// overlap.setVertices(floatArray2.toArray());
+	// return true;
+	// } else {
+	// return false;
+	// }
+	// }
 
 	/**
 	 * Returns the distance between the given line and point. Note the specified
@@ -472,9 +479,9 @@ public final class Intersector {
 	private static final Plane p = new Plane(new Vector3(), 0);
 	private static final Vector3 i = new Vector3();
 
-	/**射线和三角形是否相交
-	 * Intersect a {@link Ray} and a triangle, returning the intersection point in
-	 * intersection.
+	/**
+	 * 射线和三角形是否相交 Intersect a {@link Ray} and a triangle, returning the intersection
+	 * point in intersection.
 	 * 
 	 * @param ray
 	 *            The ray
@@ -531,8 +538,8 @@ public final class Intersector {
 		return true;
 	}
 
-//	private static final Vector3 dir = new Vector3();
-//	private static final Vector3 start = new Vector3();
+	// private static final Vector3 dir = new Vector3();
+	// private static final Vector3 start = new Vector3();
 
 	/**
 	 * Intersects a {@link Ray} and a sphere, returning the intersection point in
@@ -563,145 +570,156 @@ public final class Intersector {
 		return true;
 	}
 
-//	/**
-//	 * Intersects a {@link Ray} and a {@link BoundingBox}, returning the
-//	 * intersection point in intersection. This intersection is defined as the point
-//	 * on the ray closest to the origin which is within the specified bounds.
-//	 * 
-//	 * <p>
-//	 * The returned intersection (if any) is guaranteed to be within the bounds of
-//	 * the bounding box, but it can occasionally diverge slightly from ray, due to
-//	 * small floating-point errors.
-//	 * </p>
-//	 * 
-//	 * <p>
-//	 * If the origin of the ray is inside the box, this method returns true and the
-//	 * intersection point is set to the origin of the ray, accordingly to the
-//	 * definition above.
-//	 * </p>
-//	 * 
-//	 * @param ray
-//	 *            The ray
-//	 * @param box
-//	 *            The box
-//	 * @param intersection
-//	 *            The intersection point (optional)
-//	 * @return Whether an intersection is present.
-//	 */
-//	public static boolean intersectRayBounds(Ray ray, BoundingBox box, Vector3 intersection) {
-//		if (box.contains(ray.origin)) {
-//			if (intersection != null)
-//				intersection.set(ray.origin);
-//			return true;
-//		}
-//		float lowest = 0, t;
-//		boolean hit = false;
-//
-//		// min x
-//		if (ray.origin.x <= box.min.x && ray.direction.x > 0) {
-//			t = (box.min.x - ray.origin.x) / ray.direction.x;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <= box.max.z
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		// max x
-//		if (ray.origin.x >= box.max.x && ray.direction.x < 0) {
-//			t = (box.max.x - ray.origin.x) / ray.direction.x;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <= box.max.z
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		// min y
-//		if (ray.origin.y <= box.min.y && ray.direction.y > 0) {
-//			t = (box.min.y - ray.origin.y) / ray.direction.y;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <= box.max.z
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		// max y
-//		if (ray.origin.y >= box.max.y && ray.direction.y < 0) {
-//			t = (box.max.y - ray.origin.y) / ray.direction.y;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <= box.max.z
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		// min z
-//		if (ray.origin.z <= box.min.z && ray.direction.z > 0) {
-//			t = (box.min.z - ray.origin.z) / ray.direction.z;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <= box.max.y
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		// max y
-//		if (ray.origin.z >= box.max.z && ray.direction.z < 0) {
-//			t = (box.max.z - ray.origin.z) / ray.direction.z;
-//			if (t >= 0) {
-//				v2.set(ray.direction).scl(t).add(ray.origin);
-//				if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <= box.max.y
-//						&& (!hit || t < lowest)) {
-//					hit = true;
-//					lowest = t;
-//				}
-//			}
-//		}
-//		if (hit && intersection != null) {
-//			intersection.set(ray.direction).scl(lowest).add(ray.origin);
-//			if (intersection.x < box.min.x) {
-//				intersection.x = box.min.x;
-//			} else if (intersection.x > box.max.x) {
-//				intersection.x = box.max.x;
-//			}
-//			if (intersection.y < box.min.y) {
-//				intersection.y = box.min.y;
-//			} else if (intersection.y > box.max.y) {
-//				intersection.y = box.max.y;
-//			}
-//			if (intersection.z < box.min.z) {
-//				intersection.z = box.min.z;
-//			} else if (intersection.z > box.max.z) {
-//				intersection.z = box.max.z;
-//			}
-//		}
-//		return hit;
-//	}
+	// /**
+	// * Intersects a {@link Ray} and a {@link BoundingBox}, returning the
+	// * intersection point in intersection. This intersection is defined as the
+	// point
+	// * on the ray closest to the origin which is within the specified bounds.
+	// *
+	// * <p>
+	// * The returned intersection (if any) is guaranteed to be within the bounds of
+	// * the bounding box, but it can occasionally diverge slightly from ray, due to
+	// * small floating-point errors.
+	// * </p>
+	// *
+	// * <p>
+	// * If the origin of the ray is inside the box, this method returns true and
+	// the
+	// * intersection point is set to the origin of the ray, accordingly to the
+	// * definition above.
+	// * </p>
+	// *
+	// * @param ray
+	// * The ray
+	// * @param box
+	// * The box
+	// * @param intersection
+	// * The intersection point (optional)
+	// * @return Whether an intersection is present.
+	// */
+	// public static boolean intersectRayBounds(Ray ray, BoundingBox box, Vector3
+	// intersection) {
+	// if (box.contains(ray.origin)) {
+	// if (intersection != null)
+	// intersection.set(ray.origin);
+	// return true;
+	// }
+	// float lowest = 0, t;
+	// boolean hit = false;
+	//
+	// // min x
+	// if (ray.origin.x <= box.min.x && ray.direction.x > 0) {
+	// t = (box.min.x - ray.origin.x) / ray.direction.x;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <=
+	// box.max.z
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// // max x
+	// if (ray.origin.x >= box.max.x && ray.direction.x < 0) {
+	// t = (box.max.x - ray.origin.x) / ray.direction.x;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.y >= box.min.y && v2.y <= box.max.y && v2.z >= box.min.z && v2.z <=
+	// box.max.z
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// // min y
+	// if (ray.origin.y <= box.min.y && ray.direction.y > 0) {
+	// t = (box.min.y - ray.origin.y) / ray.direction.y;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <=
+	// box.max.z
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// // max y
+	// if (ray.origin.y >= box.max.y && ray.direction.y < 0) {
+	// t = (box.max.y - ray.origin.y) / ray.direction.y;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.x >= box.min.x && v2.x <= box.max.x && v2.z >= box.min.z && v2.z <=
+	// box.max.z
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// // min z
+	// if (ray.origin.z <= box.min.z && ray.direction.z > 0) {
+	// t = (box.min.z - ray.origin.z) / ray.direction.z;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <=
+	// box.max.y
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// // max y
+	// if (ray.origin.z >= box.max.z && ray.direction.z < 0) {
+	// t = (box.max.z - ray.origin.z) / ray.direction.z;
+	// if (t >= 0) {
+	// v2.set(ray.direction).scl(t).add(ray.origin);
+	// if (v2.x >= box.min.x && v2.x <= box.max.x && v2.y >= box.min.y && v2.y <=
+	// box.max.y
+	// && (!hit || t < lowest)) {
+	// hit = true;
+	// lowest = t;
+	// }
+	// }
+	// }
+	// if (hit && intersection != null) {
+	// intersection.set(ray.direction).scl(lowest).add(ray.origin);
+	// if (intersection.x < box.min.x) {
+	// intersection.x = box.min.x;
+	// } else if (intersection.x > box.max.x) {
+	// intersection.x = box.max.x;
+	// }
+	// if (intersection.y < box.min.y) {
+	// intersection.y = box.min.y;
+	// } else if (intersection.y > box.max.y) {
+	// intersection.y = box.max.y;
+	// }
+	// if (intersection.z < box.min.z) {
+	// intersection.z = box.min.z;
+	// } else if (intersection.z > box.max.z) {
+	// intersection.z = box.max.z;
+	// }
+	// }
+	// return hit;
+	// }
 
-//	/**
-//	 * Quick check whether the given {@link Ray} and {@link BoundingBox} intersect.
-//	 * 
-//	 * @param ray
-//	 *            The ray
-//	 * @param box
-//	 *            The bounding box
-//	 * @return Whether the ray and the bounding box intersect.
-//	 */
-//	static public boolean intersectRayBoundsFast(Ray ray, BoundingBox box) {
-//		return intersectRayBoundsFast(ray, box.getCenter(tmp1), box.getDimensions(tmp2));
-//	}
+	// /**
+	// * Quick check whether the given {@link Ray} and {@link BoundingBox}
+	// intersect.
+	// *
+	// * @param ray
+	// * The ray
+	// * @param box
+	// * The bounding box
+	// * @return Whether the ray and the bounding box intersect.
+	// */
+	// static public boolean intersectRayBoundsFast(Ray ray, BoundingBox box) {
+	// return intersectRayBoundsFast(ray, box.getCenter(tmp1),
+	// box.getDimensions(tmp2));
+	// }
 
 	/**
 	 * Quick check whether the given {@link Ray} and {@link BoundingBox} intersect.
@@ -943,91 +961,96 @@ public final class Intersector {
 		return true;
 	}
 
-//	/**
-//	 * Check whether the given line and {@link Polygon} intersect.
-//	 * 
-//	 * @param p1
-//	 *            The first point of the line
-//	 * @param p2
-//	 *            The second point of the line
-//	 * @param polygon
-//	 *            The polygon
-//	 * @return Whether polygon and line intersects
-//	 */
-//	public static boolean intersectLinePolygon(Vector2 p1, Vector2 p2, Polygon polygon) {
-//		float[] vertices = polygon.getTransformedVertices();
-//		float x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
-//		int n = vertices.length;
-//		float x3 = vertices[n - 2], y3 = vertices[n - 1];
-//		for (int i = 0; i < n; i += 2) {
-//			float x4 = vertices[i], y4 = vertices[i + 1];
-//			float d = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-//			if (d != 0) {
-//				float yd = y1 - y3;
-//				float xd = x1 - x3;
-//				float ua = ((x4 - x3) * yd - (y4 - y3) * xd) / d;
-//				if (ua >= 0 && ua <= 1) {
-//					return true;
-//				}
-//			}
-//			x3 = x4;
-//			y3 = y4;
-//		}
-//		return false;
-//	}
+	// /**
+	// * Check whether the given line and {@link Polygon} intersect.
+	// *
+	// * @param p1
+	// * The first point of the line
+	// * @param p2
+	// * The second point of the line
+	// * @param polygon
+	// * The polygon
+	// * @return Whether polygon and line intersects
+	// */
+	// public static boolean intersectLinePolygon(Vector2 p1, Vector2 p2, Polygon
+	// polygon) {
+	// float[] vertices = polygon.getTransformedVertices();
+	// float x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
+	// int n = vertices.length;
+	// float x3 = vertices[n - 2], y3 = vertices[n - 1];
+	// for (int i = 0; i < n; i += 2) {
+	// float x4 = vertices[i], y4 = vertices[i + 1];
+	// float d = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+	// if (d != 0) {
+	// float yd = y1 - y3;
+	// float xd = x1 - x3;
+	// float ua = ((x4 - x3) * yd - (y4 - y3) * xd) / d;
+	// if (ua >= 0 && ua <= 1) {
+	// return true;
+	// }
+	// }
+	// x3 = x4;
+	// y3 = y4;
+	// }
+	// return false;
+	// }
 
-//	/**
-//	 * Determines whether the given rectangles intersect and, if they do, sets the
-//	 * supplied {@code intersection} rectangle to the area of overlap.
-//	 * 
-//	 * @return Whether the rectangles intersect
-//	 */
-//	static public boolean intersectRectangles(Rectangle rectangle1, Rectangle rectangle2, Rectangle intersection) {
-//		if (rectangle1.overlaps(rectangle2)) {
-//			intersection.x = Math.max(rectangle1.x, rectangle2.x);
-//			intersection.width = Math.min(rectangle1.x + rectangle1.width, rectangle2.x + rectangle2.width)
-//					- intersection.x;
-//			intersection.y = Math.max(rectangle1.y, rectangle2.y);
-//			intersection.height = Math.min(rectangle1.y + rectangle1.height, rectangle2.y + rectangle2.height)
-//					- intersection.y;
-//			return true;
-//		}
-//		return false;
-//	}
+	// /**
+	// * Determines whether the given rectangles intersect and, if they do, sets the
+	// * supplied {@code intersection} rectangle to the area of overlap.
+	// *
+	// * @return Whether the rectangles intersect
+	// */
+	// static public boolean intersectRectangles(Rectangle rectangle1, Rectangle
+	// rectangle2, Rectangle intersection) {
+	// if (rectangle1.overlaps(rectangle2)) {
+	// intersection.x = Math.max(rectangle1.x, rectangle2.x);
+	// intersection.width = Math.min(rectangle1.x + rectangle1.width, rectangle2.x +
+	// rectangle2.width)
+	// - intersection.x;
+	// intersection.y = Math.max(rectangle1.y, rectangle2.y);
+	// intersection.height = Math.min(rectangle1.y + rectangle1.height, rectangle2.y
+	// + rectangle2.height)
+	// - intersection.y;
+	// return true;
+	// }
+	// return false;
+	// }
 
-//	/**
-//	 * Check whether the given line segment and {@link Polygon} intersect.
-//	 * 
-//	 * @param p1
-//	 *            The first point of the segment
-//	 * @param p2
-//	 *            The second point of the segment
-//	 * @return Whether polygon and segment intersect
-//	 */
-//	public static boolean intersectSegmentPolygon(Vector2 p1, Vector2 p2, Polygon polygon) {
-//		float[] vertices = polygon.getTransformedVertices();
-//		float x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
-//		int n = vertices.length;
-//		float x3 = vertices[n - 2], y3 = vertices[n - 1];
-//		for (int i = 0; i < n; i += 2) {
-//			float x4 = vertices[i], y4 = vertices[i + 1];
-//			float d = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-//			if (d != 0) {
-//				float yd = y1 - y3;
-//				float xd = x1 - x3;
-//				float ua = ((x4 - x3) * yd - (y4 - y3) * xd) / d;
-//				if (ua >= 0 && ua <= 1) {
-//					float ub = ((x2 - x1) * yd - (y2 - y1) * xd) / d;
-//					if (ub >= 0 && ub <= 1) {
-//						return true;
-//					}
-//				}
-//			}
-//			x3 = x4;
-//			y3 = y4;
-//		}
-//		return false;
-//	}
+	// /**
+	// * Check whether the given line segment and {@link Polygon} intersect.
+	// *
+	// * @param p1
+	// * The first point of the segment
+	// * @param p2
+	// * The second point of the segment
+	// * @return Whether polygon and segment intersect
+	// */
+	// public static boolean intersectSegmentPolygon(Vector2 p1, Vector2 p2, Polygon
+	// polygon) {
+	// float[] vertices = polygon.getTransformedVertices();
+	// float x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
+	// int n = vertices.length;
+	// float x3 = vertices[n - 2], y3 = vertices[n - 1];
+	// for (int i = 0; i < n; i += 2) {
+	// float x4 = vertices[i], y4 = vertices[i + 1];
+	// float d = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+	// if (d != 0) {
+	// float yd = y1 - y3;
+	// float xd = x1 - x3;
+	// float ua = ((x4 - x3) * yd - (y4 - y3) * xd) / d;
+	// if (ua >= 0 && ua <= 1) {
+	// float ub = ((x2 - x1) * yd - (y2 - y1) * xd) / d;
+	// if (ub >= 0 && ub <= 1) {
+	// return true;
+	// }
+	// }
+	// }
+	// x3 = x4;
+	// y3 = y4;
+	// }
+	// return false;
+	// }
 
 	/**
 	 * Intersects the two line segments and returns the intersection point in
@@ -1100,69 +1123,71 @@ public final class Intersector {
 		return a * d - b * c;
 	}
 
-//	public static boolean overlaps(Circle c1, Circle c2) {
-//		return c1.overlaps(c2);
-//	}
-//
-//	public static boolean overlaps(Rectangle r1, Rectangle r2) {
-//		return r1.overlaps(r2);
-//	}
-//
-//	public static boolean overlaps(Circle c, Rectangle r) {
-//		float closestX = c.x;
-//		float closestY = c.y;
-//
-//		if (c.x < r.x) {
-//			closestX = r.x;
-//		} else if (c.x > r.x + r.width) {
-//			closestX = r.x + r.width;
-//		}
-//
-//		if (c.y < r.y) {
-//			closestY = r.y;
-//		} else if (c.y > r.y + r.height) {
-//			closestY = r.y + r.height;
-//		}
-//
-//		closestX = closestX - c.x;
-//		closestX *= closestX;
-//		closestY = closestY - c.y;
-//		closestY *= closestY;
-//
-//		return closestX + closestY < c.radius * c.radius;
-//	}
+	// public static boolean overlaps(Circle c1, Circle c2) {
+	// return c1.overlaps(c2);
+	// }
+	//
+	// public static boolean overlaps(Rectangle r1, Rectangle r2) {
+	// return r1.overlaps(r2);
+	// }
+	//
+	// public static boolean overlaps(Circle c, Rectangle r) {
+	// float closestX = c.x;
+	// float closestY = c.y;
+	//
+	// if (c.x < r.x) {
+	// closestX = r.x;
+	// } else if (c.x > r.x + r.width) {
+	// closestX = r.x + r.width;
+	// }
+	//
+	// if (c.y < r.y) {
+	// closestY = r.y;
+	// } else if (c.y > r.y + r.height) {
+	// closestY = r.y + r.height;
+	// }
+	//
+	// closestX = closestX - c.x;
+	// closestX *= closestX;
+	// closestY = closestY - c.y;
+	// closestY *= closestY;
+	//
+	// return closestX + closestY < c.radius * c.radius;
+	// }
 
-//	/**
-//	 * Check whether specified counter-clockwise wound convex polygons overlap.
-//	 * 
-//	 * @param p1
-//	 *            The first polygon.
-//	 * @param p2
-//	 *            The second polygon.
-//	 * @return Whether polygons overlap.
-//	 */
-//	public static boolean overlapConvexPolygons(Polygon p1, Polygon p2) {
-//		return overlapConvexPolygons(p1, p2, null);
-//	}
+	// /**
+	// * Check whether specified counter-clockwise wound convex polygons overlap.
+	// *
+	// * @param p1
+	// * The first polygon.
+	// * @param p2
+	// * The second polygon.
+	// * @return Whether polygons overlap.
+	// */
+	// public static boolean overlapConvexPolygons(Polygon p1, Polygon p2) {
+	// return overlapConvexPolygons(p1, p2, null);
+	// }
 
-//	/**
-//	 * Check whether specified counter-clockwise wound convex polygons overlap. If
-//	 * they do, optionally obtain a Minimum Translation Vector indicating the
-//	 * minimum magnitude vector required to push the polygon p1 out of collision
-//	 * with polygon p2.
-//	 * 
-//	 * @param p1
-//	 *            The first polygon.
-//	 * @param p2
-//	 *            The second polygon.
-//	 * @param mtv
-//	 *            A Minimum Translation Vector to fill in the case of a collision,
-//	 *            or null (optional).
-//	 * @return Whether polygons overlap.
-//	 */
-//	public static boolean overlapConvexPolygons(Polygon p1, Polygon p2, MinimumTranslationVector mtv) {
-//		return overlapConvexPolygons(p1.getTransformedVertices(), p2.getTransformedVertices(), mtv);
-//	}
+	// /**
+	// * Check whether specified counter-clockwise wound convex polygons overlap. If
+	// * they do, optionally obtain a Minimum Translation Vector indicating the
+	// * minimum magnitude vector required to push the polygon p1 out of collision
+	// * with polygon p2.
+	// *
+	// * @param p1
+	// * The first polygon.
+	// * @param p2
+	// * The second polygon.
+	// * @param mtv
+	// * A Minimum Translation Vector to fill in the case of a collision,
+	// * or null (optional).
+	// * @return Whether polygons overlap.
+	// */
+	// public static boolean overlapConvexPolygons(Polygon p1, Polygon p2,
+	// MinimumTranslationVector mtv) {
+	// return overlapConvexPolygons(p1.getTransformedVertices(),
+	// p2.getTransformedVertices(), mtv);
+	// }
 
 	/**
 	 * @see #overlapConvexPolygons(float[], int, int, float[], int, int,

@@ -58,11 +58,13 @@ public class PolygonTest {
     	Polygon rectangle=new Polygon(0, new Vector3(0, 0), new Vector3(1, 0), new Vector3(1, 1),new Vector3(0,1 ));
     	Vector3 point=new Vector3(0.5f,0.5f);
 //    	Assert.assertTrue(rectangle.isInnerPoint(point));
-//    	Assert.assertTrue(rectangle.contains(point));
-    	for(int i=0;i<100000000;i++) {
+    	Assert.assertTrue(rectangle.contains(point));
+    	Assert.assertTrue(rectangle.isInnerPoint(new Vector3(0.5f, 0.001f)));
+    	Assert.assertTrue(rectangle.contains(new Vector3(1, 1, 1)));
+//    	for(int i=0;i<100000000;i++) {
 //    		rectangle.isInnerPoint(point);
-    		rectangle.contains(point);
-    	}
+//    		rectangle.contains(point);
+//    	}
     	
 		
 //		Vector3 sectorinit = new Vector3(200f, 10f);
@@ -70,4 +72,32 @@ public class PolygonTest {
 //		sectorOriginPoint=sectorinit.unityTranslate(dir.y, 30);
 		
     }
+    
+    /**
+     * 测试是否在边上
+     * <br>
+     * 1亿次4秒
+     */
+    @Test
+    public void testIsOnEdge() {
+    	Polygon rectangle=new Polygon(0, new Vector3(0, 0), new Vector3(1, 0), new Vector3(1, 1),new Vector3(0,1 ));
+    	
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0, 0)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0.5f, 0)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(1, 0)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(1, 0.4f)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(1, 1)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0.5f, 1f)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0, 1)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0, 0.5f)));
+    	Assert.assertTrue(rectangle.isOnEdge(new Vector3(0, 0.5f)));
+    	Assert.assertFalse(rectangle.isOnEdge(new Vector3(0.5f, 0.5f)));
+    	Assert.assertFalse(rectangle.isOnEdge(new Vector3(2, 0.5f)));
+    	
+    	for(int i=0;i<100000000;i++) {
+    		rectangle.isOnEdge(new Vector3(1, 0.4f));
+    	}
+    	
+    }
+    
 }

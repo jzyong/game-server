@@ -56,6 +56,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 		calculateIndexConnections(polygonData.getPathPolygonIndexs());
 		sharedEdges = createSharedEdgesMap(indexConnections, polygons);
 		initPathRandomPoint();
+		
+		LOGGER.debug("地图：{} 多边形个数：{} 共享边：{}",polygonData.getMapID(),polygons.size(),indexConnections.size());
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -325,7 +328,7 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 				count++;
 			}
 		}
-		LOGGER.debug("地图{}随机点{}",getPolygonData().getMapID(),count);
+		LOGGER.debug("地图：{} 随机点：{}",getPolygonData().getMapID(),count);
 	}
 
 	public PolygonData getPolygonData() {

@@ -3,6 +3,7 @@ package com.jjy.game.engine.math;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.jzy.game.engine.math.Vector3;
@@ -38,6 +39,17 @@ public class Vector3Test {
 		
 		Vector3 vector2 = Vector3.move(5f, new Vector3(), new Vector3(10f, 10f, 10f), 4f);
 		System.out.println(vector2.toString());
+	}
+	
+	/**
+	 * 测试是否在线段上
+	 */
+	@Test
+	public void testIsOnSegment() {
+		Assert.assertTrue(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 5)));
+		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(15, 15)));
+		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(-5, -5)));
+		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 3)));
 	}
 	
 }
