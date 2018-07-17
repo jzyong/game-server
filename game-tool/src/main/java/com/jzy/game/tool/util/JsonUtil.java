@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.jjy.game.tool.util;
+package com.jzy.game.tool.util;
 
 /**
  * json工具

@@ -1,4 +1,4 @@
-package com.jjy.game.tool.client;
+package com.jzy.game.tool.client;
 
 import java.time.LocalTime;
 
@@ -6,14 +6,14 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jjy.game.message.bydr.BydrRoomMessage.EnterRoomRequest;
-import com.jjy.game.message.bydr.BydrRoomMessage.RoomType;
-import com.jjy.game.message.hall.HallChatMessage.ChatRequest;
-import com.jjy.game.message.hall.HallChatMessage.ChatType;
-import com.jjy.game.message.hall.HallLoginMessage;
-import com.jjy.game.message.hall.HallLoginMessage.LoginRequest;
-import com.jjy.game.message.hall.HallLoginMessage.QuitSubGameRequest;
-import com.jjy.game.message.system.SystemMessage.HeartRequest;
+import com.jzy.game.message.bydr.BydrRoomMessage.EnterRoomRequest;
+import com.jzy.game.message.bydr.BydrRoomMessage.RoomType;
+import com.jzy.game.message.hall.HallChatMessage.ChatRequest;
+import com.jzy.game.message.hall.HallChatMessage.ChatType;
+import com.jzy.game.message.hall.HallLoginMessage;
+import com.jzy.game.message.hall.HallLoginMessage.LoginRequest;
+import com.jzy.game.message.hall.HallLoginMessage.QuitSubGameRequest;
+import com.jzy.game.message.system.SystemMessage.HeartRequest;
 import com.jzy.game.engine.mina.service.SingleMinaTcpClientService;
 import com.jzy.game.engine.script.ITimerEventScript;
 import com.jzy.game.engine.script.ScriptManager;

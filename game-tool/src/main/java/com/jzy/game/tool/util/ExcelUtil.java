@@ -1,4 +1,4 @@
-package com.jjy.game.tool.util;
+package com.jzy.game.tool.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

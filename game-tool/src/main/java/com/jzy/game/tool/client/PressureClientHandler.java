@@ -1,4 +1,4 @@
-package com.jjy.game.tool.client;
+package com.jzy.game.tool.client;
 
 import org.apache.mina.core.filterchain.IoFilter;
 import org.apache.mina.core.session.IoSession;

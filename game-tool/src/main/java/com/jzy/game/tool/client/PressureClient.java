@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jjy.game.tool.client;
+package com.jzy.game.tool.client;
 
-import com.jjy.game.tool.util.StringUtil;
 import javax.swing.JOptionPane;
+
+import com.jzy.game.tool.util.StringUtil;
 
 /**
  *

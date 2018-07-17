@@ -1,4 +1,4 @@
-package com.jjy.game.tool.client;
+package com.jzy.game.tool.client;
 
 import com.google.protobuf.Message;
 import javax.swing.JTextArea;

@@ -7,7 +7,7 @@ package com.jjy.game.dbtool.util;
 
 import org.junit.Test;
 
-import com.jjy.game.tool.util.ExcelUtil;
+import com.jzy.game.tool.util.ExcelUtil;
 
 /**
  * excel 测试

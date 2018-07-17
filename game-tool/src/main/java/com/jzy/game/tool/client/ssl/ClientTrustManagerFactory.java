@@ -17,7 +17,7 @@
  *  under the License.
  *
  */
-package com.jjy.game.tool.client.ssl;
+package com.jzy.game.tool.client.ssl;
 
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;

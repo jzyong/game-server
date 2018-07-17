@@ -1,4 +1,4 @@
-package com.jjy.game.tool.client.ssl;
+package com.jzy.game.tool.client.ssl;
 /**
 * <h3>RSA证书生成步骤</h3>
 * <p>
@@ -35,8 +35,8 @@ import javax.net.ssl.SSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jjy.game.tool.client.PressureClientTool;
 import com.jzy.game.engine.util.FileUtil;
+import com.jzy.game.tool.client.PressureClientTool;
 
 /**
  * <code>SSLContext</code>生成工厂，使用tls协议，RSA算法 <br>

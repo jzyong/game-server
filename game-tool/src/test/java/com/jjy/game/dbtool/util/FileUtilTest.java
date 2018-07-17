@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-import com.jjy.game.tool.util.FileUtil;
+import com.jzy.game.tool.util.FileUtil;
 
 /**
  *

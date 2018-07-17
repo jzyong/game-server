@@ -5,7 +5,7 @@
  */
 package com.jjy.game.dbtool.mongo;
 
-import com.jjy.game.tool.util.MongoUtil;
+import com.jzy.game.tool.util.MongoUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;

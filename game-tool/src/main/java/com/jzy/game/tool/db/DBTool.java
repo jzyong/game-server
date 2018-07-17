@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jjy.game.tool.db;
+package com.jzy.game.tool.db;
 
-import com.jjy.game.tool.util.Args;
-import com.jjy.game.tool.util.Config;
-import com.jjy.game.tool.util.ExcelUtil;
-import com.jjy.game.tool.util.FileUtil;
-import com.jjy.game.tool.util.MongoUtil;
-import com.jjy.game.tool.util.StringUtil;
 import com.jzy.game.engine.util.HttpUtil;
+import com.jzy.game.tool.util.Args;
+import com.jzy.game.tool.util.Config;
+import com.jzy.game.tool.util.ExcelUtil;
+import com.jzy.game.tool.util.FileUtil;
+import com.jzy.game.tool.util.MongoUtil;
+import com.jzy.game.tool.util.StringUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import java.io.File;

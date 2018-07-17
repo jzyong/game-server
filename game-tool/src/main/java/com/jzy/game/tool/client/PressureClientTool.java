@@ -1,4 +1,4 @@
-package com.jjy.game.tool.client;
+package com.jzy.game.tool.client;
 
 import java.io.File;
 import java.util.HashMap;
@@ -12,7 +12,6 @@ import org.apache.mina.filter.ssl.SslFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.jjy.game.tool.client.ssl.ClientSslContextFactory;
 import com.jzy.game.engine.math.MathUtil;
 import com.jzy.game.engine.mina.MinaUdpClient;
 import com.jzy.game.engine.mina.code.ClientProtocolCodecFactory;
@@ -21,6 +20,7 @@ import com.jzy.game.engine.mina.config.MinaClientConfig.MinaClienConnToConfig;
 import com.jzy.game.engine.mina.service.SingleMinaTcpClientService;
 import com.jzy.game.engine.script.ScriptManager;
 import com.jzy.game.engine.util.HttpUtil;
+import com.jzy.game.tool.client.ssl.ClientSslContextFactory;
 
 import javax.swing.JTextArea;
 
