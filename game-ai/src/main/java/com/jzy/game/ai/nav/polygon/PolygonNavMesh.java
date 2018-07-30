@@ -36,6 +36,8 @@ import com.jzy.game.engine.util.TimeUtil;
  * <p>
  * <p>unity多边形寻路网格导出脚本{@code PolygonNavMeshWindow}</p>
  * 
+ * TODO 空间分割算法，四叉数;多边形额外参数，如草地，水，公路等消耗标识
+ * 
  * @author JiangZhiYong
  * @date 2018年2月23日
  * @mail 359135103@qq.com

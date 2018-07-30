@@ -76,7 +76,7 @@ public class Vector3 implements Serializable, Cloneable, Vector<Vector3> {
 		return new Vector3(x, y, z);
 	}
 
-	public double getX() {
+	public float getX() {
 		return x;
 	}
 
