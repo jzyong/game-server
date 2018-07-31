@@ -151,19 +151,14 @@ public final class PolygonNavMesh extends NavMesh {
 	 * @return
 	 */
 	public Polygon getPolygon(Vector3 point) {
-		// TODO 高度判断，有可能有分层重叠多边形
-		Optional<Polygon> findFirst = graph.getPolygons().stream().filter(p -> p.isInnerPoint(point)).findFirst();
-		if (findFirst.isPresent()) {
-			return findFirst.get();
-		}
-		
-//		//在多边形边上
-//		Optional<Polygon> optional = graph.getPolygons().stream().filter(p->p.isOnEdge(point)).findFirst();
-//		if(optional.isPresent()) {
-//			return optional.get();
+//		Optional<Polygon> findFirst = graph.getPolygons().stream().filter(p -> p.isInnerPoint(point)).findFirst();
+//		if (findFirst.isPresent()) {
+//			return findFirst.get();
 //		}
 		
-		return null;
+		Polygon polygon = graph.getQuadTree().get(point, null);
+		
+		return polygon;
 	}
 
 	@Override

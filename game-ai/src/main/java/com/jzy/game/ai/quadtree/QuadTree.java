@@ -13,7 +13,7 @@ public abstract class QuadTree<K, V> {
 	protected Node<V> root;
 	/** 数量 */
 	protected int count;
-
+	
 	public QuadTree(float minX, float minZ, float maxX, float maxZ) {
 		this.root = new Node<>(minX, minZ, maxX - minX, maxZ - minZ, null);
 	}
@@ -123,4 +123,19 @@ public abstract class QuadTree<K, V> {
 	 * @return
 	 */
 	public abstract List<V> getValues();
+	
+	/**
+	 * 是否相交
+	 * 
+	 * @param left
+	 * @param bottom
+	 * @param right
+	 * @param top
+	 * @param node
+	 * @return
+	 */
+	protected boolean intersects(double left, double bottom, double right, double top, Node<V> node) {
+		return !(node.getX() > right || (node.getX() + node.getW()) < left || node.getZ() > bottom
+				|| (node.getZ() + node.getH()) < top);
+	}
 }

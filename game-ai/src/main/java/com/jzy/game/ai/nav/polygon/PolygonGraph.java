@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import com.jzy.game.ai.nav.triangle.Triangle;
 import com.jzy.game.ai.pfa.Connection;
 import com.jzy.game.ai.pfa.IndexedGraph;
+import com.jzy.game.ai.quadtree.QuadTree;
+import com.jzy.game.ai.quadtree.polygon.PolygonGuadTree;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -31,14 +33,16 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 	private Map<Polygon, List<PolygonEdge>> sharedEdges;
 	private Set<IndexConnection> indexConnections = new HashSet<>();
-	/**坐标缩放倍数*/
+	/** 坐标缩放倍数 */
 	private int scale;
 	private PolygonData polygonData;
-	/**缓存的随机点		x			z*/
+	/** 缓存的随机点 x z */
 	private final Map<Integer, Map<Integer, List<Vector3>>> allRandomPointsInPath = new HashMap<>();
+	/** 缓存多边形 */
+	private QuadTree<Vector3, Polygon> quadTree;
 
 	public PolygonGraph(PolygonData polygonData, int scale) {
-		this.scale=scale;
+		this.scale = scale;
 		this.polygonData = polygonData;
 		this.polygonData.check(scale);
 		initCalculate(polygonData, scale);
@@ -51,14 +55,16 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	 * @param scale
 	 */
 	private void initCalculate(PolygonData polygonData, int scale) {
+		quadTree = new PolygonGuadTree(polygonData.getStartX()*scale, polygonData.getStartZ()*scale, polygonData.getEndX()*scale,
+				polygonData.getEndZ()*scale, (int) (polygonData.getWidth() / 50), 10);
 		createPolygons(polygonData, scale);
 		createPathRandomPoint();
 		calculateIndexConnections(polygonData.getPathPolygonIndexs());
 		sharedEdges = createSharedEdgesMap(indexConnections, polygons);
 		initPathRandomPoint();
-		
-		LOGGER.debug("地图：{} 多边形个数：{} 共享边：{}",polygonData.getMapID(),polygons.size(),indexConnections.size());
-		
+
+		LOGGER.debug("地图：{} 多边形个数：{} 共享边：{}", polygonData.getMapID(), polygons.size(), indexConnections.size());
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,19 +170,20 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					return true;
 
 				}
-				/** unity自带navmesh导出工具存在共享边包含关系(共享边存在三个顶点)，强制加成共享边 
-				*   TODO 能解决部分问，但是unity自带工具导出地图还存在找不到共边的其他问题 
-				**/
+				/**
+				 * unity自带navmesh导出工具存在共享边包含关系(共享边存在三个顶点)，强制加成共享边 TODO
+				 * 能解决部分问，但是unity自带工具导出地图还存在找不到共边的其他问题
+				 **/
 				else if (av1.equal(bv1, precision) && !av2.equal(bv0, precision)
 						&& Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv0.x, bv0.z) == 0) {
 					Vector3 dirVector1 = Vector3.dirVector(av1, av2);
 					Vector3 dirVector2 = Vector3.dirVector(av1, bv0);
 					edge[0] = av1;
 					edge[1] = av2;
-					if (dirVector1.len2() > dirVector2.len2()) {	//取内部点
+					if (dirVector1.len2() > dirVector2.len2()) { // 取内部点
 						edge[1] = bv0;
 					}
-					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {	//求单位向量判断相等，有问题，计算的为三维？
+					if (dirVector1.nor().equal(dirVector2.nor(), precision)) { // 求单位向量判断相等，有问题，计算的为三维？
 						return true;
 					}
 				} else if (!av1.equal(bv1, precision) && av2.equal(bv0, precision)
@@ -191,9 +198,10 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
 						return true;
 					}
-					
-					//逆序第一个顶点共顶点
-				}else if(av1.equal(bv2)&&!av2.equal(bv1)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv1.x, bv1.z)==0) {
+
+					// 逆序第一个顶点共顶点
+				} else if (av1.equal(bv2) && !av2.equal(bv1)
+						&& Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv1.x, bv1.z) == 0) {
 					Vector3 dirVector1 = Vector3.dirVector(av1, av2);
 					Vector3 dirVector2 = Vector3.dirVector(av1, bv1);
 					edge[0] = av1;
@@ -204,8 +212,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
 						return true;
 					}
-					//逆序第二个顶点共顶点
-				}else if(!av1.equal(bv2)&&av2.equal(bv1)&&Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv2.x, bv2.z)==0) {
+					// 逆序第二个顶点共顶点
+				} else if (!av1.equal(bv2) && av2.equal(bv1)
+						&& Vector3.relCCW(av1.x, av1.z, av2.x, av2.z, bv2.x, bv2.z) == 0) {
 					Vector3 dirVector1 = Vector3.dirVector(av2, av1);
 					Vector3 dirVector2 = Vector3.dirVector(av2, bv2);
 					edge[0] = av2;
@@ -216,8 +225,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 					if (dirVector1.nor().equal(dirVector2.nor(), precision)) {
 						return true;
 					}
-					//顺序
-				}else if(!av1.equal(bv1)&&av2.equal(bv2)&&Vector3.relCCW(av2.x, av2.z, av1.x, av1.z, bv1.x, bv1.z)==0) {
+					// 顺序
+				} else if (!av1.equal(bv1) && av2.equal(bv2)
+						&& Vector3.relCCW(av2.x, av2.z, av1.x, av1.z, bv1.x, bv1.z) == 0) {
 					Vector3 dirVector1 = Vector3.dirVector(av2, av1);
 					Vector3 dirVector2 = Vector3.dirVector(av2, bv1);
 					edge[0] = av2;
@@ -273,62 +283,62 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 			}
 
 			polygons.add(polygon);
-
+			quadTree.set(polygon.center, polygon);
 		}
-		
+
 		return polygons;
 	}
-	
+
 	/**
-	 * 创建多边形内的随机点
-	 * <br>
+	 * 创建多边形内的随机点 <br>
 	 * 未找到合适方法，先生成三角形，三角形生成随机点，判断点是在哪个多边形内
 	 */
 	public void createPathRandomPoint() {
 		int[] indexs = polygonData.getPathTriangles();
 		Vector3[] vertices = polygonData.getPathVertices();
-		for(int i=0;i<indexs.length;) {
-			Triangle triangle =new Triangle(vertices[indexs[i++]], vertices[indexs[i++]], vertices[indexs[i++]], i);
-			int count= (int)(triangle.area()/(this.scale*5))+1;
-			//TODO 分层问题？
-			Optional<Polygon> findAny = polygons.stream().filter(p->p.isInnerPoint(triangle.center)).findAny();
-			if(!findAny.isPresent()) {
+		for (int i = 0; i < indexs.length;) {
+			Triangle triangle = new Triangle(vertices[indexs[i++]], vertices[indexs[i++]], vertices[indexs[i++]], i);
+			int count = (int) (triangle.area() / (this.scale * 5)) + 1;
+			// TODO 分层问题？
+			Optional<Polygon> findAny = polygons.stream().filter(p -> p.isInnerPoint(triangle.center)).findAny();
+			if (!findAny.isPresent()) {
 				continue;
 			}
-			
-			for(int j=0;j<count;j++) {
+
+			for (int j = 0; j < count; j++) {
 				findAny.get().randomPoints.add(triangle.getRandomPoint(new Vector3()));
 			}
 		}
 	}
-	
+
 	/**
-	 * 初始化所有随机点
-	 * <br>以空间换时间
+	 * 初始化所有随机点 <br>
+	 * 以空间换时间
+	 * 
 	 * @param polygonGraph
 	 */
 	public void initPathRandomPoint() {
-		int count=0;
-		int x,z;
-		for(Polygon polygon:getPolygons()) {
-			for(Vector3 point:polygon.randomPoints) {
-				x=(int) point.x;
-				z=(int) point.z;
+		int count = 0;
+		int x, z;
+		for (Polygon polygon : getPolygons()) {
+			for (Vector3 point : polygon.randomPoints) {
+				x = (int) point.x;
+				z = (int) point.z;
 				Map<Integer, List<Vector3>> map = allRandomPointsInPath.get(x);
-				if(map==null) {
-					map=new HashMap<>();
+				if (map == null) {
+					map = new HashMap<>();
 					allRandomPointsInPath.put(x, map);
 				}
-				List<Vector3> list=map.get(z);
-				if(list==null) {
-					list=new ArrayList<>();
+				List<Vector3> list = map.get(z);
+				if (list == null) {
+					list = new ArrayList<>();
 					map.put(z, list);
 				}
 				list.add(point);
 				count++;
 			}
 		}
-		LOGGER.debug("地图：{} 随机点：{}",getPolygonData().getMapID(),count);
+		LOGGER.debug("地图：{} 随机点：{}", getPolygonData().getMapID(), count);
 	}
 
 	public PolygonData getPolygonData() {
@@ -338,12 +348,10 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	public List<Polygon> getPolygons() {
 		return polygons;
 	}
-	
 
 	public int getScale() {
 		return scale;
 	}
-	
 
 	public Map<Integer, Map<Integer, List<Vector3>>> getAllRandomPointsInPath() {
 		return allRandomPointsInPath;
@@ -402,4 +410,9 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 
 	}
 
+	public QuadTree<Vector3, Polygon> getQuadTree() {
+		return quadTree;
+	}
+
+	
 }

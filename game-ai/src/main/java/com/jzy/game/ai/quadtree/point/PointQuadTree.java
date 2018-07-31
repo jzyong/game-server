@@ -3,7 +3,6 @@ package com.jzy.game.ai.quadtree.point;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jzy.game.ai.quadtree.Data;
 import com.jzy.game.ai.quadtree.Func;
 import com.jzy.game.ai.quadtree.Node;
 import com.jzy.game.ai.quadtree.NodeType;
@@ -13,7 +12,7 @@ import com.jzy.game.engine.math.Vector3;
 
 /**
  * 点四叉树
- * 
+ * <br>一个象限只有一个点,不限深度，比较适合存储地图对象，如快速检测玩家和周围玩家或怪物的距离，是否碰撞
  * @author JiangZhiYong
  * @mail 359135103@qq.com
  */
@@ -390,20 +389,6 @@ public class PointQuadTree<V> extends QuadTree<Vector3, V> {
 		}
 	}
 
-	/**
-	 * 是否相交
-	 * 
-	 * @param left
-	 * @param bottom
-	 * @param right
-	 * @param top
-	 * @param node
-	 * @return
-	 */
-	private boolean intersects(double left, double bottom, double right, double top, Node<V> node) {
-		return !(node.getX() > right || (node.getX() + node.getW()) < left || node.getZ() > bottom
-				|| (node.getZ() + node.getH()) < top);
-	}
 
 	/**
 	 * 获取矩形内部数据

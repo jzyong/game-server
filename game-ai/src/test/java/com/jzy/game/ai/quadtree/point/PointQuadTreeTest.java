@@ -1,17 +1,15 @@
 package com.jzy.game.ai.quadtree.point;
 
-import org.junit.Test;
-
-import com.jzy.game.ai.quadtree.Data;
-import com.jzy.game.ai.quadtree.Node;
-import com.jzy.game.ai.quadtree.NodeType;
-import com.jzy.game.ai.quadtree.QuadTree;
-import com.jzy.game.ai.quadtree.point.PointQuadTree;
-import com.jzy.game.engine.math.Vector3;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.Test;
+
+import com.jzy.game.ai.quadtree.Node;
+import com.jzy.game.ai.quadtree.NodeType;
+import com.jzy.game.ai.quadtree.QuadTree;
+import com.jzy.game.engine.math.Vector3;
 
 /**
  * 点四叉树测试
