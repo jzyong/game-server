@@ -283,7 +283,11 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 			}
 
 			polygons.add(polygon);
-			quadTree.set(polygon.center, polygon);
+			try {
+				quadTree.set(polygon.center, polygon);
+			} catch (Exception e) {
+				LOGGER.error(String.format("地图%d 添加节点错误", polygonData.getMapID()),e);
+			}
 		}
 
 		return polygons;

@@ -18,7 +18,7 @@ import com.jzy.game.engine.util.TimeUtil;
  */
 public class PolygonNavMeshTest {
 //	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
-	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\101.navmesh";
+	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
     @Before
@@ -31,7 +31,7 @@ public class PolygonNavMeshTest {
     
     
     /**
-	 * <h3>2018-2-26 </h3>
+	 * <h3>2018-2 </h3>
 	 * <p>1.三角形个数260,短距离寻路10000次,{@link NodeNavMesh}平均耗时4900ms，{@link TriangleNavMesh}平均耗时200ms,{@link PolygonNavMesh}平均耗时：120ms</p>
 	 * <p>2.三角形个数296,长距离寻路10000次,{@link NodeNavMesh}平均耗时7386ms，{@link TriangleNavMesh}平均耗时723ms,{@link PolygonNavMesh}平均耗时：385ms</p>
 	 * <p>3.三角形个数789,短距离寻路10000次,{@link NodeNavMesh}平均耗时737ms，{@link TriangleNavMesh}平均耗时133ms,{@link PolygonNavMesh}平均耗时：110ms</p>
@@ -48,7 +48,8 @@ public class PolygonNavMeshTest {
 //            paths = navMesh.findPath(new Vector3(61,13,191), new Vector3(305,35,213),  pointPath);          //2
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(50,28,100),  pointPath);          //3
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f),  pointPath);     //4 
-            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f),  pointPath);     //5 
+//            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f),  pointPath);     //5 
+        	paths = navMesh.findPath(new Vector3(66f,70f,146f), new Vector3(232f,37f,186f),  pointPath);		//6
         }
         System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
         if(paths!=null) {
