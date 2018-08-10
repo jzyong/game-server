@@ -50,14 +50,17 @@ public class Polygon implements Shape {
 	public int[] vectorIndexs;
 	/** 和其他多边形的共享变 */
 	public transient List<Connection<Polygon>> connections;
-	/**预先生成的随机点*/
-	public List<Vector3> randomPoints=new ArrayList<>();
+	/** 预先生成的随机点 */
+	public List<Vector3> randomPoints = new ArrayList<>();
 
 	/**
 	 * 
-	 * @param index 寻路索引编号
-	 * @param points 坐标点
-	 * @param vectorIndexs 坐标顶点序号
+	 * @param index
+	 *            寻路索引编号
+	 * @param points
+	 *            坐标点
+	 * @param vectorIndexs
+	 *            坐标顶点序号
 	 */
 	public Polygon(int index, List<Vector3> points, int[] vectorIndexs) {
 		this.index = index;
@@ -70,7 +73,7 @@ public class Polygon implements Shape {
 	public Polygon(int index, Vector3... point) {
 		this(index, Arrays.asList(point), null);
 	}
-	
+
 	public Polygon(List<Vector3> points) {
 		this(0, points, null);
 	}
@@ -104,12 +107,14 @@ public class Polygon implements Shape {
 		}
 		float cx = 0.0f;
 		float cz = 0.0f;
+		float cy = 0.0f;
 		Vector3 pointIBefore = (!points.isEmpty() ? points.get(points.size() - 1) : null);
 		for (int i = 0; i < points.size(); i++) {
 			Vector3 pointI = points.get(i);
 			double multiplier = (pointIBefore.z * pointI.x - pointIBefore.x * pointI.z);
 			cx += (pointIBefore.x + pointI.x) * multiplier;
 			cz += (pointIBefore.z + pointI.z) * multiplier;
+			cy += pointI.y;
 			pointIBefore = pointI;
 		}
 		cx /= (6 * getArea());
@@ -120,6 +125,7 @@ public class Polygon implements Shape {
 		}
 		center.x = cx;
 		center.z = cz;
+		center.y = cy / points.size();
 	}
 
 	/**
@@ -214,30 +220,30 @@ public class Polygon implements Shape {
 	}
 
 	/**
-	 * 坐标点是否在多边形内部
-	 * <br>
+	 * 坐标点是否在多边形内部 <br>
 	 * 在多边形边上返回false，顶点为true
+	 * 
 	 * @param point
 	 * @return
 	 */
 	public boolean isInnerPoint(Vector3 point) {
 		return Intersector.isPointInPolygon(points, point);
 	}
-	
+
 	/**
 	 * 点是否在多边形上
+	 * 
 	 * @param point
 	 * @return
 	 */
 	public boolean isOnEdge(Vector3 point) {
-		for(int i=0;i<points.size();i++) {
-			if(Vector3.isPointOnSegment(points.get(i), points.get((i+1)%points.size()), point)) {
+		for (int i = 0; i < points.size(); i++) {
+			if (Vector3.isPointOnSegment(points.get(i), points.get((i + 1) % points.size()), point)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
 
 	/**
 	 * 是否包含另外一个多边形
@@ -258,7 +264,9 @@ public class Polygon implements Shape {
 
 	/**
 	 * 坐标点是否在多边形内部
-	 * <p>比{@code isInnerPoint}速度慢
+	 * <p>
+	 * 比{@code isInnerPoint}速度慢
+	 * 
 	 * @param p
 	 * @return
 	 */
@@ -298,8 +306,6 @@ public class Polygon implements Shape {
 				+ radiusSq + ", vectorIndexs=" + Arrays.toString(vectorIndexs) + "]";
 	}
 
-	
-	
 	@Override
 	public Rectangle getBounds() {
 		throw new UnsupportedOperationException();
@@ -362,7 +368,7 @@ public class Polygon implements Shape {
 	}
 
 	public String print() {
-		StringBuilder sb=new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		sb.append("\r\n");
 		sb.append("序号:" + index);
 		sb.append("\r\n");

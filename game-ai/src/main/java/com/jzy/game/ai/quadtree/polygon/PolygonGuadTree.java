@@ -96,8 +96,10 @@ public class PolygonGuadTree extends QuadTree<Vector3, Polygon> {
 		float minDistance = Byte.MAX_VALUE;
 		Polygon p = defaultValue;
 		for (Polygon polygon : polygons) {
-			if (Math.abs(polygon.center.y - position.y) < minDistance) {
+			float distance = Math.abs(polygon.center.y - position.y);
+			if (distance < minDistance) {
 				p = polygon;
+				minDistance = distance;
 			}
 		}
 		return p;
@@ -221,7 +223,8 @@ public class PolygonGuadTree extends QuadTree<Vector3, Polygon> {
 		node.setNodeType(NodeType.LEAF);
 		node.getDatas().add(point);
 		realCount++;
-//		LOGGER.debug("多边形{} 加入节点深度{}，个数{}", point.getValue().getIndex(), node.getDepth(), node.getDatas().size());
+		// LOGGER.debug("多边形{} 加入节点深度{}，个数{}", point.getValue().getIndex(),
+		// node.getDepth(), node.getDatas().size());
 	}
 
 	/**
@@ -354,8 +357,8 @@ public class PolygonGuadTree extends QuadTree<Vector3, Polygon> {
 
 	/**
 	 * 获取以当前坐标为中心，半径为radius的正方形相交的多边形 <br>
-	 * 可以用于将进入阻挡区的对象移动到附近行走区
-	 * <br>
+	 * 可以用于将进入阻挡区的对象移动到附近行走区 <br>
+	 * 
 	 * @note 非常耗时
 	 * @param radius
 	 *            坐标半径范围

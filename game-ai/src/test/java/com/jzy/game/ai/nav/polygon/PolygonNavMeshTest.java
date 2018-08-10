@@ -18,7 +18,7 @@ import com.jzy.game.engine.util.TimeUtil;
  */
 public class PolygonNavMeshTest {
 //	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
-	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
+	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\110.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
     @Before
@@ -62,18 +62,16 @@ public class PolygonNavMeshTest {
      */
     @Test
     public void testFindPath() {
-        PolygonGraphPath path=new PolygonGraphPath();
-//        navMesh.findPath(new Vector3(104, 138), new Vector3(190, 125), path);
-        navMesh.findPath(new Vector3(104, 138), new Vector3(212.0f,232.0f), path);
-//        navMesh.findPath(new Vector3(104, 138), new Vector3(266,155), path);  //失败，多边形有共享边未联通
-        if(path.nodes!=null) {
-            path.nodes.stream().filter(p->p!=null).forEach(p->{
-                PolygonEdge polygonEdge=(PolygonEdge)p;
-                System.err.println(polygonEdge.fromNode.index);
-            });
-        }
+//        PolygonGraphPath path=new PolygonGraphPath();
+//        navMesh.findPath(new Vector3(104, 138), new Vector3(212.0f,232.0f), path);
+//        if(path.nodes!=null) {
+//            path.nodes.stream().filter(p->p!=null).forEach(p->{
+//                PolygonEdge polygonEdge=(PolygonEdge)p;
+//                System.err.println(polygonEdge.fromNode.index);
+//            });
+//        }
         PolygonPointPath pointPath=new PolygonPointPath();
-        List<Vector3> paths = navMesh.findPath(new Vector3(104, 138), new Vector3(212.0f,232.0f), pointPath);
+        List<Vector3> paths = navMesh.findPath(new Vector3(168.7f,25.3f, 197.4f), new Vector3(159.7f,25.4f,199.2f), pointPath);
         if(paths!=null) {
             paths.forEach(p->System.out.println(p.toString()));
         }
