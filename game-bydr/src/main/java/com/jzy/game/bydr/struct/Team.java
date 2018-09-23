@@ -33,7 +33,7 @@ public class Team {
 	@JSONField(serialize=true)
 	private int rank;
 	
-	/**级别*/
+	/**队员集合*/
 	@JSONField(serialize=true)
 	private Set<Long> roleIds=new ConcurrentHashSet<>();
 	

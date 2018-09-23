@@ -18,7 +18,7 @@ import com.jzy.game.model.constant.Config;
 import com.jzy.game.model.redis.key.GateKey;
 
 /**
- * 大厅服务器
+ * 网关服务器
  *
  * @author JiangZhiYong
  * @date 2017-03-30 QQ:359135103
