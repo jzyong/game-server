@@ -41,7 +41,7 @@ public class RoomExecutor extends ExecutorPool {
 
 			Role role = RoleManager.getInstance().getRole(handler.getRid());
 			if (role == null) {
-				LOGGER.warn("角色{}为在线", handler.getRid());
+				LOGGER.warn("角色{}不在线", handler.getRid());
 				return;
 			}
 			handler.setPerson(role);
