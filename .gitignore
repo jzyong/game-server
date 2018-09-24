@@ -4,38 +4,24 @@
 *.navmesh
 
 
-# ide工具文件
+# Eclipse project files
 .classpath
 .project
 .settings
+
+# IntelliJ IDEA project files and directories
 /.idea/
+*.iml
+ *.ipr
+ *.iws
+ .idea/
 
-
-# 项目文件
+# 运行时日志
 /log/
-/target/
-/game-ai/target/
-/game-billing/target/
-/game-billing-scripts/target/
-/game-bydr/target/
-/game-bydr-scripts/target/
-/game-bydr-world/target/
-/game-bydr-world-scripts/target/
-/game-cluster/target/
-/game-cluster-scripts/target/
-/game-config/target/
-/game-engine/target/
-/game-gate/target/
-/game-gate-scripts/target/
-/game-hall/target/
-/game-hall-scripts/target/
-/game-log/target/
-/game-log-scripts/target/
-/game-manage/target/
-/game-maven-plugin/target/
-/game-message/target/
-/game-model/target/
-/game-tool/target/
-/game-tool-scripts/target/
-/game-zookeeper/target/
-/jedis/target/
+
+# Build targets
+/target
+*/target
+
+# Mac-specific directory that no other operating system needs.
+ .DS_Store
