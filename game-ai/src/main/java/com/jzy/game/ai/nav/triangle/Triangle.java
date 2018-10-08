@@ -70,7 +70,7 @@ public class Triangle implements Shape{
 		float y = reference.y;
 		float z = reference.z;
 		Vector3 normal = reference;
-		normal.set(a).sub(b).crs(b.x - c.x, b.y - c.y, b.z - c.z).nor();
+		normal.set(a).sub(b).cross(b.x - c.x, b.y - c.y, b.z - c.z).nor();
 		float angle = (float) Math.acos(normal.dot(x, y, z) / (normal.len() * Math.sqrt(x * x + y * y + z * z)));
 		reference.set(x, y, z);
 		return angle;

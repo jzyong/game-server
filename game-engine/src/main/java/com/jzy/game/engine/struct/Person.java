@@ -19,6 +19,8 @@ import reactor.rx.broadcast.BehaviorBroadcaster;
 
 /**
  * 人物
+ * <br>
+ * TODO 组合替换继承
  * 
  * @author JiangZhiYong
  * @QQ 359135103 2017年7月26日 下午1:40:11

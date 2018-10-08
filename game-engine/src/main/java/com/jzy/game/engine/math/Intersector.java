@@ -499,7 +499,7 @@ public final class Intersector {
 		Vector3 edge1 = v0.set(t2).sub(t1);
 		Vector3 edge2 = v1.set(t3).sub(t1);
 
-		Vector3 pvec = v2.set(ray.direction).crs(edge2);
+		Vector3 pvec = v2.set(ray.direction).cross(edge2);
 		float det = edge1.dot(pvec);
 		if (MathUtil.isZero(det)) {
 			p.set(t1, t2, t3);
@@ -518,7 +518,7 @@ public final class Intersector {
 		if (u < 0.0f || u > 1.0f)
 			return false;
 
-		Vector3 qvec = tvec.crs(edge1);
+		Vector3 qvec = tvec.cross(edge1);
 		float v = ray.direction.dot(qvec) * det;
 		if (v < 0.0f || u + v > 1.0f)
 			return false;

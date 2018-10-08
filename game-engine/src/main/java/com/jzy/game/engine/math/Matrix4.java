@@ -1135,8 +1135,8 @@ public class Matrix4 implements Serializable {
 	public Matrix4 setToLookAt(Vector3 direction, Vector3 up) {
 		l_vez.set(direction).nor();
 		l_vex.set(direction).nor();
-		l_vex.crs(up).nor();
-		l_vey.set(l_vex).crs(l_vez).nor();
+		l_vex.cross(up).nor();
+		l_vey.set(l_vex).cross(l_vez).nor();
 		idt();
 		val[M00] = l_vex.x;
 		val[M01] = l_vex.y;
@@ -1180,8 +1180,8 @@ public class Matrix4 implements Serializable {
 
 	public Matrix4 setToWorld(Vector3 position, Vector3 forward, Vector3 up) {
 		tmpForward.set(forward).nor();
-		right.set(tmpForward).crs(up).nor();
-		tmpUp.set(right).crs(tmpForward).nor();
+		right.set(tmpForward).cross(up).nor();
+		tmpUp.set(right).cross(tmpForward).nor();
 
 		this.set(right, tmpUp, tmpForward.scl(-1), position);
 		return this;
