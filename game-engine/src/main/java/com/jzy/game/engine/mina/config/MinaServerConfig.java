@@ -50,7 +50,7 @@ public class MinaServerConfig extends BaseServerConfig {
     private int writerIdleTime = 120;
 
     @Element(required = false)
-    private int soLinger = 0;
+    private int soLinger;
 
     // 服务器类型
     @Element(required = false)
@@ -77,7 +77,7 @@ public class MinaServerConfig extends BaseServerConfig {
     }
 
     public String getUrl() {
-        return this.url;
+        return url;
     }
 
     public void setUrl(String url) {

@@ -23,7 +23,7 @@ import io.netty.channel.Channel;
  * @date 2017-04-01 QQ:359135103
  */
 public class ServerInfo {
-	private final static Logger log = LoggerFactory.getLogger(ServerInfo.class);
+	private static final Logger log = LoggerFactory.getLogger(ServerInfo.class);
 
 	private static final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
 	// 服务器ID
@@ -38,7 +38,7 @@ public class ServerInfo {
 	// 端口
 	private int port;
 	// 当前状态 1表示维护；0表示正常
-	private int state = 0;
+	private int state;
 	// http端口
 	private int httpPort;
 	// 最大用户人数
@@ -152,7 +152,7 @@ public class ServerInfo {
 	@JSONField(serialize = false)
 	public Channel getChannel() {
 		if (channel == null || !channel.isActive()) {
-			this.channel = getMostIdleChannel();
+			channel = getMostIdleChannel();
 		}
 		return channel;
 	}
@@ -165,7 +165,7 @@ public class ServerInfo {
 	@JSONField(serialize = false)
 	public IoSession getSession() {
 		if (session == null || !session.isActive()) {
-			this.session = getMostIdleIoSession();
+			session = getMostIdleIoSession();
 		}
 		return session;
 	}

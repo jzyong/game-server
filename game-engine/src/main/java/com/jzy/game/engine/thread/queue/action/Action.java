@@ -16,7 +16,7 @@ public abstract class Action implements Runnable {
 	/**
 	 * 队列
 	 */
-	private IActionQueue<Action, DelayAction> queue;
+	private final IActionQueue<Action, DelayAction> queue;
 	/**
 	 * 创建时间
 	 */
@@ -40,10 +40,10 @@ public abstract class Action implements Runnable {
 				long interval = end - start;
 				long leftTime = end - createTime;
 				if (interval >= 1000) {
-					LOGGER.warn("execute action : " + this.toString() + ", interval : " + interval + ", leftTime : " + leftTime + ", size : " + queue.getActionQueue().size());
+					LOGGER.warn("execute action : " + toString() + ", interval : " + interval + ", leftTime : " + leftTime + ", size : " + queue.getActionQueue().size());
 				}
 			} catch (Exception e) {
-				LOGGER.error("run action execute exception. action : " + this.toString(), e);
+				LOGGER.error("run action execute exception. action : " + toString(), e);
 			} finally {
 				queue.dequeue(this);
 			}

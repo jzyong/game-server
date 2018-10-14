@@ -32,7 +32,7 @@ public class HttpServer implements Runnable {
 
 	private final HttpServerIoHandler ioHandler;
 
-	protected boolean isRunning = false;	//通信是否在运行
+	protected boolean isRunning;	//通信是否在运行
 	private OrderedThreadPoolExecutor threadpool;	//默认线程池
 
 	public HttpServer(MinaServerConfig minaServerConfig, HttpServerIoHandler ioHandler) {
@@ -108,7 +108,7 @@ public class HttpServer implements Runnable {
 				acceptor.bind(new InetSocketAddress(minaServerConfig.getHttpPort()));
 				LOG.warn("已开始监听HTTP端口：{}", minaServerConfig.getHttpPort());
 			} catch (IOException e) {
-				SysUtil.exit(this.getClass(), e, "监听HTTP端口：{}已被占用", minaServerConfig.getHttpPort());
+				SysUtil.exit(getClass(), e, "监听HTTP端口：{}已被占用", minaServerConfig.getHttpPort());
 			}
 		}
 	}

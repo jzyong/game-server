@@ -11,7 +11,7 @@ import org.simpleframework.xml.Element;
 public class Config {
 	private static final Object obj = new Object();
 	/** ID计数器 */
-	private static long id = 0;
+	private static long id;
 
 	// =============常量 begin============
 

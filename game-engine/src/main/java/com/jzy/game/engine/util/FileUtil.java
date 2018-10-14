@@ -18,9 +18,12 @@ import org.simpleframework.xml.core.Persister;
 /**
  *文件工具
  */
-public class FileUtil {
+public final class FileUtil {
 
-    private final static Logger log = LoggerFactory.getLogger(FileUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
+
+    private FileUtil() {
+    }
 
     /**
      * 循环扫描,获得文件
@@ -131,7 +134,7 @@ public class FileUtil {
      * @param configClass
      * @return
      */
-    public static <T extends Object> T getConfigXML(String path, String fileName, Class<T> configClass) {
+    public static <T> T getConfigXML(String path, String fileName, Class<T> configClass) {
         T ob = null;
         fileName = path + File.separatorChar + fileName;
         if (!new File(fileName).exists()) {

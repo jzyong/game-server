@@ -39,7 +39,7 @@ public class Item {
 	private Date createTime;
 
 	public Item() {
-		this.id = Config.getId();
+        id = Config.getId();
 	}
 
 	public long getId() {
@@ -82,6 +82,6 @@ public class Item {
 
 	public void saveToRedis(long roleId) {
 		String key = HallKey.Role_Map_Packet.getKey(roleId);
-		JedisManager.getJedisCluster().hset(key, String.valueOf(this.id), JsonUtil.toJSONString(this));
+		JedisManager.getJedisCluster().hset(key, String.valueOf(id), JsonUtil.toJSONString(this));
 	}
 }

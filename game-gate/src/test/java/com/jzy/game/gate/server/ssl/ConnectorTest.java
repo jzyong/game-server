@@ -48,7 +48,7 @@ import com.jzy.game.gate.server.ssl.GateSslContextFactory;
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
 public class ConnectorTest extends AbstractTest {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ConnectorTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectorTest.class);
 
     private static final int TIMEOUT = 10000; // 10 seconds
 

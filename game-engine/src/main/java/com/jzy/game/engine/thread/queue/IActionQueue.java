@@ -18,32 +18,32 @@ public interface IActionQueue<T extends Action, E extends DelayAction> {
 	 * 
 	 * @param delayAction
 	 */
-	public void enDelayQueue(E delayAction);
+    void enDelayQueue(E delayAction);
 
 	/**
 	 * 清空队列
 	 */
-	public void clear();
+    void clear();
 
 	/**
 	 * 获取队列
 	 * 
 	 * @return
 	 */
-	public Queue<T> getActionQueue();
+    Queue<T> getActionQueue();
 
 	/**
 	 * 入队
 	 * 
 	 * @param action
 	 */
-	public void enqueue(T action);
+    void enqueue(T action);
 
 	/**
 	 * 出队
 	 * 
 	 * @param cmd
 	 */
-	public void dequeue(T action);
+    void dequeue(T action);
 
 }

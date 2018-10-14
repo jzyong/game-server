@@ -6,7 +6,7 @@ package com.jzy.game.model.constant;
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月30日 下午2:57:34
  */
-public class NetPort {
+public final class NetPort {
 
 	/** 集群Tcp端口 */
 	public static int CLUSTER_PORT = 8000;
@@ -16,7 +16,7 @@ public class NetPort {
 	/** 网关用户Tcp端口 */
 	public static int GATE_USER_PORT = 8002;
 	/** 网关游戏 tcp端口 (固定死) */
-	public static int GATE_GAME_PORT = 8003;
+	public static final int GATE_GAME_PORT = 8003;
 	/** 网关用户UPD端口 */
 	public static int GATE_USER_UDP_PORT = 8004;
 	/** 网关用户HTTP端口 */
@@ -33,4 +33,7 @@ public class NetPort {
 	public static int GAME_BYDR_PORT = 9001;
 	/**捕鱼达人世界服*/
 	public static int GAME_BYDR_WORLD_HTTP_PORT = 9992;
+
+    private NetPort() {
+    }
 }

@@ -32,14 +32,14 @@ public abstract class TimerEvent implements Runnable {
 	}
 
 	public long remain() {
-		if (this.end == 0 || loop < 0) {
+		if (end == 0 || loop < 0) {
 			return 0;
 		}
-		return this.end - System.currentTimeMillis();
+		return end - System.currentTimeMillis();
 	}
 
 	public long getEnd() {
-		return this.end;
+		return end;
 	}
 
 	public void setEnd(long end) {
@@ -47,7 +47,7 @@ public abstract class TimerEvent implements Runnable {
 	}
 
 	public int getLoop() {
-		return this.loop;
+		return loop;
 	}
 
 	public void setLoop(int loop) {

@@ -21,17 +21,16 @@ public class UserSessionManager {
 	private static volatile UserSessionManager userSessionManager;
 
 	/** 用户session key：sessionID */
-	private Map<Long, UserSession> allSessions = new ConcurrentHashMap<>();
+	private final Map<Long, UserSession> allSessions = new ConcurrentHashMap<>();
 
 	/** 用户session key：userID */
-	private Map<Long, UserSession> userSessions = new ConcurrentHashMap<>();
+	private final Map<Long, UserSession> userSessions = new ConcurrentHashMap<>();
 
 	/** 用户session key：roleID */
-	private Map<Long, UserSession> roleSessions = new ConcurrentHashMap<>();
+	private final Map<Long, UserSession> roleSessions = new ConcurrentHashMap<>();
 
 	private UserSessionManager() {
-		super();
-	}
+    }
 
 	public static UserSessionManager getInstance() {
 		if (userSessionManager == null) {
@@ -103,7 +102,7 @@ public class UserSessionManager {
 	 * @param msg
 	 */
 	public void  broadcast(Message msg) {
-		this.allSessions.values().forEach(session ->session.sendToClient(msg));
+        allSessions.values().forEach(session ->session.sendToClient(msg));
 	}
 	
 	/**

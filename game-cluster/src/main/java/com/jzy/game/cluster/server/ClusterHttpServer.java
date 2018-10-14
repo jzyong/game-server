@@ -70,7 +70,7 @@ class ClusterHttpServerHandler extends HttpServerIoHandler {
 	// private static final Logger log =
 	// LoggerFactory.getLogger(ClusterHttpServerHandler.class);
 
-	private Service<MinaServerConfig> service;
+	private final Service<MinaServerConfig> service;
 
 	public ClusterHttpServerHandler(Service<MinaServerConfig> service) {
 		this.service = service;

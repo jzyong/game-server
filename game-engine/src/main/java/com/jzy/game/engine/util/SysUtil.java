@@ -24,13 +24,16 @@ import org.slf4j.LoggerFactory;
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
  */
-public class SysUtil {
+public final class SysUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(SysUtil.class);
 	private static final Runtime RUNTIME = Runtime.getRuntime();
 	private static final int MB_NUM = 1024 * 1024;
 
-	/**
+    private SysUtil() {
+    }
+
+    /**
 	 * 关闭服务
 	 * 
 	 * @param cls
@@ -164,8 +167,8 @@ public class SysUtil {
 //			sb.append(i).append("虚拟机已检测到内存使用量达到或超过回收使用量阈值的次数:   ").append(b.getCollectionUsageThresholdCount()).append(spliteStr);
 			sb.append(i).append("内存池管理器名称:   ").append(b.getMemoryManagerNames().toString()).append(spliteStr);
 			sb.append(i).append("内存池名称:   ").append(b.getName()).append(spliteStr);
-			sb.append(i).append("内存使用峰值:   ").append(b.getPeakUsage().toString()).append(spliteStr);
-			sb.append(i).append("内存池类型:   ").append(b.getType().toString()).append(spliteStr);
+			sb.append(i).append("内存使用峰值:   ").append(b.getPeakUsage()).append(spliteStr);
+			sb.append(i).append("内存池类型:   ").append(b.getType()).append(spliteStr);
 			sb.append(i).append("内存池使用量:   ").append(b.getUsage()).append(spliteStr);
 //			sb.append(i).append("内存使用量阀值:   ").append(b.getUsageThreshold()).append(spliteStr);
 //			sb.append(i).append("超过阀值次数:   ").append(b.getUsageThresholdCount()).append(spliteStr);
@@ -205,7 +208,7 @@ public class SysUtil {
 		StringBuilder sb = new StringBuilder();
 		ThreadInfo[] threads = bean.dumpAllThreads(false, false);
 		for(ThreadInfo thread:threads) {
-			sb.append("线程信息:   ").append(thread.toString()).append(spliteStr);
+			sb.append("线程信息:   ").append(thread).append(spliteStr);
 		}
 		sb.append("活动守护线程数目:   ").append(bean.getDaemonThreadCount()).append(spliteStr);
 		sb.append("峰值线程数:   ").append(bean.getPeakThreadCount()).append(spliteStr);

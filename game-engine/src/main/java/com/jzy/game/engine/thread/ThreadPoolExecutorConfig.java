@@ -34,7 +34,7 @@ public class ThreadPoolExecutorConfig {
 
 	// 心跳间隔（大于0开启定时监测线程）
 	@Element(required = false)
-	private int heart = 0;
+	private int heart;
 
 	// 缓存命令数
 	@Element(required = false)

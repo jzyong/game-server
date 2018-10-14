@@ -39,13 +39,13 @@ public abstract class HttpHandler implements IHandler {
 
 	@Override
 	public HttpRequestImpl getMessage() { // HttpRequestImpl
-		return (HttpRequestImpl) this.request;
+		return (HttpRequestImpl) request;
 	}
 
 	@Override
 	public void setMessage(Object message) {
 		if (message instanceof HttpRequestImpl) {
-			this.request = (HttpRequestImpl) message;
+            request = (HttpRequestImpl) message;
 		}
 	}
 
@@ -54,10 +54,10 @@ public abstract class HttpHandler implements IHandler {
 	 */
 	@Override
 	public HttpResponseImpl getParameter() {
-		if (this.response == null) {
-			this.response = new HttpResponseImpl();
+		if (response == null) {
+            response = new HttpResponseImpl();
 		}
-		return this.response;
+		return response;
 	}
 
 	/**
@@ -66,13 +66,13 @@ public abstract class HttpHandler implements IHandler {
 	@Override
 	public void setParameter(Object parameter) {
 		// if (parameter instanceof HttpResponseMessage) {
-		this.response = (HttpResponseImpl) parameter;
+        response = (HttpResponseImpl) parameter;
 		// }
 	}
 
 	@Override
 	public long getCreateTime() {
-		return this.createTime;
+		return createTime;
 	}
 
 	@Override
@@ -107,8 +107,8 @@ public abstract class HttpHandler implements IHandler {
 	 */
 	public void responseWithStatus() {
 		if (response != null) {
-			if (this.response.bodyLength() < 1) {
-				this.response.appendBody(this.response.getStatus().line());
+			if (response.bodyLength() < 1) {
+                response.appendBody(response.getStatus().line());
 			}
 			session.write(response);
 		} else {

@@ -21,14 +21,14 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * 2017年8月29日 上午10:00:27
 	 * @param serverId
 	 */
-	public void removeTcpClient(int serverId);
+    void removeTcpClient(int serverId);
 	
 	/**
 	 * 添加连接服务器
 	 * 
 	 * @param serverInfo
 	 */
-	public void addTcpClient(ServerInfo serverInfo, int port) ;
+    void addTcpClient(ServerInfo serverInfo, int port) ;
 	
 	/**
 	 * 服务器列表
@@ -37,12 +37,12 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * 2017年8月29日 上午10:06:41
 	 * @return
 	 */
-	public Map<Integer, ServerInfo> getServers();
+    Map<Integer, ServerInfo> getServers();
 	
 	/**
 	 * 监测连接状态
 	 */
-	public void checkStatus();
+    void checkStatus();
 	
 	/**
 	 * 广播所有服务器消息：注意，这里并不是向每个session广播，因为有可能有多个连接到同一个服务器
@@ -66,7 +66,7 @@ public interface IMutilTcpClientService<T extends BaseServerConfig> extends Runn
 	 * @param msg
 	 * @return
 	 */
-	public boolean sendMsg(Integer serverId, Object msg);
+    boolean sendMsg(Integer serverId, Object msg);
 	
 	
 }

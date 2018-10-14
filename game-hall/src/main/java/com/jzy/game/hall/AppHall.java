@@ -16,13 +16,16 @@ import com.jzy.game.hall.server.HallServer;
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月28日 上午11:30:49
  */
-public class AppHall {
+public final class AppHall {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppHall.class);
 	private static String configPath;
 	protected static JedisManager redisManager;
 	private static HallServer bydrServer;
 
-	public static void main(String[] args) {
+    private AppHall() {
+    }
+
+    public static void main(String[] args) {
 		initConfigPath();
 		// redis
 		redisManager = new JedisManager(configPath);

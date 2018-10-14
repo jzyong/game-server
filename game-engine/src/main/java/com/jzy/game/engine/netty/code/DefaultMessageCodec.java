@@ -29,8 +29,7 @@ public class DefaultMessageCodec extends ByteToMessageCodec<Object> {
 	 * 消息头长度默认12 角色ID+消息ID
 	 */
 	public DefaultMessageCodec() {
-		super();
-	}
+    }
 	
 	/**
 	 * 

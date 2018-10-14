@@ -21,12 +21,12 @@ import com.jzy.game.engine.script.ScriptManager;
 public class MQConsumer extends MQService implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MQConsumer.class);
 
-	private String queueName; // 队列名称
+	private final String queueName; // 队列名称
 	private boolean connected; // 是否连接
 
 	public MQConsumer(MQConfig mqConfig) {
 		super(mqConfig);
-		this.queueName = mqConfig.getQueueName();
+        queueName = mqConfig.getQueueName();
 	}
 
 	public MQConsumer(String configPath, String queueName) {
@@ -44,14 +44,14 @@ public class MQConsumer extends MQService implements Runnable {
 					Connection conn = getConnection();
 					if (conn == null) {
 						LOGGER.error("启动MQ失败，获取连接失败");
-						this.connected = false;
+                        connected = false;
 						Thread.sleep(3000);
 						break;
 					}
 					conn.start();
 					Session session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-					consumer = session.createConsumer(new ActiveMQQueue(this.queueName));
-					this.connected = true;
+					consumer = session.createConsumer(new ActiveMQQueue(queueName));
+                    connected = true;
 				} else if (consumer != null) { // 接收消息
 					Message msg = consumer.receive();
 					if (msg == null) {
@@ -70,14 +70,14 @@ public class MQConsumer extends MQService implements Runnable {
 				}
 			} catch (Exception e) {
 				LOGGER.error("消息接收", e);
-				this.closeConnection();
-				this.connected = false;
+                closeConnection();
+                connected = false;
 			}
 		}
 	}
 	
 	public void stop(){
-		this.closeConnection();
+        closeConnection();
 	}
 
 }

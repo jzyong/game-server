@@ -77,7 +77,7 @@ public class Cooldown implements IMemoryObject, Serializable {
 	 * @param t
 	 */
 	@JSONField(serialize = false)
-	public <T extends Object> void coolingFinsh(Consumer<T> consumer, T t) {
+	public <T> void coolingFinsh(Consumer<T> consumer, T t) {
 		if (getRemainTime() <= 0) {
 			if (consumer != null) {
 				consumer.accept(t);
@@ -98,10 +98,10 @@ public class Cooldown implements IMemoryObject, Serializable {
 	@JSONField(serialize = false)
 	@Override
 	public void reset() {
-		this.setKey(null);
-		this.setType(null);
-		this.setStart(0);
-		this.setDelay(0);
+		setKey(null);
+		setType(null);
+		setStart(0);
+		setDelay(0);
 	}
 
 	@JSONField(serialize = false)

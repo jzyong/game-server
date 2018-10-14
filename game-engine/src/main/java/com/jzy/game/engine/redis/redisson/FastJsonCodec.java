@@ -32,8 +32,7 @@ public class FastJsonCodec implements Codec {
 	private Class<?> valueClass;
 
 	public FastJsonCodec(Class<?> valueClass) {
-		super();
-		this.valueClass = valueClass;
+        this.valueClass = valueClass;
 	}
 
 	/**
@@ -44,14 +43,12 @@ public class FastJsonCodec implements Codec {
 	 *            value对象类型
 	 */
 	public FastJsonCodec(Class<?> keyClass, Class<?> valueClass) {
-		super();
-		this.keyClass = keyClass;
+        this.keyClass = keyClass;
 		this.valueClass = valueClass;
 	}
 
 	public FastJsonCodec() {
-		super();
-	}
+    }
 
 	private final Encoder encoder = new Encoder() {
 		@Override

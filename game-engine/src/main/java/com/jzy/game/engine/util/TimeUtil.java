@@ -22,34 +22,37 @@ import org.slf4j.Logger;
  * 时间
  *
  */
-public class TimeUtil {
+public final class TimeUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TimeUtil.class);
 
     /**
      * yyyy-MM-dd HH:mm:ss
      */
-    public final static DateTimeFormatter YYYYMMDDHHMMSS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withLocale(Locale.getDefault());
+    public static final DateTimeFormatter YYYYMMDDHHMMSS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withLocale(Locale.getDefault());
 
     /**
      * yyyy-MM-dd HH:mm
      */
-    public final static DateTimeFormatter YYYYMMDDHHMM = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter YYYYMMDDHHMM = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * yyyy-MM-dd HH
      */
-    public final static DateTimeFormatter YYYYMMDDHH = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
+    public static final DateTimeFormatter YYYYMMDDHH = DateTimeFormatter.ofPattern("yyyy-MM-dd HH");
 
     /**
      * yyyy-MM-dd
      */
-    public final static DateTimeFormatter YYYYMMDD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter YYYYMMDD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
      * 服务器时间偏移量
      */
-    private static long timeOffset = 0;//86400000
+    private static long timeOffset;//86400000
+
+    private TimeUtil() {
+    }
 
     /**@
      * 返回按格式要求的文本，如yyyy-MM-dd HH:mm:ss

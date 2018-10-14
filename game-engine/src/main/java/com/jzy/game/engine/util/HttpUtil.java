@@ -29,8 +29,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author JiangZhiYong
  */
-public class HttpUtil {
+public final class HttpUtil {
     private static final Logger LOGGER=LoggerFactory.getLogger(HttpUtil.class);
+
+    private HttpUtil() {
+    }
 
     public static ByteArrayOutputStream URLPost(String strUrl, String content) throws IOException {
         return URLPost(strUrl, null, content.getBytes("UTF-8"));
@@ -87,7 +90,7 @@ public class HttpUtil {
                 }
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
         } finally {
             if (null != con) {
                 con.disconnect();
@@ -149,7 +152,7 @@ public class HttpUtil {
 
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
         } finally {
             con.disconnect();
             if(is!=null){
@@ -189,7 +192,7 @@ public class HttpUtil {
 
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            LOGGER.error(ex.getMessage(), ex);
         } finally {
             con.disconnect();
             is.close();
@@ -227,12 +230,12 @@ public class HttpUtil {
 				response.close();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		} finally {
 			try {
 				httpclient.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.error(e.getMessage(), e);
 			}
 		}
 //		System.out.println("responseContent = " + responseContent);

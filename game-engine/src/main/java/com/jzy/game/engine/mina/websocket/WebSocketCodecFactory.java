@@ -15,8 +15,8 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  * @author DHRUV CHOPRA
  */
 public class WebSocketCodecFactory implements ProtocolCodecFactory{
-    private ProtocolEncoder encoder;
-    private ProtocolDecoder decoder;
+    private final ProtocolEncoder encoder;
+    private final ProtocolDecoder decoder;
 
     public WebSocketCodecFactory() {
             encoder = new WebSocketEncoder();

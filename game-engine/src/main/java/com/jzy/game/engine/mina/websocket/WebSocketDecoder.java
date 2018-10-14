@@ -43,7 +43,7 @@ public class WebSocketDecoder extends CumulativeProtocolDecoder{
         else if(session.containsAttribute(WebSocketUtils.SessionAttribute) && true==(Boolean)session.getAttribute(WebSocketUtils.SessionAttribute)){            
             // there is incoming data from the websocket. Decode and send to handler or next filter.     
             int startPos = in.position();
-            resultBuffer = WebSocketDecoder.buildWSDataBuffer(in, session);
+            resultBuffer = buildWSDataBuffer(in, session);
             if(resultBuffer == null){
                 // There was not enough data in the buffer to parse. Reset the in buffer
                 // position and wait for more data before trying again.

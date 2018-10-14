@@ -18,18 +18,18 @@ public class TcpClient2 {
 
 	SocketChannel socketChannel;
 
-	private String hostIp;
+	private final String hostIp;
 
-	private int hostListenningPort;
-	String imei;
+	private final int hostListenningPort;
+	final String imei;
 
 	public TcpClient2(String hostIp, int hostListenningPort) throws IOException {
 		this(hostIp, hostListenningPort, "");
 	}
 
 	public TcpClient2(String HostIp, int HostListenningPort, String imei) throws IOException {
-		this.hostIp = HostIp;
-		this.hostListenningPort = HostListenningPort;
+        hostIp = HostIp;
+        hostListenningPort = HostListenningPort;
 		this.imei = imei;
 		initialize();
 	}
@@ -39,13 +39,13 @@ public class TcpClient2 {
 	 */
 	private void initialize() throws IOException {
 		try {
-			this.socketChannel = SocketChannel.open();
-			this.socketChannel.configureBlocking(false);
-			this.selector = Selector.open();
+            socketChannel = SocketChannel.open();
+            socketChannel.configureBlocking(false);
+            selector = Selector.open();
 
-			this.socketChannel.register(selector, SelectionKey.OP_CONNECT);
+            socketChannel.register(selector, SelectionKey.OP_CONNECT);
 
-			this.socketChannel.connect(new InetSocketAddress(hostIp, hostListenningPort));
+            socketChannel.connect(new InetSocketAddress(hostIp, hostListenningPort));
 
 		} catch (Exception e) {
 

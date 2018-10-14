@@ -21,7 +21,10 @@ import java.util.jar.JarFile;
  *
  * @author codingtony
  */
-public class ClassUtil {
+public final class ClassUtil {
+
+    private ClassUtil() {
+    }
 
     /**
      * 从包package中获取所有的Class 也可获取jar内的class

@@ -29,8 +29,8 @@ public class Role extends Person {
 	private static final transient Logger LOGGER = LoggerFactory.getLogger(Role.class);
 
 	/** setter 方法集合 */
-	@JSONField(serialize = false)
-	protected transient static final Map<String, Method> WRITEMETHODS = ReflectUtil.getReadMethod(Role.class);
+    @JSONField(serialize = false)
+    protected static final transient Map<String, Method> WRITEMETHODS = ReflectUtil.getReadMethod(Role.class);
 
 	/** 所在游戏服类型 */
 	@JSONField
@@ -46,11 +46,11 @@ public class Role extends Person {
 	 */
 	@Override
 	public void saveToRedis(String propertiesName) {
-		if (this.id < 1) {
+		if (id < 1) {
 			// throw new RuntimeException(String.format("角色ID %d 异常", this.id));
 			return;
 		}
-		String key = HallKey.Role_Map_Info.getKey(this.id);
+		String key = HallKey.Role_Map_Info.getKey(id);
 		Method method = WRITEMETHODS.get(propertiesName);
 		if (method != null) {
 			try {
@@ -141,7 +141,7 @@ public class Role extends Person {
 	 * @return
 	 */
 	public long getItemCount() {
-		String key = HallKey.Role_Map_Packet.getKey(this.id);
+		String key = HallKey.Role_Map_Packet.getKey(id);
 		return JedisManager.getJedisCluster().hlen(key);
 	}
 
@@ -155,7 +155,7 @@ public class Role extends Person {
 	 * @return
 	 */
 	public Item getItem(long itemId) {
-		String key = HallKey.Role_Map_Packet.getKey(this.id);
+		String key = HallKey.Role_Map_Packet.getKey(id);
 		return JedisManager.getInstance().hget(key, itemId, Item.class);
 	}
 	
@@ -167,7 +167,7 @@ public class Role extends Person {
 	 * @return
 	 */
 	public Map<Long, Item> getItems(){
-		String key = HallKey.Role_Map_Packet.getKey(this.id);
+		String key = HallKey.Role_Map_Packet.getKey(id);
 		return JedisManager.getInstance().hgetAll(key, Long.class, Item.class);
 	}
 	
@@ -180,7 +180,7 @@ public class Role extends Person {
 	 * @return
 	 */
 	public String getRoleRedisKey() {
-		return HallKey.Role_Map_Info.getKey(this.id);
+		return HallKey.Role_Map_Info.getKey(id);
 	}
 
 	/**

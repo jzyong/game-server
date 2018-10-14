@@ -88,7 +88,7 @@ public class GateUdpUserServerHandler extends ClientProtocolHandler{
 
 	@Override
 	public Service<MinaServerConfig> getService() {
-		return this.service;
+		return service;
 	}
 
 	@Override

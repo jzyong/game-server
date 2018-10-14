@@ -58,6 +58,7 @@ public class AppCluster {
 
 	public static void main(String[] args) {
 		File file = new File(System.getProperty("user.dir"));
+		log.debug("user.dir: {}", System.getProperty("user.dir"));
 		if ("target".equals(file.getName())) {
 			path = file.getPath() + File.separatorChar + "config";
 		} else {

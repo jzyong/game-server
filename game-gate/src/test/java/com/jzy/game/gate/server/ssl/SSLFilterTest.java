@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class SSLFilterTest {
 	private void testMessageSentIsCalled(boolean useSSL) throws Exception {
 		// Workaround to fix TLS issue :
 		// http://java.sun.com/javase/javaseforbusiness/docs/TLSReadme.html
-		java.lang.System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
+		System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
 
 		SslFilter sslFilter = null;
 		if (useSSL) {
@@ -130,7 +131,7 @@ public class SSLFilterTest {
 
 	private static class EchoHandler extends IoHandlerAdapter {
 
-		List<String> sentMessages = new ArrayList<String>();
+		final List<String> sentMessages = new ArrayList<String>();
 
 		@Override
 		public void sessionCreated(IoSession session) throws Exception {
@@ -158,19 +159,19 @@ public class SSLFilterTest {
 		}
 	}
 
-	TrustManager[] trustManagers = new TrustManager[] { new TrustAnyone() };
+	final TrustManager[] trustManagers = { new TrustAnyone() };
 
 	private static class TrustAnyone implements X509TrustManager {
-		public void checkClientTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
+		public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
 				throws CertificateException {
 		}
 
-		public void checkServerTrusted(java.security.cert.X509Certificate[] x509Certificates, String s)
+		public void checkServerTrusted(X509Certificate[] x509Certificates, String s)
 				throws CertificateException {
 		}
 
-		public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-			return new java.security.cert.X509Certificate[0];
+		public X509Certificate[] getAcceptedIssuers() {
+			return new X509Certificate[0];
 		}
 	}
 

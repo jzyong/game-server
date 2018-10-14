@@ -20,8 +20,8 @@ public abstract class InfiniteLoopAction extends DelayAction {
 			loopExecute();
 		}catch (Exception e) {
 			throw e;
-		}finally {			
-			this.execTime = System.currentTimeMillis() + this.delay;
+		}finally {
+            execTime = System.currentTimeMillis() + delay;
 			getActionQueue().enDelayQueue(this);
 		}
 	}

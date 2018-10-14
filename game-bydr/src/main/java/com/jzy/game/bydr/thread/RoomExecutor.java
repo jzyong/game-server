@@ -24,15 +24,15 @@ import com.jzy.game.engine.thread.ServerThread;
  * @author JiangZhiYong
  * @date 2017-03-24 QQ:359135103
  */
-public class RoomExecutor extends ExecutorPool {
+public class RoomExecutor implements ExecutorPool {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RoomExecutor.class);
 	private static final ThreadGroup threadGroup = new ThreadGroup("房间线程组");
 
 	// key:房间ID
-	private Map<Long, RoomThread> roomThreads = new HashMap<>();
+	private final Map<Long, RoomThread> roomThreads = new HashMap<>();
 
 	/** 房间线程 */
-	List<RoomThread> threads = Collections.synchronizedList(new ArrayList<>());
+	final List<RoomThread> threads = Collections.synchronizedList(new ArrayList<>());
 
 	@Override
 	public void execute(Runnable command) {

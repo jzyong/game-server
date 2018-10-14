@@ -35,10 +35,10 @@ public class Vector3Test {
 	@Test
 	public void testMove() {
 		Vector3 vector3 = Vector3.move(2f, new Vector3(), new Vector3(10f, 10f, 10f), 2f);
-		System.out.println(vector3.toString());
+		System.out.println(vector3);
 		
 		Vector3 vector2 = Vector3.move(5f, new Vector3(), new Vector3(10f, 10f, 10f), 4f);
-		System.out.println(vector2.toString());
+		System.out.println(vector2);
 	}
 	
 	/**
@@ -46,10 +46,10 @@ public class Vector3Test {
 	 */
 	@Test
 	public void testIsOnSegment() {
-		Assert.assertTrue(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 5)));
-		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(15, 15)));
-		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(-5, -5)));
-		Assert.assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 3)));
+		assertTrue(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 5)));
+		assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(15, 15)));
+		assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(-5, -5)));
+		assertFalse(Vector3.isPointOnSegment(new Vector3(0, 0), new Vector3(10, 10), new Vector3(5, 3)));
 	}
 	
 }

@@ -29,8 +29,8 @@ import com.jzy.game.gate.server.handler.GateUdpUserServerHandler;
 public class GateUdpUserServer extends Service<MinaServerConfig>{
 	private final UdpServer udpServer;
 	private final MinaServerConfig minaServerConfig;
-	Map<String, IoFilter> filters=new HashMap<>();
-	private  BlacklistFilter blacklistFilter;	//IP黑名单过滤器
+	final Map<String, IoFilter> filters=new HashMap<>();
+	private final BlacklistFilter blacklistFilter;	//IP黑名单过滤器
 
 	public GateUdpUserServer(MinaServerConfig minaServerConfig) {
 		super(null);

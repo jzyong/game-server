@@ -50,7 +50,7 @@ public abstract class HttpServerIoHandler implements IoHandler {
 		}
 		if (handlerClass == null) {
 			LOG.error("Http 容器 未能找到 content = {} 的 httpMessageBean tostring: {}", httpRequest.getRequestPath(),
-					ioSession.getRemoteAddress().toString());
+                      ioSession.getRemoteAddress());
 			return;
 		}
 

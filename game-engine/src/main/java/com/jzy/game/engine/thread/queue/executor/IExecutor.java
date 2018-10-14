@@ -12,11 +12,11 @@ public interface IExecutor<T extends Runnable> {
 	 * 执行任务
 	 * @param cmdTask
 	 */
-	public void execute(T cmdTask);
+    void execute(T cmdTask);
 	
 	/**
 	 * 停止所有线程
 	 */
-	public void stop();
+    void stop();
 	
 }

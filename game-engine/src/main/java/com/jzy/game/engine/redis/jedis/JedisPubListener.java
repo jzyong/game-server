@@ -18,7 +18,7 @@ import redis.clients.jedis.JedisPubSub;
 public class JedisPubListener extends JedisPubSub implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JedisPubListener.class);
 
-	private String[] channels;
+	private final String[] channels;
 
 	public JedisPubListener(String... channels) {
 		this.channels = channels;
@@ -58,7 +58,7 @@ public class JedisPubListener extends JedisPubSub implements Runnable {
 	public void run() {
 		try {
 			if (channels != null && channels.length > 0) {
-				JedisManager.getJedisCluster().subscribe(this, this.channels);
+				JedisManager.getJedisCluster().subscribe(this, channels);
 			}
 		} catch (Exception e) {
 			LOGGER.error(null, e);

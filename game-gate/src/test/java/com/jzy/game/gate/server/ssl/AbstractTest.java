@@ -45,7 +45,7 @@ import com.jzy.game.gate.server.ssl.GateSslContextFactory;
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
 public abstract class AbstractTest {
-    private final static Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTest.class);
 
     protected boolean useSSL;
 

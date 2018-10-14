@@ -40,7 +40,7 @@ public class NettyTcpClient implements Runnable {
 	/** 工作组 */
 	private EventLoopGroup group;
 	/** 初始化channel */
-	private ChannelInitializer<SocketChannel> channelInitializer;
+	private final ChannelInitializer<SocketChannel> channelInitializer;
 	/** 服务 */
 	private NettyClientService service;
 
@@ -52,8 +52,8 @@ public class NettyTcpClient implements Runnable {
 	 * 
 	 */
 	public NettyTcpClient(NettyClientService nettyClientService) {
-		this.nettyClientConfig = nettyClientService.getNettyClientConfig();
-		this.channelInitializer = new DefaultClientChannelInitializer(nettyClientService);
+        nettyClientConfig = nettyClientService.getNettyClientConfig();
+        channelInitializer = new DefaultClientChannelInitializer(nettyClientService);
 	}
 
 	/**
@@ -63,15 +63,15 @@ public class NettyTcpClient implements Runnable {
 	 * @param channelInitializer
 	 */
 	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer) {
-		this.nettyClientConfig = nettyClientService.getNettyClientConfig();
-		this.service = nettyClientService;
+        nettyClientConfig = nettyClientService.getNettyClientConfig();
+        service = nettyClientService;
 		this.channelInitializer = channelInitializer;
 	}
 
 	public NettyTcpClient(NettyClientService nettyClientService, ChannelInitializer<SocketChannel> channelInitializer,
 			NettyClientConfig nettyClientConfig) {
 		this.nettyClientConfig = nettyClientConfig;
-		this.service = nettyClientService;
+        service = nettyClientService;
 		this.channelInitializer = channelInitializer;
 	}
 
@@ -107,13 +107,13 @@ public class NettyTcpClient implements Runnable {
 					@Override
 					public void operationComplete(Future<? super Void> future) throws Exception {
 						if (future.isSuccess()) {
-							LOGGER.info("连接[{}]服务器{}:{}成功", nettyClientConfig.getType().toString(),
-									nettyClientConfig.getIp(), nettyClientConfig.getPort());
+							LOGGER.info("连接[{}]服务器{}:{}成功", nettyClientConfig.getType(),
+                                        nettyClientConfig.getIp(), nettyClientConfig.getPort());
 							connectFinsh();
 							channels.add(channelFuture.channel());
 						} else {
-							LOGGER.warn("连接[{}]服务器{}:{}失败", nettyClientConfig.getType().toString(),
-									nettyClientConfig.getIp(), nettyClientConfig.getPort());
+							LOGGER.warn("连接[{}]服务器{}:{}失败", nettyClientConfig.getType(),
+                                        nettyClientConfig.getIp(), nettyClientConfig.getPort());
 							channels.remove(channelFuture.channel());
 						}
 					}
@@ -151,10 +151,10 @@ public class NettyTcpClient implements Runnable {
 	 * @QQ 359135103 2017年8月28日 下午1:57:20
 	 */
 	public void checkStatus() {
-		if (this.channels.size() < nettyClientConfig.getMaxConnectCount()&&channelInitializer!=null) {
+		if (channels.size() < nettyClientConfig.getMaxConnectCount() && channelInitializer != null) {
 			connect();
 		}
-		Iterator<Channel> iterator = this.channels.iterator();
+		Iterator<Channel> iterator = channels.iterator();
 		while(iterator.hasNext()) {
 			if(!iterator.next().isActive()) {
 				iterator.remove();

@@ -29,17 +29,16 @@ import com.jzy.game.engine.mina.config.MinaServerConfig;
  */
 public class UdpServer implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UdpServer.class);
-	private MinaServerConfig minaServerConfig;
-	private NioDatagramAcceptor acceptor;
-	private IoHandler ioHandler;
+	private final MinaServerConfig minaServerConfig;
+	private final NioDatagramAcceptor acceptor;
+	private final IoHandler ioHandler;
 	private ProtocolCodecFactoryImpl factory;
 	private OrderedThreadPoolExecutor threadpool; // 消息处理线程,使用有序线程池，保证所有session事件处理有序进行，比如先执行消息执行，再是消息发送，最后关闭事件
-	protected boolean isRunning = false; // 服务器是否运行
+	protected boolean isRunning; // 服务器是否运行
 	private Map<String, IoFilter> filters; //过滤器
 
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler) {
-		super();
-		this.minaServerConfig = minaServerConfig;
+        this.minaServerConfig = minaServerConfig;
 		this.ioHandler = ioHandler;
 		acceptor = new NioDatagramAcceptor();
 	}
@@ -69,7 +68,7 @@ public class UdpServer implements Runnable {
 	 * @param obj
 	 */
 	public void broadcastMsg(Object obj) {
-		this.acceptor.broadcast(obj);
+        acceptor.broadcast(obj);
 	}
 
 	@Override
@@ -85,8 +84,8 @@ public class UdpServer implements Runnable {
 				chain.addLast("codec", new ProtocolCodecFilter(factory));
 				threadpool = new OrderedThreadPoolExecutor(minaServerConfig.getOrderedThreadPoolExecutorSize());
 				chain.addLast("threadPool", new ExecutorFilter(threadpool));
-				if(this.filters!=null){
-					this.filters.forEach((key,filter)->chain.addLast(key, filter));
+				if(filters != null){
+                    filters.forEach((key, filter)->chain.addLast(key, filter));
 				}
 
 				DatagramSessionConfig dc = acceptor.getSessionConfig();

@@ -24,7 +24,7 @@ public class QueueThreadManager {
 	private ActionExecutor actionExecutor;	//队列执行线程池
 	private ExecutorActionQueue defaultQueue;
 
-	public static final QueueThreadManager getInstance() {
+	public static QueueThreadManager getInstance() {
 		if (queueThreadManager == null) {
 			synchronized (QueueThreadManager.class) {
 				if (queueThreadManager == null) {

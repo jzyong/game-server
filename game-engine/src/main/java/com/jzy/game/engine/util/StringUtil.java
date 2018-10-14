@@ -7,7 +7,10 @@ import java.util.regex.Pattern;
  * @author JiangZhiYong
  * @mail 359135103@qq.com
  */
-public class StringUtil {
+public final class StringUtil {
+
+    private StringUtil() {
+    }
 
     /**
      *

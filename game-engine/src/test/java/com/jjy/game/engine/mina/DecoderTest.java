@@ -20,6 +20,6 @@ public class DecoderTest {
 	@Test
 	public void testEnding(){
 		ByteOrder byteOrder = ByteOrder.nativeOrder();
-		System.err.println(byteOrder.toString());
+		System.err.println(byteOrder);
 	}
 }

@@ -20,20 +20,20 @@ import com.jzy.game.engine.thread.timer.TimerEvent;
  */
 public class RoomTimer extends TimerEvent {
 
-	List<Room> rooms = Collections.synchronizedList(new ArrayList<>());
-	private RoomThread roomThread; // 依赖的房间线程
+	final List<Room> rooms = Collections.synchronizedList(new ArrayList<>());
+	private final RoomThread roomThread; // 依赖的房间线程
 	protected int hour = -1;
 	protected int min = -1;
 	protected int sec = -1;
 
 	public RoomTimer(Room room, RoomThread roomThread) {
 		super(Long.MAX_VALUE, -1);
-		this.rooms.add(room);
+        rooms.add(room);
 		this.roomThread = roomThread;
 	}
 
 	public void addRoom(Room room) {
-		this.rooms.add(room);
+        rooms.add(room);
 	}
 
 	public void removeRoom(Room room) {
@@ -51,13 +51,13 @@ public class RoomTimer extends TimerEvent {
 			ScriptPool scriptPool = ScriptManager.getInstance().getBaseScriptEntry();
 
 			// 鱼群刷新
-			this.roomThread
+            roomThread
 					.execute(() -> scriptPool.executeScripts(IFishScript.class, script -> script.fishRefresh(room)));
 
 			// 每秒执行
 			if (sec != _sec) {
 				sec=_sec;
-				this.roomThread.execute(() -> scriptPool.executeScripts(IRoomScript.class,
+                roomThread.execute(() -> scriptPool.executeScripts(IRoomScript.class,
 						script -> script.secondHandler(room, localTime)));
 			}
 			

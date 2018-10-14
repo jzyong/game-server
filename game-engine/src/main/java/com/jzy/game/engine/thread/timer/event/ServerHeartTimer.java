@@ -18,9 +18,9 @@ import org.slf4j.Logger;
  */
 public class ServerHeartTimer extends TimerEvent {
 
-	public static boolean GLOBAL_PROTECT = false;
+	public static boolean GLOBAL_PROTECT;
 
-	protected static Logger log = LoggerFactory.getLogger(ServerHeartTimer.class);
+	protected static final Logger log = LoggerFactory.getLogger(ServerHeartTimer.class);
 
 	protected int hour = -1;
 	protected int min = -1;

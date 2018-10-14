@@ -29,8 +29,8 @@ import com.jzy.game.message.bydr.BydrRoomMessage.RoomType;
 public class RoomManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RoomManager.class);
 	private static volatile RoomManager roomManager;
-	private Map<Long, Room> rooms = new ConcurrentHashMap<Long, Room>();
-	private Map<RoomType, List<Room>> roomTypes = new ConcurrentHashMap<>();
+	private final Map<Long, Room> rooms = new ConcurrentHashMap<Long, Room>();
+	private final Map<RoomType, List<Room>> roomTypes = new ConcurrentHashMap<>();
 
 	private RoomManager() {
 

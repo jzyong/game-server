@@ -22,9 +22,9 @@ import com.jzy.game.gate.server.handler.GateWebSocketUserServerHandler;
 public class GateWebSocketUserServer extends Service<MinaServerConfig> {
 	private final TcpServer tcpServer;
 	private final MinaServerConfig minaServerConfig;
-	Map<String, IoFilter> filters=new HashMap<>();
-	private  BlacklistFilter blacklistFilter;	//IP黑名单过滤器
-	private GateWebSocketUserServerHandler gateWebSocketUserServerHandler;
+	final Map<String, IoFilter> filters=new HashMap<>();
+	private final BlacklistFilter blacklistFilter;	//IP黑名单过滤器
+	private final GateWebSocketUserServerHandler gateWebSocketUserServerHandler;
 
 	public GateWebSocketUserServer(MinaServerConfig minaServerConfig) {
 		super(null);

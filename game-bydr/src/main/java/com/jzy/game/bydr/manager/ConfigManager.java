@@ -20,14 +20,13 @@ import com.jzy.game.model.script.IConfigScript;
  */
 public class ConfigManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigManager.class);
-	private static volatile ConfigManager configManager = null;
+	private static volatile ConfigManager configManager;
 	private GameConfig gameConfig = new GameConfig();
 	/**鱼配置信息*/
 	private Map<Integer, CFish> fishMap=new ConcurrentHashMap<>();
 
 	private ConfigManager() {
-		super();
-	}
+    }
 
 	public static ConfigManager getInstance() {
 		if (configManager == null) {

@@ -42,13 +42,16 @@ import com.jzy.game.model.redis.key.HallKey;
  * 启动类
  *
  */
-public class AppGate {
+public final class AppGate {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppGate.class);
 
 	private static String configPath;
 	static JedisManager redisManager;
 	private static GateServer gateServer;
+
+	private AppGate() {
+	}
 
 	public static void main(String[] args) {
 		initConfigPath();

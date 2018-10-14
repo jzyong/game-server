@@ -29,8 +29,7 @@ public class MailManager {
 	private MailConfig mailConfig; // 邮件配置
 
 	private MailManager() {
-		super();
-	}
+    }
 
 	public static MailManager getInstance() {
 		if (mailManager == null) {

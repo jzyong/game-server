@@ -13,9 +13,9 @@ public enum ServerState {
 	MAINTAIN(1),
 
 	;
-	private int state;
+	private final int state;
 
-	private ServerState(int state) {
+	ServerState(int state) {
 		this.state = state;
 	}
 

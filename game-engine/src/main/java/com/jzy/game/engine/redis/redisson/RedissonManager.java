@@ -27,7 +27,7 @@ import com.jzy.game.engine.util.FileUtil;
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月15日 下午3:25:55
  */
-public class RedissonManager {
+public final class RedissonManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RedissonManager.class);
 
 	private static RedissonClusterConfig redissonClusterConfig;

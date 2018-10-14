@@ -18,11 +18,11 @@ public abstract class MQService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MQService.class);
 	protected ActiveMQConnectionFactory activeMQConnectionFactory; // 连接工厂
 	protected Connection connection; // 连接
-	protected MQConfig mqConfig; // 配置
+	protected final MQConfig mqConfig; // 配置
 
 	public MQService(MQConfig mqConfig) {
 		this.mqConfig = mqConfig;
-		this.activeMQConnectionFactory = new ActiveMQConnectionFactory(mqConfig.getMqConnectionUrl());
+        activeMQConnectionFactory = new ActiveMQConnectionFactory(mqConfig.getMqConnectionUrl());
 	}
 
 	public MQService(String configPath) {
@@ -30,7 +30,7 @@ public abstract class MQService {
 		if (mqConfig == null) {
 			throw new RuntimeException(String.format("配置文件%s/mqConfig.xml未配置", configPath));
 		}
-		this.activeMQConnectionFactory = new ActiveMQConnectionFactory(mqConfig.getMqConnectionUrl());
+        activeMQConnectionFactory = new ActiveMQConnectionFactory(mqConfig.getMqConnectionUrl());
 	}
 
 	/**

@@ -13,7 +13,7 @@ public enum GateKey {
 	
 	private final String key;
 
-	private GateKey(String key) {
+	GateKey(String key) {
 		this.key = key;
 	}
 

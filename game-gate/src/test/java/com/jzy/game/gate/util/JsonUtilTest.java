@@ -25,7 +25,7 @@ public class JsonUtilTest {
 		user.setPassword("1111111");
 		user.setIp("127.0.0.1");
 		Map<String, String> map = JsonUtil.object2Map(user);
-		System.err.println(map.toString());
+		System.err.println(map);
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class JsonUtilTest {
 		map.put("password", "1111111");
 		User user = new User();
 		JsonUtil.map2Object(map, user);
-		System.err.println(user.toString());
+		System.err.println(user);
 	}
 
 	

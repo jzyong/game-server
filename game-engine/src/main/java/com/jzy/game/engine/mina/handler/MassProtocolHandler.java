@@ -28,7 +28,7 @@ public abstract class MassProtocolHandler implements IoHandler {
 	protected final int messageHeaderLength;
 
 	public MassProtocolHandler() {
-		this.messageHeaderLength = 4;
+        messageHeaderLength = 4;
 	}
 
 	@Override

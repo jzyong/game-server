@@ -26,8 +26,7 @@ public class NettyMutilTcpClient {
 	private final Map<Integer, NettyTcpClient> tcpClients=new ConcurrentHashMap<>();
 
 	public NettyMutilTcpClient() {
-		super();
-	}
+    }
 	
 	/**
 	 * 添加客户端
@@ -56,7 +55,7 @@ public class NettyMutilTcpClient {
 	 * @param clientProtocolHandler
 	 */
 	public void addTcpClient(NettyClientService service, NettyClientConfig config) {
-		this.addTcpClient(service, config, new DefaultClientChannelInitializer(service));
+        addTcpClient(service, config, new DefaultClientChannelInitializer(service));
 	}
 
 	public NettyTcpClient getTcpClient(Integer id) {

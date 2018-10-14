@@ -12,7 +12,7 @@ import org.apache.mina.core.buffer.IoBuffer;
  * @author DHRUV CHOPRA
  */
 public class WebSocketCodecPacket {
-    private IoBuffer packet;
+    private final IoBuffer packet;
     
     /*
      * Builds an instance of WebSocketCodecPacket that simply wraps around 

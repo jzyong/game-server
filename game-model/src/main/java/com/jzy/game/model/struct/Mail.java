@@ -52,8 +52,7 @@ public class Mail {
 	private Set<Long> acquiredRoles;
 
 	public Mail() {
-		super();
-		this.id = Config.getId();
+        id = Config.getId();
 	}
 
 	public long getId() {
@@ -150,7 +149,7 @@ public class Mail {
 		/** 领取物品 */
 		GET_ITEMS,
 		/** 删除 */
-		DELETE;
+		DELETE
 	}
 
 	/**

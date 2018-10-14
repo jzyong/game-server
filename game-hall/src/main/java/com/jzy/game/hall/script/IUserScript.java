@@ -18,7 +18,7 @@ public interface IUserScript extends IScript {
 	 * @param userConsumer
 	 * @return
 	 */
-	default public User createUser(Consumer<User> userConsumer) {
+    public default User createUser(Consumer<User> userConsumer) {
 		return null;
 	}
 }

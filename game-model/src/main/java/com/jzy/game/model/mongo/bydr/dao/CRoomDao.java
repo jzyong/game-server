@@ -9,7 +9,7 @@ import com.jzy.game.engine.mongo.AbsMongoManager;
 import com.jzy.game.model.mongo.bydr.entity.CRoom;
 
 public class CRoomDao extends BasicDAO<CRoom, Integer> {
-	private static volatile CRoomDao cRoomDao = null;
+	private static volatile CRoomDao cRoomDao;
 
 	public CRoomDao(AbsMongoManager mongoManager) {
 		super(CRoom.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),mongoManager.getMongoConfig().getDbName());

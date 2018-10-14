@@ -22,7 +22,7 @@ public class FieldMethod {
     }
     
     public String getName(){
-        return this.field==null?"null":this.field.getName();
+        return field == null?"null": field.getName();
     }
 
 

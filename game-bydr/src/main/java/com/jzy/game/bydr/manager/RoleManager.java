@@ -30,7 +30,7 @@ public class RoleManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RoleManager.class);
 	private static volatile RoleManager roleManager;
 
-	private Map<Long, Role> onlineRoles = new ConcurrentHashMap<>(); // 在线的角色
+	private final Map<Long, Role> onlineRoles = new ConcurrentHashMap<>(); // 在线的角色
 
 	private RoleManager() {
 

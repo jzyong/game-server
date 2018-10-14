@@ -49,8 +49,7 @@ public class UserSession {
 	private String version;
 
 	public UserSession(IoSession clientSession) {
-		super();
-		this.clientSession = clientSession;
+        this.clientSession = clientSession;
 		UserSessionManager.getInstance().onUserConnected(this);
 	}
 
@@ -163,13 +162,13 @@ public class UserSession {
 	}
 
 	public IoSession getGameSession() {
-		if ((gameSession == null || !gameSession.isConnected()) && this.getServerId() > 0) {
+		if ((gameSession == null || !gameSession.isConnected()) && getServerId() > 0) {
 			ServerInfo serverInfo = ServerManager.getInstance().getGameServerInfo(serverType, serverId);
 			if (serverInfo != null) {
 				gameSession = serverInfo.getMostIdleIoSession();
 //				LOGGER.debug("用户{} 游戏session{}", userId, gameSession.getId());
 			}else{
-				LOGGER.warn("{}-{}没有服务器连接",serverType.toString(),serverId);
+				LOGGER.warn("{}-{}没有服务器连接", serverType, serverId);
 			}
 		}
 		return gameSession;
@@ -242,14 +241,14 @@ public class UserSession {
 	 * 2017年7月27日 上午9:41:13
 	 */
 	public void removeGame(){
-		this.setGameSession(null);
-		this.setServerId(0);
-		this.setServerType(null);
+        setGameSession(null);
+        setServerId(0);
+        setServerType(null);
 	}
 	
 	public void removeHall(){
-		this.hallSession=null;
-		this.hallServerId=0;
+        hallSession =null;
+        hallServerId =0;
 	}
 	
 }

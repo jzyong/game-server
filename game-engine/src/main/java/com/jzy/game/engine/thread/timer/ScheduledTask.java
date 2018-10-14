@@ -29,7 +29,7 @@ public abstract class ScheduledTask {
 		Executors.newScheduledThreadPool(1, new ThreadFactory() {
 			@Override
 			public Thread newThread(Runnable r) {
-				Thread thread=new Thread(this.getClass().getSimpleName());
+				Thread thread=new Thread(getClass().getSimpleName());
 				
 				return thread;
 			}
@@ -70,7 +70,7 @@ public abstract class ScheduledTask {
 				long begin = System.currentTimeMillis();
 				executeTask();
 				if (System.currentTimeMillis() - begin > period) {
-					LOGGER.warn("定时器{}执行{}ms", this.getClass().getSimpleName(), System.currentTimeMillis() - begin);
+					LOGGER.warn("定时器{}执行{}ms", getClass().getSimpleName(), System.currentTimeMillis() - begin);
 				}
 			} catch (Exception e) {
 				LOGGER.error("定时任务", e);

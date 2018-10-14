@@ -67,8 +67,7 @@ public class GateWebSocketUserServerHandler extends DefaultProtocolHandler {
 			
 			LOGGER.info(loginRequest.toString());
 		} catch (InvalidProtocolBufferException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 

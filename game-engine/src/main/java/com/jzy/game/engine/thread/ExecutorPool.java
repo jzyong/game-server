@@ -9,12 +9,12 @@ import java.util.concurrent.Executor;
  * @date 2017-04-21
  * QQ:359135103
  */
-public abstract class ExecutorPool implements Executor {
+public interface ExecutorPool extends Executor {
 
 	/**
 	 * 关闭线程
 	 */
-	public abstract void stop() ;
+	void stop() ;
 	
 
 }

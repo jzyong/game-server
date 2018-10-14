@@ -24,9 +24,12 @@ import java.nio.ByteOrder;
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
  */
-public class MsgUtil {
+public final class MsgUtil {
 
-	protected static Logger log = LoggerFactory.getLogger(MsgUtil.class);
+	protected static final Logger log = LoggerFactory.getLogger(MsgUtil.class);
+
+	private MsgUtil() {
+	}
 
 	/**
 	 * 转换为发送的iobuff
@@ -34,7 +37,7 @@ public class MsgUtil {
 	 * @param message
 	 * @return 【length|msgid|data】
 	 */
-	public final static IoBuffer toIobuffer(final Message message) {
+    public static IoBuffer toIobuffer(final Message message) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int msgDataLength = msgData.length;
@@ -53,7 +56,7 @@ public class MsgUtil {
 	 * @param message
 	 * @return 【length|msgid|protobuf_length|data】
 	 */
-	public final static IoBuffer toGameClientIobuffer(final Message message) {
+    public static IoBuffer toGameClientIobuffer(final Message message) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int protobufLength = msgData.length;
@@ -76,7 +79,7 @@ public class MsgUtil {
 		return buf;
 	}
 
-	public final static IoBuffer toIobuffer(final MassMessage message) {
+	public static IoBuffer toIobuffer(final MassMessage message) {
 		IoBuffer buf = IoBuffer.allocate(8 + message.getLength());
 		buf.putInt(message.getLength() + 4); // 总长度
 		buf.putInt(message.getBuffLength()); // 内容长度
@@ -95,7 +98,7 @@ public class MsgUtil {
 	 * @param id
 	 * @return 【length|msgid|data】
 	 */
-	public final static IoBuffer toIobufferWithID(final Message message, long id) {
+    public static IoBuffer toIobufferWithID(final Message message, long id) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		int msgDataLength = msgData.length;
@@ -114,7 +117,7 @@ public class MsgUtil {
 	 * @param message
 	 * @return 【msgid|data】
 	 */
-	public final static IoBuffer toIobufferWithoutLength(final Message message) {
+    public static IoBuffer toIobufferWithoutLength(final Message message) {
 		int msgID = getMessageID(message);
 		byte[] msgData = message.toByteArray();
 		if (msgData.length < 1) {
@@ -134,7 +137,7 @@ public class MsgUtil {
 	 * @param idlength
 	 * @return 【length|msgid|data】
 	 */
-	public final static IoBuffer toIobufferWithoutID(final byte[] bytes, final int idlength) {
+    public static IoBuffer toIobufferWithoutID(final byte[] bytes, final int idlength) {
 		if (bytes.length < idlength || bytes.length < 1) {
 			return null;
 		}
@@ -146,7 +149,7 @@ public class MsgUtil {
 		return buf;
 	}
 
-	public final static MassMessage toMassMessage(final Message message, Collection<Long> targets) {
+	public static MassMessage toMassMessage(final Message message, Collection<Long> targets) {
 		IoBuffer msg = toIobuffer(message);
 		MassMessage mass = new MassMessage(msg, targets);
 		return mass;
@@ -158,7 +161,7 @@ public class MsgUtil {
 	 * @param message
 	 * @return
 	 */
-	public final static IoBuffer toIobuffer(final IDMessage message) {
+    public static IoBuffer toIobuffer(final IDMessage message) {
 		if (message.getMsg() == null) {
 			return null;
 		}
@@ -224,7 +227,7 @@ public class MsgUtil {
 	 * @param session
 	 * @return
 	 */
-	public final static String getIp(IoSession session) {
+    public static String getIp(IoSession session) {
 		try {
 			if (session != null && session.isConnected()) {
 				String clientIP = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
@@ -241,7 +244,7 @@ public class MsgUtil {
 	 * @param message
 	 * @return
 	 */
-	public final static int getMessageID(final Message message) {
+    public static int getMessageID(final Message message) {
 		Descriptors.EnumValueDescriptor field = (Descriptors.EnumValueDescriptor) message
 				.getField(message.getDescriptorForType().findFieldByNumber(1));
 		int msgID = field.getNumber();
@@ -251,7 +254,7 @@ public class MsgUtil {
 		return msgID;
 	}
 
-	public final static int getMessageID(final byte[] bytes, final int offset) throws Exception {
+	public static int getMessageID(final byte[] bytes, final int offset) throws Exception {
 		int msgID = bytes[offset + 3] & 0xFF | (bytes[offset + 2] & 0xFF) << 8 | (bytes[offset + 1] & 0xFF) << 16
 				| (bytes[offset] & 0xFF) << 24;
 		// if (msgID < 99999) {
@@ -263,7 +266,7 @@ public class MsgUtil {
 		return msgID;
 	}
 
-	public final static long getMessageRID(final byte[] bytes, final int offset) {
+	public static long getMessageRID(final byte[] bytes, final int offset) {
 		long uID = ((((long) bytes[0 + offset] & 0xff) << 56) | (((long) bytes[1 + offset] & 0xff) << 48)
 				| (((long) bytes[2 + offset] & 0xff) << 40) | (((long) bytes[3 + offset] & 0xff) << 32)
 				| (((long) bytes[4 + offset] & 0xff) << 24) | (((long) bytes[5 + offset] & 0xff) << 16)
@@ -291,8 +294,8 @@ public class MsgUtil {
 	/**
 	 * 构建消息
 	 *
-	 * @param calzz
-	 * @param data
+	 * @param clazz
+	 * @param bytes
 	 * @return
 	 */
 	public static Message buildMessage(Class<? extends Message> clazz, byte[] bytes) throws Exception {

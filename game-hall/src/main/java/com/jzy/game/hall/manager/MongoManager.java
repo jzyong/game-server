@@ -18,7 +18,7 @@ public class MongoManager extends AbsMongoManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MongoManager.class);
 	private static final MongoManager INSTANCE_MANAGER = new MongoManager();
 
-	public static final MongoManager getInstance() {
+	public static MongoManager getInstance() {
 		return INSTANCE_MANAGER;
 	}
 

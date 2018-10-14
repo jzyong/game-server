@@ -129,7 +129,7 @@ public class NettyTest {
 	@Test
 	public void testInetAddress() throws Exception{
 		InetAddress inetAddress = InetAddress.getByName("192.168.0.17");
-		System.err.println(inetAddress.toString());
+		System.err.println(inetAddress);
 	}
 	
 }

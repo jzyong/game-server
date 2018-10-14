@@ -26,9 +26,9 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  * @QQ 359135103 2017年6月30日 下午3:23:32
  */
 public class MutilMinaTcpClientService extends MinaClientService implements IMutilTcpClientService<MinaServerConfig>{
-	protected MinaMultiTcpClient multiTcpClient = new MinaMultiTcpClient();
+	protected final MinaMultiTcpClient multiTcpClient = new MinaMultiTcpClient();
 	/** 网关服务器 */
-	protected Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
+	protected final Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
 
 	public MutilMinaTcpClientService(MinaClientConfig minaClientConfig) {
 		super(minaClientConfig);
@@ -91,8 +91,8 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 		MinaClientConfig conf = new MinaClientConfig();
 		conf.setType(ServerType.GATE);
 		conf.setId(serverInfo.getId());
-		conf.setMaxConnectCount(this.getMinaClientConfig().getMaxConnectCount());
-		conf.setOrderedThreadPoolExecutorSize(this.getMinaClientConfig().getOrderedThreadPoolExecutorSize());
+		conf.setMaxConnectCount(getMinaClientConfig().getMaxConnectCount());
+		conf.setOrderedThreadPoolExecutorSize(getMinaClientConfig().getOrderedThreadPoolExecutorSize());
 		MinaClientConfig.MinaClienConnToConfig con = new MinaClientConfig.MinaClienConnToConfig();
 		con.setHost(serverInfo.getIp());
 		con.setPort(port);
@@ -170,7 +170,7 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	 */
 	public class MutilTcpProtocolHandler extends DefaultClientProtocolHandler {
 
-		private ServerInfo serverInfo;
+		private final ServerInfo serverInfo;
 
 		public MutilTcpProtocolHandler(ServerInfo serverInfo, MinaClientService service) {
 			super(12, service);

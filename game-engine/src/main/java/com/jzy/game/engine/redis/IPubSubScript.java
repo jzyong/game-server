@@ -16,5 +16,5 @@ public interface IPubSubScript extends IScript {
      * @param channel
      * @param message
      */
-    public void onMessage(String channel,JedisPubSubMessage message);
+    void onMessage(String channel, JedisPubSubMessage message);
 }

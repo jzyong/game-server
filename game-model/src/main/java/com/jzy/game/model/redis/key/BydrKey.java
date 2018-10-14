@@ -16,7 +16,7 @@ public enum BydrKey {
 
 	private final String key;
 
-	private BydrKey(String key) {
+	BydrKey(String key) {
 		this.key = key;
 	}
 

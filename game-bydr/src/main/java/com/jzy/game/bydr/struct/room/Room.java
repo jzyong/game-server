@@ -58,8 +58,7 @@ public class Room{
 
 
 	public Room() {
-		super();
-		this.id = Config.getId();
+        id = Config.getId();
 	}
 
 	public long getId() {
@@ -253,7 +252,7 @@ public class Room{
 	}
 
 	public long addAllFireCount() {
-		return this.allFireCount++;
+		return allFireCount++;
 	}
 
 	public void setAllFireCount(long allFireCount) {
@@ -269,7 +268,7 @@ public class Room{
 	}
 
 	public long addHitFireCount() {
-		return this.hitFireCount++;
+		return hitFireCount++;
 	}
 
 	public long getFireResultCount() {
@@ -281,7 +280,7 @@ public class Room{
 	}
 
 	public long addFireResultCount() {
-		return this.fireResultCount++;
+		return fireResultCount++;
 	}
 	
 

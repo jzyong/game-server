@@ -31,7 +31,7 @@ public class GateServer implements Runnable {
 	private final GateTcpGameServer gateTcpGameServer; // 内部转发tcp
 	private GateUdpUserServer gateUdpUserServer; // 用户udp;
 	private GateWebSocketUserServer gateWebSocketUserServer; // 用户websocket
-	private GateHttpServer gateHttpServer;// HTTP通信
+	private final GateHttpServer gateHttpServer;// HTTP通信
 
 	public GateServer() {
 		// 用户Tcp服务器

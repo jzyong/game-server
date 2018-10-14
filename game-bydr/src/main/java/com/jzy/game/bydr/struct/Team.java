@@ -45,7 +45,7 @@ public class Team {
 		this.id=id;
 		this.serverId=serverId;
 		this.rank=rank;
-		this.roleIds.add(id);
+        roleIds.add(id);
 	}
 	
 	
@@ -120,6 +120,6 @@ public class Team {
 
 
 	public void saveToRedis(){
-		JedisManager.getJedisCluster().hset(BydrKey.Team_Map.getKey(), String.valueOf(this.id), JsonUtil.toJSONString(this));
+		JedisManager.getJedisCluster().hset(BydrKey.Team_Map.getKey(), String.valueOf(id), JsonUtil.toJSONString(this));
 	}
 }

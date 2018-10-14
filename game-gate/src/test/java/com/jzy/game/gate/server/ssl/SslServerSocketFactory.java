@@ -33,15 +33,14 @@ import com.jzy.game.gate.server.ssl.GateSslContextFactory;
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
-public class SslServerSocketFactory extends javax.net.ServerSocketFactory {
-    private static boolean sslEnabled = false;
+public class SslServerSocketFactory extends ServerSocketFactory {
+    private static boolean sslEnabled;
 
-    private static javax.net.ServerSocketFactory sslFactory = null;
+    private static ServerSocketFactory sslFactory;
 
-    private static ServerSocketFactory factory = null;
+    private static ServerSocketFactory factory;
 
     public SslServerSocketFactory() {
-        super();
     }
 
     @Override
@@ -61,7 +60,7 @@ public class SslServerSocketFactory extends javax.net.ServerSocketFactory {
         return new ServerSocket(port, backlog, ifAddress);
     }
 
-    public static javax.net.ServerSocketFactory getServerSocketFactory()
+    public static ServerSocketFactory getServerSocketFactory()
             throws IOException {
         if (isSslEnabled()) {
             if (sslFactory == null) {

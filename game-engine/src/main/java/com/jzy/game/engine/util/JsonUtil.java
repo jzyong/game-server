@@ -32,11 +32,14 @@ import com.jzy.game.engine.struct.json.FieldMethod;
  * @author JiangZhiYong
  * @QQ 359135103 2017年7月7日 上午11:22:15
  */
-public class JsonUtil {
+public final class JsonUtil {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
 
 	/** 缓存类对象的set get 方法 */
 	private static final Map<Class<?>, Map<String, FieldMethod>> fieldGetMethodCache = new ConcurrentHashMap<>();
+
+	private JsonUtil() {
+	}
 
 	/**
 	 * map转换为对象
@@ -44,7 +47,7 @@ public class JsonUtil {
 	 * @param map
 	 * @param object
 	 */
-	public static final void map2Object(Map<String, String> map, Object object) {
+	public static void map2Object(Map<String, String> map, Object object) {
 		StringBuilder sb = new StringBuilder("{");
 		try {
 			Map<String, FieldMethod> fmmap = fieldGetMethodCache.get(object.getClass());
@@ -96,7 +99,7 @@ public class JsonUtil {
 	 * @note 必须携带@JsonField
 	 * @param cls
 	 */
-	public static final void registerFiledMethod(Class<?> cls) {
+	public static void registerFiledMethod(Class<?> cls) {
 		Map<String, FieldMethod> fmmap = getFieldMethodMap(cls, true);
 		if (!fmmap.isEmpty()) {
 			fieldGetMethodCache.put(cls, fmmap);
@@ -186,7 +189,7 @@ public class JsonUtil {
 					System.out.println("找不到set或get方法 " + cls.getName() + " field:" + field.getName());
 				}
 			} catch (Exception e) {
-				System.out.println("register field:" + cls.getName() + ":" + field.getName() + " " + e.toString());
+				System.out.println("register field:" + cls.getName() + ":" + field.getName() + " " + e);
 				continue;
 			}
 		}
@@ -269,7 +272,7 @@ public class JsonUtil {
 			return null;
 		}
 		int startIndex = 0;
-		boolean isbool = field.getGenericType().toString().equals("boolean");
+		boolean isbool = "boolean".equals(field.getGenericType().toString());
 		return new StringBuilder(isbool ? "is" : "get")
 				.append(fieldName.substring(startIndex, startIndex + 1).toUpperCase())
 				.append(fieldName.substring(startIndex + 1)).toString();
@@ -284,7 +287,7 @@ public class JsonUtil {
 	 * @param clazz
 	 * @return
 	 */
-	public static final <T> T parseObject(String text, Class<T> clazz) {
+	public static <T> T parseObject(String text, Class<T> clazz) {
 		return JSON.parseObject(text, clazz);
 	}
 
@@ -330,7 +333,7 @@ public class JsonUtil {
 	 * @param fieldType
 	 * @return
 	 */
-	public static final String toJSONString(Object object) {
+	public static String toJSONString(Object object) {
 		SerializeWriter out = new SerializeWriter();
 		try {
 			Map<String, Field> fieldCacheMap = new HashMap<>();

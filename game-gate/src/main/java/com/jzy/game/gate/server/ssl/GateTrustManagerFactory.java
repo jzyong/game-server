@@ -37,7 +37,7 @@ public class GateTrustManagerFactory extends TrustManagerFactorySpi {
 
 		}
 	};
-	static final TrustManager[] X509_MANAGERS = new TrustManager[] { X509 };
+	static final TrustManager[] X509_MANAGERS = { X509 };
 
 	@Override
 	protected TrustManager[] engineGetTrustManagers() {

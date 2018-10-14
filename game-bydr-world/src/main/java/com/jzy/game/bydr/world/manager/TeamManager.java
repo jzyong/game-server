@@ -14,7 +14,7 @@ import com.jzy.game.bydr.struct.Team;
  */
 public class TeamManager {
 	private static volatile TeamManager teamManager;
-	private Map<Long, Team> teams = new ConcurrentHashMap<>();
+	private final Map<Long, Team> teams = new ConcurrentHashMap<>();
 
 	private TeamManager() {
 
