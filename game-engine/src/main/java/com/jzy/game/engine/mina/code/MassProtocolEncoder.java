@@ -16,7 +16,7 @@ import com.jzy.game.engine.util.MsgUtil;
  */
 public class MassProtocolEncoder extends ProtocolEncoderImpl {
 
-    protected static Logger log = LoggerFactory.getLogger(MassProtocolEncoder.class);
+    protected static final Logger log = LoggerFactory.getLogger(MassProtocolEncoder.class);
 
     public MassProtocolEncoder() {
     }

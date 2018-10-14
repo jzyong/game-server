@@ -17,7 +17,7 @@ public interface IRoleScript extends IScript {
 	/**
 	 * 登录游戏
 	 */
-	default public void login(Role role,Reason reason) {
+	public default void login(Role role,Reason reason) {
 
 	}
 
@@ -27,7 +27,7 @@ public interface IRoleScript extends IScript {
 	 * @param userId
 	 * @return
 	 */
-	default public Role createRole(long userId, Consumer<Role> roleConsumer) {
+	public default Role createRole(long userId, Consumer<Role> roleConsumer) {
 
 		return null;
 	}

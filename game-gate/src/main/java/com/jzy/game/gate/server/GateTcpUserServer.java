@@ -20,8 +20,8 @@ import com.jzy.game.gate.server.ssl.GateSslContextFactory;
  * @date 2017-03-30 QQ:359135103
  */
 public class GateTcpUserServer extends ClientServerService {
-	private static Map<String, IoFilter> filters = new HashMap<>();
-	private static BlacklistFilter blacklistFilter = new BlacklistFilter(); // IP黑名单过滤器
+	private static final Map<String, IoFilter> filters = new HashMap<>();
+	private static final BlacklistFilter blacklistFilter = new BlacklistFilter(); // IP黑名单过滤器
 
 	static {
 		filters.put("Blacklist", blacklistFilter);

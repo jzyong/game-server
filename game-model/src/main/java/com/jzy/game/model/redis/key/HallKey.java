@@ -18,7 +18,7 @@ public enum HallKey {
 
 	private final String key;
 
-	private HallKey(String key) {
+	HallKey(String key) {
 		this.key = key;
 	}
 

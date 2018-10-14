@@ -42,8 +42,8 @@ public abstract class Service<Conf extends BaseServerConfig> implements Runnable
 
 			//全局sync线程
 			ServerThread syncThread = new ServerThread(new ThreadGroup("全局同步线程"),
-					"全局同步线程:" + this.getClass().getSimpleName(), threadPoolExecutorConfig.getHeart(),
-					threadPoolExecutorConfig.getCommandSize());
+													   "全局同步线程:" + getClass().getSimpleName(), threadPoolExecutorConfig.getHeart(),
+													   threadPoolExecutorConfig.getCommandSize());
 			syncThread.start();
 			serverThreads.put(ThreadType.SYNC, syncThread);
 		}
@@ -131,12 +131,12 @@ public abstract class Service<Conf extends BaseServerConfig> implements Runnable
 	 */
 	private static final class CloseByExit implements Runnable {
 
-		private final static Logger log = LoggerFactory.getLogger(CloseByExit.class);
+		private static final Logger log = LoggerFactory.getLogger(CloseByExit.class);
 		@SuppressWarnings("rawtypes")
 		private final Service server;
 
 		@SuppressWarnings("rawtypes")
-		public CloseByExit(Service server) {
+		private CloseByExit(Service server) {
 			this.server = server;
 		}
 

@@ -16,7 +16,7 @@ public interface ITcpClientService<T extends BaseServerConfig> extends Runnable 
 	 * @param object
 	 * @return
 	 */
-	public  boolean sendMsg(Object object);
+    boolean sendMsg(Object object);
 	
 	/**
 	 * 检测服务器状态
@@ -24,5 +24,5 @@ public interface ITcpClientService<T extends BaseServerConfig> extends Runnable 
 	 * @QQ 359135103
 	 * 2017年8月29日 上午10:43:07
 	 */
-	public void checkStatus();
+    void checkStatus();
 }

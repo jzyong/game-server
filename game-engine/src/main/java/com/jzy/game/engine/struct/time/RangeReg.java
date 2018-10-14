@@ -21,13 +21,13 @@ public class RangeReg {
 
     public RangeReg(String range) {
         if (range.indexOf("-") > 0) {//区间划分
-            this.type = Type.TO;
+            type = Type.TO;
         } else if (range.indexOf(",") > 0) {//或划分
-            this.type = Type.OR;
+            type = Type.OR;
         } else if (SymbolUtil.isNullOrEmpty(range)) {
-            this.type = Type.NULL;
+            type = Type.NULL;
         } else {
-            this.type = Type.ONLY;
+            type = Type.ONLY;
         }
         this.range=range.replace("[", "").replace("]", "");
 //        List<String> parseArray = JSON.parseArray(range, String.class);

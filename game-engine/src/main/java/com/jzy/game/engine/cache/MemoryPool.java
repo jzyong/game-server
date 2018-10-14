@@ -24,7 +24,7 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	}
 
 	public MemoryPool(int max) {
-		this.MAX_SIZE = max;
+		MAX_SIZE = max;
 	}
 
 	/**
@@ -35,10 +35,10 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 * @param value
 	 */
 	public void put(T value) {
-		synchronized (this.cache) {
-			if ((!this.cache.contains(value)) && (this.cache.size() < this.MAX_SIZE)) {
+		synchronized (cache) {
+			if (!cache.contains(value) && cache.size() < MAX_SIZE) {
 				value.reset();
-				this.cache.add(value);
+				cache.add(value);
 			}
 		}
 	}
@@ -52,13 +52,13 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	public void putAll(T... values) {
-		synchronized (this.cache) {
+		synchronized (cache) {
 			for (T value : values) {
 				if (value == null) {
 					continue;
 				}
-				if ((!this.cache.contains(value)) && (this.cache.size() < this.MAX_SIZE)) {
-					this.cache.add(value);
+				if (!cache.contains(value) && cache.size() < MAX_SIZE) {
+					cache.add(value);
 				}
 				value.reset();
 			}
@@ -74,9 +74,9 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	 * @return
 	 */
 	public T get(Class<? extends T> c) {
-		synchronized (this.cache) {
-			if (!this.cache.isEmpty()) {
-				return this.cache.remove(0);
+		synchronized (cache) {
+			if (!cache.isEmpty()) {
+				return cache.remove(0);
 			}
 			try {
 				return c.newInstance();
@@ -88,12 +88,12 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 	}
 
 	public int size() {
-		return this.cache.size();
+		return cache.size();
 	}
 
 	public void clear() {
-		synchronized (this.cache) {
-			this.cache.clear();
+		synchronized (cache) {
+			cache.clear();
 		}
 	}
 

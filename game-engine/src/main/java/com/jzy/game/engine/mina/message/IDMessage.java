@@ -32,8 +32,7 @@ public final class IDMessage implements Runnable{
      * @param msgId
      */
     public IDMessage(Channel channel,Object msg, long userID,Integer msgId) {
-		super();
-		this.channel=channel;
+        this.channel=channel;
 		this.msg = msg;
 		this.userID = userID;
 		this.msgId=msgId;

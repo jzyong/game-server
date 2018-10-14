@@ -8,9 +8,12 @@ import java.security.MessageDigest;
  * @author JiangZhiYong
  * @QQ 359135103 2017年10月16日 下午3:41:31
  */
-public class CipherUtil {
+public final class CipherUtil {
 
-	private static final String md5(byte[] v) {
+	private CipherUtil() {
+	}
+
+	private static String md5(byte[] v) {
 		char[] hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 		try {
 			MessageDigest mdAlgorithm = MessageDigest.getInstance("MD5");
@@ -25,19 +28,18 @@ public class CipherUtil {
 				strMd5[(k++)] = hexDigits[(byte0 >>> 4 & 0xF)];
 				strMd5[(k++)] = hexDigits[(byte0 & 0xF)];
 			}
-			mdCode = (byte[]) null;
 			return new String(strMd5);
 		} catch (Exception e) {
 		}
 		return "";
 	}
 
-	public static final String MD5Encode(String s) {
+	public static String MD5Encode(String s) {
 		byte[] b = s.getBytes();
 		return md5(b);
 	}
 
-	public static final byte[] MD5Bytes(byte[] v) {
+	public static byte[] MD5Bytes(byte[] v) {
 		return md5(v).getBytes();
 	}
 }

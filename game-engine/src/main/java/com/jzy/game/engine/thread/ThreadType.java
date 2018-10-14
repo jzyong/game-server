@@ -14,5 +14,4 @@ public enum ThreadType {
 	SYNC,
 	/**房间*/
 	ROOM
-	;
 }

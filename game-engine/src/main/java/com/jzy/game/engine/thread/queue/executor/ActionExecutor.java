@@ -13,7 +13,7 @@ public class ActionExecutor extends HandlerExecutor<Action> implements IDelayExe
 	/**
 	 * 延迟/定时 检测线程
 	 */
-	private DelayCheckThread delayCheckThread;
+	private final DelayCheckThread delayCheckThread;
 
 	public ActionExecutor(int corePoolSize, int maxPoolSize, int keepAliveTime, int cacheSize, String prefix) {
 		super(corePoolSize, maxPoolSize, keepAliveTime, cacheSize, prefix);

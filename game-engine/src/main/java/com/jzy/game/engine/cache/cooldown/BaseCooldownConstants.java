@@ -6,7 +6,10 @@ package com.jzy.game.engine.cache.cooldown;
  * @author JiangZhiYong
  * @date 2017-05-03 QQ:359135103
  */
-public class BaseCooldownConstants {
+public final class BaseCooldownConstants {
 
 	public static final String SKILL = "skill";		//技能
+
+	private BaseCooldownConstants() {
+	}
 }

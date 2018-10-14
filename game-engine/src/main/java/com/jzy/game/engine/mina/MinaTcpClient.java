@@ -30,7 +30,7 @@ public final class MinaTcpClient implements Runnable {
 
     private static final Logger log = LoggerFactory.getLogger(MinaTcpClient.class);
 
-    private NioSocketConnector connector = null;		//TCP连接
+    private NioSocketConnector connector;		//TCP连接
     private MinaClientConfig minaClientConfig;			//客户端配置
     private final IoHandler clientProtocolHandler;		//消息处理器
     private final ProtocolCodecFilter codecFilter;		//消息过滤器
@@ -43,7 +43,7 @@ public final class MinaTcpClient implements Runnable {
     
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters) {
         this.factory=factory;
-        this.codecFilter = new ProtocolCodecFilter(factory);
+        codecFilter = new ProtocolCodecFilter(factory);
         this.service = service;
         this.clientProtocolHandler = clientProtocolHandler;
         this.filters=filters;
@@ -53,7 +53,7 @@ public final class MinaTcpClient implements Runnable {
     
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
         this.factory=factory;
-        this.codecFilter = new ProtocolCodecFilter(factory);
+        codecFilter = new ProtocolCodecFilter(factory);
         this.service = service;
         this.clientProtocolHandler = clientProtocolHandler;
         init(clientProtocolHandler);
@@ -67,8 +67,8 @@ public final class MinaTcpClient implements Runnable {
      * @param clientProtocolHandler
      */
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
-        this.factory=new DefaultProtocolCodecFactory();
-        codecFilter = new ProtocolCodecFilter(this.factory);
+        factory =new DefaultProtocolCodecFactory();
+        codecFilter = new ProtocolCodecFilter(factory);
         this.service = service;
         this.clientProtocolHandler = clientProtocolHandler;
         init(clientProtocolHandler);
@@ -80,19 +80,19 @@ public final class MinaTcpClient implements Runnable {
      * @param clientProtocolHandler
      */
     private void init(IoHandler clientProtocolHandler) {
-        this.connector = new NioSocketConnector();
-        DefaultIoFilterChainBuilder chain = this.connector.getFilterChain();
+        connector = new NioSocketConnector();
+        DefaultIoFilterChainBuilder chain = connector.getFilterChain();
         chain.addLast("codec", codecFilter);
-        if(this.filters!=null){
-			this.filters.forEach((key,filter)->{
-				if(key.equalsIgnoreCase("ssl")||key.equalsIgnoreCase("tls")){	//ssl过滤器必须添加到首部
+        if(filters != null){
+            filters.forEach((key, filter)->{
+				if("ssl".equalsIgnoreCase(key) || "tls".equalsIgnoreCase(key)){	//ssl过滤器必须添加到首部
 					chain.addFirst(key, filter);
 				}else{
 					chain.addLast(key, filter);
 				}
 			});
 		}
-        this.connector.setHandler(clientProtocolHandler);
+        connector.setHandler(clientProtocolHandler);
         connector.setConnectTimeoutMillis(60000L);
         connector.setConnectTimeoutCheckInterval(10000);
     }
@@ -103,7 +103,7 @@ public final class MinaTcpClient implements Runnable {
      * @param obj
      */
     public void broadcastMsg(Object obj) {
-        this.connector.broadcast(obj);
+        connector.broadcast(obj);
     }
 
     @Override
@@ -125,13 +125,13 @@ public final class MinaTcpClient implements Runnable {
                 return;
             }
             for (int i = 0; i < getMinaClientConfig().getMaxConnectCount(); i++) {
-                ConnectFuture connect = this.connector.connect(new InetSocketAddress(connTo.getHost(), connTo.getPort()));
+                ConnectFuture connect = connector.connect(new InetSocketAddress(connTo.getHost(), connTo.getPort()));
                 connect.awaitUninterruptibly(10000L);
                 if (!connect.isConnected()) {
-                    log.warn("失败！连接到服务器：" + connTo.toString());
+                    log.warn("失败！连接到服务器：" + connTo);
                     break;
                 } else {
-                    log.warn("成功！连接到服务器：" + connTo.toString());
+                    log.warn("成功！连接到服务器：" + connTo);
                     if (sessionCreateCallBack != null) {
                         sessionCreateCallBack.accept(getMinaClientConfig());
                     }
@@ -157,7 +157,8 @@ public final class MinaTcpClient implements Runnable {
      * 状态监测
      */
     public void checkStatus() {
-        if (this.connector.getManagedSessionCount() < maxConnectCount || this.connector.getManagedSessions().size() < maxConnectCount) {
+        if (connector.getManagedSessionCount() < maxConnectCount ||
+            connector.getManagedSessions().size() < maxConnectCount) {
             connect();
         }
     }
@@ -175,12 +176,12 @@ public final class MinaTcpClient implements Runnable {
             return;
         }
         this.minaClientConfig = minaClientConfig;
-        SocketSessionConfig sc = this.connector.getSessionConfig();
+        SocketSessionConfig sc = connector.getSessionConfig();
         maxConnectCount = minaClientConfig.getMaxConnectCount();
         sc.setReceiveBufferSize(minaClientConfig.getReceiveBufferSize()); // 524288
         sc.setSendBufferSize(minaClientConfig.getSendBufferSize()); // 1048576
         sc.setMaxReadBufferSize(minaClientConfig.getMaxReadSize()); // 1048576
-        this.factory.getDecoder().setMaxReadSize(minaClientConfig.getMaxReadSize());
+        factory.getDecoder().setMaxReadSize(minaClientConfig.getMaxReadSize());
         sc.setSoLinger(minaClientConfig.getSoLinger()); // 0
     }
 

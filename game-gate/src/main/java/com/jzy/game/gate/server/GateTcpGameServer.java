@@ -1,7 +1,5 @@
 package com.jzy.game.gate.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.jzy.game.engine.mina.TcpServer;
 import com.jzy.game.engine.mina.config.MinaServerConfig;
 import com.jzy.game.engine.server.Service;
@@ -14,9 +12,8 @@ import com.jzy.game.gate.server.handler.GateTcpGameServerHandler;
  * @QQ 359135103 2017年6月30日 下午2:20:01
  */
 public class GateTcpGameServer extends Service<MinaServerConfig> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GateTcpGameServer.class);
-	private TcpServer tcpServer;
-	private MinaServerConfig minaServerConfig;
+	private final TcpServer tcpServer;
+	private final MinaServerConfig minaServerConfig;
 
 	public GateTcpGameServer(MinaServerConfig minaServerConfig) {
 		super(null);

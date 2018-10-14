@@ -26,12 +26,11 @@ public enum Reason {
 	
 	ServerClose("服务器关闭"),
 	;
-	
-	
-	;
-	private String reason;
 
-	private Reason(String reason) {
+
+	private final String reason;
+
+	Reason(String reason) {
 		this.reason = reason;
 	}
 

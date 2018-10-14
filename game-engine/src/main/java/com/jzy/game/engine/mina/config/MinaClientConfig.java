@@ -20,7 +20,7 @@ public class MinaClientConfig extends BaseServerConfig {
     private int orderedThreadPoolExecutorSize = 150;
     
     @Element(required = false)
-    private int soLinger = 0;
+    private int soLinger;
     
     /***
      * 客户端创建的最大连接数
@@ -140,8 +140,8 @@ public class MinaClientConfig extends BaseServerConfig {
         @Override
         public int hashCode() {
             int hash = 5;
-            hash = 47 * hash + this.type.ordinal();
-            hash = 47 * hash + this.id;
+            hash = 47 * hash + type.ordinal();
+            hash = 47 * hash + id;
             return hash;
         }
 
@@ -154,10 +154,10 @@ public class MinaClientConfig extends BaseServerConfig {
                 return false;
             }
             final MinaClienConnToConfig other = (MinaClienConnToConfig) obj;
-            if (this.type != other.type) {
+            if (type != other.type) {
                 return false;
             }
-            if (this.id != other.id) {
+            if (id != other.id) {
                 return false;
             }
             return true;

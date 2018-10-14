@@ -39,15 +39,15 @@ import org.slf4j.Logger;
  * @mail 359135103@qq.com
  * @phone 18782024395
  */
-public class ReflectUtil {
+public final class ReflectUtil {
 
     private static final Logger log = LoggerFactory.getLogger(ReflectUtil.class);
 
+	private ReflectUtil() {
+	}
 
 
-
-
-    /**
+	/**
      * 循环向上转型, 获取对象的 DeclaredField
      *
      * @param object : 子类对象
@@ -96,7 +96,7 @@ public class ReflectUtil {
             for (PropertyDescriptor property : propertyDescriptors) {
                 String key = property.getName();
                 // 过滤class属性  
-                if (!key.equals("class")) {
+                if (!"class".equals(key)) {
                     // 得到property对应的getter方法  
                     Method write = property.getWriteMethod();
                     if(write!=null){
@@ -122,7 +122,7 @@ public class ReflectUtil {
             for (PropertyDescriptor property : propertyDescriptors) {
                 String key = property.getName();
                 // 过滤class属性  
-                if (!key.equals("class")) {
+                if (!"class".equals(key)) {
                     // 得到property对应的getter方法  
                     Method write = property.getReadMethod();
                     if(write!=null){
@@ -174,7 +174,7 @@ public class ReflectUtil {
 	 * @param text
 	 * @param value
 	 */
-	public static final void reflectObject(String text, Object value) {
+	public static void reflectObject(String text, Object value) {
 		reflectObject(text, value, new Feature[0]);
 	}
 
@@ -185,7 +185,7 @@ public class ReflectUtil {
 	 * @param value
 	 * @param features
 	 */
-	public static final void reflectObject(String text, Object value, Feature... features) {
+	public static void reflectObject(String text, Object value, Feature... features) {
 		reflectObject(text, value, ParserConfig.getGlobalInstance(), JSON.DEFAULT_PARSER_FEATURE, features);
 	}
 
@@ -198,8 +198,8 @@ public class ReflectUtil {
 	 * @param featureValues
 	 * @param features
 	 */
-	private static final void reflectObject(String input, Object value, ParserConfig config, int featureValues,
-			Feature... features) {
+	private static void reflectObject(String input, Object value, ParserConfig config, int featureValues,
+									  Feature... features) {
 		reflectObject(input, value, config, null, featureValues, features);
 	}
 
@@ -213,8 +213,8 @@ public class ReflectUtil {
 	 * @param featureValues
 	 * @param features
 	 */
-	private static final void reflectObject(String input, Object value, ParserConfig config, ParseProcess processor,
-			int featureValues, Feature... features) {
+	private static void reflectObject(String input, Object value, ParserConfig config, ParseProcess processor,
+									  int featureValues, Feature... features) {
 		if (input == null) {
 			return;
 		}

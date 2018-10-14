@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class HandlerExecutor<T extends Runnable> implements IExecutor<T>{
 
-	private ThreadPoolExecutor pool;
+	private final ThreadPoolExecutor pool;
 	
 	/**
 	 * 

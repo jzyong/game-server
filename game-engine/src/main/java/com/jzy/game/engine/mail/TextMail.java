@@ -9,15 +9,14 @@ package com.jzy.game.engine.mail;
 public class TextMail implements Runnable{
 	
 	/**标题*/
-	private String title;
+	private final String title;
 	/**内容*/
-	private String content;
+	private final String content;
 	
 	
 
 	public TextMail(String title, String content) {
-		super();
-		this.title = title;
+        this.title = title;
 		this.content = content;
 	}
 

@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月22日 上午9:56:19
  */
-public class GuildManager {
+public final class GuildManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GuildManager.class);
 	private static volatile GuildManager guildManager;
 

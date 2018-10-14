@@ -7,7 +7,7 @@ package com.jzy.game.engine.util;
  * @QQ 359135103
  * 2017年8月2日 上午9:53:55
  */
-public class SymbolUtil {
+public final class SymbolUtil {
 
     public static final String Empty = "";
     public static final String ENTER = "\n";
@@ -24,6 +24,9 @@ public class SymbolUtil {
     public static final String JINGHAO_REG = "\\#";
     public static final String DENGHAO = "=";
     public static final String AT_REG = "@";
+
+    private SymbolUtil() {
+    }
 
     /**
      *

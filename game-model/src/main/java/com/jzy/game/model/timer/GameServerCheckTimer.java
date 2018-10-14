@@ -29,9 +29,9 @@ import com.jzy.game.model.script.IGameServerCheckScript;
  */
 public class GameServerCheckTimer extends ScheduledTask {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GameServerCheckTimer.class);
-	private ITcpClientService<? extends BaseServerConfig> clusterService; // 集群连接服务
-	private IMutilTcpClientService<? extends BaseServerConfig> gateService; // 网关连接服务
-	private BaseServerConfig config; // 游戏服配置
+	private final ITcpClientService<? extends BaseServerConfig> clusterService; // 集群连接服务
+	private final IMutilTcpClientService<? extends BaseServerConfig> gateService; // 网关连接服务
+	private final BaseServerConfig config; // 游戏服配置
 
 	/**
 	 * 
@@ -50,7 +50,7 @@ public class GameServerCheckTimer extends ScheduledTask {
 	@Override
 	protected void executeTask() {
 		// 向网关和集群注册游戏服务器信息
-		Builder registerRequestBuilder = buildServerRegisterRequest(this.config);
+		Builder registerRequestBuilder = buildServerRegisterRequest(config);
 		ServerRegisterRequest serverRegisterRequest = registerRequestBuilder.build();
 
 		// 集群服
@@ -75,7 +75,7 @@ public class GameServerCheckTimer extends ScheduledTask {
 	/**
 	 * 构建服务器更新注册信息
 	 * 
-	 * @param minaServerConfig
+	 * @param baseServerConfig
 	 * @return
 	 */
 	private ServerRegisterRequest.Builder buildServerRegisterRequest(BaseServerConfig baseServerConfig) {

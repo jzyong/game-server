@@ -29,7 +29,7 @@ public class ServerThread extends Thread implements Executor {
 	private static final Logger log = LoggerFactory.getLogger(ServerThread.class);
 
 	// 线程名称
-	protected String threadName;
+	protected final String threadName;
 	// 线程心跳间隔
 	protected final long heart;
 	// 线程处理命令队列
@@ -58,17 +58,17 @@ public class ServerThread extends Thread implements Executor {
 		this.heart = heart;
 
 		if (this.heart > 0) {
-			this.timer = new TimerThread(this, classLogNames);
+			timer = new TimerThread(this, classLogNames);
 		}
 		setUncaughtExceptionHandler((Thread t, Throwable e) -> {
-			ServerThread.log.error("ServerThread.setUncaughtExceptionHandler", e);
+			log.error("ServerThread.setUncaughtExceptionHandler", e);
 			MailConfig mailConfig = MailManager.getInstance().getMailConfig();
 			MailManager.getInstance().sendTextMailAsync("线程异常", "线程" + threadName,
 					mailConfig.getReciveUser().toArray(new String[mailConfig.getReciveUser().size()]));
-			if (ServerThread.this.timer != null) {
-				ServerThread.this.timer.stop(true);
+			if (timer != null) {
+				timer.stop(true);
 			}
-			ServerThread.this.command_queue.clear();
+			command_queue.clear();
 		});
 		command_queue = new LinkedBlockingQueue<>(commandCount);
 	}
@@ -76,10 +76,10 @@ public class ServerThread extends Thread implements Executor {
 	public void showStackTrace() {
 		StringBuilder buf = new StringBuilder();
 		long now = System.currentTimeMillis();
-		long procc = now - this.getLastExecuteTime();
-		buf.append("线程[" + this.getName() + "]可能已卡死1!!!" + procc + "ms，执行任务：" + getCommand().getClass().getName());
+		long procc = now - getLastExecuteTime();
+		buf.append("线程[" + getName() + "]可能已卡死1!!!" + procc + "ms，执行任务：" + getCommand().getClass().getName());
 		try {
-			StackTraceElement[] elements = this.getStackTrace();
+			StackTraceElement[] elements = getStackTrace();
 			for (int i = 0; i < elements.length; i++) {
 				buf.append("\n    " + elements[i].getClassName() + "." + elements[i].getMethodName() + "("
 						+ elements[i].getFileName() + ":" + elements[i].getLineNumber() + ")");
@@ -101,18 +101,18 @@ public class ServerThread extends Thread implements Executor {
 
 	@Override
 	public void run() {
-		if (this.heart > 0 && this.timer != null) {
-			this.timer.start();
+		if (heart > 0 && timer != null) {
+			timer.start();
 		}
-		this.stop = false;
+		stop = false;
 		int loop = 0;
-		while (!this.stop && !isInterrupted()) {
-			command = this.command_queue.poll();
+		while (!stop && !isInterrupted()) {
+			command = command_queue.poll();
 			if (command == null) {
 				try {
 					synchronized (this) {
 						loop = 0;
-						this.lastExecuteTime = 0;
+						lastExecuteTime = 0;
 						wait();
 					}
 				} catch (InterruptedException e) {
@@ -140,33 +140,33 @@ public class ServerThread extends Thread implements Executor {
 	}
 
 	public void stop(boolean flag) {
-		this.stop = flag;
-		log.warn("线程{}停止", this.threadName);
-		if (this.timer != null) {
-			this.timer.stop(flag);
+		stop = flag;
+		log.warn("线程{}停止", threadName);
+		if (timer != null) {
+			timer.stop(flag);
 		}
-		this.command_queue.clear();
+		command_queue.clear();
 		try {
 			synchronized (this) {
 				notify();
 				interrupt();
 			}
 		} catch (Exception e) {
-			log.error("Main Thread " + this.threadName + " Notify Exception:" + e.getMessage());
+			log.error("Main Thread " + threadName + " Notify Exception:" + e.getMessage());
 		}
 	}
 
 	public void execute(Runnable command, boolean checkOnly) {
 		try {
-			if (checkOnly && this.command_queue.contains(command)) {
+			if (checkOnly && command_queue.contains(command)) {
 				return;
 			}
-			this.command_queue.add(command);
+			command_queue.add(command);
 			synchronized (this) {
 				notify();
 			}
 		} catch (Exception e) {
-			log.error("Main Thread " + this.threadName + " Notify Exception:" + e.getMessage());
+			log.error("Main Thread " + threadName + " Notify Exception:" + e.getMessage());
 		}
 	}
 
@@ -178,20 +178,20 @@ public class ServerThread extends Thread implements Executor {
 	@Override
 	public void execute(Runnable command) {
 		try {
-			if (this.command_queue.contains(command)) {
+			if (command_queue.contains(command)) {
 				return;
 			}
-			this.command_queue.add(command);
+			command_queue.add(command);
 			synchronized (this) {
 				notify();
 			}
 		} catch (Exception e) {
-			log.error("Main Thread " + this.threadName + " Notify Exception:" + e.getMessage());
+			log.error("Main Thread " + threadName + " Notify Exception:" + e.getMessage());
 		}
 	}
 
 	public boolean contains(Runnable runnable) {
-		return this.command_queue.contains(runnable);
+		return command_queue.contains(runnable);
 	}
 
 	public TimerThread getTimer() {
@@ -199,23 +199,23 @@ public class ServerThread extends Thread implements Executor {
 	}
 
 	public void addTimerEvent(TimerEvent event) {
-		if (this.timer != null) {
-			this.timer.addTimerEvent(event);
+		if (timer != null) {
+			timer.addTimerEvent(event);
 		}
 	}
 
 	public void removeTimerEvent(TimerEvent event) {
-		if (this.timer != null) {
-			this.timer.removeTimerEvent(event);
+		if (timer != null) {
+			timer.removeTimerEvent(event);
 		}
 	}
 
 	public String getThreadName() {
-		return this.threadName;
+		return threadName;
 	}
 
 	public long getHeart() {
-		return this.heart;
+		return heart;
 	}
 
 	public long getLastExecuteTime() {

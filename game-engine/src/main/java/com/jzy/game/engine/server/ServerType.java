@@ -47,7 +47,7 @@ public enum ServerType {
 
     private final int type;
 
-    private ServerType(int type) {
+    ServerType(int type) {
         this.type = type;
     }
 

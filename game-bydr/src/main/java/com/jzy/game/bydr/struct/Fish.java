@@ -37,7 +37,7 @@ public class Fish implements IMemoryObject, Serializable {
 	private transient Room room;	//所属的房间
 
 	public Fish() {
-		this.id = Config.getId();
+        id = Config.getId();
 	}
 
 	public long getId() {
@@ -161,18 +161,18 @@ public class Fish implements IMemoryObject, Serializable {
 
 	@Override
 	public void reset() {
-		this.id = Config.getId();
-		this.bornTime = 0;
-		this.configId = 0;
-		this.dieTime = 0;
-		this.refreshId = 0;
-		this.speed = 0;
-		this.speedEndTime = 0;
-		this.topSpeed = 0;
-		this.topSpeedStartTime = 0;
-		this.trackIds.clear();
-		this.formationId=0;
-		this.room=null;
+        id = Config.getId();
+        bornTime = 0;
+        configId = 0;
+        dieTime = 0;
+        refreshId = 0;
+        speed = 0;
+        speedEndTime = 0;
+        topSpeed = 0;
+        topSpeedStartTime = 0;
+        trackIds.clear();
+        formationId =0;
+        room =null;
 	}
 
 	@Override
@@ -185,15 +185,19 @@ public class Fish implements IMemoryObject, Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Fish other = (Fish) obj;
-		if (id != other.id)
+		if (id != other.id) {
 			return false;
+		}
 		return true;
 	}
 

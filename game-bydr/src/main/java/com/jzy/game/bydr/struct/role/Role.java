@@ -38,7 +38,7 @@ public class Role extends Person{
 	private static final Logger LOGGER=LoggerFactory.getLogger(Role.class);
 	
 	/** setter 方法集合 */
-	protected transient static final Map<String, Method> WRITEMETHODS = ReflectUtil.getReadMethod(Role.class);
+    protected static final transient Map<String, Method> WRITEMETHODS = ReflectUtil.getReadMethod(Role.class);
 	
 	private String head;
 	private int gender;
@@ -157,7 +157,7 @@ public class Role extends Person{
 	}
 
 	public void addBetGold(int add) {
-		this.betGold += add;
+		betGold += add;
 	}
 
 
@@ -215,7 +215,7 @@ public class Role extends Person{
 	}
 
 	public void setDayAwardGold(long dayWinGold) {
-		this.dayAwardGold = dayWinGold;
+		dayAwardGold = dayWinGold;
 	}
 
 	public long getDayFireGold() {
@@ -313,7 +313,7 @@ public class Role extends Person{
 	 * @return
 	 */
 	public long getDayWinGold() {
-		return this.dayAwardGold + this.dayFireGold;
+		return dayAwardGold + dayFireGold;
 	}
 
 
@@ -322,7 +322,7 @@ public class Role extends Person{
 	}
 
 	public int addFireCount() {
-		return this.fireCount++;
+		return fireCount++;
 	}
 
 	public void setFireCount(int fireCount) {
@@ -338,11 +338,11 @@ public class Role extends Person{
 	}
 
 	public void addFishHitsCount(int configId) {
-		Integer count = this.fishHits.get(configId);
+		Integer count = fishHits.get(configId);
 		if (count == null) {
-			this.fishHits.put(configId, 1);
+			fishHits.put(configId, 1);
 		} else {
-			this.fishHits.put(configId, count + 1);
+			fishHits.put(configId, count + 1);
 		}
 	}
 
@@ -375,11 +375,11 @@ public class Role extends Person{
 //	}
 
 	public void addFishDiesCount(int configId) {
-		Integer count = this.fishDies.get(configId);
+		Integer count = fishDies.get(configId);
 		if (count == null) {
-			this.fishDies.put(configId, 1);
+			fishDies.put(configId, 1);
 		} else {
-			this.fishDies.put(configId, count + 1);
+			fishDies.put(configId, count + 1);
 		}
 	}
 	
@@ -408,10 +408,10 @@ public class Role extends Person{
 	}
 
 	public void saveToRedis(String propertiesName) {
-		if (this.id < 1) {
-			throw new RuntimeException(String.format("角色ID %d 异常", this.id));
+		if (id < 1) {
+			throw new RuntimeException(String.format("角色ID %d 异常", id));
 		}
-		String key = BydrKey.Role_Map.getKey(this.id);
+		String key = BydrKey.Role_Map.getKey(id);
 		Method method = WRITEMETHODS.get(propertiesName);
 		if (method != null) {
 			try {

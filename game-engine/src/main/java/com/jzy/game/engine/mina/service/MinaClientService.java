@@ -17,7 +17,7 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  */
 public abstract class MinaClientService extends Service<MinaClientConfig> implements ITcpClientService<MinaClientConfig>{
 
-	private MinaClientConfig minaClientConfig;
+	private final MinaClientConfig minaClientConfig;
 
 	/** 连接会话 */
 	private final PriorityBlockingQueue<IoSession> sessions = new PriorityBlockingQueue<>(128,

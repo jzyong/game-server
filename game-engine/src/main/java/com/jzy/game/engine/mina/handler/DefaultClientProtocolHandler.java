@@ -15,7 +15,7 @@ import com.jzy.game.engine.util.IntUtil;
  */
 public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
-	private MinaClientService service;
+	private final MinaClientService service;
 
 	public DefaultClientProtocolHandler(MinaClientService service) {
 		super(4);
@@ -46,7 +46,7 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
 	@Override
 	public MinaClientService getService() {
-		return this.service;
+		return service;
 	}
 
 	@Override

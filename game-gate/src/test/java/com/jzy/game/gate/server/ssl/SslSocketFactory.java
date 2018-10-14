@@ -26,6 +26,8 @@ import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 
 import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
 import com.jzy.game.gate.server.ssl.GateSslContextFactory;
 
 /**
@@ -35,19 +37,17 @@ import com.jzy.game.gate.server.ssl.GateSslContextFactory;
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
 public class SslSocketFactory extends SocketFactory {
-    private static boolean sslEnabled = false;
+    private static boolean sslEnabled;
 
-    private static javax.net.ssl.SSLSocketFactory sslFactory = null;
+    private static SSLSocketFactory sslFactory;
 
-    private static javax.net.SocketFactory factory = null;
+    private static SocketFactory factory;
 
     public SslSocketFactory() {
-        super();
     }
 
     @Override
-    public Socket createSocket(String arg1, int arg2) throws IOException,
-            UnknownHostException {
+    public Socket createSocket(String arg1, int arg2) throws IOException {
         if (isSslEnabled()) {
             return getSSLFactory().createSocket(arg1, arg2);
         } else {
@@ -57,7 +57,7 @@ public class SslSocketFactory extends SocketFactory {
 
     @Override
     public Socket createSocket(String arg1, int arg2, InetAddress arg3, int arg4)
-            throws IOException, UnknownHostException {
+            throws IOException {
         if (isSslEnabled()) {
             return getSSLFactory().createSocket(arg1, arg2, arg3, arg4);
         } else {
@@ -84,14 +84,14 @@ public class SslSocketFactory extends SocketFactory {
         }
     }
 
-    public static javax.net.SocketFactory getSocketFactory() {
+    public static SocketFactory getSocketFactory() {
         if (factory == null) {
             factory = new SslSocketFactory();
         }
         return factory;
     }
 
-    private javax.net.ssl.SSLSocketFactory getSSLFactory() {
+    private SSLSocketFactory getSSLFactory() {
         if (sslFactory == null) {
             try {
                 sslFactory = GateSslContextFactory.getInstance(false)

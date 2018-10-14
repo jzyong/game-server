@@ -22,11 +22,11 @@ public class BydrWorldServer implements Runnable {
 	private static final Logger LOGGER=LoggerFactory.getLogger(BydrWorldServer.class);
 
 	/** 连接集群服 （获取各服务器信息） */
-	private Bydr2ClusterClient bydr2ClusterClient;
+	private final Bydr2ClusterClient bydr2ClusterClient;
 	/**http服务器*/
-	private BydrHttpServer gameHttpServer;
+	private final BydrHttpServer gameHttpServer;
 	/** 服务器状态监测 */
-	private GameServerCheckTimer gameServerCheckTimer;
+	private final GameServerCheckTimer gameServerCheckTimer;
 	/**redis订阅发布*/
 	private final JedisPubListener bydrPubListener;
 	

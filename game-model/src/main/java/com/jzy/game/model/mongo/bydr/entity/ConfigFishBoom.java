@@ -33,7 +33,7 @@ public class ConfigFishBoom implements IConfigChecker{
 
 	/**编号*/
 	public int getId(){
-		return this.id;
+		return id;
 	}
 	
 	public void setId(int id){
@@ -41,7 +41,7 @@ public class ConfigFishBoom implements IConfigChecker{
 	}
 	/**阵型id*/
 	public List getFormationIds(){
-		return this.formationIds;
+		return formationIds;
 	}
 	
 	public void setFormationIds(List formationIds){
@@ -49,7 +49,7 @@ public class ConfigFishBoom implements IConfigChecker{
 	}
 	/**时间*/
 	public List getRefreshTimes(){
-		return this.refreshTimes;
+		return refreshTimes;
 	}
 	
 	public void setRefreshTimes(List refreshTimes){
@@ -57,7 +57,7 @@ public class ConfigFishBoom implements IConfigChecker{
 	}
 	/**线路id*/
 	public List getLineIds(){
-		return this.lineIds;
+		return lineIds;
 	}
 	
 	public void setLineIds(List lineIds){
@@ -65,7 +65,7 @@ public class ConfigFishBoom implements IConfigChecker{
 	}
 	/**存活时间*/
 	public List getSurviveTimes(){
-		return this.surviveTimes;
+		return surviveTimes;
 	}
 	
 	public void setSurviveTimes(List surviveTimes){

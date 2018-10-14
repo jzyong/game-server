@@ -18,7 +18,7 @@ public abstract class AbsHandler implements IHandler {
 
 	@Override
 	public IoSession getSession() {
-		return this.session;
+		return session;
 	}
 
 	@Override
@@ -37,12 +37,12 @@ public abstract class AbsHandler implements IHandler {
 
 	@Override
 	public void setCreateTime(long time) {
-		this.createTime=time;
+		createTime =time;
 	}
 
 	@Override
 	public long getCreateTime() {
-		return this.createTime;
+		return createTime;
 	}
 
 	@Override

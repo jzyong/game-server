@@ -18,9 +18,9 @@ import com.jzy.game.engine.util.IntUtil;
 
 public class TCPClientReadThread implements Runnable {
 
-	private Selector selector;
-	String imei;
-	TcpClient2 client;
+	private final Selector selector;
+	final String imei;
+	final TcpClient2 client;
 
 	public TCPClientReadThread(TcpClient2 client, Selector selector, String imei) {
 		this.selector = selector;
@@ -35,7 +35,7 @@ public class TCPClientReadThread implements Runnable {
 		try {
 			while (true) {
 				selector.select();
-				Iterator ite = this.selector.selectedKeys().iterator();
+				Iterator ite = selector.selectedKeys().iterator();
 				while (ite.hasNext()) {
 
 					SelectionKey key = (SelectionKey) ite.next();
@@ -47,7 +47,7 @@ public class TCPClientReadThread implements Runnable {
 
 						}
 						channel.configureBlocking(false);
-						channel.register(this.selector, SelectionKey.OP_READ);
+						channel.register(selector, SelectionKey.OP_READ);
 
 					} else {
 						if (key.isReadable()) {
@@ -140,7 +140,7 @@ public class TCPClientReadThread implements Runnable {
 
 		if (msg != null) {
 			// String jsonFormat = JsonFormat.printToString(msg);
-			System.out.println(msg.toString());
+			System.out.println(msg);
 		}
 	}
 

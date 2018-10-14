@@ -18,8 +18,8 @@ public abstract class AbsMongoManager {
 
     static Logger log = LoggerFactory.getLogger(AbsMongoManager.class);
 
-    private MongoClient mongoClient = null;
-    private Morphia morphia = null;
+    private MongoClient mongoClient;
+    private Morphia morphia;
     private MongoClientConfig mongoConfig;
 
     /**

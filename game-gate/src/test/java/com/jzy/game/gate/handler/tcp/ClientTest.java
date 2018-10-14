@@ -35,7 +35,7 @@ public class ClientTest {
 	private static final String ip = "127.0.0.1";
 	private TcpClient2 tcpClient;
 
-	public static long START_TIME = 0;
+	public static long START_TIME;
 
 	@Before
 	public void init() {

@@ -213,7 +213,7 @@ public abstract class Person {
 		} else if (getChannel() != null) {
 			getChannel().writeAndFlush(new IDMessage(channel, message, getId(), null));
 		} else {
-			LOGGER.warn("连接session==null | channel==null {}", message.toString());
+			LOGGER.warn("连接session==null | channel==null {}", message);
 		}
 		return false;
 	}

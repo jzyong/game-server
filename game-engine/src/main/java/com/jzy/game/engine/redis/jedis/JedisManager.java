@@ -133,7 +133,7 @@ public class JedisManager {
 	 * 清除脚本缓存
 	 */
 	public void scriptFlush(String fileName) {
-		JedisManager.getJedisCluster().scriptFlush(fileName.getBytes());
+		getJedisCluster().scriptFlush(fileName.getBytes());
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class JedisManager {
 		if (script == null || script.length() < 1) {
 			throw new Exception(path + "/" + fileName + ".lua 加载出错");
 		}
-		String hash = JedisManager.getJedisCluster().scriptLoad(script, fileName);
+		String hash = getJedisCluster().scriptLoad(script, fileName);
 		if (hash == null || hash.length() < 1) {
 			throw new Exception(fileName + ".lua 脚本注入出错");
 		}
@@ -159,7 +159,7 @@ public class JedisManager {
 			keysShaMap = new HashMap<>();
 		}
 		LOGGER.debug("Redis脚本：{}-->{}", fileName, hash);
-		this.keysShaMap.put(fileName, hash);
+        keysShaMap.put(fileName, hash);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class JedisManager {
 		if (sha == null) {
 			return null;
 		}
-		Object object = JedisManager.getJedisCluster().evalsha(sha, keys, args);
+		Object object = getJedisCluster().evalsha(sha, keys, args);
 		if (object == null) {
 			return null;
 		}

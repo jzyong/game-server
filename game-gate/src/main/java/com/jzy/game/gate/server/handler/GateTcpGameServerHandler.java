@@ -24,7 +24,7 @@ import com.jzy.game.gate.struct.UserSession;
 public class GateTcpGameServerHandler extends DefaultProtocolHandler {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GateTcpGameServer.class);
 
-	private Service<MinaServerConfig> service;
+	private final Service<MinaServerConfig> service;
 
 	public GateTcpGameServerHandler(Service<MinaServerConfig> service) {
 		super(12);
@@ -60,7 +60,7 @@ public class GateTcpGameServerHandler extends DefaultProtocolHandler {
 
 	@Override
 	public Service<? extends BaseServerConfig> getService() {
-		return this.service;
+		return service;
 	}
 
 	@Override

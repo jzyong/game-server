@@ -15,6 +15,6 @@ public interface IGameServerCheckScript extends IScript{
 	 * 构建服务器状态信息
 	 * @param builder
 	 */
-	public default void buildServerInfo(ServerInfo.Builder builder){
+	default void buildServerInfo(ServerInfo.Builder builder){
 	}
 }

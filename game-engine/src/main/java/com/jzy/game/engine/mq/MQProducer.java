@@ -65,7 +65,7 @@ public class MQProducer extends MQService {
 			return true;
 		} catch (Exception e) {
 			LOGGER.error("sendMsg", e);
-			this.closeConnection();
+            closeConnection();
 		} finally {
 			if (session != null) {
 				try {

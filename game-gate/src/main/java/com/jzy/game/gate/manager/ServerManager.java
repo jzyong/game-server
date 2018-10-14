@@ -107,11 +107,8 @@ public class ServerManager {
 						|| userSession.getVersion().equals(server.getVersion())) // 版本号
 				.filter(server -> server.getState() == ServerState.NORMAL.ordinal()) // 状态
 				.sorted((s1, s2) -> s1.getOnline() - s2.getOnline()).findFirst();
-		if (findFirst.isPresent()) {
-			return findFirst.get();
-		}
-		return null;
-	}
+        return findFirst.orElse(null);
+    }
 
 	/**
 	 * 构建错误信息

@@ -14,9 +14,13 @@ import java.security.NoSuchAlgorithmException;
  *
  * @author DHRUV CHOPRA
  */
-class WebSocketUtils {
+final class WebSocketUtils {
     
     static final String SessionAttribute = "isWEB";
+
+    private WebSocketUtils() {
+    }
+
     // Construct a successful websocket handshake response using the key param
     // (See RFC 6455).
     static WebSocketHandShakeResponse buildWSHandshakeResponse(String key){

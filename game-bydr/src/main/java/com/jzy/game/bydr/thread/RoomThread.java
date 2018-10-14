@@ -21,12 +21,12 @@ import com.jzy.game.engine.thread.ThreadType;
  */
 public class RoomThread extends ServerThread {
 	private static final AtomicInteger threadNum = new AtomicInteger(0);
-	private List<Room> rooms = new ArrayList<>();
+	private final List<Room> rooms = new ArrayList<>();
 	private RoomTimer roomTimer;
 
 	public RoomThread(ThreadGroup threadGroup, Room room) {
-		super(threadGroup, ThreadType.ROOM.toString() + "-" + threadNum.getAndIncrement(), 500, 10000); // TODO
-		this.rooms.add(room);
+		super(threadGroup, ThreadType.ROOM + "-" + threadNum.getAndIncrement(), 500, 10000); // TODO
+        rooms.add(room);
 	}
 
 	public RoomTimer getRoomTimer() {
@@ -34,7 +34,7 @@ public class RoomThread extends ServerThread {
 	}
 
 	public void setRoomTimer(RoomTimer roomFishTimer) {
-		this.roomTimer = roomFishTimer;
+        roomTimer = roomFishTimer;
 	}
 
 	public List<Room> getRooms() {
@@ -43,11 +43,8 @@ public class RoomThread extends ServerThread {
 	
 
 	public Room getRoom(long roomId) {
-		Optional<Room> findAny = this.rooms.stream().filter(r -> r.getId() == roomId).findAny();
-		if (findAny.isPresent()) {
-			return findAny.get();
-		}
-		return null;
+		Optional<Room> findAny = rooms.stream().filter(r -> r.getId() == roomId).findAny();
+		return findAny.orElse(null);
 	}
 
 }

@@ -92,6 +92,6 @@ public class MQConfig {
 	 * @return
 	 */
 	public  String getMqConnectionUrl() {
-		return this.protocol + "://" + this.getHost() + ":" + this.getPort();
+		return protocol + "://" + getHost() + ":" + getPort();
 	}
 }

@@ -55,19 +55,19 @@ public final class ScriptPool {
 	Map<Integer, IIDScript> idScriptInstances = new ConcurrentHashMap<>(0);
 	Map<Integer, IIDScript> tmpIdScriptInstances = new ConcurrentHashMap<>(0);
 	// tcp handler容器
-	Map<Integer, Class<? extends IHandler>> tcpHandlerMap = new ConcurrentHashMap<>(0);
-	Map<Integer, HandlerEntity> tcpHandlerEntityMap = new ConcurrentHashMap<>(0);
+	final Map<Integer, Class<? extends IHandler>> tcpHandlerMap = new ConcurrentHashMap<>(0);
+	final Map<Integer, HandlerEntity> tcpHandlerEntityMap = new ConcurrentHashMap<>(0);
 
 	// http handler容器
-	Map<String, Class<? extends IHandler>> httpHandlerMap = new ConcurrentHashMap<>(0);
-	Map<String, HandlerEntity> httpHandlerEntityMap = new ConcurrentHashMap<>(0);
+	final Map<String, Class<? extends IHandler>> httpHandlerMap = new ConcurrentHashMap<>(0);
+	final Map<String, HandlerEntity> httpHandlerEntityMap = new ConcurrentHashMap<>(0);
 
 	public ScriptPool() {
 	}
 
 	/**
 	 * 设置编译脚本属性
-	 * 
+	 *
 	 * @param source
 	 *            Java 脚本路径
 	 * @param out
@@ -81,8 +81,8 @@ public final class ScriptPool {
 			LOGGER.error("指定 输入 输出 目录为空");
 			throw new Exception("目录为空");
 		}
-		this.sourceDir = source;
-		this.outDir = out;
+		sourceDir = source;
+		outDir = out;
 		this.jarsDir = jarsDir;
 		LOGGER.info("脚本指定 输入 {} 输出 {} jars目录 {}", source, out, jarsDir);
 	}
@@ -105,14 +105,14 @@ public final class ScriptPool {
 
 	/**
 	 * 脚本列表
-	 * 
+	 *
 	 * @param name
 	 *            脚本名
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public <E> Collection<E> getEvts(String name) {
-		Map<String, IScript> scripts = ScriptPool.this.scriptInstances.get(name);
+		Map<String, IScript> scripts = scriptInstances.get(name);
 		if (scripts != null) {
 			return (Collection<E>) scripts.values();
 		}
@@ -121,14 +121,14 @@ public final class ScriptPool {
 
 	/**
 	 * 脚本列表
-	 * 
+	 *
 	 * @param clazz
 	 *            脚本类
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public <E> Collection<E> getEvts(Class<E> clazz) {
-		Map<String, IScript> scripts = ScriptPool.this.scriptInstances.get(clazz.getName());
+		Map<String, IScript> scripts = scriptInstances.get(clazz.getName());
 		if (scripts != null) {
 			return (Collection<E>) scripts.values();
 		}
@@ -188,7 +188,7 @@ public final class ScriptPool {
 
 	/**
 	 * 执行脚本，并返回一个值
-	 * 
+	 *
 	 * @param scriptClass
 	 *            脚本类
 	 * @param function
@@ -216,11 +216,11 @@ public final class ScriptPool {
 
 	/**
 	 * 字符串为空字符串
-	 * 
+	 *
 	 * @param str
 	 * @return
 	 */
-	final boolean stringIsNullEmpty(String str) {
+	boolean stringIsNullEmpty(String str) {
 		return str == null || str.length() <= 0 || "".equals(str.trim());
 	}
 
@@ -231,10 +231,10 @@ public final class ScriptPool {
 	 * @return
 	 */
 	String compile() {
-		FileUtil.deleteDirectory(this.outDir); // 删除之前的class文件
+		FileUtil.deleteDirectory(outDir); // 删除之前的class文件
 		List<File> sourceFileList = new ArrayList<>();
-		FileUtil.getFiles(this.sourceDir, sourceFileList, ".java", null); // 获取源文件
-		return this.compile(sourceFileList);
+		FileUtil.getFiles(sourceDir, sourceFileList, ".java", null); // 获取源文件
+		return compile(sourceFileList);
 	}
 	// </editor-fold>
 
@@ -242,7 +242,7 @@ public final class ScriptPool {
 	/**
 	 * 编译文件
 	 *
-	 * @param fileNames
+	 * @param sourceFileList
 	 *            文件列表
 	 * @return 编译错误信息
 	 */
@@ -259,11 +259,11 @@ public final class ScriptPool {
 				// 没有java文件，直接返回
 				if (sourceFileList.isEmpty()) {
 					// log.warn(this.sourceDir + "目录下查找不到任何java文件");
-					return this.sourceDir + "目录下查找不到任何java文件";
+					return sourceDir + "目录下查找不到任何java文件";
 				}
 				LOGGER.warn("找到脚本并且需要编译的文件共：" + sourceFileList.size());
 				// 创建输出目录，如果不存在的话
-				new java.io.File(this.outDir).mkdirs();
+				new File(outDir).mkdirs();
 				// 获取要编译的编译单元
 				Iterable<? extends JavaFileObject> compilationUnits = fileManager
 						.getJavaFileObjectsFromFiles(sourceFileList);
@@ -280,15 +280,15 @@ public final class ScriptPool {
 				options.add("-encoding");
 				options.add("UTF-8");
 				options.add("-sourcepath");
-				options.add(this.sourceDir); // 指定文件目录
+				options.add(sourceDir); // 指定文件目录
 				options.add("-d");
-				options.add(this.outDir); // 指定输出目录
+				options.add(outDir); // 指定输出目录
 
 				ArrayList<File> jarsList = new ArrayList<>();
-				FileUtil.getFiles(this.jarsDir, jarsList, ".jar", null);
+				FileUtil.getFiles(jarsDir, jarsList, ".jar", null);
 				String jarString = "";
-				jarString = jarsList.stream().map((jar) -> jar.getPath() + File.pathSeparator).reduce(jarString,
-						String::concat);
+				jarString = jarsList.stream().map(jar -> jar.getPath() + File.pathSeparator).reduce(jarString,
+																									String::concat);
 				// log.warn("jarString:" + jarString);
 				if (!stringIsNullEmpty(jarString)) {
 					options.add("-classpath");
@@ -301,14 +301,14 @@ public final class ScriptPool {
 				Boolean call = compilationTask.call();
 				if (!call) {
 					oDiagnosticCollector.getDiagnostics().forEach(f -> {
-						sb.append(";").append(((JavaFileObject) (f.getSource())).getName()).append(" line:")
-								.append(f.getLineNumber());
-						LOGGER.warn("加载脚本错误：" + ((JavaFileObject) (f.getSource())).getName() + " line:"
-								+ f.getLineNumber());
+						sb.append(";").append(f.getSource().getName()).append(" line:")
+						  .append(f.getLineNumber());
+						LOGGER.warn("加载脚本错误：" + f.getSource().getName() + " line:"
+									+ f.getLineNumber());
 					});
 				}
 			} catch (Exception ex) {
-				sb.append(this.sourceDir).append("错误：").append(ex);
+				sb.append(sourceDir).append("错误：").append(ex);
 				LOGGER.error("加载脚本错误：", ex);
 			} finally {
 				try {
@@ -318,7 +318,7 @@ public final class ScriptPool {
 				}
 			}
 		} else {
-			LOGGER.warn(this.sourceDir + "目录下查找不到任何java文件");
+			LOGGER.warn(sourceDir + "目录下查找不到任何java文件");
 		}
 		return sb.toString();
 	}
@@ -333,12 +333,12 @@ public final class ScriptPool {
 	 * @return
 	 */
 	public String loadJava(Consumer<String> condition) {
-		String compile = this.compile();
+		String compile = compile();
 		StringBuilder sb=new StringBuilder();
 		if (compile == null || compile.isEmpty()) {
 			List<File> sourceFileList = new ArrayList<>(0);
 			// 得到编译后的class文件
-			FileUtil.getFiles(this.outDir, sourceFileList, ".class", null);
+			FileUtil.getFiles(outDir, sourceFileList, ".class", null);
 			String[] fileNames = new String[sourceFileList.size()]; // 类路径列表
 			for (int i = 0; i < sourceFileList.size(); i++) {
 				fileNames[i] = sourceFileList.get(i).getPath();
@@ -373,29 +373,29 @@ public final class ScriptPool {
 	 * @return
 	 */
 	public String loadJava(String... source) {
-		FileUtil.deleteDirectory(this.outDir);
+		FileUtil.deleteDirectory(outDir);
 		List<File> sourceFileList = new ArrayList<>();
-		FileUtil.getFiles(this.sourceDir, sourceFileList, ".java", fileAbsolutePath -> {
+		FileUtil.getFiles(sourceDir, sourceFileList, ".java", fileAbsolutePath -> {
 			if (source == null) {
 				return true;
 			}
 			for (String str : source) {
-				if (fileAbsolutePath.contains(str) || str.equals("")) {
+				if (fileAbsolutePath.contains(str) || "".equals(str)) {
 					return true;
 				}
 			}
 			return false;
 		});
-		String result = this.compile(sourceFileList);
+		String result = compile(sourceFileList);
 		StringBuilder loadJava = new StringBuilder();
 		if (result == null || result.isEmpty()) {
 			sourceFileList.clear();
-			FileUtil.getFiles(this.outDir, sourceFileList, ".class", fileAbsolutePath -> {
+			FileUtil.getFiles(outDir, sourceFileList, ".class", fileAbsolutePath -> {
 				if (source == null) {
 					return true;
 				}
 				for (String str : source) {
-					if (fileAbsolutePath.contains(str) || str.equals("")) {
+					if (fileAbsolutePath.contains(str) || "".equals(str)) {
 						return true;
 					}
 				}
@@ -410,7 +410,7 @@ public final class ScriptPool {
 			tmpIdScriptInstances = new ConcurrentHashMap<>();
 			loadClass(fileNames);
 			if (tmpScriptInstances.size() > 0) {
-				tmpScriptInstances.entrySet().stream().forEach((entry) -> {
+				tmpScriptInstances.entrySet().forEach(entry -> {
 					String key = entry.getKey();
 					Map<String, IScript> value = entry.getValue();
 					scriptInstances.put(key, value);
@@ -418,7 +418,7 @@ public final class ScriptPool {
 				});
 			}
 			if (tmpIdScriptInstances.size() > 0) {
-				tmpIdScriptInstances.entrySet().stream().forEach((entry) -> {
+				tmpIdScriptInstances.entrySet().forEach(entry -> {
 					Integer key = entry.getKey();
 					IIDScript value = entry.getValue();
 					idScriptInstances.put(key, value);
@@ -516,7 +516,7 @@ public final class ScriptPool {
 								}else{
 									LOGGER.warn("handler[{}]未继承Handler", defineClass.getSimpleName());
 								}
-								
+
 							} else {
 								LOGGER.warn("handler[{}]未添加注解", defineClass.getSimpleName());
 							}
@@ -610,11 +610,11 @@ public final class ScriptPool {
 			HandlerEntity handlerEntity = clazz.getAnnotation(HandlerEntity.class);
 			if (handlerEntity != null) {
 				if(TcpHandler.class.isAssignableFrom(clazz)){
-					tcpHandlerMap.put(handlerEntity.mid(), (Class<? extends IHandler>) clazz);
+					tcpHandlerMap.put(handlerEntity.mid(), clazz);
 					tcpHandlerEntityMap.put(handlerEntity.mid(), handlerEntity);
 					LOGGER.debug("[{}]加载到tcp handler容器", clazz.getName());
 				}else if(HttpHandler.class.isAssignableFrom(clazz)){
-					httpHandlerMap.put(handlerEntity.path(), (Class<? extends IHandler>) clazz);
+					httpHandlerMap.put(handlerEntity.path(), clazz);
 					httpHandlerEntityMap.put(handlerEntity.path(), handlerEntity);
 					LOGGER.debug("[{}]加载到http handler容器", clazz.getName());
 				}else{

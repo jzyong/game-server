@@ -20,7 +20,7 @@ public class IoThreadFactory implements ThreadFactory {
 
 	@Override
 	public Thread newThread(Runnable r) {
-		Thread thread = new Thread(group, r, ThreadType.IO.toString() + "-" + threadId.getAndIncrement(), 0);
+		Thread thread = new Thread(group, r, ThreadType.IO + "-" + threadId.getAndIncrement(), 0);
 		if (thread.isDaemon()) {
 			thread.setDaemon(false);
 		}

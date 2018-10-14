@@ -29,7 +29,7 @@ public class RoleManager {
 	private static volatile RoleManager roleManager;
 
 	/** role 数据需要实时存数据库 */
-	private Map<Long, Role> roles = new ConcurrentHashMap<>();
+	private final Map<Long, Role> roles = new ConcurrentHashMap<>();
 
 	private RoleManager() {
 
@@ -127,7 +127,7 @@ public class RoleManager {
 	 */
 	public void publishGoldChange(long roleId, int gold) {
 		String gameIdStr = JedisManager.getJedisCluster().hget(HallKey.Role_Map_Info.getKey(roleId), "gameId");
-		if (gameIdStr != null && !gameIdStr.equals("0")) {
+		if (gameIdStr != null && !"0".equals(gameIdStr)) {
 			JedisPubSubMessage message = new JedisPubSubMessage(roleId, Integer.parseInt(gameIdStr), gold);
 			JedisManager.getJedisCluster().publish(HallChannel.HallGoldChange.name(), message.toString());
 		}

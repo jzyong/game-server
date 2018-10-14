@@ -75,7 +75,7 @@ public class RangeTime {
 
     @Override
     public String toString() {
-        return this.checkConfigTimeStr();
+        return checkConfigTimeStr();
     }
 
     /**
@@ -91,7 +91,7 @@ public class RangeTime {
      */
     public long getDataEndTime(Calendar calendar) {
         long remain = 0;
-        String timeStr = this.checkConfigTimeStr();
+        String timeStr = checkConfigTimeStr();
         try {
             
             if (timeStr == null) {

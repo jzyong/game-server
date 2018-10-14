@@ -54,19 +54,19 @@ public class BydrServer implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BydrServer.class);
 
 	/** 连接网关 （接收网关转发过来的消息） */
-	private IMutilTcpClientService<? extends BaseServerConfig> bydr2GateClient;
+	private final IMutilTcpClientService<? extends BaseServerConfig> bydr2GateClient;
 
 	/** 连接集群服 （获取各服务器信息） */
-	private ITcpClientService<? extends BaseServerConfig> bydr2ClusterClient;
+	private final ITcpClientService<? extends BaseServerConfig> bydr2ClusterClient;
 
 	/** 游戏前端消息服务 （消息直接从手机前端发来,如果没有直接注释掉，不经过大厅网关转发,暂时用engine封装类） */
 	private ClientServerService bydrTcpServer;
 
 	/** http服务器 */
-	private BydrHttpServer gameHttpServer;
+	private final BydrHttpServer gameHttpServer;
 
 	/** 服务器状态监测 */
-	private GameServerCheckTimer gameServerCheckTimer;
+	private final GameServerCheckTimer gameServerCheckTimer;
 
 	/** redis订阅发布 */
 	private final JedisPubListener bydrPubListener;
@@ -110,31 +110,31 @@ public class BydrServer implements Runnable {
 		// 游戏前端消息服务 配置为空，不开启，开启后消息可以不经过网关直接发送到本服务器
 		MinaServerConfig minaServerConfig = FileUtil.getConfigXML(configPath, "minaServerConfig.xml",MinaServerConfig.class);
 		if (minaServerConfig != null) {
-			this.bydrTcpServer = new ClientServerService(minaServerConfig);
+            bydrTcpServer = new ClientServerService(minaServerConfig);
 		}
 
 		// 如果netty 优先级高，使用Netty服务,一般不直接使用engine提供的类
 		//网关
 		if(nettyClientConfig_gate!=null&&"NettyFirst".equalsIgnoreCase(nettyClientConfig_gate.getInfo())){
 			//TODO 需要重写channelActive 发送服务器注册消息 ，不然相当于当前客户端和网关只有一个channel连接
-			this.bydr2GateClient=new Bydr2GateClientNetty(threadPoolExecutorConfig,nettyClientConfig_gate);
+            bydr2GateClient =new Bydr2GateClientNetty(threadPoolExecutorConfig, nettyClientConfig_gate);
 		}else{
-			this.bydr2GateClient = new Bydr2GateClient(threadPoolExecutorConfig, minaClientConfig_gate);
+            bydr2GateClient = new Bydr2GateClient(threadPoolExecutorConfig, minaClientConfig_gate);
 		}
 		
 		//集群
 		if (nettyClinetConfig_cluster != null && "NettyFirst".equalsIgnoreCase(nettyClinetConfig_cluster.getInfo())) {
 			bydr2ClusterClient = new SingleNettyTcpClientService(nettyClinetConfig_cluster);
 		} else {
-			this.bydr2ClusterClient = new Bydr2ClusterClient(minaClientConfig_cluster);
+            bydr2ClusterClient = new Bydr2ClusterClient(minaClientConfig_cluster);
 		}
 		
 
 		// 状态监控
-		this.gameServerCheckTimer = new GameServerCheckTimer(bydr2ClusterClient, bydr2GateClient,
+        gameServerCheckTimer = new GameServerCheckTimer(bydr2ClusterClient, bydr2GateClient,
 				bydr2GateClient instanceof Bydr2GateClient?minaClientConfig_gate:nettyClientConfig_gate);
 		// 订阅发布
-		this.bydrPubListener = new JedisPubListener(BydrChannel.getChannels());
+        bydrPubListener = new JedisPubListener(BydrChannel.getChannels());
 		
 		//设置配置相关常量
 		Config.SERVER_ID = minaClientConfig_gate.getId();
@@ -147,14 +147,14 @@ public class BydrServer implements Runnable {
 
 	@Override
 	public void run() {
-		new Thread(this.bydr2GateClient).start();
-		new Thread(this.bydr2ClusterClient).start();
+		new Thread(bydr2GateClient).start();
+		new Thread(bydr2ClusterClient).start();
 
 		if (bydrTcpServer != null) {
-			new Thread(this.bydrTcpServer).start();
+			new Thread(bydrTcpServer).start();
 		}
-		this.gameServerCheckTimer.start();
-		new Thread(this.gameHttpServer).start();
+        gameServerCheckTimer.start();
+		new Thread(gameHttpServer).start();
 		new Thread(bydrPubListener).start();
 	}
 

@@ -13,7 +13,7 @@ import com.jzy.game.model.mongo.bydr.entity.CFish;
  */
 public class CFishDao extends BasicDAO<CFish, Integer> {
 
-	private static volatile CFishDao cFishDao = null;
+	private static volatile CFishDao cFishDao;
 
 	public CFishDao(AbsMongoManager mongoManager) {
 		super(CFish.class, mongoManager.getMongoClient(), mongoManager.getMorphia(),

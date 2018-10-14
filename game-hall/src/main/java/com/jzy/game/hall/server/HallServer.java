@@ -28,22 +28,22 @@ public class HallServer implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(HallServer.class);
 
     /** 连接网关 （接收网关转发过来的消息） */
-    private Hall2GateClient hall2GateClient;
+    private final Hall2GateClient hall2GateClient;
 
     /** 连接集群服 （获取各服务器信息） */
-    private Hall2ClusterClient hall2ClusterClient;
+    private final Hall2ClusterClient hall2ClusterClient;
 
     /** HTTP服务 */
-    private HallHttpServer hallHttpServer;
+    private final HallHttpServer hallHttpServer;
 
     /** redis订阅发布 */
     private final JedisPubListener hallPubListener;
 
     /** 服务器状态监测 */
-    private GameServerCheckTimer hallServerCheckTimer;
+    private final GameServerCheckTimer hallServerCheckTimer;
 
     /** MQ消息 */
-    private MQConsumer mqConsumer;
+    private final MQConsumer mqConsumer;
 
     public HallServer(String configPath) {
 
@@ -73,12 +73,12 @@ public class HallServer implements Runnable {
             System.exit(0);
         }
 
-        this.hall2GateClient = new Hall2GateClient(hallClientThreatPool, minaClientConfig_gate);
-        this.hall2ClusterClient = new Hall2ClusterClient(minaClientConfig_cluster);
+        hall2GateClient = new Hall2GateClient(hallClientThreatPool, minaClientConfig_gate);
+        hall2ClusterClient = new Hall2ClusterClient(minaClientConfig_cluster);
 
-        this.hallServerCheckTimer = new GameServerCheckTimer(hall2ClusterClient, hall2GateClient, minaClientConfig_gate);
+        hallServerCheckTimer = new GameServerCheckTimer(hall2ClusterClient, hall2GateClient, minaClientConfig_gate);
 
-        this.hallHttpServer = new HallHttpServer(minaServerConfig_http);
+        hallHttpServer = new HallHttpServer(minaServerConfig_http);
 
         hallPubListener = new JedisPubListener(HallChannel.getChannels());
 
@@ -93,10 +93,10 @@ public class HallServer implements Runnable {
 
     @Override
     public void run() {
-        new Thread(this.hall2GateClient).start();
-        new Thread(this.hall2ClusterClient).start();
-        new Thread(this.hallHttpServer).start();
-        this.hallServerCheckTimer.start();
+        new Thread(hall2GateClient).start();
+        new Thread(hall2ClusterClient).start();
+        new Thread(hallHttpServer).start();
+        hallServerCheckTimer.start();
         hallPubListener.start();
         // Thread thread = new Thread(mqConsumer);
         // thread.setName("MQConsumer");

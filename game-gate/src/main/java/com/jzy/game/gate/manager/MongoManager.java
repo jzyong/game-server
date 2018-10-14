@@ -27,7 +27,7 @@ public class MongoManager extends AbsMongoManager {
 
     }
 
-    public static final MongoManager getInstance() {
+    public static MongoManager getInstance() {
         return INSTANCE_MANAGER;
     }
 

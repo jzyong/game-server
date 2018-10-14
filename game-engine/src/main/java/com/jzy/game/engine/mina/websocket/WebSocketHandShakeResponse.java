@@ -12,12 +12,12 @@ package com.jzy.game.engine.mina.websocket;
  */
 public class WebSocketHandShakeResponse {
     
-    private String response;
+    private final String response;
     public WebSocketHandShakeResponse(String response){
         this.response = response;
     }
     
     public String getResponse(){
-        return this.response;
+        return response;
     }
 }

@@ -24,7 +24,7 @@ public class ServerManager {
 
 	private static final ServerManager instance = new ServerManager();
 	/** 服务器列表 */
-	Map<ServerType, Map<Integer, ServerInfo>> servers = new ConcurrentHashMap<>();
+    final Map<ServerType, Map<Integer, ServerInfo>> servers = new ConcurrentHashMap<>();
 
 	public static ServerManager getInstance() {
 		return instance;

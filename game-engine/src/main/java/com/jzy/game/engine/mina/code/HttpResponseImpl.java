@@ -52,7 +52,7 @@ public class HttpResponseImpl implements HttpResponse {
      * @return
      */
     public HttpResponseImpl appendBody(String s) {
-        this.bodyStringBuffer.append(s);
+        bodyStringBuffer.append(s);
         return this;
     }
     
@@ -67,7 +67,7 @@ public class HttpResponseImpl implements HttpResponse {
     public byte[] getBody() {
         try {
             if (body == null) {
-                body = this.bodyStringBuffer.toString().getBytes("utf-8");
+                body = bodyStringBuffer.toString().getBytes("utf-8");
             }
         } catch (IOException ex) {
             LOG.error("getBody", ex);

@@ -22,6 +22,7 @@ package com.jzy.game.gate.server.ssl;
 * </p>
 */
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
@@ -43,7 +44,7 @@ import com.jzy.game.gate.AppGate;
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月5日 上午11:49:53
  */
-public class GateSslContextFactory {
+public final class GateSslContextFactory {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GateSslContextFactory.class);
 	private static final String PROTOCOL = "TLS"; // 协议
 	private static final String KEY_MANAGER_FACTORY_ALGORITHM; // KEY管理算法名称
@@ -59,6 +60,9 @@ public class GateSslContextFactory {
 			algorithm = KeyManagerFactory.getDefaultAlgorithm();
 		}
 		KEY_MANAGER_FACTORY_ALGORITHM = algorithm;
+	}
+
+	private GateSslContextFactory() {
 	}
 
 	/**
@@ -115,7 +119,7 @@ public class GateSslContextFactory {
 		try {
 			in = GateSslContextFactory.class.getResourceAsStream(GATE_KEYSTORE);
 			if (in == null) {
-				in = FileUtil.getFileInputStream(AppGate.getConfigPath()+java.io.File.separatorChar+GATE_KEYSTORE);
+				in = FileUtil.getFileInputStream(AppGate.getConfigPath()+File.separatorChar+GATE_KEYSTORE);
 			}
 			ks.load(in, GATE_PW);
 		} finally {
@@ -144,7 +148,7 @@ public class GateSslContextFactory {
 		try {
 			in = GateSslContextFactory.class.getResourceAsStream(CLIENT_KEYSTORE);
 			if (in == null) {
-				in = FileUtil.getFileInputStream(AppGate.getConfigPath()+java.io.File.separatorChar+CLIENT_KEYSTORE);
+				in = FileUtil.getFileInputStream(AppGate.getConfigPath()+File.separatorChar+CLIENT_KEYSTORE);
 			}
 			ks.load(in, GATE_PW); // TODO 密码暂时都一样
 		} finally {

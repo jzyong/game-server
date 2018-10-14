@@ -35,11 +35,11 @@ public class WebSocketEncoder extends ProtocolEncoderAdapter{
         IoBuffer resultBuffer;
         if(isHandshakeResponse){
             WebSocketHandShakeResponse response = (WebSocketHandShakeResponse)message;
-            resultBuffer = WebSocketEncoder.buildWSResponseBuffer(response);
+            resultBuffer = buildWSResponseBuffer(response);
         }
         else if(isDataFramePacket){
             WebSocketCodecPacket packet = (WebSocketCodecPacket)message;
-            resultBuffer = isRemoteWebSocket ? WebSocketEncoder.buildWSDataFrameBuffer(packet.getPacket()) : packet.getPacket();
+            resultBuffer = isRemoteWebSocket ? buildWSDataFrameBuffer(packet.getPacket()) : packet.getPacket();
         }else if(message instanceof Message) {	//自定义protobuf，消息头只有ID，无长度，和app客户端不一致
         	Message msg=(Message)message;
         	int msgId=MsgUtil.getMessageID(msg);
@@ -48,13 +48,13 @@ public class WebSocketEncoder extends ProtocolEncoderAdapter{
         	iobuffer.putInt(msgId);
         	iobuffer.put(msgData);
         	iobuffer.rewind();
-        	resultBuffer=isRemoteWebSocket?WebSocketEncoder.buildWSDataFrameBuffer(iobuffer):iobuffer;
+        	resultBuffer=isRemoteWebSocket?buildWSDataFrameBuffer(iobuffer):iobuffer;
         }else if(message instanceof byte[]) {  //已经包含消息ID
         	 byte[] data = (byte[]) message;
              IoBuffer buf = IoBuffer.allocate(data.length);
              buf.put(data);
              buf.rewind();
-             resultBuffer=isRemoteWebSocket?WebSocketEncoder.buildWSDataFrameBuffer(buf):buf;
+             resultBuffer=isRemoteWebSocket?buildWSDataFrameBuffer(buf):buf;
         }
         else{
             throw (new Exception("message not a websocket type"));

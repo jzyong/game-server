@@ -24,22 +24,21 @@ import com.jzy.game.engine.mina.config.MinaClientConfig;
 public final class MinaUdpClient implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MinaUdpClient.class);
 
-	private NioDatagramConnector connector = null;
+	private NioDatagramConnector connector;
 	private MinaClientConfig minaClientConfig; // 客户端配置
 	private final IoHandler clientProtocolHandler; // 消息处理器
-	private ProtocolCodecFilter codecFilter; // 消息过滤器
+	private final ProtocolCodecFilter codecFilter; // 消息过滤器
 	private int maxConnectCount; // 最大连接数
 	private Consumer<MinaClientConfig> sessionCreateCallBack;
-	private ProtocolCodecFactoryImpl factory; // 消息工厂
+	private final ProtocolCodecFactoryImpl factory; // 消息工厂
 	private IoSession session;	//连接会话
 
 	public MinaUdpClient(MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler,
 			ProtocolCodecFactoryImpl factory) {
-		super();
-		this.minaClientConfig = minaClientConfig;
+        this.minaClientConfig = minaClientConfig;
 		this.clientProtocolHandler = clientProtocolHandler;
 		this.factory = factory;
-		this.codecFilter=new ProtocolCodecFilter(this.factory);
+        codecFilter =new ProtocolCodecFilter(this.factory);
 		init(this.clientProtocolHandler);
 		setMinaClientConfig(minaClientConfig);
 	}
@@ -50,9 +49,9 @@ public final class MinaUdpClient implements Runnable {
 	 * @param clientProtocolHandler
 	 */
 	private void init(IoHandler clientProtocolHandler) {
-		this.connector = new NioDatagramConnector();
-		this.connector.getFilterChain().addLast("codec", codecFilter);
-		this.connector.setHandler(clientProtocolHandler);
+        connector = new NioDatagramConnector();
+        connector.getFilterChain().addLast("codec", codecFilter);
+        connector.setHandler(clientProtocolHandler);
 		connector.setConnectTimeoutMillis(60000L);
 		connector.setConnectTimeoutCheckInterval(10000);
 	}
@@ -67,12 +66,12 @@ public final class MinaUdpClient implements Runnable {
 			return;
 		}
 		this.minaClientConfig = minaClientConfig;
-		DatagramSessionConfig dc = this.connector.getSessionConfig();
+		DatagramSessionConfig dc = connector.getSessionConfig();
 		maxConnectCount = minaClientConfig.getMaxConnectCount();
 		dc.setReceiveBufferSize(minaClientConfig.getReceiveBufferSize()); // 524288
 		dc.setSendBufferSize(minaClientConfig.getSendBufferSize()); // 1048576
 		dc.setMaxReadBufferSize(minaClientConfig.getMaxReadSize()); // 1048576
-		this.factory.getDecoder().setMaxReadSize(minaClientConfig.getMaxReadSize());
+        factory.getDecoder().setMaxReadSize(minaClientConfig.getMaxReadSize());
 	}
 
 	/**
@@ -81,7 +80,7 @@ public final class MinaUdpClient implements Runnable {
 	 * @param obj
 	 */
 	public void broadcastMsg(Object obj) {
-		this.connector.broadcast(obj);
+        connector.broadcast(obj);
 	}
 
 	@Override
@@ -103,15 +102,15 @@ public final class MinaUdpClient implements Runnable {
 				return;
 			}
 			for (int i = 0; i < getMinaClientConfig().getMaxConnectCount(); i++) {
-				ConnectFuture connect = this.connector
+				ConnectFuture connect = connector
 						.connect(new InetSocketAddress(connTo.getHost(), connTo.getPort()));
 				connect.awaitUninterruptibly(10000L);
 				if (!connect.isConnected()) {
-					LOGGER.warn("失败！连接到服务器：" + connTo.toString());
+					LOGGER.warn("失败！连接到服务器：" + connTo);
 					break;
 				} else {
-					LOGGER.warn("成功！连接到服务器：" + connTo.toString());
-					this.session=connect.getSession();
+					LOGGER.warn("成功！连接到服务器：" + connTo);
+                    session =connect.getSession();
 					if (sessionCreateCallBack != null) {
 						sessionCreateCallBack.accept(getMinaClientConfig());
 					}
@@ -137,8 +136,8 @@ public final class MinaUdpClient implements Runnable {
 	 * 状态监测
 	 */
 	public void checkStatus() {
-		if (this.connector.getManagedSessionCount() < maxConnectCount
-				|| this.connector.getManagedSessions().size() < maxConnectCount) {
+		if (connector.getManagedSessionCount() < maxConnectCount
+            || connector.getManagedSessions().size() < maxConnectCount) {
 			connect();
 		}
 	}

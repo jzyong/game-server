@@ -16,18 +16,16 @@ import io.netty.channel.ChannelHandlerContext;
  */
 public class DefaultClientInBoundHandler extends DefaultInBoundHandler {
 
-	private NettyClientService netttyClientService;
+	private final NettyClientService netttyClientService;
 	private ServerInfo serverInfo;
 
 	public DefaultClientInBoundHandler(NettyClientService netttyClientService, ServerInfo serverInfo) {
-		super();
-		this.netttyClientService = netttyClientService;
+        this.netttyClientService = netttyClientService;
 		this.serverInfo = serverInfo;
 	}
 
 	public DefaultClientInBoundHandler(NettyClientService netttyClientService) {
-		super();
-		this.netttyClientService = netttyClientService;
+        this.netttyClientService = netttyClientService;
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class DefaultClientInBoundHandler extends DefaultInBoundHandler {
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		super.channelActive(ctx);
 		netttyClientService.channelActive(ctx.channel());
-		if (this.serverInfo != null) {
+		if (serverInfo != null) {
 			serverInfo.onChannelActive(ctx.channel());
 		}
 		ScriptManager.getInstance().getBaseScriptEntry().executeScripts(IChannelHandlerScript.class,

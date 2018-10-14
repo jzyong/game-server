@@ -16,7 +16,7 @@ public abstract class LoopAction extends DelayAction {
 	/**
 	 * 延迟时间
 	 */
-	private int	delay;
+	private final int	delay;
 	
 	/**
 	 * 创建
@@ -53,7 +53,7 @@ public abstract class LoopAction extends DelayAction {
 		}
 		count--;
 		loopExecute();
-		this.execTime = System.currentTimeMillis() + this.delay;
+        execTime = System.currentTimeMillis() + delay;
 		getActionQueue().enDelayQueue(this);
 	}
 	

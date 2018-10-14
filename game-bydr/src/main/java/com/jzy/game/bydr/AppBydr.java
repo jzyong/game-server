@@ -23,11 +23,14 @@ import com.jzy.game.engine.script.ScriptManager;
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月28日 上午11:30:49
  */
-public class AppBydr {
+public final class AppBydr {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppBydr.class);
 	private static String configPath;
 	protected static JedisManager redisManager;
 	private static BydrServer bydrServer;
+
+	private AppBydr() {
+	}
 
 	public static void main(String[] args) {
 		initConfigPath();

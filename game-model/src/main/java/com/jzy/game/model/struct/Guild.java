@@ -42,8 +42,7 @@ public class Guild {
 	
 	
     public Guild() {
-		super();
-		this.id=Config.getId();
+        id =Config.getId();
 	}
 
 	public long getId() {

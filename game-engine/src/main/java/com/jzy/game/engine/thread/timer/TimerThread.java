@@ -48,28 +48,28 @@ public class TimerThread extends Timer {
     }
 
     public void start() {
-        log.info("TimerThread:start=" + this.serverThread.getThreadName() + "=heart=" + this.serverThread.getHeart());
-        this.task = new TimerTask() {
+        log.info("TimerThread:start=" + serverThread.getThreadName() + "=heart=" + serverThread.getHeart());
+        task = new TimerTask() {
             @Override
             public void run() {
-                synchronized (TimerThread.this.events) {
-                    Iterator<TimerEvent> it = TimerThread.this.events.iterator();
+                synchronized (events) {
+                    Iterator<TimerEvent> it = events.iterator();
                     while (it.hasNext()) {
                         TimerEvent event = it.next();
                         if (event.remain() >= 0L) {
                             if (event.getLoop() > 0) {
                                 event.setLoop(event.getLoop() - 1);
-                                TimerThread.this.serverThread.execute(event);
+                                serverThread.execute(event);
                             } else if (event.getLoop() < 0) {
-                                TimerThread.this.serverThread.execute(event);
+                                serverThread.execute(event);
                             }
                         } else {
-                            TimerThread.this.serverThread.execute(event);
+                            serverThread.execute(event);
                             event.setLoop(0);
                         }
                         if (event.getLoop() == 0) {
                             it.remove();
-                            if (TimerThread.this.classLogNames.contains(event.getClass().getName())) {
+                            if (classLogNames.contains(event.getClass().getName())) {
 //                                try {
 //                                    throw new Exception("TimerThread.TimerTask:run=remove");
 //                                } catch (Exception e) {
@@ -81,39 +81,39 @@ public class TimerThread extends Timer {
                 }
             }
         };
-        schedule(this.task, 0L, this.serverThread.getHeart());
-        log.error("TimerThread:end=" + this.serverThread.getThreadName() + "=heart=" + this.serverThread.getHeart());
+        schedule(task, 0L, serverThread.getHeart());
+        log.error("TimerThread:end=" + serverThread.getThreadName() + "=heart=" + serverThread.getHeart());
     }
 
     public void stop(boolean flag) {
-        synchronized (this.events) {
-            this.events.clear();
+        synchronized (events) {
+            events.clear();
 //            try {
 //                throw new Exception("TimerThread:clear");
 //            } catch (Exception e) {
             log.error("故意抛出的异常,以做提醒" + Thread.currentThread().getName() + " " + Thread.currentThread().getThreadGroup() + " " + Thread.currentThread());
-            if (this.task != null) {
-                this.task.cancel();
+            if (task != null) {
+                task.cancel();
             }
             cancel();
 //            }
         }
         int sign = flag ? 1 : 0;
-        log.error("TimerThread:stop=" + this.serverThread.getThreadName() + "=flag=" + sign);
+        log.error("TimerThread:stop=" + serverThread.getThreadName() + "=flag=" + sign);
     }
 
     public void addTimerEvent(TimerEvent event) {
-        synchronized (this.events) {
-            this.events.add(event);
+        synchronized (events) {
+            events.add(event);
         }
         if (classLogNames.contains(event.getClass().getName())) {
-            log.error("TimerThread:addTimerEvent=" + this.serverThread.getThreadName() + "=event=" + event.getClass().getName());
+            log.error("TimerThread:addTimerEvent=" + serverThread.getThreadName() + "=event=" + event.getClass().getName());
         }
     }
 
     public void removeTimerEvent(TimerEvent event) {
-        synchronized (this.events) {
-            this.events.remove(event);
+        synchronized (events) {
+            events.remove(event);
             if (classLogNames.contains(event.getClass().getName())) {
 //                try {
 //                    throw new Exception("TimerThread浜嬩欢:removeTimerEvent=remove");

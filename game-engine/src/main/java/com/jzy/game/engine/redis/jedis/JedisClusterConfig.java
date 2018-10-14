@@ -32,9 +32,9 @@ public class JedisClusterConfig {
     @Element
     private boolean testOnBorrow=true;
     @Element
-    private boolean testWhileIdle=false;
+    private boolean testWhileIdle;
     @Element
-    private boolean testOnReturn=false;
+    private boolean testOnReturn;
     
     public HashSet<JedisClusterNodesConfig> getNodes() {
         return nodes;

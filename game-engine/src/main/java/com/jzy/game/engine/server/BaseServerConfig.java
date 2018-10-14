@@ -47,7 +47,7 @@ public abstract class BaseServerConfig {
     
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -55,7 +55,7 @@ public abstract class BaseServerConfig {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -63,19 +63,19 @@ public abstract class BaseServerConfig {
     }
 
     public String getChannel() {
-        return this.channel;
+        return channel;
     }
 
     public void setChannel(String web) {
-        this.channel = web;
+        channel = web;
     }
 
     // eq id + channel
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + this.id;
-        hash = 41 * hash + Objects.hashCode(this.channel);
+        hash = 41 * hash + id;
+        hash = 41 * hash + Objects.hashCode(channel);
         return hash;
     }
 
@@ -88,10 +88,10 @@ public abstract class BaseServerConfig {
             return false;
         }
         final BaseServerConfig other = (BaseServerConfig) obj;
-        if (this.id != other.id) {
+        if (id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.channel, other.channel)) {
+        if (!Objects.equals(channel, other.channel)) {
             return false;
         }
         return true;

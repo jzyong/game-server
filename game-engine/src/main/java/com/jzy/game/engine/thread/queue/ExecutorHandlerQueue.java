@@ -26,11 +26,11 @@ public class ExecutorHandlerQueue<T extends Runnable> implements IQueue<T> {
 	/**
 	 * 任务队列实体
 	 */
-	private Queue<T> queue;
+	private final Queue<T> queue;
 	/**
 	 * 执行器
 	 */
-	protected IExecutor<T> executor;
+	protected final IExecutor<T> executor;
 	/**
 	 * 队列名称
 	 */
@@ -39,7 +39,7 @@ public class ExecutorHandlerQueue<T extends Runnable> implements IQueue<T> {
 	/**
 	 * 清空队列标记
 	 */
-	protected volatile boolean clearQueueFlag = false;
+	protected volatile boolean clearQueueFlag;
 
 	/**
 	 * 
@@ -48,13 +48,15 @@ public class ExecutorHandlerQueue<T extends Runnable> implements IQueue<T> {
 	 */
 	public ExecutorHandlerQueue(IExecutor<T> executor,String queueName) {
 		this.executor = executor;
-		this.queue = new LinkedList<T>();
+		queue = new LinkedList<T>();
 		this.queueName = queueName;
 	}
 	
 	
 	public void enqueue(T cmd) {
-		if(clearQueueFlag == true)return;
+		if(clearQueueFlag == true) {
+            return;
+        }
 		boolean canExec = false;
 		synchronized (queue) {
 			queue.add(cmd);
@@ -78,7 +80,7 @@ public class ExecutorHandlerQueue<T extends Runnable> implements IQueue<T> {
 			}
 			T temp = queue.remove();
 			if (temp != cmdTask) {
-				LOGGER.error( queueName+ "queue error. temp " + temp.toString() + ", cmd : " + cmdTask.toString());
+				LOGGER.error(queueName + "queue error. temp " + temp + ", cmd : " + cmdTask);
 			}
 			if (queue.size() != 0) {
 				nextCmdTask = queue.peek();
@@ -86,7 +88,7 @@ public class ExecutorHandlerQueue<T extends Runnable> implements IQueue<T> {
 		}
 		
 		if(clearQueueFlag){
-			this.queue.clear();
+			queue.clear();
 			return;
 		}
 		if (nextCmdTask != null) {

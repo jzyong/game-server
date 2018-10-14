@@ -14,5 +14,5 @@ public interface IDelayExecutor extends IExecutor<Action> {
 	 * 执行延迟/定时 action
 	 * @param delayAction
 	 */
-	public void executeDelayAction(DelayAction delayAction);
+    void executeDelayAction(DelayAction delayAction);
 }

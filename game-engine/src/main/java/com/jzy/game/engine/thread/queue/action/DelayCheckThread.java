@@ -24,11 +24,11 @@ public class DelayCheckThread extends Thread {
 	/**
 	 * 线程锁
 	 */
-	private Object lock = new Object(); // 线程锁
+	private final Object lock = new Object(); // 线程锁
 
-	private List<DelayAction> delayQqueue;	//延迟队列
+	private final List<DelayAction> delayQqueue;	//延迟队列
 
-	private List<DelayAction> execQueue;	//执行队列,临时存储
+	private final List<DelayAction> execQueue;	//执行队列,临时存储
 
 	private volatile boolean isRunning;
 
@@ -105,10 +105,10 @@ public class DelayCheckThread extends Thread {
 				executeCount++;
 				long end = System.currentTimeMillis();
 				if (end - begin > FRAME_PER_SECOND) {
-					LOGGER.warn(delayAction.toString() + " spent too much time. time :" + (end - begin));
+					LOGGER.warn(delayAction + " spent too much time. time :" + (end - begin));
 				}
 			} catch (Exception e) {
-				LOGGER.error("执行action异常" + delayAction.toString(), e);
+				LOGGER.error("执行action异常" + delayAction, e);
 			}
 		}
 		return executeCount;

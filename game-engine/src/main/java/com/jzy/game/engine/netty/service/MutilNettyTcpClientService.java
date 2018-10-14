@@ -31,9 +31,9 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
  * @QQ 359135103 2017年8月28日 下午1:49:39
  */
 public class MutilNettyTcpClientService extends NettyClientService implements IMutilTcpClientService<NettyClientConfig> {
-	protected NettyMutilTcpClient multiTcpClient = new NettyMutilTcpClient();
+	protected final NettyMutilTcpClient multiTcpClient = new NettyMutilTcpClient();
 	/** 网关服务器 */
-	protected Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
+	protected final Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
 
 	public MutilNettyTcpClientService(NettyClientConfig nettyClientConfig) {
 		super(nettyClientConfig);
@@ -94,10 +94,10 @@ public class MutilNettyTcpClientService extends NettyClientService implements IM
 		NettyClientConfig conf = new NettyClientConfig();
 		conf.setType(ServerType.GATE);
 		conf.setId(serverInfo.getId());
-		conf.setMaxConnectCount(this.getNettyClientConfig().getMaxConnectCount());
+		conf.setMaxConnectCount(getNettyClientConfig().getMaxConnectCount());
 		conf.setIp(serverInfo.getIp());
 		conf.setPort(port);
-		conf.setGroupThreadNum(this.getNettyClientConfig().getGroupThreadNum());
+		conf.setGroupThreadNum(getNettyClientConfig().getGroupThreadNum());
 		return conf;
 	}
 
