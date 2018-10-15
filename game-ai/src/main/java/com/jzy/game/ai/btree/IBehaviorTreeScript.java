@@ -7,7 +7,7 @@ import com.jzy.game.engine.struct.Person;
  * 行为树脚本
  * @author JiangZhiYong
  * @QQ 359135103
- * 2017年11月23日 下午5:49:18
+ * 2017年11月
  */
 public interface IBehaviorTreeScript extends IScript{
 	
@@ -15,8 +15,7 @@ public interface IBehaviorTreeScript extends IScript{
 	 * 为对象添加行为树
 	 * @author JiangZhiYong
 	 * @QQ 359135103
-	 * 2017年11月23日 下午5:50:29
-	 * @param person j
+	 * @param person 
 	 */
 	default void addBehaviorTree(Person person) {
 		
