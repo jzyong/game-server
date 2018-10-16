@@ -23,6 +23,8 @@ import com.jzy.game.ai.util.NonBlockingSemaphore;
 import com.jzy.game.ai.util.NonBlockingSemaphoreRepository;
 
 /**
+ * 任务信号量，控制装饰任务能同时被多少角色使用,防止过得消耗系统资源
+ * <br>
  * A {@code SemaphoreGuard} decorator allows you to specify how many characters
  * should be allowed to concurrently execute its child which represents a
  * limited resource used in different behavior trees (note that this does not
@@ -45,6 +47,7 @@ import com.jzy.game.ai.util.NonBlockingSemaphoreRepository;
  * @author davebaol
  */
 public class SemaphoreGuard<E> extends Decorator<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Mandatory task attribute specifying the semaphore name. */
 	@TaskAttribute(required = true)
@@ -153,4 +156,14 @@ public class SemaphoreGuard<E> extends Decorator<E> {
 		semaphoreAcquired = false;
 		super.reset();
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 }

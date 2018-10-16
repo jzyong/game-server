@@ -14,6 +14,7 @@ import com.jzy.game.ai.btree.dog.MarkTask;
 import com.jzy.game.ai.btree.dog.RestTask;
 import com.jzy.game.ai.btree.dog.WalkTask;
 import com.jzy.game.engine.math.MathUtil;
+import com.jzy.game.engine.struct.Person;
 
 /**
  * 行为树测试
@@ -60,6 +61,25 @@ public class BehaviorTreeTest {
 			tree.step();
 			Thread.sleep(1000);
 		}
-	
 	}
+	
+	/**
+	 * 解析xml行为树
+	 */
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testParseXml()  throws Exception{
+		String path = BehaviorTreeTest.class.getResource("").getPath();
+		BehaviorTreeManager.getInstance().parseBehaviorTree(path);
+		BehaviorTree<Person> behaviorTree =(BehaviorTree<Person>) BehaviorTreeManager.getInstance().cloneBehaviorTree("1");
+		Person dog=new Dog("Buddy");
+		behaviorTree.setObject(dog);
+		int setp=0;
+		while(true) {
+			System.out.println("步骤："+(++setp));
+			behaviorTree.step();
+			Thread.sleep(1000);
+		}
+	}
+	
 }

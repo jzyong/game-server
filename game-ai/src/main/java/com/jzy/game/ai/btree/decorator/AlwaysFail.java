@@ -26,6 +26,7 @@ import com.jzy.game.ai.btree.Task;
  * 
  * @author implicit-invocation */
 public class AlwaysFail<E> extends Decorator<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Creates an {@code AlwaysFail} decorator with no child. */
 	public AlwaysFail () {

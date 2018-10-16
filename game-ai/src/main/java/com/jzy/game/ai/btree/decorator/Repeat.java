@@ -34,6 +34,7 @@ import com.jzy.game.ai.btree.annotation.TaskAttribute;
  * 
  */
 public class Repeat<E> extends LoopDecorator<E> {
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Optional task attribute specifying the integer distribution that determines
@@ -53,6 +54,14 @@ public class Repeat<E> extends LoopDecorator<E> {
 		this(null);
 	}
 
+	/**
+	 * 
+	 * @param times 循环次数
+	 */
+	public Repeat(int times) {
+		this(times, null);
+	}
+	
 	/**
 	 * Creates an infinite repeat decorator that wraps the given task.
 	 * 

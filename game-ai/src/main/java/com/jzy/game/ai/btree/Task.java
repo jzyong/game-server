@@ -1,5 +1,7 @@
 package com.jzy.game.ai.btree;
 
+import java.io.Serializable;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +18,9 @@ import com.jzy.game.engine.cache.IMemoryObject;
  *            黑板对象，所属的对象，如NPC
  */
 @TaskConstraint
-public abstract class Task<E> implements IMemoryObject {
+public abstract class Task<E> implements IMemoryObject,Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(Task.class);
 
 	/** 任务状态 */

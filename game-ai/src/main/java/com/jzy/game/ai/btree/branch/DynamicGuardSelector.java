@@ -38,7 +38,7 @@ import com.jzy.game.ai.btree.Task;
  * @author davebaol
  */
 public class DynamicGuardSelector<E> extends BranchTask<E> {
-
+	private static final long serialVersionUID = 1L;
 	/** The child in the running status or {@code null} if no child is running. */
 	protected Task<E> runningChild;
 

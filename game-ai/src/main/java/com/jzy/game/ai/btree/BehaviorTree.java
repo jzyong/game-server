@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
  * @QQ 359135103 2017年11月22日 下午2:43:23
  */
 public class BehaviorTree<E> extends Task<E> {
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(BehaviorTree.class);
 
 	/** 根任务 */

@@ -28,6 +28,7 @@ import com.jzy.game.ai.btree.Task;
  * 
  * @author implicit-invocation */
 public class RandomSelector<E> extends Selector<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Creates a {@code RandomSelector} branch with no children. */
 	public RandomSelector () {
@@ -37,6 +38,7 @@ public class RandomSelector<E> extends Selector<E> {
 	/** Creates a {@code RandomSelector} branch with the given children.
 	 * 
 	 * @param tasks the children of this task */
+	@SuppressWarnings("unchecked")
 	public RandomSelector (Task<E>... tasks) {
 		super(Arrays.asList(tasks));
 	}

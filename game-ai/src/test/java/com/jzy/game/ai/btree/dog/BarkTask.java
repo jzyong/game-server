@@ -17,7 +17,6 @@
 package com.jzy.game.ai.btree.dog;
 
 import com.jzy.game.ai.btree.LeafTask;
-import com.jzy.game.ai.btree.Task;
 import com.jzy.game.ai.btree.annotation.TaskAttribute;
 
 /**
@@ -27,6 +26,8 @@ import com.jzy.game.ai.btree.annotation.TaskAttribute;
  * @author davebaol
  */
 public class BarkTask extends LeafTask<Dog> {
+
+	private static final long serialVersionUID = 1L;
 
 	@TaskAttribute
 	public int times = 1;	//次数
@@ -42,8 +43,9 @@ public class BarkTask extends LeafTask<Dog> {
 	@Override
 	public Status execute() {
 		Dog dog = getObject();
-		for (int i = 0; i < t; i++)
+		for (int i = 0; i < t; i++) {
 			dog.bark();
+		}
 		return Status.SUCCEEDED;
 	}
 
@@ -60,6 +62,14 @@ public class BarkTask extends LeafTask<Dog> {
 		times = 1;
 		t = 0;
 		super.reset();
+	}
+
+	public int getTimes() {
+		return times;
+	}
+
+	public void setTimes(int times) {
+		this.times = times;
 	}
 
 }

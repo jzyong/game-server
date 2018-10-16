@@ -18,11 +18,12 @@ package com.jzy.game.ai.btree.dog;
 
 import com.jzy.game.ai.btree.BehaviorTree;
 import com.jzy.game.engine.math.MathUtil;
+import com.jzy.game.engine.struct.Person;
 
 /**狗角色对象
  *  @author implicit-invocation
  * @author davebaol */
-public class Dog {
+public class Dog extends Person{
 
 	public String name;
 	public String brainLog;	//思考日志

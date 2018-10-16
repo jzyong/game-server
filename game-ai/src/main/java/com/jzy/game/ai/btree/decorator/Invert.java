@@ -31,6 +31,7 @@ import com.jzy.game.ai.btree.Task;
  * @author implicit-invocation
  */
 public class Invert<E> extends Decorator<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Creates an {@code Invert} decorator with no child. */
 	public Invert() {

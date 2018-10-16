@@ -59,7 +59,7 @@ import com.jzy.game.ai.btree.annotation.TaskAttribute;
  * @author davebaol
  */
 public class Parallel<E> extends BranchTask<E> {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Optional task attribute specifying the parallel policy (defaults to
 	 * {@link Policy#Sequence})
@@ -92,6 +92,7 @@ public class Parallel<E> extends BranchTask<E> {
 	 * @param tasks
 	 *            the children
 	 */
+	@SuppressWarnings("unchecked")
 	public Parallel(Task<E>... tasks) {
 		this(Arrays.asList(tasks));
 	}
@@ -105,6 +106,15 @@ public class Parallel<E> extends BranchTask<E> {
 	 */
 	public Parallel(List<Task<E>> tasks) {
 		this(Policy.Sequence, tasks);
+	}
+	
+	/**
+	 * 
+	 * @param policy
+	 * @param orchestrator
+	 */
+	public Parallel(Policy policy,Orchestrator orchestrator) {
+		this(policy,orchestrator,new ArrayList<>());
 	}
 
 	/**
@@ -127,6 +137,7 @@ public class Parallel<E> extends BranchTask<E> {
 	 * @param tasks
 	 *            the children
 	 */
+	@SuppressWarnings("unchecked")
 	public Parallel(Policy policy, Task<E>... tasks) {
 		this(policy, Arrays.asList(tasks));
 	}
@@ -166,6 +177,7 @@ public class Parallel<E> extends BranchTask<E> {
 	 * @param tasks
 	 *            the children
 	 */
+	@SuppressWarnings("unchecked")
 	public Parallel(Orchestrator orchestrator, Task<E>... tasks) {
 		this(Policy.Sequence, orchestrator, Arrays.asList(tasks));
 	}
@@ -230,14 +242,17 @@ public class Parallel<E> extends BranchTask<E> {
 	}
 
 	/**
+	 * 任务执行协调器<br>
 	 * The enumeration of the child orchestrators supported by the {@link Parallel}
 	 * task
 	 */
 	public enum Orchestrator {
 		/**
+		 * 默认方式，重新调度执行所有子任务<br>
 		 * The default orchestrator - starts or resumes all children every single step
 		 */
 		Resume() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void execute(Parallel<?> parallel) {
 				parallel.noRunningTasks = true;
@@ -268,11 +283,12 @@ public class Parallel<E> extends BranchTask<E> {
 				parallel.running();
 			}
 		},
-		/**
+		/**执行一次<br>
 		 * Children execute until they succeed or fail but will not re-run until the
 		 * parallel task has succeeded or failed
 		 */
 		Join() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			@Override
 			public void execute(Parallel<?> parallel) {
 				parallel.noRunningTasks = true;
@@ -331,9 +347,13 @@ public class Parallel<E> extends BranchTask<E> {
 		super.reset();
 	}
 
-	/** The enumeration of the policies supported by the {@link Parallel} task. */
+	/** 
+	 * 执行结果策略
+	 * <br>
+	 * The enumeration of the policies supported by the {@link Parallel} task. */
 	public enum Policy {
 		/**
+		 * 一个子任务失败，并行任务即失败<br>
 		 * The sequence policy makes the {@link Parallel} task fail as soon as one child
 		 * fails; if all children succeed, then the parallel task succeeds. This is the
 		 * default policy.
@@ -360,7 +380,7 @@ public class Parallel<E> extends BranchTask<E> {
 				return Boolean.FALSE;
 			}
 		},
-		/**
+		/**所有子任务执行成功，并行任务才算成功<br>
 		 * The selector policy makes the {@link Parallel} task succeed as soon as one
 		 * child succeeds; if all children fail, then the parallel task fails.
 		 */

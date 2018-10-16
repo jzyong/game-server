@@ -52,4 +52,12 @@ public class CareTask extends LeafTask<Dog> {
 		super.reset();
 	}
 
+	public float getUrgentProb() {
+		return urgentProb;
+	}
+
+	public void setUrgentProb(float urgentProb) {
+		this.urgentProb = urgentProb;
+	}
+
 }

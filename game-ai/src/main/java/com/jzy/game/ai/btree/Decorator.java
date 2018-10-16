@@ -33,7 +33,8 @@ import com.jzy.game.ai.btree.annotation.TaskConstraint;
  */
 @TaskConstraint(minChildren = 1, maxChildren = 1)
 public abstract class Decorator<E> extends Task<E> {
-
+	private static final long serialVersionUID = 1L;
+	
 	/** The child task wrapped by this decorator */
 	protected Task<E> child;
 

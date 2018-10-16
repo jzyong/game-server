@@ -32,6 +32,7 @@ import com.jzy.game.ai.btree.Task;
  * @author implicit-invocation
  */
 public class RandomSequence<E> extends Sequence<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Creates a {@code RandomSequence} branch with no children. */
 	public RandomSequence() {

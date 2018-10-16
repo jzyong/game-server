@@ -34,6 +34,12 @@ public class NonBlockingSemaphoreRepository {
 		FACTORY = factory;
 	}
 
+	/**
+	 * 添加任务信号控制
+	 * @param name 信号量名称
+	 * @param maxResources 最大信号量数
+	 * @return
+	 */
 	public static NonBlockingSemaphore addSemaphore(String name, int maxResources) {
 		NonBlockingSemaphore sem = FACTORY.createSemaphore(name, maxResources);
 		REPO.put(name, sem);

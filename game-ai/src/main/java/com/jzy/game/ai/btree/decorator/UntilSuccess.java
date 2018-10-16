@@ -35,6 +35,7 @@ import com.jzy.game.ai.btree.Task;
  * @author davebaol
  */
 public class UntilSuccess<E> extends LoopDecorator<E> {
+	private static final long serialVersionUID = 1L;
 
 	/** Creates an {@code UntilSuccess} decorator with no child. */
 	public UntilSuccess() {
