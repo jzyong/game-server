@@ -18,6 +18,7 @@ import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.jzy.game.ai.btree.branch.Parallel;
 import com.jzy.game.ai.btree.branch.Parallel.Orchestrator;
 import com.jzy.game.ai.btree.branch.Parallel.Policy;
@@ -28,10 +29,12 @@ import com.jzy.game.ai.btree.branch.Sequence;
 import com.jzy.game.ai.btree.decorator.AlwaysFail;
 import com.jzy.game.ai.btree.decorator.AlwaysSucceed;
 import com.jzy.game.ai.btree.decorator.Invert;
+import com.jzy.game.ai.btree.decorator.Random;
 import com.jzy.game.ai.btree.decorator.Repeat;
 import com.jzy.game.ai.btree.decorator.SemaphoreGuard;
 import com.jzy.game.ai.btree.decorator.UntilFail;
 import com.jzy.game.ai.btree.decorator.UntilSuccess;
+import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.struct.Person;
 import com.jzy.game.engine.util.Args;
 import com.jzy.game.engine.util.Args.Two;
@@ -233,6 +236,13 @@ public class BehaviorTreeManager {
 		case XML_UNTIL_SUCCESS:
 			task=new UntilSuccess<>();
 			break;
+		case XML_RANDOM:
+			float success=0.5f;
+			Attribute successAttr = element.attribute(XML_ATTRIBUTE_SUCCESS);
+			if(successAttr!=null&&!StringUtil.isNullOrEmpty(successAttr.getValue())) {
+				success=Float.parseFloat(successAttr.getValue());
+			}
+			task=new Random<>(success);
 			
 		default:
 			throw new IllegalStateException(String.format("节点 %s 名称非法", element.getName()));
@@ -310,6 +320,10 @@ public class BehaviorTreeManager {
 					method.invoke(leafTask, Long.parseLong(attrMap.get(entry.getKey())));
 				} else if (field.getType().isAssignableFrom(short.class)) {
 					method.invoke(leafTask, Short.parseShort(attrMap.get(entry.getKey())));
+				} else if(field.getType().isAssignableFrom(boolean.class)) {
+					method.invoke(leafTask, Boolean.parseBoolean(attrMap.get(entry.getKey())));
+				} else if(field.getType().isAssignableFrom(Vector3.class)) {
+					method.invoke(leafTask, JSON.parseObject(attrMap.get(entry.getKey()), Vector3.class));
 				} else {
 					method.invoke(leafTask, attrMap.get(entry.getKey()));
 				}

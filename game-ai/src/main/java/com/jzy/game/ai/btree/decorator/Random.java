@@ -42,6 +42,8 @@ import com.jzy.game.engine.math.MathUtil;
  */
 @TaskConstraint(minChildren = 0, maxChildren = 1)
 public class Random<E> extends Decorator<E> {
+	private static final long serialVersionUID = 1L;
+
 	private static final float INIT_PRO=0.5f;
 
 	/**

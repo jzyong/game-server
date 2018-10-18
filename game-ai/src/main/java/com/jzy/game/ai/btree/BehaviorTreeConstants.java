@@ -62,6 +62,9 @@ public class BehaviorTreeConstants {
 	
 	/** 一直到成功节点标识 */
 	public static final String XML_UNTIL_SUCCESS = "UntilSuccess";
+	
+	/** 随机节点标识 */
+	public static final String XML_RANDOM = "Random";
 
 	/** xml name属性 */
 	public static final String XML_ATTRIBUTE_NAME = "name";
@@ -77,5 +80,8 @@ public class BehaviorTreeConstants {
 	
 	/** xml times属性 */
 	public static final String XML_ATTRIBUTE_TIMES = "times";
+	
+	/** xml success属性 */
+	public static final String XML_ATTRIBUTE_SUCCESS = "success";
 
 }
