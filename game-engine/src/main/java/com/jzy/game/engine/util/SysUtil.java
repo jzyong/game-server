@@ -41,7 +41,7 @@ public final class SysUtil {
 	 * @param info
 	 * @param obs
 	 */
-	public static void exit(Class cls, Exception e, String info, Object... obs) {
+	public static void exit(Class<?> cls, Exception e, String info, Object... obs) {
 		log.error(cls.getName(), e);
 		log.warn(info, obs);
 		System.exit(1);
