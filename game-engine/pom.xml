@@ -83,7 +83,7 @@
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-client</artifactId>
-			<version>5.14.0</version>
+			<version>5.15.6</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
