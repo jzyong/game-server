@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://github.com/jzyong/game-server/tree/master/game-ai/src/main/java/com/jzy/game/ai/btree/BehaviorTree" xmlns:tns="https://github.com/jzyong/game-server/tree/master/game-ai/src/main/java/com/jzy/game/ai/btree/BehaviorTree" elementFormDefault="qualified">
+
+<element name="Root">
+	<complexType>
+		<sequence>
+			<element name="Id" type="string"></element>
+			<element name="Info" type="string"></element>
+			<element name="Tree" type="string"></element>
+		</sequence>
+	</complexType>
+
+</element>
+
+
+</schema>

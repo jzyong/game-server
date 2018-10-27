@@ -24,10 +24,18 @@ public class Matrix3 implements Serializable {
 	public float[] val = new float[9];
 	private float[] tmp = new float[9];
 
+	/**
+	 * 构造，默认为单位矩阵
+	 */
 	public Matrix3() {
 		idt();
 	}
 
+	/**
+	 * 构造一个矩阵<br>
+	 * 
+	 * @param matrix
+	 */
 	public Matrix3(Matrix3 matrix) {
 		set(matrix);
 	}
@@ -46,6 +54,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 单位矩阵<br>
 	 * Sets this matrix to the identity matrix
 	 * 
 	 * @return This matrix for the purpose of chaining operations.
@@ -65,6 +74,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 右称<br>
 	 * Postmultiplies this matrix with the provided matrix and stores the result in
 	 * this matrix. For example:
 	 * 
@@ -105,8 +115,8 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
-	 * Premultiplies this matrix with the provided matrix and stores the result in
-	 * this matrix. For example:
+	 * 左乘 Premultiplies this matrix with the provided matrix and stores the result
+	 * in this matrix. For example:
 	 * 
 	 * <pre>
 	 * A.mulLeft(B) results in A := BA
@@ -145,6 +155,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 矩阵旋转<br>
 	 * Sets this matrix to a rotation matrix that will rotate any vector in
 	 * counter-clockwise direction around the z-axis.
 	 * 
@@ -157,6 +168,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 矩阵旋转<br>
 	 * Sets this matrix to a rotation matrix that will rotate any vector in
 	 * counter-clockwise direction around the z-axis.
 	 * 
@@ -306,7 +318,11 @@ public class Matrix3 implements Serializable {
 				+ "[" + val[M20] + "|" + val[M21] + "|" + val[M22] + "]";
 	}
 
-	/** @return The determinant of this matrix */
+	/**
+	 * https://baike.baidu.com/item/%E7%9F%A9%E9%98%B5%E8%A1%8C%E5%88%97%E5%BC%8F/18882017?fr=aladdin<br>
+	 * 
+	 * @return The determinant of this matrix
+	 */
 	public float det() {
 		float[] val = this.val;
 		return val[M00] * val[M11] * val[M22] + val[M01] * val[M12] * val[M20] + val[M02] * val[M10] * val[M21]
@@ -352,6 +368,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 矩阵数值设置，拷贝<br>
 	 * Copies the values from the provided matrix to this matrix.
 	 * 
 	 * @param mat
@@ -688,6 +705,7 @@ public class Matrix3 implements Serializable {
 	}
 
 	/**
+	 * 转置<br>
 	 * Transposes the current matrix.
 	 * 
 	 * @return This matrix for the purpose of chaining methods together.

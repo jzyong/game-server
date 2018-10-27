@@ -2,20 +2,18 @@ package com.jzy.game.engine.math;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * 数学工具
  *
  * @author JiangZhiYong
- * @date 2017-03-23 QQ:359135103
+ * @date 2017-03-23
  */
 public final class MathUtil {
 
@@ -31,6 +29,7 @@ public final class MathUtil {
 
 	static private final int SIN_BITS = 14; // 16KB. Adjust for accuracy.
 	static private final int SIN_MASK = ~(-1 << SIN_BITS);
+	/**sin 数量*/
 	static private final int SIN_COUNT = SIN_MASK + 1;
 
 	static private final float radFull = PI * 2;
@@ -49,6 +48,9 @@ public final class MathUtil {
 	static public final float degreesToRadians = PI / 180;
 	static public final float degRad = degreesToRadians;
 
+	/**
+	 * 缓存sin值
+	 */
 	static private class Sin {
 
 		static final float[] table = new float[SIN_COUNT];
@@ -87,7 +89,7 @@ public final class MathUtil {
 		return (Math.round(value * FLOAT_ROUND)) / FLOAT_ROUND;
 	}
 
-	/**
+	/**获取sin值<br>
 	 * Returns the sine in radians from a lookup table.
 	 *
 	 * @return
@@ -96,7 +98,7 @@ public final class MathUtil {
 		return Sin.table[(int) (degrees * degToIndex) & SIN_MASK];
 	}
 
-	/**
+	/**获取cos值<br>
 	 * Returns the cosine in radians from a lookup table.
 	 *
 	 * @return
