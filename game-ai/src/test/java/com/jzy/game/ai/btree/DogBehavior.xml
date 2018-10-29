@@ -10,9 +10,10 @@
 	Selector Parallel Sequence 等参考行为树代码
 	https://github.com/libgdx/gdx-ai/wiki/Behavior-Trees
  -->
-<Root xmlns="https://github.com/jzyong/game-server/tree/master/game-ai/src/main/java/com/jzy/game/ai/btree"
+<Root xmlns="https://github.com/jzyong/game-server"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="https://github.com/jzyong/game-server/tree/master/game-ai/src/main/java/com/jzy/game/ai/btree BehaviorTree.xsd">
+xsi:schemaLocation="https://github.com/jzyong/game-server
+https://github.com/jzyong/game-server/tree/master/game-ai/src/main/java/com/jzy/game/ai/btree/BehaviorTree.xsd">
 	<Id>1</Id>
 	<Info>测试行为树xml解析</Info>
 	<Tree>
