@@ -118,10 +118,11 @@ public final class PolygonNavMesh extends NavMesh {
 		if (!find) {
 			return pointPath.getVectors();
 		}
+//		LOGGER.debug("起始点：{}-->目标点：{} 多边形个数{}",fromPoint.toString(),toPoint.toString(),polygonGraphPath.getCount());
 		// 计算坐标点
 		pointPath.calculateForGraphPath(polygonGraphPath, false);
 
-		return pointPath.getVectors();
+		return pointPath.getVectors(); 
 	}
 
 	/**

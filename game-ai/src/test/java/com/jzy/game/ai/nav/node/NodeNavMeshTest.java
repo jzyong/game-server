@@ -18,7 +18,7 @@ public class NodeNavMeshTest {
 //	private static final String FILE_PATH="E:\\Project\\game-server\\trunk\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
 //	private static final String FILE_PATH="E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
 //	private static final String FILE_PATH="E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
-	private static final String FILE_PATH="E:\\game-server\\game-server\\game-ai\\102.navmesh";
+	private static final String FILE_PATH="E:\\game-server\\game-server\\game-ai\\119.navmesh";
 	private NodeNavMesh navMesh;
 	
 	@Before
@@ -49,9 +49,11 @@ public class NodeNavMeshTest {
 		for(int i=0;i<10000;i++) {
 //		    path = navMesh.path(new Vector3(61,13,191), new Vector3(107,11,146));			//1
 //			path = navMesh.path(new Vector3(61,13,191),new Vector3(305,35,213));			//2
-			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(50,28,100));		//3
+//			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(50,28,100));		//3
 //			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f));//4
 //			path = navMesh.path(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f));//5
+//			path = navMesh.path(new Vector3(60.27f,0f,495.56f), new Vector3(429.0f,0f,125.0f));		//7
+			path = navMesh.path(new Vector3(12f,0f,505f), new Vector3(407f,0f,95f));		//8
 //			
 		}
 		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));

@@ -17,8 +17,8 @@ import com.jzy.game.engine.util.TimeUtil;
  * @mail 359135103@qq.com
  */
 public class PolygonNavMeshTest {
-//	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
-	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\110.navmesh";
+	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\119.navmesh";
+//	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\119.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
     @Before
@@ -37,6 +37,27 @@ public class PolygonNavMeshTest {
 	 * <p>3.三角形个数789,短距离寻路10000次,{@link NodeNavMesh}平均耗时737ms，{@link TriangleNavMesh}平均耗时133ms,{@link PolygonNavMesh}平均耗时：110ms</p>
 	 * <p>4.三角形个数789,长距离寻路10000次,{@link NodeNavMesh}平均耗时48000ms，{@link TriangleNavMesh}未处理unity共享边问题，查询失败,{@link PolygonNavMesh} 1215ms</p>
 	 * <p>5.三角形个数789,长距离寻路10000次,{@link NodeNavMesh}平均耗时136000ms，{@link TriangleNavMesh}1029ms,{@link PolygonNavMesh}平均耗时：800ms</p>
+	 * 
+	 * <h3>2018-12</h3>
+	 * <p>
+	 * 对比腾讯《仙剑奇侠传 online》游戏后台优化  jps，A*寻路，环境不一致，不具代表性 <br>
+	 * 腾讯10000次，起点到终点网格个数：200 A*平均：26ms JPS平均分别为：1.7ms、0.32ms、0.23ms、0.2ms、0.095ms
+	 * <p>
+	 * 7.多边形个数1007，寻路10000次 起始点：{x=60.27303, y=0.0, z=495.56827}-->目标点：{x=429.0, y=0.0, z=125.0} 起点到终点网格个数100<br>
+	 * {@link NodeNavMesh}运行异常ms，{@link TriangleNavMesh}平均耗时0.36ms,{@link PolygonNavMesh}平均耗时：0.37ms
+	 * </p>
+	 * <p>
+	 * 8.多边形个数4439，三角形个数7257 寻路10000次 起始点：{x=12.0, y=0.0, z=505.0}-->目标点：{x=407.0, y=0.0, z=95.0} 起点到终点网格个数169<br>
+	 * {@link NodeNavMesh}运行异常ms，{@link TriangleNavMesh}平均耗时9.2ms,{@link PolygonNavMesh}平均耗时：1.8ms
+	 * </p>
+	 * <p>
+	 * 9.多边形个数4439，三角形个数7257 寻路10000次 起始点：{x=373.0, y=0.0, z=247.0}-->目标点：{x=353.0, y=0.0, z=213.0} 起点到终点网格个数7<br>
+	 * {@link NodeNavMesh}运行异常ms，{@link TriangleNavMesh}平均耗时0.27ms,{@link PolygonNavMesh}平均耗时：0.03ms
+	 *  
+	 * </p>
+	 * <p>总结：网格数增多的情况下，A*寻路性能下降，在格子总数很大情况下使用四叉树分割的PolygonNavmesh性能更好，短距离无影响</p>
+	 * 
+	 * 
 	 */
     @Test
     public void testPerformance() {
@@ -49,7 +70,10 @@ public class PolygonNavMeshTest {
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(50,28,100),  pointPath);          //3
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f),  pointPath);     //4 
 //            paths = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f),  pointPath);     //5 
-        	paths = navMesh.findPath(new Vector3(66f,70f,146f), new Vector3(232f,37f,186f),  pointPath);		//6
+//        	paths = navMesh.findPath(new Vector3(66f,70f,146f), new Vector3(232f,37f,186f),  pointPath);		//6
+//        	paths = navMesh.findPath(new Vector3(60.27f,0f,495.56f), new Vector3(429.0f,0f,125.0f),  pointPath);		//7
+//        	paths = navMesh.findPath(new Vector3(12f,0f,505f), new Vector3(407f,0f,95f),  pointPath);		//8
+        	paths = navMesh.findPath(new Vector3(373f,0f,247f), new Vector3(353f,0f,213f),  pointPath);		//9
         }
         System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
         if(paths!=null) {

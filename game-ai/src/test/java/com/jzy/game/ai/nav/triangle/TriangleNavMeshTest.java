@@ -28,7 +28,7 @@ public class TriangleNavMeshTest {
 	// "E:\\Java\\game-server\\game-ai\\src\\test\\resources\\navmesh\\1000.navmesh";
 //	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\102.navmesh";
 //	 private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
-	 private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\102.navmesh";
+	 private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\119.navmesh";
 	 TriangleNavMesh navMesh;
 
 	@Before
@@ -84,13 +84,17 @@ public class TriangleNavMeshTest {
 //			list = navMesh.findPath(new Vector3(61,13,191), new Vector3(305,35,213), pointPath);				//2
 //			 list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(50,28,100), pointPath);			//3
 //			 list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(221.4f,70,161.3f), pointPath);	//4 
-			list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f), pointPath);	//5 
+//			list = navMesh.findPath(new Vector3(28f,27.6f,111f), new Vector3(176.5f,19.8f,41.3f), pointPath);	//5 
+//			list = navMesh.findPath(new Vector3(60.27f,0f,495.56f), new Vector3(429.0f,0f,125.0f), pointPath);	//7
+//			list = navMesh.findPath(new Vector3(12f,0f,505f), new Vector3(407f,0f,95f), pointPath);				//8
+			list = navMesh.findPath(new Vector3(373f,0f,247f), new Vector3(353f,0f,213f), pointPath);				//9
 			
 		}
+		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
 		if(list!=null) {
             list.forEach(v->System.out.println(v.toString()));
         }
-		System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
+		
 	}
 	
 	@Test
