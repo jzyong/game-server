@@ -31,12 +31,7 @@ public class Node<T> {
 	private Polygon polygon;
 
 	public Node(float x, float z, float w, float h, Node<T> parent) {
-		super();
-		this.x = x;
-		this.z = z;
-		this.w = w;
-		this.h = h;
-		this.parent = parent;
+		this(x, z, w, h, parent, 0);
 	}
 
 	public Node(float x, float z, float w, float h, Node<T> parent, int depth) {
