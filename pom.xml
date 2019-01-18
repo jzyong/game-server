@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.jzy.game</groupId>
@@ -85,13 +86,13 @@
 			<url>https://jzyong.github.io/game-server/</url>
 		</developer>
 	</developers>
-	
+
 	<scm>
 		<url>https://github.com/jzyong/game-server</url>
 		<developerConnection>scm:git:git://github.com/jzyong/game-server.git</developerConnection>
 		<connection>scm:git:git://github.com/jzyong/game-server.git</connection>
 	</scm>
-	
+
 
 	<!-- <repositories> <repository> <id>maven-central</id> <name>maven-central</name> 
 		<url>http://192.168.0.71:8081/repository/maven-central/</url> <layout>default</layout> 
