@@ -13,6 +13,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- MAC OSX下MAVEN生成javadoc报错 https://blog.csdn.net/ahyanwei/article/details/44352301 -->
+		<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
 	</properties>
 	<dependencies>
 		<dependency>
