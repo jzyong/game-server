@@ -45,6 +45,9 @@ public class PolygonViewPane extends JPanel {
 	protected boolean isRenderRandomPoints; // 是否渲染随机点
 	protected boolean isShowTriangleIndex; // 是否显示三角形序号
 	protected boolean isShowVectorIndex; // 是否显示坐标序号
+        
+        //定位位置
+        private Vector3 locationPosition;
 
 	public PolygonViewPane(MovePlayer player) {
 		this.player = player;
@@ -214,7 +217,14 @@ public class PolygonViewPane extends JPanel {
 				g.drawString(String.valueOf(renderPolygon.vectorIndexs[i]), point.x, point.z);
 			}
 		}
-
+                
+                //渲染定位坐标
+                if(locationPosition!=null){
+                    g.setColor(Color.WHITE);
+                    g.fill(new Ellipse2D.Double(locationPosition.x , locationPosition.z, 1.5f, 1.5f));
+                }
+               
+                
 		renderOther(g);
 	}
 
@@ -243,5 +253,13 @@ public class PolygonViewPane extends JPanel {
 	public void changeShowVectorIndex() {
 		this.isShowVectorIndex = !isShowVectorIndex;
 	}
+
+    public Vector3 getLocationPosition() {
+        return locationPosition;
+    }
+
+    public void setLocationPosition(Vector3 locationPosition) {
+        this.locationPosition = locationPosition;
+    }
 
 }

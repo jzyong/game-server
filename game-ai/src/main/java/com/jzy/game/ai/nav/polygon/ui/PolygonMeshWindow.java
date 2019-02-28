@@ -48,6 +48,8 @@ public class PolygonMeshWindow {
 	protected PolygonNavStart main;
 	/** 缓存上次加载文件 */
 	public static String lastFilePath = "";
+        /**地图缩放倍数*/
+        private int scale=1;
 
 	public PolygonMeshWindow(PolygonNavStart main) {
 		this.main = main;
@@ -216,6 +218,7 @@ public class PolygonMeshWindow {
 	 * @return
 	 */
 	public PolygonNavMesh loadMap(String filePath, int scale) {
+                this.scale=scale;
 		PolygonNavMesh map = null;
 		lastFilePath = filePath;
 		try {
@@ -366,4 +369,16 @@ public class PolygonMeshWindow {
 	public JFrame getFrame() {
 		return frame;
 	}
+        
+        /**
+         * 设置定位坐标
+         * @param x
+         * @param z 
+         */
+        public void setLocationVector(float x,float z){
+            Vector3 pos= new Vector3(x*this.scale,0,z*this.scale);
+            boolean pointInPath = polygonViewPane.getPlayer().getMap().isPointInPath(pos);
+            this.main.showLog(String.format("坐标点%s 在行走层%s", pos.toString(),String.valueOf(pointInPath)));
+            polygonViewPane.setLocationPosition(pos);
+        }
 }
