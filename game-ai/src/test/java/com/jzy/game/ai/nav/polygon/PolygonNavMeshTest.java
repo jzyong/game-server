@@ -17,7 +17,7 @@ import com.jzy.game.engine.util.TimeUtil;
  * @mail 359135103@qq.com
  */
 public class PolygonNavMeshTest {
-	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\119.navmesh";
+	private static final String meshPath = "E:\\game-server\\game-server\\game-ai\\20.navmesh";
 //	private static final String meshPath = "E:\\ldlh\\client\\Config\\Nav_build\\119.navmesh";
 //    private static final String meshPath = "E:\\Project\\game-server2\\game-server\\game-ai\\101.navmesh";
     PolygonNavMesh navMesh;
@@ -57,7 +57,10 @@ public class PolygonNavMeshTest {
 	 * </p>
 	 * <p>总结：网格数增多的情况下，A*寻路性能下降，在格子总数很大情况下使用四叉树分割的PolygonNavmesh性能更好，短距离无影响</p>
 	 * 
-	 * 
+	 * <h3>2019-3</h3>
+	 * <p>10.多边形个数5433,三角形个数9347，寻路10000次 起始点：Vector3(27,16f,482f)-->目标点：Vector3(87f,13f,898f) 起点到终点网格个数127<br>
+	 * {@link TriangleNavMesh}平均耗时0.53ms，加载耗时805ms;{@link PolygonNavMesh}平均耗时0.28ms,加载耗时10547</p>
+	 * <p>在大地图中（二十个地图放在一起连接寻路），多边形个数增加对性能影响较少，使用四叉树进行预计算耗时严重</p>
 	 */
     @Test
     public void testPerformance() {
@@ -73,7 +76,8 @@ public class PolygonNavMeshTest {
 //        	paths = navMesh.findPath(new Vector3(66f,70f,146f), new Vector3(232f,37f,186f),  pointPath);		//6
 //        	paths = navMesh.findPath(new Vector3(60.27f,0f,495.56f), new Vector3(429.0f,0f,125.0f),  pointPath);		//7
 //        	paths = navMesh.findPath(new Vector3(12f,0f,505f), new Vector3(407f,0f,95f),  pointPath);		//8
-        	paths = navMesh.findPath(new Vector3(373f,0f,247f), new Vector3(353f,0f,213f),  pointPath);		//9
+//        	paths = navMesh.findPath(new Vector3(373f,0f,247f), new Vector3(353f,0f,213f),  pointPath);		//9
+        	paths = navMesh.findPath(new Vector3(27,16f,482f), new Vector3(87f,13f,898f),  pointPath);		//10
         }
         System.err.println("耗时："+(TimeUtil.currentTimeMillis()-start));
         if(paths!=null) {

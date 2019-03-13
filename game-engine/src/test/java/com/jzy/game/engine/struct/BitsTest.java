@@ -1,4 +1,4 @@
-package com.jjy.game.engine.struct;
+package com.jzy.game.engine.struct;
 
 import org.junit.Assert;
 import org.junit.Test;

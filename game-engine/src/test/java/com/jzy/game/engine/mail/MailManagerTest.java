@@ -1,4 +1,4 @@
-package com.jjy.game.engine.mail;
+package com.jzy.game.engine.mail;
 
 import org.junit.Ignore;
 import org.junit.Test;

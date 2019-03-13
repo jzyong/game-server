@@ -1,4 +1,4 @@
-package com.jjy.game.engine.mina;
+package com.jzy.game.engine.mina;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

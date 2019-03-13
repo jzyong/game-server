@@ -1,4 +1,4 @@
-package com.jjy.game.engine.math;
+package com.jzy.game.engine.math;
 
 /**
  * 相交测试

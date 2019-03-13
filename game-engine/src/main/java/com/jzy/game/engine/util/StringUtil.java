@@ -21,8 +21,10 @@ public final class StringUtil {
         return null == str || str.trim().isEmpty();
     }
     
-	// 判断整数（int）
-
+	/**
+	 * 判断整数（int）
+	 * @note + -判断也为真
+	 * */ 
 	public static boolean isInteger(String str) {
 		if (null == str || "".equals(str)) {
 			return false;

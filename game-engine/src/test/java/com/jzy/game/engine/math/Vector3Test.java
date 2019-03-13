@@ -1,4 +1,4 @@
-package com.jjy.game.engine.math;
+package com.jzy.game.engine.math;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

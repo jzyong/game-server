@@ -1,4 +1,4 @@
-package com.jjy.game.engine.util;
+package com.jzy.game.engine.util;
 
 import org.junit.Test;
 
