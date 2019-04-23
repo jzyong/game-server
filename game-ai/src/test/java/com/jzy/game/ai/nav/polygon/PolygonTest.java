@@ -1,5 +1,8 @@
 package com.jzy.game.ai.nav.polygon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import com.jzy.game.engine.math.Vector3;
@@ -54,7 +57,7 @@ public class PolygonTest {
      * </p>
      */
     @Test
-    public void testPerformance() {
+    public void testContainPerformance() {
     	Polygon rectangle=new Polygon(0, new Vector3(0, 0), new Vector3(1, 0), new Vector3(1, 1),new Vector3(0,1 ));
     	Vector3 point=new Vector3(0.5f,0.5f);
 //    	Assert.assertTrue(rectangle.isInnerPoint(point));
@@ -96,6 +99,30 @@ public class PolygonTest {
     	
     	for(int i=0;i<100000000;i++) {
     		rectangle.isOnEdge(new Vector3(1, 0.4f));
+    	}
+    	
+    }
+    
+    /**
+     *测试构建多边形性能 
+     *<br>
+     *一亿次 四边形 27秒
+     *一亿次 五边形 27秒
+     *<br>
+     *一亿次 不进行预计算 8.5秒
+     */
+    @Test
+    public void testNewPolygon() {
+    	for(int i=0;i<100000000;i++) {
+//    		Polygon rectangle=new Polygon(0, new Vector3(0, 0), new Vector3(1, 0), new Vector3(1, 1),new Vector3(0,1 ));
+//    		Polygon rectangle=new Polygon(0, new Vector3(0, 0), new Vector3(1, 0), new Vector3(1, 1),new Vector3(1.5f, 0.5f),new Vector3(0,1 ));
+    		List<Vector3> list=new ArrayList<>();
+    		list.add(new Vector3(0, 0));
+    		list.add( new Vector3(1, 0));
+    		list.add(new Vector3(1, 1));
+    		list.add(new Vector3(1.5f, 0.5f));
+    		list.add(new Vector3(0, 1));
+    		Polygon polygon=new Polygon(0, list, null, false);
     	}
     	
     }

@@ -200,7 +200,7 @@ public final class PolygonNavMesh extends NavMesh {
 		list.add(corner_4);
 		list.add(corner_3);
 		list.add(corner_2);
-		return new Polygon(list);
+		return new Polygon(0,list,null,false);
 	}
 
 	/**
@@ -233,7 +233,7 @@ public final class PolygonNavMesh extends NavMesh {
 			sectors.add(forward);
 		}
 		sectors.add(forward_r);
-		return new Polygon(sectors);
+		return new Polygon(0,sectors,null,false);
 	}
 
 	/**
@@ -259,7 +259,7 @@ public final class PolygonNavMesh extends NavMesh {
 			Vector3 source = center.translateCopy(i * degrees /* + randomDegrees */, radius);
 			sectors.add(source);
 		}
-		return new Polygon(sectors);
+		return new Polygon(0,sectors,null,false);
 	}
 
 	@Override

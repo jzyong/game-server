@@ -69,6 +69,27 @@ public class Polygon implements Shape {
 		this.connections = new ArrayList<>();
 		initCalculate();
 	}
+	
+	/**
+	 * 
+	 * @param index
+	 *            寻路索引编号
+	 * @param points
+	 *            坐标点
+	 * @param vectorIndexs
+	 *            坐标顶点序号
+	 */
+	public Polygon(int index, List<Vector3> points, int[] vectorIndexs,boolean initCalculate) {
+		this.index = index;
+		this.vectorIndexs = vectorIndexs;
+		this.points = points;
+//		this.connections = new ArrayList<>();
+		if(initCalculate) {
+			initCalculate();
+		}
+		
+	}
+	
 
 	public Polygon(int index, Vector3... point) {
 		this(index, Arrays.asList(point), null);
