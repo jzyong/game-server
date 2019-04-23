@@ -83,7 +83,6 @@ public class Polygon implements Shape {
 		this.index = index;
 		this.vectorIndexs = vectorIndexs;
 		this.points = points;
-//		this.connections = new ArrayList<>();
 		if(initCalculate) {
 			initCalculate();
 		}
