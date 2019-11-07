@@ -129,7 +129,7 @@ public class MongoEntityBuilder extends AbstractMojo {
 		for (Entry<Args.Two<String, String>, List<FieldModel>> entry : entrySet) {
 			Args.Two<String, String> key = entry.getKey();
 			Map<String, Object> datas = new HashMap<>(); // 数据模型
-			datas.put("date", TimeUtil.getDateFormat1()); // 日期
+			datas.put("date", TimeUtil.getDateTimeFormat(TimeUtil.YYYYMMDDHHMMSS)); // 日期
 			datas.put("package", entityPackage.replaceAll("\\\\", ".").substring(1)); // 包路径
 			datas.put("tableName", key.a()); // 表名
 			datas.put("className", key.b()); // 类名

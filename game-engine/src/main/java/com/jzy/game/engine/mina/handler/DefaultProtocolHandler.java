@@ -118,11 +118,8 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	 * 消息处理
 	 *
 	 * @param session
-	 * @param messageBean
 	 * @param message
 	 * @param handler
-	 * @param msgID
-	 * @param bytes
 	 */
 	protected void messageHandler(IoSession session, HandlerEntity handlerEntity, Message message, TcpHandler handler) {
 		handler.setMessage(message);

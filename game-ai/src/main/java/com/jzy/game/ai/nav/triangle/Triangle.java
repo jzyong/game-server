@@ -113,11 +113,22 @@ public class Triangle implements Shape{
 		return 0.5f * (float) Math.sqrt(r * r + s * s + t * t);
 	}
 
+	/**
+	 * 三角形2D平面面积
+	 * @return
+	 */
+	public float area2D(){
+		final float abx=b.x-a.x;
+		final float abz=b.z-a.z;
+		final float acx=c.x-a.x;
+		final float acz=c.z-a.z;
+		return acx*abz-abx*acz;
+	}
+
 	
 	/**
 	 * 判断一个点是否在三角形内,二维判断
 	 * <br> http://www.yalewoo.com/in_triangle_test.html
-	 * @param vector3
 	 */
 	public boolean isInnerPoint(Vector3 point) {
 		boolean res=Vector3.pointInLineLeft(a, b, point);
