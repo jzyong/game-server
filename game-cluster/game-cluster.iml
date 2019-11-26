@@ -13,7 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="game-engine" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.6.1" level="project" />
-    <orderEntry type="module" module-name="jedis" />
+    <orderEntry type="library" name="Maven: redis.clients:jedis:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb.morphia:morphia:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.2.2" level="project" />
@@ -21,14 +21,14 @@
     <orderEntry type="library" name="Maven: com.thoughtworks.proxytoys:proxytoys:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mina:mina-core:2.0.16" level="project" />
     <orderEntry type="library" name="Maven: org.apache.mina:mina-http:2.0.16" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.mina:mina-core:bundle:2.0.16" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.mina:mina-core:2.0.16" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.34" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.activemq:activemq-client:5.14.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.activemq:activemq-client:5.15.7" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.hawtbuf:hawtbuf:1.11" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />

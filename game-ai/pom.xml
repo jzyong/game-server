@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<description>gdx、寻路等AI</description>
 	<groupId>com.jzy.game</groupId>
-	<version>releases</version>
+	<version>0.0.1</version>
 	<artifactId>game-ai</artifactId>
 	<name>game-ai</name>
 	<url>http://maven.apache.org</url>
@@ -124,4 +124,12 @@
 		<developerConnection>scm:git:git://github.com/jzyong/game-server.git</developerConnection>
 		<connection>scm:git:git://github.com/jzyong/game-server.git</connection>
 	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/jzyong/game-server</url>
+		</repository>
+	</distributionManagement>
 </project>
