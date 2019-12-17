@@ -4,7 +4,9 @@
 
 ![项目架构图](https://raw.githubusercontent.com/jzyong/game-server/master/game-config/src/main/resources/image/server-architecture.jpg)
 
-QQ交流群:144709243
+QQ交流群:
+	144709243(已满)
+	143469012
 		
 
 
