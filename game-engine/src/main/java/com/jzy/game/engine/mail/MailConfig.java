@@ -29,17 +29,15 @@ public class MailConfig {
 
 	/** 邮件发送账号 */
 	@Element(required = false)
-	//private String sendUser = "dyfservermail@dyfgame.com";
-	private String sendUser = "jzy@9599.cn";
+	private String sendUser = "123@qq.cn";
 
 	/** 邮件密码 */
 	@Element(required = false)
-	//private String password = "Dyf1qaz2wsx";
-	private String password = "Jzy3591";
+	private String password = "123456";
 
 	/** 协议地址 */
 	@Element(required = false)
-	private List<String> reciveUser = Arrays.asList("359135103@qq.com");
+	private List<String> reciveUser = Arrays.asList("123@qq.com");
 
 	public String getMailSmtpHost() {
 		return mailSmtpHost;

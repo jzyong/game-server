@@ -55,6 +55,7 @@ public class RandomSequence<E> extends Sequence<E> {
 	 * @param tasks
 	 *            the children of this task
 	 */
+	@SuppressWarnings("unchecked")
 	public RandomSequence(Task<E>... tasks) {
 		super(Arrays.asList(tasks));
 	}
