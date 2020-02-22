@@ -11,6 +11,7 @@ import java.util.List;
  * @author JiangZhiYong
  * @date 2017-04-26 QQ:359135103
  * @param <T>
+ * @version $Id: $Id
  */
 public class MemoryPool<T extends IMemoryObject> implements Serializable {
 
@@ -20,19 +21,27 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 
 	private int MAX_SIZE = 500;
 
+	/**
+	 * <p>Constructor for MemoryPool.</p>
+	 */
 	public MemoryPool() {
 	}
 
+	/**
+	 * <p>Constructor for MemoryPool.</p>
+	 *
+	 * @param max a int.
+	 */
 	public MemoryPool(int max) {
 		MAX_SIZE = max;
 	}
 
 	/**
 	 * 放回对象池并释放资源属性
-	 * 
+	 *
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年11月8日 下午2:46:59
-	 * @param value
+	 * @param value a T object.
 	 */
 	public void put(T value) {
 		synchronized (cache) {
@@ -45,10 +54,10 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 
 	/**
 	 * 批量放回
-	 * 
+	 *
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年11月8日 下午2:53:22
-	 * @param values
+	 * @param values a T object.
 	 */
 	@SuppressWarnings("unchecked")
 	public void putAll(T... values) {
@@ -67,11 +76,11 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 
 	/**
 	 * 获取缓存对象，如果没有，新建
-	 * 
+	 *
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年11月8日 下午2:50:05
-	 * @param c
-	 * @return
+	 * @param c a {@link java.lang.Class} object.
+	 * @return a T object.
 	 */
 	public T get(Class<? extends T> c) {
 		synchronized (cache) {
@@ -87,20 +96,38 @@ public class MemoryPool<T extends IMemoryObject> implements Serializable {
 		return null;
 	}
 
+	/**
+	 * <p>size.</p>
+	 *
+	 * @return a int.
+	 */
 	public int size() {
 		return cache.size();
 	}
 
+	/**
+	 * <p>clear.</p>
+	 */
 	public void clear() {
 		synchronized (cache) {
 			cache.clear();
 		}
 	}
 
+	/**
+	 * <p>getMAX_SIZE.</p>
+	 *
+	 * @return a int.
+	 */
 	public int getMAX_SIZE() {
 		return MAX_SIZE;
 	}
 
+	/**
+	 * <p>setMAX_SIZE.</p>
+	 *
+	 * @param MAX_SIZE a int.
+	 */
 	public void setMAX_SIZE(int MAX_SIZE) {
 		this.MAX_SIZE = MAX_SIZE;
 	}

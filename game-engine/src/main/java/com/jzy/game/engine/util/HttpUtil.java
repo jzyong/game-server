@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
  * http请求工具
  *
  * @author JiangZhiYong
+ * @version $Id: $Id
  */
 public final class HttpUtil {
     private static final Logger LOGGER=LoggerFactory.getLogger(HttpUtil.class);
@@ -35,10 +36,26 @@ public final class HttpUtil {
     private HttpUtil() {
     }
 
+    /**
+     * <p>URLPost.</p>
+     *
+     * @param strUrl a {@link java.lang.String} object.
+     * @param content a {@link java.lang.String} object.
+     * @return a {@link java.io.ByteArrayOutputStream} object.
+     * @throws java.io.IOException if any.
+     */
     public static ByteArrayOutputStream URLPost(String strUrl, String content) throws IOException {
         return URLPost(strUrl, null, content.getBytes("UTF-8"));
     }
 
+    /**
+     * <p>URLPost.</p>
+     *
+     * @param strUrl a {@link java.lang.String} object.
+     * @param content an array of {@link byte} objects.
+     * @return a {@link java.io.ByteArrayOutputStream} object.
+     * @throws java.io.IOException if any.
+     */
     public static ByteArrayOutputStream URLPost(String strUrl, byte[] content) throws IOException {
         return URLPost(strUrl, null, content);
     }
@@ -47,9 +64,9 @@ public final class HttpUtil {
      * POST METHOD
      *
      * @param strUrl String
-     * @param contentType
+     * @param contentType a {@link java.lang.String} object.
      * @param content Map
-     * @throws IOException
+     * @throws java.io.IOException
      * @return String
      */
     public static ByteArrayOutputStream URLPost(String strUrl, String contentType, byte[] content) throws IOException {
@@ -102,8 +119,8 @@ public final class HttpUtil {
     /**
      * get请求
      *
-     * @param strUrl
-     * @return
+     * @param strUrl a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
      */
     public static String URLGet(String strUrl) {
         ByteArrayOutputStream baos;
@@ -125,8 +142,8 @@ public final class HttpUtil {
      * GET METHOD
      *
      * @param strUrl String
-     * @param timeout
-     * @throws IOException
+     * @param timeout a int.
+     * @throws java.io.IOException
      * @return List
      */
     public static ByteArrayOutputStream URLGet(String strUrl, int timeout) throws IOException {
@@ -166,7 +183,7 @@ public final class HttpUtil {
      * 充值相关的HTTP请求使用 GET METHOD
      *
      * @param strUrl String
-     * @throws IOException
+     * @throws java.io.IOException
      * @return List
      */
     public static ByteArrayOutputStream URLGetByRecharge(String strUrl) throws IOException {
@@ -200,16 +217,24 @@ public final class HttpUtil {
         return bos;
     }
     
+    /**
+     * <p>httpPost.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     * @param paramsMap a {@link java.util.Map} object.
+     * @return a {@link java.lang.String} object.
+     */
     public static String httpPost(String url, Map<String, String> paramsMap) {
 		return httpPost(url, paramsMap, null);
 	}
 
 	/**
 	 * http的post请求
-	 * 
-	 * @param url
-	 * @param paramsMap
-	 * @return
+	 *
+	 * @param url a {@link java.lang.String} object.
+	 * @param paramsMap a {@link java.util.Map} object.
+	 * @param headMap a {@link java.util.Map} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public static String httpPost(String url, Map<String, String> paramsMap,
 			Map<String, String> headMap) {

@@ -8,6 +8,7 @@ import java.nio.channels.SelectionKey;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.protobuf.Message;
@@ -19,7 +20,6 @@ import com.jzy.game.message.hall.HallLoginMessage.LoginSubGameRequest;
 import com.jzy.game.engine.server.ServerType;
 import com.jzy.game.engine.util.IntUtil;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 
 /**

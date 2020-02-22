@@ -6,9 +6,13 @@ package com.jzy.game.engine.mina.code;
  * @author wzyi
  * @QQ 156320312
  * @Te 18202020823
+ * @version $Id: $Id
  */
 public class MassProtocolCodecFactory extends ProtocolCodecFactoryImpl {
 
+    /**
+     * <p>Constructor for MassProtocolCodecFactory.</p>
+     */
     public MassProtocolCodecFactory() {
         super(new MassProtocolDecoder(), new MassProtocolEncoder());
     }

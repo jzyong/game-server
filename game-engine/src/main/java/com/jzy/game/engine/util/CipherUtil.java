@@ -4,9 +4,10 @@ import java.security.MessageDigest;
 
 /**
  * 密码工具
- * 
+ *
  * @author JiangZhiYong
  * @QQ 359135103 2017年10月16日 下午3:41:31
+ * @version $Id: $Id
  */
 public final class CipherUtil {
 
@@ -34,11 +35,23 @@ public final class CipherUtil {
 		return "";
 	}
 
+	/**
+	 * <p>MD5Encode.</p>
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public static String MD5Encode(String s) {
 		byte[] b = s.getBytes();
 		return md5(b);
 	}
 
+	/**
+	 * <p>MD5Bytes.</p>
+	 *
+	 * @param v an array of {@link byte} objects.
+	 * @return an array of {@link byte} objects.
+	 */
 	public static byte[] MD5Bytes(byte[] v) {
 		return md5(v).getBytes();
 	}

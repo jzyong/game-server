@@ -28,9 +28,10 @@ import com.jzy.game.engine.struct.json.FieldMethod;
 
 /**
  * json 工具类
- * 
+ *
  * @author JiangZhiYong
  * @QQ 359135103 2017年7月7日 上午11:22:15
+ * @version $Id: $Id
  */
 public final class JsonUtil {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtil.class);
@@ -43,9 +44,9 @@ public final class JsonUtil {
 
 	/**
 	 * map转换为对象
-	 * 
-	 * @param map
-	 * @param object
+	 *
+	 * @param map a {@link java.util.Map} object.
+	 * @param object a {@link java.lang.Object} object.
 	 */
 	public static void map2Object(Map<String, String> map, Object object) {
 		StringBuilder sb = new StringBuilder("{");
@@ -93,11 +94,12 @@ public final class JsonUtil {
 
 	
 
-	/***
+	/**
+	 *
 	 * 注册属性方法
-	 * 
+	 *
 	 * @note 必须携带@JsonField
-	 * @param cls
+	 * @param cls a {@link java.lang.Class} object.
 	 */
 	public static void registerFiledMethod(Class<?> cls) {
 		Map<String, FieldMethod> fmmap = getFieldMethodMap(cls, true);
@@ -108,11 +110,11 @@ public final class JsonUtil {
 
 	/**
 	 * 获取类对象属性map
-	 * 
-	 * @param cls
+	 *
+	 * @param cls a {@link java.lang.Class} object.
 	 * @param haveJSONField
 	 *            是否注解 @JsonField
-	 * @return
+	 * @return a {@link java.util.Map} object.
 	 */
 	public static Map<String, FieldMethod> getFieldMethodMap(Class<?> cls, boolean haveJSONField) {
 		Map<String, FieldMethod> fmmap = new ConcurrentHashMap<>();
@@ -123,12 +125,13 @@ public final class JsonUtil {
 
 	/**
 	 * 获取含有指定参数的方法
+	 *
 	 * @author JiangZhiYong
 	 * @QQ 359135103
 	 * 2017年10月16日 下午5:25:23
-	 * @param cls
+	 * @param cls a {@link java.lang.Class} object.
 	 * @param parameterClass 参数类，null加载所有方法
-	 * @return
+	 * @return a {@link java.util.Map} object.
 	 */
 	public static Map<String, Method> getFieldMethodMap(Class<?> cls, Class<?> parameterClass) {
 		Map<String, Method> fmmap = new ConcurrentHashMap<>();
@@ -247,8 +250,8 @@ public final class JsonUtil {
 	/**
 	 * 判断是否存在某属性的 get方法
 	 *
-	 * @param methods
-	 * @param fieldGetMet
+	 * @param methods an array of {@link java.lang.reflect.Method} objects.
+	 * @param fieldGetMet a {@link java.lang.String} object.
 	 * @return boolean
 	 */
 	public static Method getGetMet(Method[] methods, String fieldGetMet) {
@@ -263,7 +266,7 @@ public final class JsonUtil {
 	/**
 	 * 拼接某属性的 get方法
 	 *
-	 * @param field
+	 * @param field a {@link java.lang.reflect.Field} object.
 	 * @return String
 	 */
 	public static String parGetName(Field field) {
@@ -282,10 +285,11 @@ public final class JsonUtil {
 
 	/**
 	 * 解析对象
-	 * 
-	 * @param text
-	 * @param clazz
-	 * @return
+	 *
+	 * @param text a {@link java.lang.String} object.
+	 * @param clazz a {@link java.lang.Class} object.
+	 * @param <T> a T object.
+	 * @return a T object.
 	 */
 	public static <T> T parseObject(String text, Class<T> clazz) {
 		return JSON.parseObject(text, clazz);
@@ -296,10 +300,9 @@ public final class JsonUtil {
 	 * <p>
 	 * 必须有jsonField注解
 	 * </p>
-	 * 
-	 * @param bean
-	 * @param type
-	 * @return
+	 *
+	 * @param bean a {@link java.lang.Object} object.
+	 * @return a {@link java.util.Map} object.
 	 */
 	public static Map<String, String> object2Map(Object bean) {
 		try {
@@ -328,10 +331,9 @@ public final class JsonUtil {
 	 * <p>
 	 * 需要jsonFiled注解
 	 * </p>
-	 * 
-	 * @param object
-	 * @param fieldType
-	 * @return
+	 *
+	 * @param object a {@link java.lang.Object} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public static String toJSONString(Object object) {
 		SerializeWriter out = new SerializeWriter();
@@ -358,8 +360,11 @@ public final class JsonUtil {
 		}
 	}
 	
-	/**
+    /**
      *通过属性序列化,排除get方法，加类名
+     *
+     * @param paramObject a {@link java.lang.Object} object.
+     * @return a {@link java.lang.String} object.
      */
     public static String toJSONStringWriteClassNameWithFiled(Object paramObject) {
         return JSON.toJSONString(paramObject, new SerializerFeature[]{SerializerFeature.WriteClassName, SerializerFeature.DisableCircularReferenceDetect,SerializerFeature.IgnoreNonFieldGetter});
@@ -367,16 +372,23 @@ public final class JsonUtil {
     
     /**
      * 通过属性序列化
+     *
      * @author JiangZhiYong
      * @QQ 359135103
      * 2017年9月29日 下午7:33:09
-     * @param object
-     * @return
+     * @param object a {@link java.lang.Object} object.
+     * @return a {@link java.lang.String} object.
      */
     public static String toJSONStringWithField(Object object) {
     	return JSON.toJSONString(object, new SerializerFeature[]{SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.IgnoreNonFieldGetter});
     }
 
+	/**
+	 * <p>isEmpty.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isEmpty(String str) {
 		return str.isEmpty() || "\"\"".equals(str) || "\"".equals(str);
 	}

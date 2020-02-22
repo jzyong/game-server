@@ -13,14 +13,19 @@ import org.slf4j.Logger;
  *
  * @author JiangZhiYong
  * @date 2017-05-03 QQ:359135103
+ * @version $Id: $Id
  */
-
 public class CooldownManager {
 
 	private static final Logger log = LoggerFactory.getLogger(CooldownManager.class);
 
 	private static final CooldownManager instance = new CooldownManager();
 
+	/**
+	 * <p>Getter for the field <code>instance</code>.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.cache.cooldown.CooldownManager} object.
+	 */
 	public static CooldownManager getInstance() {
 		return instance;
 	}
@@ -41,6 +46,7 @@ public class CooldownManager {
 	 *            关键字
 	 * @param delay
 	 *            冷却时间
+	 * @return a {@link com.jzy.game.engine.cache.cooldown.Cooldown} object.
 	 */
 	public Cooldown addCooldown(Person person, String type, String key, long delay) {
 		Cooldown cooldown = null;
@@ -71,6 +77,11 @@ public class CooldownManager {
 
 	/**
 	 * 冷却剩余时间
+	 *
+	 * @param person a {@link com.jzy.game.engine.struct.Person} object.
+	 * @param type a {@link java.lang.String} object.
+	 * @param key a {@link java.lang.String} object.
+	 * @return a long.
 	 */
 	public long getCooldownTime(Person person, String type, String key) {
 		Cooldown cooldown = getCooldown(person, type, key);
@@ -81,7 +92,12 @@ public class CooldownManager {
 	}
 
 	/**
+	 * <p>getCoolEndTime.</p>
+	 *
 	 * @return 冷却结束时间、
+	 * @param person a {@link com.jzy.game.engine.struct.Person} object.
+	 * @param type a {@link java.lang.String} object.
+	 * @param key a {@link java.lang.String} object.
 	 */
 	public long getCoolEndTime(Person person, String type, String key) {
 		Cooldown cooldown = getCooldown(person, type, key);
@@ -93,6 +109,11 @@ public class CooldownManager {
 
 	/**
 	 * 冷却对象
+	 *
+	 * @param person a {@link com.jzy.game.engine.struct.Person} object.
+	 * @param type a {@link java.lang.String} object.
+	 * @param key a {@link java.lang.String} object.
+	 * @return a {@link com.jzy.game.engine.cache.cooldown.Cooldown} object.
 	 */
 	public Cooldown getCooldown(Person person, String type, String key) {
 		if (person == null) {
@@ -144,7 +165,7 @@ public class CooldownManager {
 	 *            冷却类型
 	 * @param key
 	 *            关键字
-	 * @return
+	 * @return a boolean.
 	 */
 	public boolean isExistCooldownType(Person person, String type, String key) {
 		if (person == null) {

@@ -23,17 +23,20 @@ import com.jzy.game.engine.util.MsgUtil;
  * 消息头+消息内容 <br>
  * 消息头可能有消息长度、消息ID、用户ID
  * </p>
- * 
+ *
  * @author JiangZhiYong
  * @date 2017-03-30 QQ:359135103
+ * @version $Id: $Id
  */
 public abstract class DefaultProtocolHandler implements IoHandler {
 
+	/** Constant <code>log</code> */
 	protected static final Logger log = LoggerFactory.getLogger(DefaultProtocolHandler.class);
 	protected final int messageHeaderLength; // 消息头长度
 
 	/**
-	 * 
+	 * <p>Constructor for DefaultProtocolHandler.</p>
+	 *
 	 * @param messageHeaderLength
 	 *            消息头长度
 	 */
@@ -41,43 +44,51 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 		this.messageHeaderLength = messageHeaderLength;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		// log.warn("已创建连接{}", session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionOpened(IoSession session) {
 		log.warn("已打开连接{}", session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageSent(IoSession ioSession, Object message) throws Exception {
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionClosed(IoSession session) {
 		log.warn("连接{}已关闭sessionClosed", session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus idleStatus) {
 		log.warn("连接{}处于空闲{}", session, idleStatus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exceptionCaught(IoSession session, Throwable throwable) {
 		log.error("连接{}异常：{}", session, throwable);
 		session.closeNow();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void inputClosed(IoSession session) throws Exception {
 		log.warn("连接{}inputClosed已关闭", session);
 		session.closeNow();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
@@ -117,9 +128,10 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	/**
 	 * 消息处理
 	 *
-	 * @param session
-	 * @param message
-	 * @param handler
+	 * @param session a {@link org.apache.mina.core.session.IoSession} object.
+	 * @param message a {@link com.google.protobuf.Message} object.
+	 * @param handler a {@link com.jzy.game.engine.handler.TcpHandler} object.
+	 * @param handlerEntity a {@link com.jzy.game.engine.handler.HandlerEntity} object.
 	 */
 	protected void messageHandler(IoSession session, HandlerEntity handlerEntity, Message message, TcpHandler handler) {
 		handler.setMessage(message);
@@ -137,11 +149,16 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	/**
 	 * 转发消息
 	 *
-	 * @param session
-	 * @param msgID
-	 * @param bytes
+	 * @param session a {@link org.apache.mina.core.session.IoSession} object.
+	 * @param msgID a int.
+	 * @param bytes an array of {@link byte} objects.
 	 */
 	protected abstract void forward(IoSession session, int msgID, byte[] bytes);
 
+	/**
+	 * <p>getService.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.server.Service} object.
+	 */
 	public abstract Service<? extends BaseServerConfig> getService();
 }

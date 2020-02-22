@@ -12,6 +12,7 @@ import com.jzy.game.engine.server.ServerType;
  * @author JiangZhiYong
  * @date 2017-03-31
  * QQ:359135103
+ * @version $Id: $Id
  */
 @Root
 public class MinaClientConfig extends BaseServerConfig {
@@ -40,50 +41,110 @@ public class MinaClientConfig extends BaseServerConfig {
     @Element(required = false)
     private String info;
     
+    /**
+     * <p>Getter for the field <code>orderedThreadPoolExecutorSize</code>.</p>
+     *
+     * @return a int.
+     */
     public int getOrderedThreadPoolExecutorSize() {
         return orderedThreadPoolExecutorSize;
     }
 
+    /**
+     * <p>Setter for the field <code>orderedThreadPoolExecutorSize</code>.</p>
+     *
+     * @param orderedThreadPoolExecutorSize a int.
+     */
     public void setOrderedThreadPoolExecutorSize(int orderedThreadPoolExecutorSize) {
         this.orderedThreadPoolExecutorSize = orderedThreadPoolExecutorSize;
     }
 
+    /**
+     * <p>Getter for the field <code>soLinger</code>.</p>
+     *
+     * @return a int.
+     */
     public int getSoLinger() {
         return soLinger;
     }
 
+    /**
+     * <p>Setter for the field <code>soLinger</code>.</p>
+     *
+     * @param soLinger a int.
+     */
     public void setSoLinger(int soLinger) {
         this.soLinger = soLinger;
     }
 
+    /**
+     * <p>Getter for the field <code>type</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.server.ServerType} object.
+     */
     public ServerType getType() {
         return type;
     }
 
+    /**
+     * <p>Setter for the field <code>type</code>.</p>
+     *
+     * @param type a {@link com.jzy.game.engine.server.ServerType} object.
+     */
     public void setType(ServerType type) {
         this.type = type;
     }
     
+    /**
+     * <p>Getter for the field <code>info</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getInfo() {
         return info;
     }
 
+    /**
+     * <p>Setter for the field <code>info</code>.</p>
+     *
+     * @param info a {@link java.lang.String} object.
+     */
     public void setInfo(String info) {
         this.info = info;
     }
 
+    /**
+     * <p>Getter for the field <code>connTo</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.mina.config.MinaClientConfig.MinaClienConnToConfig} object.
+     */
     public MinaClienConnToConfig getConnTo() {
         return connTo;
     }
 
+    /**
+     * <p>Setter for the field <code>connTo</code>.</p>
+     *
+     * @param connTo a {@link com.jzy.game.engine.mina.config.MinaClientConfig.MinaClienConnToConfig} object.
+     */
     public void setConnTo(MinaClienConnToConfig connTo) {
         this.connTo = connTo;
     }
 
+    /**
+     * <p>Getter for the field <code>maxConnectCount</code>.</p>
+     *
+     * @return a int.
+     */
     public int getMaxConnectCount() {
         return maxConnectCount;
     }
 
+    /**
+     * <p>Setter for the field <code>maxConnectCount</code>.</p>
+     *
+     * @param maxConnectCount a int.
+     */
     public void setMaxConnectCount(int maxConnectCount) {
         this.maxConnectCount = maxConnectCount;
     }

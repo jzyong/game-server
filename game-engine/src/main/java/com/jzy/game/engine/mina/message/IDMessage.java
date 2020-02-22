@@ -8,13 +8,15 @@ import com.jzy.game.engine.util.MsgUtil;
 import io.netty.channel.Channel;
 
 /**
- * 
+ *
  * 带用户ID的消息
  * <br>
  * netty消息发送必须设置msgID,mina不能设置
+ *
  * @author JiangZhiYong
  * @date 2017-03-31
  * QQ:359135103
+ * @version $Id: $Id
  */
 public final class IDMessage implements Runnable{
 
@@ -26,10 +28,11 @@ public final class IDMessage implements Runnable{
     
     /**
      * netty使用
-     * @param channel
-     * @param msg
-     * @param userID
-     * @param msgId
+     *
+     * @param channel a {@link io.netty.channel.Channel} object.
+     * @param msg a {@link java.lang.Object} object.
+     * @param userID a long.
+     * @param msgId a {@link java.lang.Integer} object.
      */
     public IDMessage(Channel channel,Object msg, long userID,Integer msgId) {
         this.channel=channel;
@@ -38,11 +41,12 @@ public final class IDMessage implements Runnable{
 		this.msgId=msgId;
 	}
 
-	/**
+    /**
      * mina 使用
-     * @param session
-     * @param msg
-     * @param userID 
+     *
+     * @param session a {@link org.apache.mina.core.session.IoSession} object.
+     * @param msg a {@link java.lang.Object} object.
+     * @param userID a long.
      */
     public IDMessage(IoSession session, Object msg, long userID) {
         this.msg = msg;
@@ -50,14 +54,25 @@ public final class IDMessage implements Runnable{
         this.session=session;
     }
 
+    /**
+     * <p>Getter for the field <code>userID</code>.</p>
+     *
+     * @return a long.
+     */
     public long getUserID() {
         return userID;
     }
 
+    /**
+     * <p>Getter for the field <code>session</code>.</p>
+     *
+     * @return a {@link org.apache.mina.core.session.IoSession} object.
+     */
     public IoSession getSession() {
         return session;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         if (session!=null&&session.isConnected()) {
@@ -68,14 +83,29 @@ public final class IDMessage implements Runnable{
         }
     }
 
+    /**
+     * <p>Getter for the field <code>msg</code>.</p>
+     *
+     * @return a {@link java.lang.Object} object.
+     */
     public Object getMsg() {
         return msg;
     }
 
+	/**
+	 * <p>Getter for the field <code>msgId</code>.</p>
+	 *
+	 * @return a {@link java.lang.Integer} object.
+	 */
 	public Integer getMsgId() {
 		return msgId;
 	}
 
+	/**
+	 * <p>Setter for the field <code>msgId</code>.</p>
+	 *
+	 * @param msgId a {@link java.lang.Integer} object.
+	 */
 	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
 	}

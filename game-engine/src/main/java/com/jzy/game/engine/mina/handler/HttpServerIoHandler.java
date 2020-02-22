@@ -22,16 +22,19 @@ import org.apache.mina.http.HttpRequestImpl;
  *
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
+ * @version $Id: $Id
  */
 public abstract class HttpServerIoHandler implements IoHandler {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServerIoHandler.class);
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionOpened(IoSession session) {
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageReceived(IoSession ioSession, Object message) {
 		if (!(message instanceof HttpRequestImpl)) {
@@ -79,27 +82,32 @@ public abstract class HttpServerIoHandler implements IoHandler {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) {
 		session.closeOnFlush();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) {
 		session.closeOnFlush();
 		LOG.debug("exceptionCaught", cause);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		LOG.debug("http请求建立 " + session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
 		LOG.debug("http请求断开 " + session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageSent(IoSession session, Object message) throws Exception {
 		if (!session.isClosing()) {
@@ -107,6 +115,7 @@ public abstract class HttpServerIoHandler implements IoHandler {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void inputClosed(IoSession session) throws Exception {
 		LOG.error("http inputClosed " + session);
@@ -115,8 +124,8 @@ public abstract class HttpServerIoHandler implements IoHandler {
 
 	/**
 	 * 对应的服务
-	 * 
-	 * @return
+	 *
+	 * @return a {@link com.jzy.game.engine.server.Service} object.
 	 */
 	protected abstract Service<MinaServerConfig> getSevice();
 }

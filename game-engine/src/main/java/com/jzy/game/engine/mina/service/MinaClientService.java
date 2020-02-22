@@ -14,6 +14,7 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  *
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
+ * @version $Id: $Id
  */
 public abstract class MinaClientService extends Service<MinaClientConfig> implements ITcpClientService<MinaClientConfig>{
 
@@ -31,12 +32,19 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 
 	/**
 	 * 无线程池
-	 * @param minaClientConfig
+	 *
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
 	 */
 	public MinaClientService(MinaClientConfig minaClientConfig) {
 		this(null, minaClientConfig);
 	}
 
+	/**
+	 * <p>Constructor for MinaClientService.</p>
+	 *
+	 * @param threadPoolExecutorConfig a {@link com.jzy.game.engine.thread.ThreadPoolExecutorConfig} object.
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 */
 	public MinaClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig);
 		this.minaClientConfig = minaClientConfig;
@@ -44,6 +52,8 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 
 	/**
 	 * 连接建立
+	 *
+	 * @param session a {@link org.apache.mina.core.session.IoSession} object.
 	 */
 	public void onIoSessionConnect(IoSession session) {
 		sessions.add(session);
@@ -51,20 +61,26 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 
 	/**
 	 * 连接关闭移除
+	 *
+	 * @param session a {@link org.apache.mina.core.session.IoSession} object.
 	 */
 	public void onIoSessionClosed(IoSession session) {
 		sessions.remove(session);
 	}
 
+	/**
+	 * <p>isSessionEmpty.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean isSessionEmpty() {
 		return sessions.isEmpty();
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 发送消息
-	 * 
-	 * @param obj
-	 * @return
 	 */
 	public boolean sendMsg(Object obj) {
 		IoSession session = getMostIdleIoSession();
@@ -77,8 +93,8 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 
 	/**
 	 * 获取连接列表中最空闲的有效的连接
-	 * 
-	 * @return
+	 *
+	 * @return a {@link org.apache.mina.core.session.IoSession} object.
 	 */
 	public IoSession getMostIdleIoSession() {
 		IoSession session = null;
@@ -93,6 +109,11 @@ public abstract class MinaClientService extends Service<MinaClientConfig> implem
 		return session;
 	}
 
+	/**
+	 * <p>Getter for the field <code>minaClientConfig</code>.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 */
 	public MinaClientConfig getMinaClientConfig() {
 		return minaClientConfig;
 	}

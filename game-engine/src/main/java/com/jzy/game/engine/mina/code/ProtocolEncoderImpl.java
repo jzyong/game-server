@@ -20,9 +20,11 @@ import org.slf4j.Logger;
  * @author JiangZhiYong
  * @date 2017-03-30
  * QQ:359135103
+ * @version $Id: $Id
  */
 public class ProtocolEncoderImpl implements ProtocolEncoder {
 
+    /** Constant <code>log</code> */
     protected static Logger log = LoggerFactory.getLogger(ProtocolEncoderImpl.class);
     /**
      * 允许的最大堆积未发送消息条数
@@ -33,21 +35,22 @@ public class ProtocolEncoderImpl implements ProtocolEncoder {
      */
     protected Predicate<IoSession> overScheduledWriteBytesHandler;
 
+    /**
+     * <p>Constructor for ProtocolEncoderImpl.</p>
+     */
     public ProtocolEncoderImpl() {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void dispose(IoSession session)
             throws Exception {
     }
 
     /**
-     * 编码，格式：数据长度|数据部分
+     * {@inheritDoc}
      *
-     * @param session
-     * @param obj
-     * @param out
-     * @throws Exception
+     * 编码，格式：数据长度|数据部分
      */
     @Override
     public void encode(IoSession session, Object obj, ProtocolEncoderOutput out)
@@ -79,18 +82,38 @@ public class ProtocolEncoderImpl implements ProtocolEncoder {
         }
     }
 
+    /**
+     * <p>Getter for the field <code>maxScheduledWriteMessages</code>.</p>
+     *
+     * @return a int.
+     */
     public int getMaxScheduledWriteMessages() {
         return maxScheduledWriteMessages;
     }
 
+    /**
+     * <p>Setter for the field <code>maxScheduledWriteMessages</code>.</p>
+     *
+     * @param maxScheduledWriteMessages a int.
+     */
     public void setMaxScheduledWriteMessages(int maxScheduledWriteMessages) {
         this.maxScheduledWriteMessages = maxScheduledWriteMessages < 256 ? 256 : maxScheduledWriteMessages;
     }
 
+    /**
+     * <p>Getter for the field <code>overScheduledWriteBytesHandler</code>.</p>
+     *
+     * @return a {@link java.util.function.Predicate} object.
+     */
     public Predicate<IoSession> getOverScheduledWriteBytesHandler() {
         return overScheduledWriteBytesHandler;
     }
 
+    /**
+     * <p>Setter for the field <code>overScheduledWriteBytesHandler</code>.</p>
+     *
+     * @param overScheduledWriteBytesHandler a {@link java.util.function.Predicate} object.
+     */
     public void setOverScheduledWriteBytesHandler(Predicate<IoSession> overScheduledWriteBytesHandler) {
         this.overScheduledWriteBytesHandler = overScheduledWriteBytesHandler;
     }

@@ -12,11 +12,17 @@ import com.jzy.game.engine.util.IntUtil;
  *
  * @author JiangZhiYong
  * @date 2017-04-09 QQ:359135103
+ * @version $Id: $Id
  */
 public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
 	private final MinaClientService service;
 
+	/**
+	 * <p>Constructor for DefaultClientProtocolHandler.</p>
+	 *
+	 * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+	 */
 	public DefaultClientProtocolHandler(MinaClientService service) {
 		super(4);
 		this.service = service;
@@ -25,6 +31,12 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 	
 	
 
+	/**
+	 * <p>Constructor for DefaultClientProtocolHandler.</p>
+	 *
+	 * @param messageHeaderLength a int.
+	 * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+	 */
 	public DefaultClientProtocolHandler(int messageHeaderLength, MinaClientService service) {
 		super(messageHeaderLength);
 		this.service = service;
@@ -33,22 +45,26 @@ public class DefaultClientProtocolHandler extends DefaultProtocolHandler {
 
 
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionOpened(IoSession session) {
 		super.sessionOpened(session);
 		getService().onIoSessionConnect(session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void forward(IoSession session, int msgID, byte[] bytes) {
 		log.warn("无法找到消息处理器：msgID{},bytes{}", msgID, IntUtil.BytesToStr(bytes));
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public MinaClientService getService() {
 		return service;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionClosed(IoSession session) {
 		super.sessionClosed(session);

@@ -13,20 +13,22 @@ import com.google.protobuf.Message;
 import com.jzy.game.engine.util.MsgUtil;
 
 /**
- * Encodes incoming buffers in a manner that makes the receiving client type transparent to the 
+ * Encodes incoming buffers in a manner that makes the receiving client type transparent to the
  * encoders further up in the filter chain. If the receiving client is a native client then
  * the buffer contents are simply passed through. If the receiving client is a websocket, it will encode
  * the buffer contents in to WebSocket DataFrame before passing it along the filter chain.
- * 
+ *
  * Note: you must wrap the IoBuffer you want to send around a WebSocketCodecPacket instance.
+ *
  * @see https://issues.apache.org/jira/browse/DIRMINA-907
- * 
+ *
  * <p>扩展修改,websocket消息头无长度，消息Id+消息内容<p>
- * 
  * @author DHRUV CHOPRA
+ * @version $Id: $Id
  */
 public class WebSocketEncoder extends ProtocolEncoderAdapter{
 
+    /** {@inheritDoc} */
     @Override
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
         boolean isHandshakeResponse = message instanceof WebSocketHandShakeResponse;

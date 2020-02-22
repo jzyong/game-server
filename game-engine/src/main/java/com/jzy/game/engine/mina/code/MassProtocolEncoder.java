@@ -9,25 +9,29 @@ import org.slf4j.LoggerFactory;
 import com.jzy.game.engine.mina.message.MassMessage;
 import com.jzy.game.engine.util.MsgUtil;
 
-/**群发消息
+/**
+ *群发消息
+ *
  * @author wzyi
  * @QQ 156320312
  * @Te 18202020823
+ * @version $Id: $Id
  */
 public class MassProtocolEncoder extends ProtocolEncoderImpl {
 
+    /** Constant <code>log</code> */
     protected static final Logger log = LoggerFactory.getLogger(MassProtocolEncoder.class);
 
+    /**
+     * <p>Constructor for MassProtocolEncoder.</p>
+     */
     public MassProtocolEncoder() {
     }
 
     /**
-     * 编码，格式：数据长度|数据部分
+     * {@inheritDoc}
      *
-     * @param session
-     * @param obj
-     * @param out
-     * @throws Exception
+     * 编码，格式：数据长度|数据部分
      */
     @Override
     public void encode(IoSession session, Object obj, ProtocolEncoderOutput out)

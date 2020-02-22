@@ -19,6 +19,7 @@ import com.jzy.game.engine.thread.timer.event.ServerHeartTimer;
  *
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月29日 下午2:15:38
+ * @version $Id: $Id
  */
 public class ClientServerService extends Service<MinaServerConfig> {
     protected final TcpServer tcpServer;
@@ -29,7 +30,7 @@ public class ClientServerService extends Service<MinaServerConfig> {
     /**
      * 不创建默认IO线程池
      *
-     * @param minaServerConfig
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
      */
     public ClientServerService(MinaServerConfig minaServerConfig) {
         this(null, minaServerConfig);
@@ -38,14 +39,16 @@ public class ClientServerService extends Service<MinaServerConfig> {
     /**
      * 使用默认消息处理器
      *
-     * @param threadExcutorConfig
-     * @param minaServerConfig
+     * @param threadExcutorConfig a {@link com.jzy.game.engine.thread.ThreadPoolExecutorConfig} object.
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
      */
     public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
         this(threadExcutorConfig, minaServerConfig, new ClientProtocolHandler(8));
     }
 
     /**
+     * <p>Constructor for ClientServerService.</p>
+     *
      * @param threadExcutorConfig 线程池配置
      * @param minaServerConfig 服务器配置
      * @param clientProtocolHandler 消息处理器
@@ -59,9 +62,12 @@ public class ClientServerService extends Service<MinaServerConfig> {
     }
 
     /**
+     * <p>Constructor for ClientServerService.</p>
+     *
      * @param threadExcutorConfig 线程池配置
      * @param minaServerConfig 服务器配置
      * @param clientProtocolHandler 消息处理器
+     * @param filters a {@link java.util.Map} object.
      */
     public ClientServerService(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig,
                                ClientProtocolHandler clientProtocolHandler, Map<String, IoFilter> filters) {
@@ -72,6 +78,7 @@ public class ClientServerService extends Service<MinaServerConfig> {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     protected void running() {
         clientProtocolHandler.setService(this);
@@ -83,6 +90,7 @@ public class ClientServerService extends Service<MinaServerConfig> {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void onShutdown() {
         super.onShutdown();
@@ -90,10 +98,20 @@ public class ClientServerService extends Service<MinaServerConfig> {
 
     }
 
+    /**
+     * <p>Getter for the field <code>minaServerConfig</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+     */
     public MinaServerConfig getMinaServerConfig() {
         return minaServerConfig;
     }
 
+    /**
+     * <p>Getter for the field <code>tcpServer</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.mina.TcpServer} object.
+     */
     public TcpServer getTcpServer() {
         return tcpServer;
     }

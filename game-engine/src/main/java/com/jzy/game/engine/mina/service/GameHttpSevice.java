@@ -11,9 +11,11 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
 
 /**
  * 游戏服http服务器
+ *
  * @author JiangZhiYong
  * @QQ 359135103
  * 2017年7月24日 上午11:28:28
+ * @version $Id: $Id
  */
 @SuppressWarnings("MultipleTopLevelClassesInFile")
 public class GameHttpSevice extends Service<MinaServerConfig>{
@@ -23,24 +25,37 @@ public class GameHttpSevice extends Service<MinaServerConfig>{
     private final HttpServer httpServer;
     private final MinaServerConfig minaServerConfig;
 
+    /**
+     * <p>Constructor for GameHttpSevice.</p>
+     *
+     * @param threadExcutorConfig a {@link com.jzy.game.engine.thread.ThreadPoolExecutorConfig} object.
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+     */
     public GameHttpSevice(ThreadPoolExecutorConfig threadExcutorConfig, MinaServerConfig minaServerConfig) {
         super(threadExcutorConfig);
         this.minaServerConfig = minaServerConfig;
         httpServer = new HttpServer(minaServerConfig, new GameHttpServerHandler(this));
     }
     
+    /**
+     * <p>Constructor for GameHttpSevice.</p>
+     *
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+     */
     public GameHttpSevice(MinaServerConfig minaServerConfig) {
         super(null);
         this.minaServerConfig = minaServerConfig;
         httpServer = new HttpServer(minaServerConfig, new GameHttpServerHandler(this));
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void running() {
         log.debug(" run ... ");
         httpServer.run();
     }
 
+    /** {@inheritDoc} */
     @Override
     protected void onShutdown() {
     	super.onShutdown();
@@ -49,10 +64,15 @@ public class GameHttpSevice extends Service<MinaServerConfig>{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return minaServerConfig.getName();
     }
 
+	/**
+	 * <p>Getter for the field <code>minaServerConfig</code>.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+	 */
 	public MinaServerConfig getMinaServerConfig() {
 		return minaServerConfig;
 	}

@@ -10,9 +10,13 @@ package com.jzy.game.engine.mina.code;
  *
  * @author JiangZhiYong
  * @QQ 359135103
+ * @version $Id: $Id
  */
 public class ClientProtocolCodecFactory extends ProtocolCodecFactoryImpl {
 
+	/**
+	 * <p>Constructor for ClientProtocolCodecFactory.</p>
+	 */
 	public ClientProtocolCodecFactory() {
 		super(new ClientProtocolDecoder(), new ClientProtocolEncoder());
 		//待发送的数据量过低，关闭当前连接

@@ -22,6 +22,7 @@ import com.jzy.game.engine.util.SysUtil;
  *
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
+ * @version $Id: $Id
  */
 public class HttpServer implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServer.class);
@@ -35,12 +36,19 @@ public class HttpServer implements Runnable {
 	protected boolean isRunning;	//通信是否在运行
 	private OrderedThreadPoolExecutor threadpool;	//默认线程池
 
+	/**
+	 * <p>Constructor for HttpServer.</p>
+	 *
+	 * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+	 * @param ioHandler a {@link com.jzy.game.engine.mina.handler.HttpServerIoHandler} object.
+	 */
 	public HttpServer(MinaServerConfig minaServerConfig, HttpServerIoHandler ioHandler) {
 		this.minaServerConfig = minaServerConfig;
 		this.ioHandler = ioHandler;
 		acceptor = new NioSocketAcceptor();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		synchronized (this) {
@@ -51,6 +59,9 @@ public class HttpServer implements Runnable {
 		}
 	}
 
+	/**
+	 * <p>stop.</p>
+	 */
 	public void stop() {
 		synchronized (this) {
 			if (!isRunning) {

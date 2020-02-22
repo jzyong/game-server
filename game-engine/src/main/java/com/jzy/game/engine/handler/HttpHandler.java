@@ -12,6 +12,7 @@ import com.jzy.game.engine.mina.code.HttpResponseImpl;
  *
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
+ * @version $Id: $Id
  */
 public abstract class HttpHandler implements IHandler {
 
@@ -22,26 +23,31 @@ public abstract class HttpHandler implements IHandler {
 
 	private long createTime;
 
+	/** {@inheritDoc} */
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public IoSession getSession() {
 		return session;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setSession(IoSession session) {
 		this.session = session;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public HttpRequestImpl getMessage() { // HttpRequestImpl
 		return (HttpRequestImpl) request;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setMessage(Object message) {
 		if (message instanceof HttpRequestImpl) {
@@ -50,6 +56,8 @@ public abstract class HttpHandler implements IHandler {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 返回消息
 	 */
 	@Override
@@ -61,6 +69,8 @@ public abstract class HttpHandler implements IHandler {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 返回消息
 	 */
 	@Override
@@ -70,11 +80,13 @@ public abstract class HttpHandler implements IHandler {
 		// }
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public long getCreateTime() {
 		return createTime;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void setCreateTime(long createTime) {
 		this.createTime = createTime;
@@ -83,7 +95,7 @@ public abstract class HttpHandler implements IHandler {
 	/**
 	 * 没有返回值的情况下处理
 	 *
-	 * @return
+	 * @return a {@link com.jzy.game.engine.mina.code.HttpResponseImpl} object.
 	 */
 	protected HttpResponseImpl errResponseMessage() {
 		HttpResponseImpl response = new HttpResponseImpl();
@@ -118,17 +130,18 @@ public abstract class HttpHandler implements IHandler {
 
 	/**
 	 * 获取字符串参数
-	 * 
-	 * @param field
-	 * @return
+	 *
+	 * @param field a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String getString(String field) {
 		return getMessage().getParameter(field);
 	}
 
 	/**
-	 * 
-	 * @param field
+	 * <p>getInt.</p>
+	 *
+	 * @param field a {@link java.lang.String} object.
 	 * @return 0默认值
 	 */
 	public int getInt(String field) {
@@ -139,6 +152,12 @@ public abstract class HttpHandler implements IHandler {
 		return Integer.valueOf(string);
 	}
 
+	/**
+	 * <p>getLong.</p>
+	 *
+	 * @param field a {@link java.lang.String} object.
+	 * @return a long.
+	 */
 	public long getLong(String field) {
 		String string = getString(field);
 		if (string == null) {
@@ -147,6 +166,12 @@ public abstract class HttpHandler implements IHandler {
 		return Long.valueOf(string);
 	}
 
+	/**
+	 * <p>getDouble.</p>
+	 *
+	 * @param field a {@link java.lang.String} object.
+	 * @return a double.
+	 */
 	public double getDouble(String field) {
 		String string = getString(field);
 		if (string == null) {
@@ -157,8 +182,8 @@ public abstract class HttpHandler implements IHandler {
 
 	/**
 	 * 发送消息
-	 * 
-	 * @param object
+	 *
+	 * @param object a {@link java.lang.Object} object.
 	 */
 	public void sendMsg(Object object) {
 		getParameter().appendBody(JSON.toJSONString(object));

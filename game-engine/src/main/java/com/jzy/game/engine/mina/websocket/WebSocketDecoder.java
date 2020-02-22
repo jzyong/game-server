@@ -10,16 +10,18 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 /**
- * Decodes incoming buffers in a manner that makes the sender transparent to the 
+ * Decodes incoming buffers in a manner that makes the sender transparent to the
  * decoders further up in the filter chain. If the sender is a native client then
  * the buffer is simply passed through. If the sender is a websocket, it will extract
  * the content out from the dataframe and parse it before passing it along the filter
  * chain.
- * 
+ *
  * @author DHRUV CHOPRA
+ * @version $Id: $Id
  */
 public class WebSocketDecoder extends CumulativeProtocolDecoder{    
     
+    /** {@inheritDoc} */
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {        
         IoBuffer resultBuffer;

@@ -619,7 +619,7 @@ public class Base64
      * @param serializableObject The object to encode
      * @return The Base64-encoded object
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if serializedObject is null
+     * @throws java.lang.NullPointerException if serializedObject is null
      * @since 1.4
      */
     public static String encodeObject( java.io.Serializable serializableObject )
@@ -717,7 +717,7 @@ public class Base64
      *
      * @param source The data to convert
      * @return The data in Base64-encoded form
-     * @throws NullPointerException if source array is null
+     * @throws java.lang.NullPointerException if source array is null
      * @since 1.4
      */
     public static String encodeBytes( byte[] source ) {
@@ -755,14 +755,13 @@ public class Base64
      * In earlier versions, it just returned a null value, but
      * in retrospect that's a pretty poor way to handle it.</p>
      *
-     *
      * @param source The data to convert
      * @param options Specified options
      * @return The Base64-encoded data as a String
      * @see Base64#GZIP
      * @see Base64#DO_BREAK_LINES
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if source array is null
+     * @throws java.lang.NullPointerException if source array is null
      * @since 2.0
      */
     public static String encodeBytes( byte[] source, int options ) throws java.io.IOException {
@@ -779,13 +778,12 @@ public class Base64
      * In earlier versions, it just returned a null value, but
      * in retrospect that's a pretty poor way to handle it.</p>
      *
-     *
      * @param source The data to convert
      * @param off Offset in array where conversion should begin
      * @param len Length of data to convert
      * @return The Base64-encoded data as a String
-     * @throws NullPointerException if source array is null
-     * @throws IllegalArgumentException if source array, offset, or length are invalid
+     * @throws java.lang.NullPointerException if source array is null
+     * @throws java.lang.IllegalArgumentException if source array, offset, or length are invalid
      * @since 1.4
      */
     public static String encodeBytes( byte[] source, int off, int len ) {
@@ -823,7 +821,6 @@ public class Base64
      * In earlier versions, it just returned a null value, but
      * in retrospect that's a pretty poor way to handle it.</p>
      *
-     *
      * @param source The data to convert
      * @param off Offset in array where conversion should begin
      * @param len Length of data to convert
@@ -832,8 +829,8 @@ public class Base64
      * @see Base64#GZIP
      * @see Base64#DO_BREAK_LINES
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if source array is null
-     * @throws IllegalArgumentException if source array, offset, or length are invalid
+     * @throws java.lang.NullPointerException if source array is null
+     * @throws java.lang.IllegalArgumentException if source array, offset, or length are invalid
      * @since 2.0
      */
     public static String encodeBytes( byte[] source, int off, int len, int options ) throws java.io.IOException {
@@ -857,10 +854,9 @@ public class Base64
      * a byte array instead of instantiating a String. This is more efficient
      * if you're working with I/O streams and have large data sets to encode.
      *
-     *
      * @param source The data to convert
      * @return The Base64-encoded data as a byte[] (of ASCII characters)
-     * @throws NullPointerException if source array is null
+     * @throws java.lang.NullPointerException if source array is null
      * @since 2.3.1
      */
     public static byte[] encodeBytesToBytes( byte[] source ) {
@@ -879,7 +875,6 @@ public class Base64
      * a byte array instead of instantiating a String. This is more efficient
      * if you're working with I/O streams and have large data sets to encode.
      *
-     *
      * @param source The data to convert
      * @param off Offset in array where conversion should begin
      * @param len Length of data to convert
@@ -888,8 +883,8 @@ public class Base64
      * @see Base64#GZIP
      * @see Base64#DO_BREAK_LINES
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if source array is null
-     * @throws IllegalArgumentException if source array, offset, or length are invalid
+     * @throws java.lang.NullPointerException if source array is null
+     * @throws java.lang.IllegalArgumentException if source array, offset, or length are invalid
      * @since 2.3.1
      */
     public static byte[] encodeBytesToBytes( byte[] source, int off, int len, int options ) throws java.io.IOException {
@@ -1123,6 +1118,7 @@ public class Base64
      * @param source The Base64 encoded data
      * @return decoded data
      * @since 2.3.1
+     * @throws java.io.IOException if any.
      */
     public static byte[] decode( byte[] source )
     throws java.io.IOException {
@@ -1243,7 +1239,7 @@ public class Base64
      * @param options encode options such as URL_SAFE
      * @return the decoded data
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if <tt>s</tt> is null
+     * @throws java.lang.NullPointerException if <tt>s</tt> is null
      * @since 1.4
      */
     public static byte[] decode( String s, int options ) throws java.io.IOException {
@@ -1314,9 +1310,9 @@ public class Base64
      *
      * @param encodedObject The Base64 data to decode
      * @return The decoded and deserialized object
-     * @throws NullPointerException if encodedObject is null
+     * @throws java.lang.NullPointerException if encodedObject is null
      * @throws java.io.IOException if there is a general error
-     * @throws ClassNotFoundException if the decoded object is of a
+     * @throws java.lang.ClassNotFoundException if the decoded object is of a
      *         class that cannot be found by the JVM
      * @since 1.5
      */
@@ -1336,9 +1332,9 @@ public class Base64
      * @param options Various parameters related to decoding
      * @param loader Optional class loader to use in deserializing classes.
      * @return The decoded and deserialized object
-     * @throws NullPointerException if encodedObject is null
+     * @throws java.lang.NullPointerException if encodedObject is null
      * @throws java.io.IOException if there is a general error
-     * @throws ClassNotFoundException if the decoded object is of a
+     * @throws java.lang.ClassNotFoundException if the decoded object is of a
      *         class that cannot be found by the JVM
      * @since 2.3.4
      */
@@ -1407,7 +1403,7 @@ public class Base64
      * @param dataToEncode byte array of data to encode in base64 form
      * @param filename Filename for saving encoded data
      * @throws java.io.IOException if there is an error
-     * @throws NullPointerException if dataToEncode is null
+     * @throws java.lang.NullPointerException if dataToEncode is null
      * @since 2.1
      */
     public static void encodeToFile( byte[] dataToEncode, String filename )

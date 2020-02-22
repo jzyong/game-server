@@ -12,6 +12,7 @@ import org.apache.mina.http.HttpServerDecoder;
  *
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
+ * @version $Id: $Id
  */
 public class HttpServerCodecImpl extends ProtocolCodecFilter {
 
@@ -23,10 +24,14 @@ public class HttpServerCodecImpl extends ProtocolCodecFilter {
 	private static final ProtocolEncoder encoder = new HttpServerEncoderImpl();
 	private static final ProtocolDecoder decoder = new HttpServerDecoderImpl();
 
+	/**
+	 * <p>Constructor for HttpServerCodecImpl.</p>
+	 */
 	public HttpServerCodecImpl() {
 		super(encoder, decoder);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionClosed(IoFilter.NextFilter nextFilter, IoSession session) throws Exception {
 		super.sessionClosed(nextFilter, session);

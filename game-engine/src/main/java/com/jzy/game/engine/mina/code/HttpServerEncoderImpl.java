@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author JiangZhiYong
  * @date 2017-03-31 QQ:359135103
+ * @version $Id: $Id
  */
 public class HttpServerEncoderImpl extends HttpServerEncoder {
 	private static final Logger LOG = LoggerFactory.getLogger(HttpServerEncoderImpl.class);
@@ -23,6 +24,7 @@ public class HttpServerEncoderImpl extends HttpServerEncoder {
 	private static final byte[] CRLF = { 13, 10 };
 	private static final String CONTENTLENGTH = "Content-Length: ";
 
+	/** {@inheritDoc} */
 	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
 		LOG.debug("encode {}", message.getClass().getCanonicalName());
 		if ((message instanceof HttpResponseImpl)) {
@@ -49,6 +51,7 @@ public class HttpServerEncoderImpl extends HttpServerEncoder {
 		}
 	}
 
+	/** {@inheritDoc} */
 	public void dispose(IoSession session) throws Exception {
 	}
 }

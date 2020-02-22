@@ -9,18 +9,25 @@ import org.slf4j.Logger;
 
 /**
  *群发消息
+ *
  * @author wzyi
  * @QQ 156320312
  * @Te 18202020823
+ * @version $Id: $Id
  */
 public class MassProtocolDecoder extends ProtocolDecoderImpl {
 
+    /** Constant <code>log</code> */
     protected static final Logger log = LoggerFactory.getLogger(MassProtocolDecoder.class);
 
+    /**
+     * <p>Constructor for MassProtocolDecoder.</p>
+     */
     public MassProtocolDecoder() {
         maxReadSize = 1024 * 1024 * 5;
     }
 
+    /** {@inheritDoc} */
     @Override
     protected boolean doDecode(IoSession session, IoBuffer ib, ProtocolDecoderOutput out) throws Exception {
         if (ib.remaining() < 4) {
@@ -45,11 +52,9 @@ public class MassProtocolDecoder extends ProtocolDecoderImpl {
     }
 
     /**
-     * 不包括消息长度
+     * {@inheritDoc}
      *
-     * @param length
-     * @param ib
-     * @param out
+     * 不包括消息长度
      */
     protected void decodeBytes(int length, IoBuffer ib, ProtocolDecoderOutput out) {
         byte[] bytes = new byte[length];

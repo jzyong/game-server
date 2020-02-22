@@ -10,9 +10,11 @@ import com.jzy.game.engine.util.MsgUtil;
  * 客户端消息解析
  * <br>
  * 消息频率检查
+ *
  * @author wzyi
  * @QQ 156320312
  * @Te 18202020823
+ * @version $Id: $Id
  */
 public class UserProtocolDecoder extends ProtocolDecoderImpl {
 
@@ -21,9 +23,13 @@ public class UserProtocolDecoder extends ProtocolDecoderImpl {
 
     private int maxCountPerSecond = 30;
 
+    /**
+     * <p>Constructor for UserProtocolDecoder.</p>
+     */
     public UserProtocolDecoder() {
     }
 
+    /** {@inheritDoc} */
     @Override
     protected boolean doDecode(IoSession session, IoBuffer ib, ProtocolDecoderOutput out) throws Exception {
         boolean res = super.doDecode(session, ib, out);
@@ -51,10 +57,20 @@ public class UserProtocolDecoder extends ProtocolDecoderImpl {
         return res;
     }
 
+    /**
+     * <p>Getter for the field <code>maxCountPerSecond</code>.</p>
+     *
+     * @return a int.
+     */
     public int getMaxCountPerSecond() {
         return maxCountPerSecond;
     }
 
+    /**
+     * <p>Setter for the field <code>maxCountPerSecond</code>.</p>
+     *
+     * @param maxCountPerSecond a int.
+     */
     public void setMaxCountPerSecond(int maxCountPerSecond) {
         this.maxCountPerSecond = maxCountPerSecond;
     }

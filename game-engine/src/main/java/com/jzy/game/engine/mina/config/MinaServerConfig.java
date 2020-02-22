@@ -12,6 +12,7 @@ import com.jzy.game.engine.server.ServerType;
  * @author JiangZhiYong
  * @date 2017-03-30
  * QQ:359135103
+ * @version $Id: $Id
  */
 @Root
 public class MinaServerConfig extends BaseServerConfig {
@@ -68,107 +69,237 @@ public class MinaServerConfig extends BaseServerConfig {
     @Element(required=false)
     private int maxCountPerSecond=30;
 
+    /**
+     * <p>Getter for the field <code>port</code>.</p>
+     *
+     * @return a int.
+     */
     public int getPort() {
         return port;
     }
 
+    /**
+     * <p>Setter for the field <code>port</code>.</p>
+     *
+     * @param port a int.
+     */
     public void setPort(int port) {
         this.port = port;
     }
 
+    /**
+     * <p>Getter for the field <code>url</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * <p>Setter for the field <code>url</code>.</p>
+     *
+     * @param url a {@link java.lang.String} object.
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * <p>Getter for the field <code>orderedThreadPoolExecutorSize</code>.</p>
+     *
+     * @return a int.
+     */
     public int getOrderedThreadPoolExecutorSize() {
         return orderedThreadPoolExecutorSize;
     }
 
+    /**
+     * <p>Setter for the field <code>orderedThreadPoolExecutorSize</code>.</p>
+     *
+     * @param orderedThreadPoolExecutorSize a int.
+     */
     public void setOrderedThreadPoolExecutorSize(int orderedThreadPoolExecutorSize) {
         this.orderedThreadPoolExecutorSize = orderedThreadPoolExecutorSize;
     }
 
+    /**
+     * <p>isReuseAddress.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isReuseAddress() {
         return reuseAddress;
     }
 
+    /**
+     * <p>Setter for the field <code>reuseAddress</code>.</p>
+     *
+     * @param reuseAddress a boolean.
+     */
     public void setReuseAddress(boolean reuseAddress) {
         this.reuseAddress = reuseAddress;
     }
 
+    /**
+     * <p>isTcpNoDelay.</p>
+     *
+     * @return a boolean.
+     */
     public boolean isTcpNoDelay() {
         return tcpNoDelay;
     }
 
+    /**
+     * <p>Setter for the field <code>tcpNoDelay</code>.</p>
+     *
+     * @param tcpNoDelay a boolean.
+     */
     public void setTcpNoDelay(boolean tcpNoDelay) {
         this.tcpNoDelay = tcpNoDelay;
     }
 
+    /**
+     * <p>Getter for the field <code>readerIdleTime</code>.</p>
+     *
+     * @return a int.
+     */
     public int getReaderIdleTime() {
         return readerIdleTime;
     }
 
+    /**
+     * <p>Setter for the field <code>readerIdleTime</code>.</p>
+     *
+     * @param readerIdleTime a int.
+     */
     public void setReaderIdleTime(int readerIdleTime) {
         this.readerIdleTime = readerIdleTime;
     }
 
+    /**
+     * <p>Getter for the field <code>writerIdleTime</code>.</p>
+     *
+     * @return a int.
+     */
     public int getWriterIdleTime() {
         return writerIdleTime;
     }
 
+    /**
+     * <p>Setter for the field <code>writerIdleTime</code>.</p>
+     *
+     * @param writerIdleTime a int.
+     */
     public void setWriterIdleTime(int writerIdleTime) {
         this.writerIdleTime = writerIdleTime;
     }
 
+    /**
+     * <p>Getter for the field <code>soLinger</code>.</p>
+     *
+     * @return a int.
+     */
     public int getSoLinger() {
         return soLinger;
     }
 
+    /**
+     * <p>Setter for the field <code>soLinger</code>.</p>
+     *
+     * @param soLinger a int.
+     */
     public void setSoLinger(int soLinger) {
         this.soLinger = soLinger;
     }
 
+    /**
+     * <p>Getter for the field <code>ip</code>.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public String getIp() {
         return ip;
     }
 
+    /**
+     * <p>Setter for the field <code>ip</code>.</p>
+     *
+     * @param ip a {@link java.lang.String} object.
+     */
     public void setIp(String ip) {
         this.ip = ip;
     }
     
+    /**
+     * <p>Getter for the field <code>type</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.server.ServerType} object.
+     */
     public ServerType getType() {
         return type;
     }
 
+    /**
+     * <p>Setter for the field <code>type</code>.</p>
+     *
+     * @param type a {@link com.jzy.game.engine.server.ServerType} object.
+     */
     public void setType(ServerType type) {
         this.type = type;
     }
     
     
+    /**
+     * <p>Getter for the field <code>httpPort</code>.</p>
+     *
+     * @return a int.
+     */
     public int getHttpPort() {
         return httpPort;
     }
 
+    /**
+     * <p>Setter for the field <code>httpPort</code>.</p>
+     *
+     * @param httpPort a int.
+     */
     public void setHttpPort(int httpPort) {
         this.httpPort = httpPort;
     }
 
+    /**
+     * <p>Getter for the field <code>netSpeed</code>.</p>
+     *
+     * @return a int.
+     */
     public int getNetSpeed() {
         return netSpeed;
     }
 
+    /**
+     * <p>Setter for the field <code>netSpeed</code>.</p>
+     *
+     * @param netSpeed a int.
+     */
     public void setNetSpeed(int netSpeed) {
         this.netSpeed = netSpeed<128?128:netSpeed;
     }
 
+    /**
+     * <p>Getter for the field <code>maxCountPerSecond</code>.</p>
+     *
+     * @return a int.
+     */
     public int getMaxCountPerSecond() {
         return maxCountPerSecond;
     }
 
+    /**
+     * <p>Setter for the field <code>maxCountPerSecond</code>.</p>
+     *
+     * @param maxCountPerSecond a int.
+     */
     public void setMaxCountPerSecond(int maxCountPerSecond) {
         this.maxCountPerSecond = maxCountPerSecond<10?10:maxCountPerSecond;
     }

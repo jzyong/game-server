@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 消息解码
- * 
- * @author JiangZhiYong
  *
+ * @author JiangZhiYong
+ * @version $Id: $Id
  */
 public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	private static final Charset CHARSET = Charset.forName("UTF-8");
@@ -71,6 +71,7 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 	/** 已解析的HTTP对象 */
 	public static final String HTTP_REQUEST = "http.request";
 
+	/** {@inheritDoc} */
 	@Override
 	protected boolean doDecode(IoSession session, IoBuffer msg, ProtocolDecoderOutput out) throws Exception {
 		/**
@@ -92,10 +93,12 @@ public class HttpServerDecoderImpl extends CumulativeProtocolDecoder {
 		return false;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void finishDecode(final IoSession session, final ProtocolDecoderOutput out) throws Exception {
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void dispose(final IoSession session) throws Exception {
 	}

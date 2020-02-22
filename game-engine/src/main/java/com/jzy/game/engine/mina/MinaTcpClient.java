@@ -25,6 +25,7 @@ import com.jzy.game.engine.mina.service.MinaClientService;
  * @author JiangZhiYong
  * @date 2017-04-01
  * QQ:359135103
+ * @version $Id: $Id
  */
 public final class MinaTcpClient implements Runnable {
 
@@ -41,6 +42,15 @@ public final class MinaTcpClient implements Runnable {
     private Map<String, IoFilter> filters; //过滤器
 
     
+    /**
+     * <p>Constructor for MinaTcpClient.</p>
+     *
+     * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+     * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+     * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
+     * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
+     * @param filters a {@link java.util.Map} object.
+     */
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters) {
         this.factory=factory;
         codecFilter = new ProtocolCodecFilter(factory);
@@ -51,6 +61,14 @@ public final class MinaTcpClient implements Runnable {
         setMinaClientConfig(minaClientConfig);
     }
     
+    /**
+     * <p>Constructor for MinaTcpClient.</p>
+     *
+     * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+     * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+     * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
+     * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
+     */
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler, ProtocolCodecFactoryImpl factory) {
         this.factory=factory;
         codecFilter = new ProtocolCodecFilter(factory);
@@ -62,9 +80,10 @@ public final class MinaTcpClient implements Runnable {
 
     /**
      * 使用默认消息解码工厂
-     * @param service
-     * @param minaClientConfig
-     * @param clientProtocolHandler
+     *
+     * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+     * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+     * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
      */
     public MinaTcpClient(MinaClientService service, MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler) {
         factory =new DefaultProtocolCodecFactory();
@@ -100,12 +119,13 @@ public final class MinaTcpClient implements Runnable {
     /**
      * 广播所有连接的消息
      *
-     * @param obj
+     * @param obj a {@link java.lang.Object} object.
      */
     public void broadcastMsg(Object obj) {
         connector.broadcast(obj);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         synchronized (this) {
@@ -142,6 +162,9 @@ public final class MinaTcpClient implements Runnable {
         }
     }
 
+    /**
+     * <p>stop.</p>
+     */
     public void stop() {
         synchronized (this) {
             try {
@@ -163,13 +186,19 @@ public final class MinaTcpClient implements Runnable {
         }
     }
 
+    /**
+     * <p>Getter for the field <code>minaClientConfig</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+     */
     public MinaClientConfig getMinaClientConfig() {
         return minaClientConfig;
     }
 
     /**
      * 设置连接配置
-     * @param minaClientConfig
+     *
+     * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
      */
     public void setMinaClientConfig(MinaClientConfig minaClientConfig) {
         if (minaClientConfig == null) {
@@ -185,18 +214,38 @@ public final class MinaTcpClient implements Runnable {
         sc.setSoLinger(minaClientConfig.getSoLinger()); // 0
     }
 
+    /**
+     * <p>Getter for the field <code>clientProtocolHandler</code>.</p>
+     *
+     * @return a {@link org.apache.mina.core.service.IoHandler} object.
+     */
     public IoHandler getClientProtocolHandler() {
         return clientProtocolHandler;
     }
 
+    /**
+     * <p>Getter for the field <code>sessionCreateCallBack</code>.</p>
+     *
+     * @return a {@link java.util.function.Consumer} object.
+     */
     public Consumer<MinaClientConfig> getSessionCreateCallBack() {
         return sessionCreateCallBack;
     }
 
+    /**
+     * <p>Setter for the field <code>sessionCreateCallBack</code>.</p>
+     *
+     * @param sessionCreateCallBack a {@link java.util.function.Consumer} object.
+     */
     public void setSessionCreateCallBack(Consumer<MinaClientConfig> sessionCreateCallBack) {
         this.sessionCreateCallBack = sessionCreateCallBack;
     }
 
+    /**
+     * <p>Getter for the field <code>service</code>.</p>
+     *
+     * @return a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+     */
     public MinaClientService getService() {
         return service;
     }

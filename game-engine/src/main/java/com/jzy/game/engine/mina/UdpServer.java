@@ -23,9 +23,10 @@ import com.jzy.game.engine.mina.config.MinaServerConfig;
 
 /**
  * UDP服务器
- * 
+ *
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月1日 上午10:50:45
+ * @version $Id: $Id
  */
 public class UdpServer implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UdpServer.class);
@@ -37,17 +38,38 @@ public class UdpServer implements Runnable {
 	protected boolean isRunning; // 服务器是否运行
 	private Map<String, IoFilter> filters; //过滤器
 
+	/**
+	 * <p>Constructor for UdpServer.</p>
+	 *
+	 * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+	 * @param ioHandler a {@link org.apache.mina.core.service.IoHandler} object.
+	 */
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler) {
         this.minaServerConfig = minaServerConfig;
 		this.ioHandler = ioHandler;
 		acceptor = new NioDatagramAcceptor();
 	}
 
+	/**
+	 * <p>Constructor for UdpServer.</p>
+	 *
+	 * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+	 * @param ioHandler a {@link org.apache.mina.core.service.IoHandler} object.
+	 * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
+	 */
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory) {
 		this(minaServerConfig, ioHandler);
 		this.factory = factory;
 	}
 	
+	/**
+	 * <p>Constructor for UdpServer.</p>
+	 *
+	 * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+	 * @param ioHandler a {@link org.apache.mina.core.service.IoHandler} object.
+	 * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
+	 * @param filters a {@link java.util.Map} object.
+	 */
 	public UdpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactoryImpl factory,Map<String, IoFilter> filters) {
 		this(minaServerConfig, ioHandler, factory);
 		this.filters=filters;
@@ -55,8 +77,8 @@ public class UdpServer implements Runnable {
 
 	/**
 	 * 连接会话数
-	 * 
-	 * @return
+	 *
+	 * @return a int.
 	 */
 	public int getManagedSessionCount() {
 		return acceptor == null ? 0 : acceptor.getManagedSessionCount();
@@ -64,13 +86,14 @@ public class UdpServer implements Runnable {
 
 	/**
 	 * 广播所有连接的消息
-	 * 
-	 * @param obj
+	 *
+	 * @param obj a {@link java.lang.Object} object.
 	 */
 	public void broadcastMsg(Object obj) {
         acceptor.broadcast(obj);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		synchronized (this) {
@@ -109,6 +132,9 @@ public class UdpServer implements Runnable {
 		}
 	}
 
+	/**
+	 * <p>stop.</p>
+	 */
 	public void stop() {
 		synchronized (this) {
 			if (!isRunning) {

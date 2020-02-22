@@ -16,6 +16,7 @@ import com.jzy.game.engine.mina.service.MinaClientService;
  *
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
+ * @version $Id: $Id
  */
 public class MinaMultiTcpClient {
 
@@ -23,15 +24,18 @@ public class MinaMultiTcpClient {
 	/**客户端列表 key：服务器ID*/
 	private final Map<Integer, MinaTcpClient> tcpClients = new ConcurrentHashMap<>();
 
+	/**
+	 * <p>Constructor for MinaMultiTcpClient.</p>
+	 */
 	public MinaMultiTcpClient() {
 	}
 
 	/**
 	 * 添加客户端
-	 * 
-	 * @param service
-	 * @param config
-	 * @param clientProtocolHandler
+	 *
+	 * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+	 * @param config a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
 	 */
 	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler) {
 		MinaTcpClient client = null;
@@ -46,10 +50,11 @@ public class MinaMultiTcpClient {
 
 	/**
 	 * 添加客户端
-	 * 
-	 * @param service
-	 * @param config
-	 * @param clientProtocolHandler
+	 *
+	 * @param service a {@link com.jzy.game.engine.mina.service.MinaClientService} object.
+	 * @param config a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
+	 * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
 	 */
 	public void addTcpClient(MinaClientService service, MinaClientConfig config, IoHandler clientProtocolHandler,
 			ProtocolCodecFactoryImpl factory) {
@@ -63,6 +68,12 @@ public class MinaMultiTcpClient {
 		tcpClients.put(config.getId(), client);
 	}
 
+	/**
+	 * <p>getTcpClient.</p>
+	 *
+	 * @param id a {@link java.lang.Integer} object.
+	 * @return a {@link com.jzy.game.engine.mina.MinaTcpClient} object.
+	 */
 	public MinaTcpClient getTcpClient(Integer id) {
 		if (!tcpClients.containsKey(id)) {
 			return null;
@@ -70,14 +81,20 @@ public class MinaMultiTcpClient {
 		return tcpClients.get(id);
 	}
 
+	/**
+	 * <p>removeTcpClient.</p>
+	 *
+	 * @param id a {@link java.lang.Integer} object.
+	 */
 	public void removeTcpClient(Integer id) {
 		tcpClients.remove(id);
 	}
 
 	/**
+	 * <p>containsKey.</p>
 	 *
-	 * @param id
-	 * @return
+	 * @param id a {@link java.lang.Integer} object.
+	 * @return a boolean.
 	 */
 	public boolean containsKey(Integer id) {
 		return tcpClients.containsKey(id);
@@ -88,8 +105,8 @@ public class MinaMultiTcpClient {
 	 *
 	 * @param sid
 	 *            客户端ID
-	 * @param obj
-	 * @return
+	 * @param obj a {@link java.lang.Object} object.
+	 * @return a boolean.
 	 */
 	public boolean sendMsg(Integer sid, Object obj) {
 		if (!tcpClients.containsKey(sid)) {
@@ -109,6 +126,11 @@ public class MinaMultiTcpClient {
 		tcpClients.values().forEach(c -> c.checkStatus());
 	}
 
+	/**
+	 * <p>Getter for the field <code>tcpClients</code>.</p>
+	 *
+	 * @return a {@link java.util.Map} object.
+	 */
 	public Map<Integer, MinaTcpClient> getTcpClients() {
 		return tcpClients;
 	}

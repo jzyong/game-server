@@ -26,6 +26,7 @@ import com.jzy.game.engine.mina.config.MinaServerConfig;
  *
  * @author JiangZhiYong
  * @date 2017-03-30 QQ:359135103
+ * @version $Id: $Id
  */
 public class TcpServer implements Runnable {
 
@@ -40,6 +41,8 @@ public class TcpServer implements Runnable {
     protected boolean isRunning; // 服务器是否运行
 
     /**
+     * <p>Constructor for TcpServer.</p>
+     *
      * @param minaServerConfig 配置
      * @param ioHandler 消息处理器
      */
@@ -49,15 +52,24 @@ public class TcpServer implements Runnable {
         acceptor = new NioSocketAcceptor();
     }
 
+    /**
+     * <p>Constructor for TcpServer.</p>
+     *
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+     * @param ioHandler a {@link org.apache.mina.core.service.IoHandler} object.
+     * @param factory a {@link org.apache.mina.filter.codec.ProtocolCodecFactory} object.
+     */
     public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactory factory) {
         this(minaServerConfig, ioHandler);
         this.factory = factory;
     }
 
     /**
-     * @param minaServerConfig
-     * @param ioHandler
-     * @param factory
+     * <p>Constructor for TcpServer.</p>
+     *
+     * @param minaServerConfig a {@link com.jzy.game.engine.mina.config.MinaServerConfig} object.
+     * @param ioHandler a {@link org.apache.mina.core.service.IoHandler} object.
+     * @param factory a {@link org.apache.mina.filter.codec.ProtocolCodecFactory} object.
      * @param filters 不要包含消息解码、线程池过滤器，已默认添加
      */
     public TcpServer(MinaServerConfig minaServerConfig, IoHandler ioHandler, ProtocolCodecFactory factory,
@@ -69,7 +81,7 @@ public class TcpServer implements Runnable {
     /**
      * 连接会话数
      *
-     * @return
+     * @return a int.
      */
     public int getManagedSessionCount() {
         return acceptor == null? 0 : acceptor.getManagedSessionCount();
@@ -78,12 +90,13 @@ public class TcpServer implements Runnable {
     /**
      * 广播所有连接的消息
      *
-     * @param obj
+     * @param obj a {@link java.lang.Object} object.
      */
     public void broadcastMsg(Object obj) {
         acceptor.broadcast(obj);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         synchronized (this) {
@@ -138,6 +151,9 @@ public class TcpServer implements Runnable {
         }
     }
 
+    /**
+     * <p>stop.</p>
+     */
     public void stop() {
         synchronized (this) {
             if (!isRunning) {

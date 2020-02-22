@@ -17,9 +17,10 @@ import com.jzy.game.engine.mina.config.MinaClientConfig;
 
 /**
  * mina udp 客户端
- * 
+ *
  * @author JiangZhiYong
  * @QQ 359135103 2017年9月1日 上午11:31:39
+ * @version $Id: $Id
  */
 public final class MinaUdpClient implements Runnable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MinaUdpClient.class);
@@ -33,6 +34,13 @@ public final class MinaUdpClient implements Runnable {
 	private final ProtocolCodecFactoryImpl factory; // 消息工厂
 	private IoSession session;	//连接会话
 
+	/**
+	 * <p>Constructor for MinaUdpClient.</p>
+	 *
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 * @param clientProtocolHandler a {@link org.apache.mina.core.service.IoHandler} object.
+	 * @param factory a {@link com.jzy.game.engine.mina.code.ProtocolCodecFactoryImpl} object.
+	 */
 	public MinaUdpClient(MinaClientConfig minaClientConfig, IoHandler clientProtocolHandler,
 			ProtocolCodecFactoryImpl factory) {
         this.minaClientConfig = minaClientConfig;
@@ -58,8 +66,8 @@ public final class MinaUdpClient implements Runnable {
 
 	/**
 	 * 设置连接配置
-	 * 
-	 * @param minaClientConfig
+	 *
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
 	 */
 	public void setMinaClientConfig(MinaClientConfig minaClientConfig) {
 		if (minaClientConfig == null) {
@@ -77,12 +85,13 @@ public final class MinaUdpClient implements Runnable {
 	/**
 	 * 广播所有连接的消息
 	 *
-	 * @param obj
+	 * @param obj a {@link java.lang.Object} object.
 	 */
 	public void broadcastMsg(Object obj) {
         connector.broadcast(obj);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void run() {
 		synchronized (this) {
@@ -121,6 +130,9 @@ public final class MinaUdpClient implements Runnable {
 		}
 	}
 
+	/**
+	 * <p>stop.</p>
+	 */
 	public void stop() {
 		synchronized (this) {
 			try {
@@ -142,10 +154,20 @@ public final class MinaUdpClient implements Runnable {
 		}
 	}
 
+	/**
+	 * <p>Getter for the field <code>minaClientConfig</code>.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 */
 	public MinaClientConfig getMinaClientConfig() {
 		return minaClientConfig;
 	}
 
+	/**
+	 * <p>Getter for the field <code>session</code>.</p>
+	 *
+	 * @return a {@link org.apache.mina.core.session.IoSession} object.
+	 */
 	public IoSession getSession() {
 		return session;
 	}

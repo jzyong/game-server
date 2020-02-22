@@ -11,6 +11,7 @@ import com.jzy.game.engine.thread.ThreadType;
  *
  * @author JiangZhiYong
  * @date 2017-03-30 QQ:359135103
+ * @version $Id: $Id
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface HandlerEntity {

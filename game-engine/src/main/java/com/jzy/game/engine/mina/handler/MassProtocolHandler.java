@@ -17,59 +17,72 @@ import org.slf4j.Logger;
 
 /**
  * 群发消息处理
- * 
+ *
  * @author wzyi
  * @QQ 156320312
  * @Te 18202020823
+ * @version $Id: $Id
  */
 public abstract class MassProtocolHandler implements IoHandler {
 
+	/** Constant <code>log</code> */
 	protected static final Logger log = LoggerFactory.getLogger(MassProtocolHandler.class);
 	protected final int messageHeaderLength;
 
+	/**
+	 * <p>Constructor for MassProtocolHandler.</p>
+	 */
 	public MassProtocolHandler() {
         messageHeaderLength = 4;
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		// log.warn("已创建连接{}", session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionOpened(IoSession session) {
 		log.warn("已打开连接{}", session);
 //		getService().onIoSessionConnect(session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageSent(IoSession ioSession, Object message) throws Exception {
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionClosed(IoSession session) {
 		log.warn("连接{}已关闭sessionClosed", session);
 //		getService().onIoSessionClosed(session);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus idleStatus) {
 		log.warn("连接{}处于空闲{}", session, idleStatus);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void exceptionCaught(IoSession session, Throwable throwable) {
 		log.error("连接{}异常：{}", session, throwable);
 		MsgUtil.close(session, "发生错误");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void inputClosed(IoSession session) throws Exception {
 		log.warn("连接{}inputClosed已关闭", session);
 		MsgUtil.close(session, "http inputClosed");
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
@@ -99,10 +112,15 @@ public abstract class MassProtocolHandler implements IoHandler {
 	/**
 	 * 消息处理
 	 *
-	 * @param session
-	 * @param msg
+	 * @param session a {@link org.apache.mina.core.session.IoSession} object.
+	 * @param msg a {@link com.jzy.game.engine.mina.message.MassMessage} object.
 	 */
 	protected abstract void messageHandler(IoSession session, MassMessage msg);
 
+	/**
+	 * <p>getService.</p>
+	 *
+	 * @return a {@link com.jzy.game.engine.server.Service} object.
+	 */
 	protected abstract Service<? extends BaseServerConfig> getService();
 }

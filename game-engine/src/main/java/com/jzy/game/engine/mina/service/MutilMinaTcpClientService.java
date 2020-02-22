@@ -21,32 +21,45 @@ import com.jzy.game.engine.thread.ThreadPoolExecutorConfig;
  * <p>
  * 一般用于子游戏服务器和网关服，所有玩家共享连接
  * </p>
- * 
+ *
  * @author JiangZhiYong
  * @QQ 359135103 2017年6月30日 下午3:23:32
+ * @version $Id: $Id
  */
 public class MutilMinaTcpClientService extends MinaClientService implements IMutilTcpClientService<MinaServerConfig>{
 	protected final MinaMultiTcpClient multiTcpClient = new MinaMultiTcpClient();
 	/** 网关服务器 */
 	protected final Map<Integer, ServerInfo> serverMap = new ConcurrentHashMap<>();
 
+	/**
+	 * <p>Constructor for MutilMinaTcpClientService.</p>
+	 *
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 */
 	public MutilMinaTcpClientService(MinaClientConfig minaClientConfig) {
 		super(minaClientConfig);
 	}
 
+	/**
+	 * <p>Constructor for MutilMinaTcpClientService.</p>
+	 *
+	 * @param threadPoolExecutorConfig a {@link com.jzy.game.engine.thread.ThreadPoolExecutorConfig} object.
+	 * @param minaClientConfig a {@link com.jzy.game.engine.mina.config.MinaClientConfig} object.
+	 */
 	public MutilMinaTcpClientService(ThreadPoolExecutorConfig threadPoolExecutorConfig, MinaClientConfig minaClientConfig) {
 		super(threadPoolExecutorConfig, minaClientConfig);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void running() {
 
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 移除客户端
-	 * 
-	 * @param serverId
 	 */
 	public void removeTcpClient(int serverId) {
 		multiTcpClient.removeTcpClient(serverId);
@@ -54,9 +67,9 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 添加连接服务器
-	 * 
-	 * @param serverInfo
 	 */
 	public void addTcpClient(ServerInfo serverInfo, int port) {
 		addTcpClient(serverInfo, port, new MutilTcpProtocolHandler(serverInfo, this));
@@ -69,8 +82,10 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	
 	/**
 	 * 添加连接大厅服务器
-	 * 
-	 * @param serverInfo
+	 *
+	 * @param serverInfo a {@link com.jzy.game.engine.server.ServerInfo} object.
+	 * @param port a int.
+	 * @param ioHandler a {@link com.jzy.game.engine.mina.service.MutilMinaTcpClientService.MutilTcpProtocolHandler} object.
 	 */
 	public void addTcpClient(ServerInfo serverInfo, int port,MutilTcpProtocolHandler ioHandler) {
 		if (multiTcpClient.containsKey(serverInfo.getId())) {
@@ -100,6 +115,11 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 		return conf;
 	}
 
+	/**
+	 * <p>getServers.</p>
+	 *
+	 * @return a {@link java.util.Map} object.
+	 */
 	public Map<Integer, ServerInfo> getServers() {
 		return serverMap;
 	}
@@ -112,10 +132,9 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	}
 
 	/**
-	 * 广播所有服务器消息：注意，这里并不是向每个session广播，因为有可能有多个连接到同一个服务器
+	 * {@inheritDoc}
 	 *
-	 * @param obj
-	 * @return
+	 * 广播所有服务器消息：注意，这里并不是向每个session广播，因为有可能有多个连接到同一个服务器
 	 */
 	public boolean broadcastMsg(Object obj) {
 		if (multiTcpClient == null) {
@@ -131,8 +150,9 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 	/**
 	 * 广播所有服务器消息：注意，这里并不是向每个session广播，因为有可能有多个连接到同一个服务器
 	 *
-	 * @param obj
-	 * @return
+	 * @param obj a {@link java.lang.Object} object.
+	 * @param rid a long.
+	 * @return a boolean.
 	 */
 	public boolean broadcastMsg(Object obj,long rid) {
 		if (multiTcpClient == null) {
@@ -147,12 +167,9 @@ public class MutilMinaTcpClientService extends MinaClientService implements IMut
 
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * 发送消息
-	 * 
-	 * @param serverId
-	 *            目标服务器ID
-	 * @param msg
-	 * @return
 	 */
 	public boolean sendMsg(Integer serverId, Object msg) {
 		if (multiTcpClient == null) {

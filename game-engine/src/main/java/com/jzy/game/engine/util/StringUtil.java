@@ -4,8 +4,10 @@ import java.util.regex.Pattern;
 
 /**
  * 字符串工具
+ *
  * @author JiangZhiYong
  * @mail 359135103@qq.com
+ * @version $Id: $Id
  */
 public final class StringUtil {
 
@@ -13,8 +15,9 @@ public final class StringUtil {
     }
 
     /**
+     * <p>isNullOrEmpty.</p>
      *
-     * @param str
+     * @param str a {@link java.lang.String} object.
      * @return true 字符串为空
      */
     public static boolean isNullOrEmpty(String str) {
@@ -23,8 +26,11 @@ public final class StringUtil {
     
 	/**
 	 * 判断整数（int）
+	 *
 	 * @note + -判断也为真
-	 * */ 
+	 * @param str a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isInteger(String str) {
 		if (null == str || "".equals(str)) {
 			return false;
@@ -34,6 +40,12 @@ public final class StringUtil {
 	}
 
 	// 判断浮点数（double和float ）
+	/**
+	 * <p>isDouble.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public static boolean isDouble(String str) {
 		if (null == str || "".equals(str)) {
 			return false;
@@ -44,9 +56,9 @@ public final class StringUtil {
 
 	/**
 	 * 首字母大写
-	 * 
-	 * @param Str
-	 * @return
+	 *
+	 * @param Str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public static String upFirstChar(String Str) {
 		char[] cs = Str.toCharArray();
@@ -59,6 +71,9 @@ public final class StringUtil {
 
 	/**
 	 * 首字母转小写
+	 *
+	 * @param s a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public static String lowerFirstChar(String s) {
 		if (Character.isLowerCase(s.charAt(0))) {

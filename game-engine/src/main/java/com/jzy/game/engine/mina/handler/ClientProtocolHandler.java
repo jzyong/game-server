@@ -19,23 +19,30 @@ import com.jzy.game.engine.util.MsgUtil;
  * 游戏前端消息处理器
  * <p>
  * 包长度（2）+消息ID（4）+消息长度（4）+消息内容
- * 
+ *
  * <br>
  * decoder 已去掉包长度
  * </p>
  *
  * @author JiangZhiYong
  * @date 2017-04-01 QQ:359135103
+ * @version $Id: $Id
  */
 public class ClientProtocolHandler extends DefaultProtocolHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(ClientProtocolHandler.class);
 	protected Service<MinaServerConfig> service;
 
+	/**
+	 * <p>Constructor for ClientProtocolHandler.</p>
+	 *
+	 * @param messageHeaderLength a int.
+	 */
 	public ClientProtocolHandler(int messageHeaderLength) {
 		super(messageHeaderLength);
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void messageReceived(IoSession session, Object obj) throws Exception {
 		byte[] bytes = (byte[]) obj;
@@ -69,17 +76,24 @@ public class ClientProtocolHandler extends DefaultProtocolHandler {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	protected void forward(IoSession session, int msgID, byte[] bytes) {
 		log.warn("消息[{}]未实现", msgID);
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Service<? extends BaseServerConfig> getService() {
 		return service;
 	}
 
+	/**
+	 * <p>Setter for the field <code>service</code>.</p>
+	 *
+	 * @param service a {@link com.jzy.game.engine.server.Service} object.
+	 */
 	public void setService(Service<MinaServerConfig> service) {
 		this.service = service;
 	}

@@ -8,8 +8,9 @@ import org.apache.mina.core.buffer.IoBuffer;
 
 /**
  * Defines the class whose objects are understood by websocket encoder.
- * 
+ *
  * @author DHRUV CHOPRA
+ * @version $Id: $Id
  */
 public class WebSocketCodecPacket {
     private final IoBuffer packet;
@@ -17,6 +18,12 @@ public class WebSocketCodecPacket {
     /*
      * Builds an instance of WebSocketCodecPacket that simply wraps around 
      * the given IoBuffer.
+     */
+    /**
+     * <p>buildPacket.</p>
+     *
+     * @param buffer a {@link org.apache.mina.core.buffer.IoBuffer} object.
+     * @return a {@link com.jzy.game.engine.mina.websocket.WebSocketCodecPacket} object.
      */
     public static WebSocketCodecPacket buildPacket(IoBuffer buffer){
         return new WebSocketCodecPacket(buffer);
@@ -26,6 +33,11 @@ public class WebSocketCodecPacket {
         packet = buffer;
     }
     
+    /**
+     * <p>Getter for the field <code>packet</code>.</p>
+     *
+     * @return a {@link org.apache.mina.core.buffer.IoBuffer} object.
+     */
     public IoBuffer getPacket(){
         return packet;
     }

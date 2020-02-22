@@ -22,10 +22,12 @@ import org.slf4j.LoggerFactory;
  *
  * @author JiangZhiYong
  * @QQ 359135103
+ * @version $Id: $Id
  */
 public class ClientProtocolEncoder extends ProtocolEncoderImpl {
 	private static final Logger LOGGER =LoggerFactory.getLogger(ClientProtocolEncoder.class);
 
+	/** {@inheritDoc} */
 	@Override
 	public void encode(IoSession session, Object obj, ProtocolEncoderOutput out) throws Exception {
 		if (getOverScheduledWriteBytesHandler() != null

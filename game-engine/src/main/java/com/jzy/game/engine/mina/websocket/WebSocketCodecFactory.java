@@ -11,23 +11,29 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 
 /**
  * Codec Factory used for creating websocket filter.
- * 
+ *
  * @author DHRUV CHOPRA
+ * @version $Id: $Id
  */
 public class WebSocketCodecFactory implements ProtocolCodecFactory{
     private final ProtocolEncoder encoder;
     private final ProtocolDecoder decoder;
 
+    /**
+     * <p>Constructor for WebSocketCodecFactory.</p>
+     */
     public WebSocketCodecFactory() {
             encoder = new WebSocketEncoder();
             decoder = new WebSocketDecoder();
     }
 
+    /** {@inheritDoc} */
     @Override
     public ProtocolEncoder getEncoder(IoSession ioSession) throws Exception {
         return encoder;
     }
 
+    /** {@inheritDoc} */
     @Override
     public ProtocolDecoder getDecoder(IoSession ioSession) throws Exception {
         return decoder;
