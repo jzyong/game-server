@@ -146,7 +146,7 @@ public class ExcelUtil {
         //3行：字段名称
         //4行：字段数据类型
         //5行：字段说明
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i < 5; i++) {
             Row row = sheet.getRow(i);
             if (row == null) {
                 continue;
