@@ -199,7 +199,9 @@ public class DBTool extends javax.swing.JFrame {
                 LOGGER.error("更新数据", e);
             }
         });
-        mongoClient.close();
+        if(mongoClient!=null){
+            mongoClient.close();
+        }
         //加载服务器配置
         String loadConfigUrl = getDBConfig().getLoadConfigUrl();
         if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
@@ -255,7 +257,10 @@ public class DBTool extends javax.swing.JFrame {
                 LOGGER.error("更新数据", e);
             }
         });
-        mongoClient.close();
+        if (mongoClient!=null){
+            mongoClient.close();
+        }
+
     }//GEN-LAST:event_javaFieldBtnActionPerformed
 
     private void clearLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearLogBtnActionPerformed

@@ -13,12 +13,14 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import org.bson.BsonArray;
 import org.bson.BsonDateTime;
 import org.bson.BsonDocument;
@@ -56,6 +58,7 @@ public class MongoUtil {
 //        }
 //        return mongoClient;
 //    }
+
     /**
      * 获取数据库
      *
@@ -68,7 +71,7 @@ public class MongoUtil {
     }
 
     /**
-     * 插入配置数据 先删除，在插入
+     * 插入配置数据 先删除，再插入
      *
      * @param filePath
      * @param sheetName
@@ -76,7 +79,7 @@ public class MongoUtil {
      */
     public static String insertConfigData(MongoClient client, String filePath, String sheetName, String dbName) throws Exception {
         String retString = sheetName + "更新成功";
-        Args.Four<List<String>, List<String>, List<String>, List<List<Object>>> excel = ExcelUtil.readExcel(filePath, sheetName);
+        Args.Five<List<String>, List<String>, List<String>, List<List<Object>>, List<String>> excel = ExcelUtil.readExcel(filePath, sheetName);
         if (excel == null) {
             LOGGER.warn("{}--{}未找到数据", filePath, sheetName);
             return "内部错误";
@@ -101,6 +104,10 @@ public class MongoUtil {
                 Document document = new Document();
                 List<Object> datas = excel.d().get(i);
                 for (int j = 0; j < column; j++) {
+                    //排除客户端配置
+                    if ("".equalsIgnoreCase(excel.e().get(j)) || "client".equalsIgnoreCase(excel.e().get(j).toLowerCase())) {
+                        continue;
+                    }
                     document.append(excel.a().get(j), datas.get(j));
                 }
                 documents.add(document);
@@ -145,7 +152,7 @@ public class MongoUtil {
      * @param jsonStr
      * @return
      */
-    public static List<Object> getDocuments(String jsonStr) {
+    public static List<Object> getDocuments(String jsonStr, String... type) {
         JsonParser parser = new JsonParser();
         JsonElement jsonElement = parser.parse(jsonStr);
         if (jsonElement.isJsonArray()) {
@@ -155,11 +162,11 @@ public class MongoUtil {
                 if (element.isJsonObject()) {
                     Document d = new Document();
                     for (Entry<String, JsonElement> entry : element.getAsJsonObject().entrySet()) {
-                        d.append(entry.getKey(), getRealValue(entry.getValue().toString()));   //TODO 数据类型检查
+                        d.append(entry.getKey(), getRealValue(entry.getValue().toString(), type));   //TODO 数据类型检查
                     }
                     list.add(d);
                 } else if (element.isJsonPrimitive()) {
-                   list.add(getBsonValue(getRealValue(element.getAsString())));
+                    list.add(getBsonValue(getRealValue(element.getAsString(), type)));
                 } else {
                     LOGGER.warn("{}数据复杂，不支持多重嵌套", jsonStr);
                 }
@@ -176,11 +183,21 @@ public class MongoUtil {
      * @param valueStr
      * @return
      */
-    public static Object getRealValue(String valueStr) {
-        if (StringUtil.isDouble(valueStr)) {
-            return Double.parseDouble(valueStr);
-        } else if (StringUtil.isInteger(valueStr)) {
+    public static Object getRealValue(String valueStr, String... type) {
+        if (type != null && type.length > 0) {
+            switch (type[0]) {
+                case "long":
+                    return Long.parseLong(valueStr);
+                case "float":
+                    return Float.parseFloat(valueStr);
+            }
+
+        }
+
+        if (StringUtil.isInteger(valueStr)) {
             return Integer.parseInt(valueStr);
+        } else if (StringUtil.isDouble(valueStr)) {
+            return Double.parseDouble(valueStr);
         } else if ("false".equalsIgnoreCase(valueStr) || "true".equalsIgnoreCase(valueStr)) {
             return Boolean.parseBoolean(valueStr);
         }

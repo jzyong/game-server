@@ -3,15 +3,9 @@
 <Config>
     <dbs>
         <DBConfig>
-            <name>本地_ATT</name>
-            <url>mongodb://127.0.0.1</url>
-            <dbName>lztb_att</dbName>
-            <loadConfigUrl>http://127.0.0.1:45001?mid=20009&amp;sid=14d1d10adb8fb4a380966d55c145498320b9596b</loadConfigUrl>
-        </DBConfig>
-        <DBConfig>
-            <name>本地_HALL</name>
-            <url>mongodb://127.0.0.1</url>
-            <dbName>lztb_hall</dbName>
+            <name>jzy</name>
+            <url>mongodb://admin:123456@192.168.110.16:27017</url>
+            <dbName>hall_jzy</dbName>
         </DBConfig>
         <DBConfig>
             <name>测试服</name>
@@ -27,5 +21,5 @@
         </DBConfig>
     </dbs>
     <!--    <excelDir></excelDir>-->  <!--当前项目路径-->
-    <excelDir>E:\Art\策划文档\翻牌机\翻牌机数值</excelDir>
+    <excelDir>E:\project\策划需求\配置文档</excelDir>
 </Config>
