@@ -38,7 +38,7 @@ public class ExcelUtil {
      * @param sheetName
      * @return 属性名称列表、字段类型、描述说明，数据内容,排查信息
      */
-    public static Args.Five<List<String>, List<String>, List<String>, List<List<Object>>,List<String>> readExcel(String filePath, String sheetName) throws Exception {
+    public static Args.Five<List<String>, List<String>, List<String>, List<List<Object>>, List<String>> readExcel(String filePath, String sheetName) throws Exception {
         Workbook workBook = getWorkBook(filePath);
         if (workBook == null) {
             LOGGER.warn("路径：{} excel不存在", filePath);
@@ -104,7 +104,7 @@ public class ExcelUtil {
             Cell firstColumn = row.getCell(0);
             //第一列#开头表示注释行
             firstColumn.setCellType(CellType.STRING); //强制设置为字符串
-            if(firstColumn!=null&&firstColumn.getStringCellValue().startsWith("#")){
+            if (firstColumn != null && firstColumn.getStringCellValue().startsWith("#")) {
                 continue;
             }
             for (int j = 0; j < lastCellNum; j++) {
@@ -116,16 +116,16 @@ public class ExcelUtil {
         }
 
         workBook.close();
-        return Args.of(fieldList, typeList, descList, dataList,columnSelectTypeList);
+        return Args.of(fieldList, typeList, descList, dataList, columnSelectTypeList);
     }
 
     /**
      * 获取表头元数据
      *
      * @param filePath
-     * @return 属性名称列表、字段类型、描述说明
+     * @return 属性名称列表、字段类型、描述说明、客户端服务器字段标识
      */
-    public static Args.Three<List<String>, List<String>, List<String>> getMetaData(String filePath, String sheetName) throws Exception {
+    public static Args.Four<List<String>, List<String>, List<String>, List<String>> getMetaData(String filePath, String sheetName) throws Exception {
         Workbook workBook = getWorkBook(filePath);
         if (workBook == null) {
             return null;
@@ -138,6 +138,7 @@ public class ExcelUtil {
         List<String> fieldList = new ArrayList<>();
         List<String> typeList = new ArrayList<>();
         List<String> descList = new ArrayList<>();
+        List<String> serverClientColumnList = new ArrayList<>();
 
         //前五行为元数据
         //1行：客户端元数据
@@ -154,6 +155,9 @@ public class ExcelUtil {
             for (int j = 0; j < lastCellNum; j++) {
                 String value = row.getCell(j).toString();
                 switch (i) {
+                    case 1:
+                        serverClientColumnList.add(value);
+                        break;
                     case 2:
                         fieldList.add(value);
                         break;
@@ -169,7 +173,7 @@ public class ExcelUtil {
             }
         }
         workBook.close();
-        return Args.of(fieldList, typeList, descList);
+        return Args.of(fieldList, typeList, descList, serverClientColumnList);
     }
 
     /**
@@ -310,16 +314,16 @@ public class ExcelUtil {
             return MongoUtil.getDocument(cellValue);
             //指定类型数组需要自己组装中括号 1,2
         } else if ("string[]".equalsIgnoreCase(type) || "int[]".equalsIgnoreCase(type)
-                || "bool[]".equalsIgnoreCase(type) ||  "double".equalsIgnoreCase(type)) {
+                || "bool[]".equalsIgnoreCase(type) || "double".equalsIgnoreCase(type)) {
             StringBuilder sb = new StringBuilder("[");
             sb.append(cellValue);
             sb.append("]");
             return MongoUtil.getDocuments(cellValue);
-        } else if ("long[]".equalsIgnoreCase(type)||"float[]".equalsIgnoreCase(type)) {
+        } else if ("long[]".equalsIgnoreCase(type) || "float[]".equalsIgnoreCase(type)) {
             StringBuilder sb = new StringBuilder("[");
             sb.append(cellValue);
             sb.append("]");
-            return MongoUtil.getDocuments(cellValue,type);
+            return MongoUtil.getDocuments(cellValue, type);
         }
 
         return cellValue;

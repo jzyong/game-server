@@ -238,8 +238,12 @@ public class DBTool extends javax.swing.JFrame {
         }
         selectSheets.forEach(sheetName -> {
             try {
-                Args.Three<List<String>, List<String>, List<String>> metaData = ExcelUtil.getMetaData(sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName);
+                Args.Four<List<String>, List<String>, List<String>,List<String>> metaData = ExcelUtil.getMetaData(sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName);
                 for(int i=0;i<metaData.a().size();i++){
+                    //不显示客户端字段
+                    if("client".equalsIgnoreCase(metaData.d().get(i))){
+                        continue;
+                    }
                     StringBuilder sb=new StringBuilder();
                     sb.append("/**").append(metaData.c().get(i)).append("*/").append("\r\n");
                     sb.append("private ");
