@@ -72,7 +72,13 @@ public class ExcelUtil {
             }
             int lastCellNum = row.getPhysicalNumberOfCells();
             for (int j = 0; j < lastCellNum; j++) {
-                String value = row.getCell(j).toString();
+                String value="";
+                try {
+                    value = row.getCell(j).toString();
+                }catch (NullPointerException e){
+                    throw new IllegalStateException(String.format("表单%s 表头 %d行%d列数据为空",sheetName,i,j));
+                }
+
                 switch (i) {
                     case 1:
                         columnSelectTypeList.add(value);
@@ -197,7 +203,7 @@ public class ExcelUtil {
             }
             workBook.close();
         } catch (Exception e) {
-            LOGGER.error("获取sheet名称", e);
+            LOGGER.error(String.format("获取 %s sheet名称",filePath), e);
         }
         return sheetNames;
     }
