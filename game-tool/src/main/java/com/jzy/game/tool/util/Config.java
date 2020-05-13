@@ -5,7 +5,10 @@
  */
 package com.jzy.game.tool.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 
@@ -56,8 +59,11 @@ public class Config {
         @Element(required = false)
         private String dbName = "lztb_att"; //数据库名称
         
-        @Element(required = false)
-        private String loadConfigUrl;   //更新服务器配置文件请求地址  
+//        @Element(required = false)
+//        private String loadConfigUrl;   //更新服务器配置文件请求地址
+        //更新服务器配置文件请求地址
+        @ElementList(required = false)
+        private List<String> loadConfigUrls =new ArrayList<>();
 
         public String getName() {
             return name;
@@ -83,13 +89,21 @@ public class Config {
             this.dbName = dbName;
         }
 
-        public String getLoadConfigUrl() {
-            return loadConfigUrl;
+//        public String getLoadConfigUrl() {
+//            return loadConfigUrl;
+//        }
+//
+//        public void setLoadConfigUrl(String loadConfigUrl) {
+//            this.loadConfigUrl = loadConfigUrl;
+//        }
+
+
+        public List<String> getLoadConfigUrls() {
+            return loadConfigUrls;
         }
 
-        public void setLoadConfigUrl(String loadConfigUrl) {
-            this.loadConfigUrl = loadConfigUrl;
+        public void setLoadConfigUrls(List<String> loadConfigUrls) {
+            this.loadConfigUrls = loadConfigUrls;
         }
-        
     }
 }

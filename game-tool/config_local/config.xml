@@ -5,19 +5,24 @@
         <DBConfig>
             <name>jzy</name>
             <url>mongodb://admin:123456@192.168.110.16:27017</url>
-            <dbName>hall_jzy</dbName>
+            <dbName>common_jzy</dbName>
+            <loadConfigUrls>
+                <String>http://192.168.110.16:4001/reloadConfig</String>
+                <String>http://192.168.110.16:4001/reloadConfig</String>
+                <String>http://192.168.110.16:4001/reloadConfig</String>
+            </loadConfigUrls>
         </DBConfig>
         <DBConfig>
             <name>测试服</name>
             <url>mongodb://tonylynnjjy123..:fdfdjlj123.#!#!.454.@183.61.172.59:28018</url>
             <dbName>lztb_att</dbName>
-            <loadConfigUrl>http://183.61.172.59:45001?mid=20009&amp;sid=14d1d10adb8fb4a380966d55c145498320b9596b</loadConfigUrl>
+            <!--<loadConfigUrl>http://183.61.172.59:45001?mid=20009&amp;sid=14d1d10adb8fb4a380966d55c145498320b9596b</loadConfigUrl>-->
         </DBConfig>
         <DBConfig>
             <name>本地_BYDR</name>
             <url>mongodb://127.0.0.1</url>
             <dbName>lztb_bydr</dbName>
-            <loadConfigUrl>http://127.0.0.1:46001?mid=2&amp;sid=14d1d10adb8fb4a380966d55c145498320b9596b</loadConfigUrl>
+           <!-- <loadConfigUrl>http://127.0.0.1:46001?mid=2&amp;sid=14d1d10adb8fb4a380966d55c145498320b9596b</loadConfigUrl>-->
         </DBConfig>
     </dbs>
     <!--    <excelDir></excelDir>-->  <!--当前项目路径-->

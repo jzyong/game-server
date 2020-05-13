@@ -203,12 +203,14 @@ public class DBTool extends javax.swing.JFrame {
             mongoClient.close();
         }
         //加载服务器配置
-        String loadConfigUrl = getDBConfig().getLoadConfigUrl();
-        if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
-            String log = HttpUtil.URLGet(loadConfigUrl);
-            logTextArea.append("游戏服-"+getDBConfig().getDbName()+log+"更新配置成功\r\n");
+       // String loadConfigUrl = getDBConfig().getLoadConfigUrl();
+        List<String> loadConfigUrls = getDBConfig().getLoadConfigUrls();
+        for (String loadConfigUrl:loadConfigUrls){
+            if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
+                String log = HttpUtil.URLGet(loadConfigUrl);
+                logTextArea.append("游戏服-"+getDBConfig().getDbName()+" "+loadConfigUrl+":"+log+"更新配置成功\r\n");
+            }
         }
-        
     }//GEN-LAST:event_insertDataBtnActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
