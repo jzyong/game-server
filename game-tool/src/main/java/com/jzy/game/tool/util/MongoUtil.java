@@ -195,7 +195,13 @@ public class MongoUtil {
         }
 
         if (StringUtil.isInteger(valueStr)) {
-            return Integer.parseInt(valueStr);
+            try {
+                return Integer.parseInt(valueStr);
+            }catch (NumberFormatException e){
+                //数据过长，用long解析
+                return Long.parseLong(valueStr);
+            }
+
         } else if (StringUtil.isDouble(valueStr)) {
             return Double.parseDouble(valueStr);
         } else if ("false".equalsIgnoreCase(valueStr) || "true".equalsIgnoreCase(valueStr)) {
