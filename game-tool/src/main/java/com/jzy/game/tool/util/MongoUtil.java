@@ -44,20 +44,6 @@ public class MongoUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoUtil.class);
 
-//    private static MongoClient mongoClient;
-//
-//    /**
-//     * 获取连接
-//     *
-//     * @return
-//     */
-//    public static MongoClient getMongoClient() {
-//        if (mongoClient == null) {
-//            MongoClientURI connectionString = new MongoClientURI("mongodb://127.0.0.1");
-//            mongoClient = new MongoClient(connectionString);
-//        }
-//        return mongoClient;
-//    }
 
     /**
      * 获取数据库

@@ -25,3 +25,7 @@
 
 # Mac-specific directory that no other operating system needs.
  .DS_Store
+/game.ipr
+/game.iws
+/game-tool/game-tool.ipr
+/game-tool/game-tool.iws
