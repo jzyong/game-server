@@ -111,7 +111,6 @@ public class ClientProtocolDecoder extends ProtocolDecoderImpl {
 	 * @param bytes
 	 *            消息Id(4字节)+protobufLength(4字节)+消息体+时间戳(8字节)+签名数据长度(4字节)+签名数据+截取签名长度(4字节)
 	 * @param protobufLength
-	 * @param out
 	 */
 	private boolean checkMsgSign(byte[] bytes, int protobufLength) throws Exception {
 		// 客户端时间戳

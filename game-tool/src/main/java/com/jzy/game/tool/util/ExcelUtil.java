@@ -102,7 +102,7 @@ public class ExcelUtil {
         for (int i = 5; i <= lastRowNum; i++) {
             Row row = sheet.getRow(i);
             if (row == null) {
-                return null;
+               continue;
             }
             //int lastCellNum = row.getPhysicalNumberOfCells();
             int lastCellNum = fieldList.size();
