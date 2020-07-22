@@ -108,6 +108,9 @@ public class ExcelUtil {
             int lastCellNum = fieldList.size();
             List<Object> datas = new ArrayList<>();
             Cell firstColumn = row.getCell(0);
+            if(firstColumn==null){
+                continue;
+            }
             //第一列#开头表示注释行
             firstColumn.setCellType(CellType.STRING); //强制设置为字符串
             if (firstColumn != null && firstColumn.getStringCellValue().startsWith("#")) {
