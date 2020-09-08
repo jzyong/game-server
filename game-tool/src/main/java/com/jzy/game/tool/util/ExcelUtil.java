@@ -113,13 +113,22 @@ public class ExcelUtil {
             }
             //第一列#开头表示注释行
             firstColumn.setCellType(CellType.STRING); //强制设置为字符串
-            if (firstColumn != null && firstColumn.getStringCellValue().startsWith("#")) {
+            if ( firstColumn.getStringCellValue().startsWith("#")) {
                 continue;
             }
+            if("".equalsIgnoreCase(firstColumn.getStringCellValue())){
+                LOGGER.warn("{} {}-{} 有空行或者id未设值，跳过读取",sheetName,i+1,1);
+                continue;
+            }
+
             for (int j = 0; j < lastCellNum; j++) {
                 Cell cell = row.getCell(j);
-                Object object = getCellValue(cell, typeList.get(j));
-                datas.add(object);
+                try {
+                    Object object = getCellValue(cell, typeList.get(j));
+                    datas.add(object);
+                }catch (Exception e){
+                    LOGGER.error(String.format("%d-%d 数据读取错误",i+1,j+1),e);
+                }
             }
             dataList.add(datas);
         }
