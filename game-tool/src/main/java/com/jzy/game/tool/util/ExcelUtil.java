@@ -72,11 +72,11 @@ public class ExcelUtil {
             }
             int lastCellNum = row.getPhysicalNumberOfCells();
             for (int j = 0; j < lastCellNum; j++) {
-                String value="";
+                String value = "";
                 try {
                     value = row.getCell(j).toString();
-                }catch (NullPointerException e){
-                    throw new IllegalStateException(String.format("表单%s 表头 %d行%d列数据为空",sheetName,i,j));
+                } catch (NullPointerException e) {
+                    throw new IllegalStateException(String.format("表单%s 表头 %d行%d列数据为空", sheetName, i, j));
                 }
 
                 switch (i) {
@@ -102,32 +102,39 @@ public class ExcelUtil {
         for (int i = 5; i <= lastRowNum; i++) {
             Row row = sheet.getRow(i);
             if (row == null) {
-               continue;
+                continue;
             }
             //int lastCellNum = row.getPhysicalNumberOfCells();
             int lastCellNum = fieldList.size();
             List<Object> datas = new ArrayList<>();
             Cell firstColumn = row.getCell(0);
-            if(firstColumn==null){
+            if (firstColumn == null) {
                 continue;
             }
             //第一列#开头表示注释行
             firstColumn.setCellType(CellType.STRING); //强制设置为字符串
-            if ( firstColumn.getStringCellValue().startsWith("#")) {
+            if (firstColumn.getStringCellValue().startsWith("#")) {
                 continue;
             }
-            if("".equalsIgnoreCase(firstColumn.getStringCellValue())){
-                LOGGER.warn("{} {}-{} 有空行或者id未设值，跳过读取",sheetName,i+1,1);
+            if ("".equalsIgnoreCase(firstColumn.getStringCellValue())) {
+                LOGGER.warn("{} {}-{} 有空行或者id未设值，跳过读取", sheetName, i + 1, 1);
                 continue;
             }
 
             for (int j = 0; j < lastCellNum; j++) {
                 Cell cell = row.getCell(j);
                 try {
-                    Object object = getCellValue(cell, typeList.get(j));
+                    Object object;
+                    //跳过解析客户端数据
+                    if ("client".equalsIgnoreCase(columnSelectTypeList.get(j))) {
+                        object = cell == null ? "" : cell.toString();
+                    } else {
+                        object = getCellValue(cell, typeList.get(j));
+                    }
+
                     datas.add(object);
-                }catch (Exception e){
-                    LOGGER.error(String.format("%d-%d 数据读取错误",i+1,j+1),e);
+                } catch (Exception e) {
+                    LOGGER.error(String.format("%d-%d 数据读取错误", i + 1, j + 1), e);
                 }
             }
             dataList.add(datas);
@@ -215,7 +222,7 @@ public class ExcelUtil {
             }
             workBook.close();
         } catch (Exception e) {
-            LOGGER.error(String.format("获取 %s sheet名称",filePath), e);
+            LOGGER.error(String.format("获取 %s sheet名称", filePath), e);
         }
         return sheetNames;
     }

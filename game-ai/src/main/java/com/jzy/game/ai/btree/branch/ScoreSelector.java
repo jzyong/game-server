@@ -6,7 +6,7 @@ import java.util.List;
 import com.jzy.game.ai.btree.Task;
 
 /**
- * 分数选择器，分数越高，优先执行
+ * 分数选择器，分数越高，优先执行,只会执行第一个子树
  * 
  * @author JiangZhiYong
  * @mail 359135103@qq.com
