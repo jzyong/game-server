@@ -1,21 +1,15 @@
 package com.jzy.game.engine.struct;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.alibaba.fastjson.annotation.JSONField;
+import com.jzy.game.engine.mina.message.IDMessage;
+import io.netty.channel.Channel;
 import org.apache.mina.core.session.IoSession;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.jzy.game.engine.cache.cooldown.Cooldown;
-import com.jzy.game.engine.mina.message.IDMessage;
-
-import io.netty.channel.Channel;
-import reactor.rx.broadcast.BehaviorBroadcaster;
+import java.util.Date;
 
 /**
  * 人物
@@ -75,7 +69,6 @@ public abstract class Person {
 	protected int level;
 
 	/** 冷却缓存 */
-	protected transient Map<String, Cooldown> cooldowns = new HashMap<>();
 
 	/** 连接会话 */
 	protected transient IoSession ioSession;
@@ -170,13 +163,7 @@ public abstract class Person {
 		this.level = level;
 	}
 
-	public Map<String, Cooldown> getCooldowns() {
-		return cooldowns;
-	}
 
-	public void setCooldowns(Map<String, Cooldown> cooldowns) {
-		this.cooldowns = cooldowns;
-	}
 
 	public IoSession getIoSession() {
 		return ioSession;
@@ -203,7 +190,6 @@ public abstract class Person {
 	 * 
 	 * @author JiangZhiYong
 	 * @QQ 359135103 2017年8月3日 下午2:53:28
-	 * @param object
 	 */
 	public boolean sendMsg(Object message) {
 		if (getIoSession() != null) {
