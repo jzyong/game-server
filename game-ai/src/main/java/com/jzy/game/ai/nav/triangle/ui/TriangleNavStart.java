@@ -2,7 +2,7 @@ package com.jzy.game.ai.nav.triangle.ui;
 
 import java.util.ArrayList;
 
-import com.jzy.game.ai.nav.node.TriangleBlock;
+//import com.jzy.game.ai.nav.node.TriangleBlock;
 import com.jzy.game.engine.math.Vector3;
 
 /**
@@ -156,7 +156,7 @@ public class TriangleNavStart extends javax.swing.JFrame {
         mapWindow.randMove();
     }//GEN-LAST:event_randomPointButtonActionPerformed
 
-    static TriangleBlock addPolygons = null;
+//    static TriangleBlock addPolygons = null;
 
     private void showRandomPointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showRandomPointButtonActionPerformed
         mapWindow.triangleViewPane.changeShowRandomPoint();

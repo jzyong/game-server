@@ -4,7 +4,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jzy.game.ai.nav.node.NodeNavMesh;
+//import com.jzy.game.ai.nav.node.NodeNavMesh;
 import com.jzy.game.ai.nav.triangle.TriangleNavMesh;
 import com.jzy.game.engine.math.Vector3;
 import com.jzy.game.engine.util.FileUtil;
