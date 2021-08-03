@@ -64,7 +64,7 @@ public class MongoUtil {
      * @param dbName
      */
     public static String insertConfigData(MongoClient client, String filePath, String sheetName, String dbName) throws Exception {
-        String retString = sheetName + "更新成功";
+        String retString = sheetName + " 更新成功";
         Args.Five<List<String>, List<String>, List<String>, List<List<Object>>, List<String>> excel = ExcelUtil.readExcel(filePath, sheetName);
         if (excel == null) {
             LOGGER.warn("{}--{}未找到数据", filePath, sheetName);

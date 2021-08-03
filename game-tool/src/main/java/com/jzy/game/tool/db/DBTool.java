@@ -15,7 +15,10 @@ import com.jzy.game.tool.util.StringUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -185,27 +188,46 @@ public class DBTool extends javax.swing.JFrame {
             logTextArea.append("请选择表单\r\n");
             return;
         }
+        logTextArea.append(MessageFormat.format("选择配置表：{0}\r\n",selectSheets.size()));
+        CountDownLatch countDownLatch = new CountDownLatch(selectSheets.size());
+        AtomicInteger count=new AtomicInteger(0);
         //更新数据库配置
         selectSheets.forEach(sheetName -> {
-            try {
+            threadPoolExecutor.execute(()->{
+                try {
                 String log = MongoUtil.insertConfigData(getMongoClient(), sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName, getDBConfig().getDbName());
-                logTextArea.append(log + "\r\n");
-            } catch (Exception e) {
-                LOGGER.error("更新数据", e);
+                logTextArea.append(MessageFormat.format("[{0}] {1}\r\n",count.incrementAndGet(),log));
+                countDownLatch.countDown();
+                } catch (Exception e) {
+                    countDownLatch.countDown();
+                    LOGGER.error("更新数据", e);
+                }
+            });
+        });
+
+        Thread thread=new Thread(() -> {
+            try{
+                countDownLatch.await();
+            }catch (Exception e){
+                LOGGER.error("定时等待",e);
+            }
+            logTextArea.append("=========所有表单导入成功======== \r\n");
+            if(mongoClient!=null){
+                mongoClient.close();
+            }
+            //加载服务器配置
+            // String loadConfigUrl = getDBConfig().getLoadConfigUrl();
+            List<String> loadConfigUrls = getDBConfig().getLoadConfigUrls();
+            for (String loadConfigUrl:loadConfigUrls){
+                if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
+                    String log = HttpUtil.URLGet(loadConfigUrl);
+                    logTextArea.append("游戏服-"+getDBConfig().getDbName()+" "+loadConfigUrl+":"+log+"更新配置成功\r\n");
+                }
             }
         });
-        if(mongoClient!=null){
-            mongoClient.close();
-        }
-        //加载服务器配置
-       // String loadConfigUrl = getDBConfig().getLoadConfigUrl();
-        List<String> loadConfigUrls = getDBConfig().getLoadConfigUrls();
-        for (String loadConfigUrl:loadConfigUrls){
-            if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
-                String log = HttpUtil.URLGet(loadConfigUrl);
-                logTextArea.append("游戏服-"+getDBConfig().getDbName()+" "+loadConfigUrl+":"+log+"更新配置成功\r\n");
-            }
-        }
+        thread.start();
+
+
     }//GEN-LAST:event_insertDataBtnActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -327,6 +349,7 @@ public class DBTool extends javax.swing.JFrame {
     private Map<String, File> sheetNameFiles = new HashMap<>();
     private static MongoClient mongoClient; //数据库客户端
     private static Config config;
+    private ThreadPoolExecutor threadPoolExecutor= new ThreadPoolExecutor(10,20,5000, TimeUnit.MILLISECONDS,new LinkedBlockingDeque<>());
 
     /**
      * 自定义初始化
