@@ -394,9 +394,7 @@ public class PointQuadTree<V> extends QuadTree<Vector3, V> {
 	 * 获取矩形内部数据
 	 * 
 	 * @param xmin
-	 * @param ymin
 	 * @param xmax
-	 * @param ymax
 	 * @return
 	 */
 	public List<PointData<V>> searchWithin(final float xmin, final float zmin, final float xmax, final float zmax) {
