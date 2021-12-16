@@ -224,7 +224,6 @@ public class DelaunayTriangle extends Triangle {
 	/**
 	 * 判断边是否属于三角形
 	 * 
-	 * @param triangel
 	 * @param edge
 	 * @return
 	 */
