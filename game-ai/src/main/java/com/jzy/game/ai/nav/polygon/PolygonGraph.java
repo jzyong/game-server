@@ -87,7 +87,6 @@ public class PolygonGraph implements IndexedGraph<Polygon> {
 	 * 计算共享边
 	 * 
 	 * @note 两个多边形只存一个共享边
-	 * @param indices
 	 */
 	private void calculateIndexConnections(Map<Integer, Set<Integer>> polygonVectorIndexs) {
 		int i = 0, j = 0, m = 0;

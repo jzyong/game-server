@@ -7,7 +7,7 @@ import com.jzy.game.ai.msg.Telegraph;
 
 /**寻路请求 
  * <br>
- * A request for interruptible pathfinding that should be sent to a {@link PathFinderQueue} through a {@link Telegram}.
+ * A request for interruptible pathfinding that should be sent to a {@link PathFinderQueue} through a {@link Telegraph}.
  * 
  * @param <N> Type of node
  * 
