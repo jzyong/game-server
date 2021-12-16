@@ -9,7 +9,6 @@ import com.jzy.game.ai.quadtree.polygon.PolygonGuadTree;
  * 
  * @author JiangZhiYong
  * @mail 359135103@qq.com
- * @param <K>
  * @param <V>
  */
 public interface Func<V> {
