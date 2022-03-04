@@ -134,7 +134,7 @@ public class ExcelUtil {
 
                     datas.add(object);
                 } catch (Exception e) {
-                    LOGGER.error(String.format("%d-%d 数据读取错误", i + 1, j + 1), e);
+                    LOGGER.error(String.format("%s 表单%s %d-%d 数据读取错误",filePath,sheetName, i + 1, j + 1), e);
                 }
             }
             dataList.add(datas);

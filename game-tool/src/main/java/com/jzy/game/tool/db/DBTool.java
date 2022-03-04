@@ -14,6 +14,7 @@ import com.jzy.game.tool.util.MongoUtil;
 import com.jzy.game.tool.util.StringUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.*;
@@ -24,11 +25,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Administrator
  */
 public class DBTool extends javax.swing.JFrame {
@@ -144,39 +145,39 @@ public class DBTool extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(db, 0, 151, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(javaFieldBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(insertDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(clearLogBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(db, 0, 151, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(javaFieldBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(insertDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(clearLogBtn))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(db, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(insertDataBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(javaFieldBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(clearLogBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-                .addContainerGap())
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(db, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(insertDataBtn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(javaFieldBtn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(clearLogBtn)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jScrollPane2)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                                .addContainerGap())
         );
 
         pack();
@@ -188,16 +189,17 @@ public class DBTool extends javax.swing.JFrame {
             logTextArea.append("请选择表单\r\n");
             return;
         }
-        logTextArea.append(MessageFormat.format("选择配置表：{0}\r\n",selectSheets.size()));
+        logTextArea.append(MessageFormat.format("选择配置表：{0}\r\n", selectSheets.size()));
         CountDownLatch countDownLatch = new CountDownLatch(selectSheets.size());
-        AtomicInteger count=new AtomicInteger(0);
+        AtomicInteger count = new AtomicInteger(0);
         //更新数据库配置
         selectSheets.forEach(sheetName -> {
-            threadPoolExecutor.execute(()->{
+            threadPoolExecutor.execute(() -> {
                 try {
-                String log = MongoUtil.insertConfigData(getMongoClient(), sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName, getDBConfig().getDbName());
-                logTextArea.append(MessageFormat.format("[{0}] {1}\r\n",count.incrementAndGet(),log));
-                countDownLatch.countDown();
+                    String log = MongoUtil.insertConfigData(getMongoClient(), sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName, getDBConfig().getDbName());
+                    logTextArea.append(MessageFormat.format("[{0}] {1}\r\n", count.incrementAndGet(), log));
+                    LOGGER.info("{} 导入配置:{} 成功", sheetName, sheetNameFiles.get(sheetName).getName());
+                    countDownLatch.countDown();
                 } catch (Exception e) {
                     countDownLatch.countDown();
                     LOGGER.error("更新数据", e);
@@ -205,23 +207,23 @@ public class DBTool extends javax.swing.JFrame {
             });
         });
 
-        Thread thread=new Thread(() -> {
-            try{
+        Thread thread = new Thread(() -> {
+            try {
                 countDownLatch.await();
-            }catch (Exception e){
-                LOGGER.error("定时等待",e);
+            } catch (Exception e) {
+                LOGGER.error("定时等待", e);
             }
             logTextArea.append("=========所有表单导入成功======== \r\n");
-            if(mongoClient!=null){
+            if (mongoClient != null) {
                 mongoClient.close();
             }
             //加载服务器配置
             // String loadConfigUrl = getDBConfig().getLoadConfigUrl();
             List<String> loadConfigUrls = getDBConfig().getLoadConfigUrls();
-            for (String loadConfigUrl:loadConfigUrls){
-                if(loadConfigUrl!=null&&!loadConfigUrl.equalsIgnoreCase("")){
+            for (String loadConfigUrl : loadConfigUrls) {
+                if (loadConfigUrl != null && !loadConfigUrl.equalsIgnoreCase("")) {
                     String log = HttpUtil.URLGet(loadConfigUrl);
-                    logTextArea.append("游戏服-"+getDBConfig().getDbName()+" "+loadConfigUrl+":"+log+"更新配置成功\r\n");
+                    logTextArea.append("游戏服-" + getDBConfig().getDbName() + " " + loadConfigUrl + ":" + log + "更新配置成功\r\n");
                 }
             }
         });
@@ -243,7 +245,7 @@ public class DBTool extends javax.swing.JFrame {
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         jfc.showDialog(new JLabel(), "选择");
         File file = jfc.getSelectedFile();
-        if(file!=null){
+        if (file != null) {
             setSheetList(file.getAbsolutePath());
         }
     }//GEN-LAST:event_openMenuItemActionPerformed
@@ -257,37 +259,37 @@ public class DBTool extends javax.swing.JFrame {
         }
         selectSheets.forEach(sheetName -> {
             try {
-                Args.Four<List<String>, List<String>, List<String>,List<String>> metaData = ExcelUtil.getMetaData(sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName);
-                for(int i=0;i<metaData.a().size();i++){
+                Args.Four<List<String>, List<String>, List<String>, List<String>> metaData = ExcelUtil.getMetaData(sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName);
+                for (int i = 0; i < metaData.a().size(); i++) {
                     //不显示客户端字段
-                    if("client".equalsIgnoreCase(metaData.d().get(i))){
+                    if ("client".equalsIgnoreCase(metaData.d().get(i))) {
                         continue;
                     }
-                    StringBuilder sb=new StringBuilder();
+                    StringBuilder sb = new StringBuilder();
                     sb.append("/**").append(metaData.c().get(i)).append("*/").append("\r\n");
                     sb.append("private ");
                     String filedType = metaData.b().get(i).toLowerCase();
-                    if("string".equals(filedType)||"date".equals(filedType)||"object".equals(filedType)){   //首字母大写
-                        filedType=StringUtil.upFirstChar(filedType);
-                    }else if("array".equals(filedType)){
-                        filedType="List<Object>";
+                    if ("string".equals(filedType) || "date".equals(filedType) || "object".equals(filedType)) {   //首字母大写
+                        filedType = StringUtil.upFirstChar(filedType);
+                    } else if ("array".equals(filedType)) {
+                        filedType = "List<Object>";
                     }
                     sb.append(filedType).append(" ").append(metaData.a().get(i)).append(";");
                     logTextArea.append(sb.toString() + "\r\n");
                 }
-                 logTextArea.append("\r\n");
+                logTextArea.append("\r\n");
             } catch (Exception e) {
                 LOGGER.error("更新数据", e);
             }
         });
-        if (mongoClient!=null){
+        if (mongoClient != null) {
             mongoClient.close();
         }
 
     }//GEN-LAST:event_javaFieldBtnActionPerformed
 
     private void clearLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearLogBtnActionPerformed
-       this.logTextArea.setText("");
+        this.logTextArea.setText("");
     }//GEN-LAST:event_clearLogBtnActionPerformed
 
     /**
@@ -297,7 +299,7 @@ public class DBTool extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -349,7 +351,7 @@ public class DBTool extends javax.swing.JFrame {
     private Map<String, File> sheetNameFiles = new HashMap<>();
     private static MongoClient mongoClient; //数据库客户端
     private static Config config;
-    private ThreadPoolExecutor threadPoolExecutor= new ThreadPoolExecutor(10,20,5000, TimeUnit.MILLISECONDS,new LinkedBlockingDeque<>());
+    private ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20, 5000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<>());
 
     /**
      * 自定义初始化
@@ -377,8 +379,8 @@ public class DBTool extends javax.swing.JFrame {
      */
     public void setSheetList(String filePath) {
         List<File> excelFiles = new ArrayList<>();
-        FileUtil.getFiles(filePath, excelFiles, ExcelUtil.xls,null);
-        FileUtil.getFiles(filePath, excelFiles, ExcelUtil.xlsx,null);
+        FileUtil.getFiles(filePath, excelFiles, ExcelUtil.xls, null);
+        FileUtil.getFiles(filePath, excelFiles, ExcelUtil.xlsx, null);
         Vector sheetNames = new Vector();
         sheetNameFiles.clear();
         sheetJList.removeAll();
@@ -387,7 +389,7 @@ public class DBTool extends javax.swing.JFrame {
             try {
                 List<String> sheets = ExcelUtil.getSheetNames(absolutePath);
                 if (sheets != null) {
-                    sheets.stream().filter(it->it.startsWith("config")).forEach(name -> {
+                    sheets.stream().filter(it -> it.startsWith("config")).forEach(name -> {
                         sheetNameFiles.put(name, file);
                         sheetNames.add(name);
                     });
@@ -412,7 +414,7 @@ public class DBTool extends javax.swing.JFrame {
     public String getConfigPath() {
         if (configPath == null) {
             File file = new File(System.getProperty("user.dir"));
-            if ("target".equals(file.getName())||file.getAbsolutePath().contains("DBTool")) {
+            if ("target".equals(file.getName()) || file.getAbsolutePath().contains("DBTool")) {
                 configPath = file.getPath() + File.separatorChar + "config";
             } else {
                 configPath = file.getPath() + File.separatorChar + "target" + File.separatorChar + "config";
