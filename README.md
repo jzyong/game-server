@@ -9,7 +9,10 @@
 文档
 ---------
 
-详细请查看[wiki](https://github.com/jzyong/game-server/wiki)
+详细请查看[wiki](https://github.com/jzyong/game-server/wiki)  
+项目已停止维护：
+* 新版本服务器 可参考 [GameServer4j](https://github.com/jzyong/GameServer4j)  
+* game-ai 移动到[GameAi4j](https://github.com/jzyong/GameAi4j)  
 
 交流
 ---------
