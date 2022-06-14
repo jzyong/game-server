@@ -117,7 +117,7 @@ public class ExcelUtil {
                 continue;
             }
             if ("".equalsIgnoreCase(firstColumn.getStringCellValue())) {
-                LOGGER.warn("{} {}-{} 有空行或者id未设值，跳过读取", sheetName, i + 1, 1);
+                LOGGER.trace("{} {}-{} 有空行或者id未设值，跳过读取", sheetName, i + 1, 1);
                 continue;
             }
 
