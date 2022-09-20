@@ -1,4 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jzyong/game-server/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/jzyong/game-server?style=social)](https://github.com/jzyong/game-server/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/jzyong/game-server?style=social)](https://github.com/jzyong/game-server/network)
 
 简介
 ====
