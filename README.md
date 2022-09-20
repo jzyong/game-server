@@ -1,4 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/jzyong/game-server/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/jzyong/game-server?style=social)](https://github.com/jzyong/game-server/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/jzyong/game-server?style=social)](https://github.com/jzyong/game-server/network)
 
 简介
 ====
@@ -9,7 +11,10 @@
 文档
 ---------
 
-详细请查看[wiki](https://github.com/jzyong/game-server/wiki)
+详细请查看[wiki](https://github.com/jzyong/game-server/wiki)  
+项目已停止维护：
+* 新版本服务器 可参考 [GameServer4j](https://github.com/jzyong/GameServer4j)  
+* game-ai 移动到[GameAi4j](https://github.com/jzyong/GameAi4j)  
 
 交流
 ---------
