@@ -5,6 +5,7 @@ import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
+import org.apache.mina.filter.FilterEvent;
 import org.slf4j.LoggerFactory;
 
 import com.jzy.game.engine.handler.HandlerEntity;
@@ -31,6 +32,11 @@ public abstract class HttpServerIoHandler implements IoHandler {
 	/** {@inheritDoc} */
 	@Override
 	public void sessionOpened(IoSession session) {
+
+	}
+
+	@Override
+	public void event(IoSession session, FilterEvent event) throws Exception {
 
 	}
 
