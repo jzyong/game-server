@@ -5,6 +5,7 @@ import java.util.concurrent.Executor;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.FilterEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,6 +87,11 @@ public abstract class DefaultProtocolHandler implements IoHandler {
 	public void inputClosed(IoSession session) throws Exception {
 		log.warn("连接{}inputClosed已关闭", session);
 		session.closeNow();
+	}
+
+	@Override
+	public void event(IoSession session, FilterEvent event) throws Exception {
+
 	}
 
 	/** {@inheritDoc} */

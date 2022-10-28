@@ -1,5 +1,7 @@
 package com.jzy.game.engine.mina.service;
 
+import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.FilterEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,4 +102,5 @@ class GameHttpServerHandler extends HttpServerIoHandler {
 	protected Service<MinaServerConfig> getSevice() {
 		return service;
 	}
+
 }
