@@ -20,6 +20,11 @@
 ---------
 
 * QQ群:144709243(已满)	 143469012
+
+
+感谢
+---------
+![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)
 		
 
 
