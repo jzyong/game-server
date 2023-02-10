@@ -64,6 +64,7 @@ public class DBTool extends javax.swing.JFrame {
         logTextArea = new javax.swing.JTextArea();
         insertDataBtn = new javax.swing.JButton();
         javaFieldBtn = new javax.swing.JButton();
+        goFieldBtn = new javax.swing.JButton();
         clearLogBtn = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -93,6 +94,13 @@ public class DBTool extends javax.swing.JFrame {
         javaFieldBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 javaFieldBtnActionPerformed(evt);
+            }
+        });
+
+        goFieldBtn.setText("Go字段");
+        goFieldBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goFieldBtnActionPerformed(evt);
             }
         });
 
@@ -155,6 +163,7 @@ public class DBTool extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(javaFieldBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(goFieldBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(insertDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(clearLogBtn))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -172,6 +181,8 @@ public class DBTool extends javax.swing.JFrame {
                                                 .addComponent(insertDataBtn)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(javaFieldBtn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(goFieldBtn)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(clearLogBtn)
                                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -265,6 +276,9 @@ public class DBTool extends javax.swing.JFrame {
                     if ("client".equalsIgnoreCase(metaData.d().get(i))) {
                         continue;
                     }
+                    if (com.jzy.game.engine.util.StringUtil.isNullOrEmpty(metaData.a().get(i))){
+                        continue;
+                    }
                     StringBuilder sb = new StringBuilder();
                     sb.append("/**").append(metaData.c().get(i)).append("*/").append("\r\n");
                     sb.append("private ");
@@ -287,6 +301,63 @@ public class DBTool extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_javaFieldBtnActionPerformed
+
+    private void goFieldBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goFieldBtnActionPerformed
+        //显示对应表的Java字段定义
+        List<String> selectSheets = sheetJList.getSelectedValuesList();
+        if (selectSheets == null || selectSheets.size() < 1) {
+            logTextArea.append("请选择表单\r\n");
+            return;
+        }
+        selectSheets.forEach(sheetName -> {
+            try {
+                Args.Four<List<String>, List<String>, List<String>, List<String>> metaData = ExcelUtil.getMetaData(sheetNameFiles.get(sheetName).getAbsolutePath(), sheetName);
+                for (int i = 0; i < metaData.a().size(); i++) {
+                    //不显示客户端字段
+                    if ("client".equalsIgnoreCase(metaData.d().get(i))) {
+                        continue;
+                    }
+                    if (com.jzy.game.engine.util.StringUtil.isNullOrEmpty(metaData.a().get(i))){
+                        continue;
+                    }
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(StringUtil.upFirstChar(metaData.a().get(i))).append(" "); //字段名称
+                    String fileType = metaData.b().get(i).toLowerCase();
+                    switch (fileType) {
+                        case "array":
+                            fileType = "[]string";
+                            break;
+                        case "int":
+                            fileType = "int32";
+                            break;
+                        case "float":
+                            fileType = "float32";
+                            break;
+                        case "double":
+                            fileType = "float64";
+                            break;
+                        case "boolean":
+                            fileType = "bool";
+                            break;
+                        case "long":
+                            fileType = "int64";
+                            break;
+                    }
+                    sb.append(fileType).append(" "); //字段类型
+                    sb.append("`").append(metaData.a().get(i)).append("`"); //tag
+                    sb.append(" //").append(metaData.c().get(i)); //注释
+                    logTextArea.append(sb.toString() + "\r\n");
+                }
+                logTextArea.append("\r\n");
+            } catch (Exception e) {
+                LOGGER.error("更新数据", e);
+            }
+        });
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+
+    }//GEN-LAST:event_goFieldBtnActionPerformed
 
     private void clearLogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearLogBtnActionPerformed
         this.logTextArea.setText("");
@@ -338,6 +409,7 @@ public class DBTool extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton javaFieldBtn;
+    private javax.swing.JButton goFieldBtn;
     private javax.swing.JTextArea logTextArea;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
