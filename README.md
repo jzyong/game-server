@@ -25,6 +25,8 @@
 感谢
 ---------
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width = "150" height = "150" div align=left />
+
+[![contributors](https://contributors-img.web.app/image?repo=jzyong/game-server)](https://github.com/jzyong/game-server/graphs/contributors)
 		
 
 
