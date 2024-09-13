@@ -16,7 +16,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <spring.version>5.3.27</spring.version>
+        <spring.version>6.1.13</spring.version>
     </properties>
 
     <dependencies>
