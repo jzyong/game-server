@@ -113,4 +113,9 @@ public class FastJsonCodec implements Codec {
 		return encoder;
 	}
 
+	@Override
+	public ClassLoader getClassLoader() {
+		return null;
+	}
+
 }
