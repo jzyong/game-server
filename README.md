@@ -12,7 +12,7 @@
 ---------
 
 详细请查看[wiki](https://github.com/jzyong/game-server/wiki)  
-项目已停止维护：
+项目已无新功能开发，只维护：
 * 新版本服务器 可参考 [GameServer4j](https://github.com/jzyong/GameServer4j)  
 * game-ai 移动到[GameAi4j](https://github.com/jzyong/GameAi4j)  
 
@@ -27,6 +27,9 @@
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width = "150" height = "150" div align=left />
 
 [![contributors](https://contributors-img.web.app/image?repo=jzyong/game-server)](https://github.com/jzyong/game-server/graphs/contributors)
-		
+
+TODO
+---------
+* 更新JDK到17
 
 
