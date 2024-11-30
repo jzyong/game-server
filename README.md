@@ -16,6 +16,11 @@
 * 新版本服务器 可参考 [GameServer4j](https://github.com/jzyong/GameServer4j)  
 * game-ai 移动到[GameAi4j](https://github.com/jzyong/GameAi4j)  
 
+TODO
+---------
+* 更新JDK到17
+
+
 交流
 ---------
 
@@ -28,8 +33,11 @@
 
 [![contributors](https://contributors-img.web.app/image?repo=jzyong/game-server)](https://github.com/jzyong/game-server/graphs/contributors)
 
-TODO
----------
-* 更新JDK到17
+
+
+
+
+
+
 
 

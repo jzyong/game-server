@@ -15,7 +15,7 @@ public class GameConfig extends Config {
 
 	//线程房间数
 	@Element(required=false)
-	private int thradRoomNum=4;
+	private int threadRoomNum =4;
 
 	// 房间位置大小
 	@Element(required = false)
@@ -28,12 +28,12 @@ public class GameConfig extends Config {
 	
 	
 
-	public int getThradRoomNum() {
-		return thradRoomNum;
+	public int getThreadRoomNum() {
+		return threadRoomNum;
 	}
 
-	public void setThradRoomNum(int thradRoomNum) {
-		this.thradRoomNum = thradRoomNum;
+	public void setThreadRoomNum(int threadRoomNum) {
+		this.threadRoomNum = threadRoomNum;
 	}
 
 	public int getRoomSize() {

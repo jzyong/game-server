@@ -66,7 +66,7 @@ public class RoomExecutor implements ExecutorPool {
 		}
 
 		Optional<RoomThread> findAny = threads.stream().filter(
-				thread -> thread.getRooms().size() < ConfigManager.getInstance().getGameConfig().getThradRoomNum())
+				thread -> thread.getRooms().size() < ConfigManager.getInstance().getGameConfig().getThreadRoomNum())
 				.findAny();
 		RoomThread roomThread = null;
 		if (findAny.isPresent()) {
