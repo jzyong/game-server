@@ -18,7 +18,6 @@
 		<module>game-bydr</module>
 		<module>game-hall</module>
 		<module>game-bydr-world</module>
-		<module>game-ai</module>
 		<module>game-maven-plugin</module>
 	</modules>
 
